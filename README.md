@@ -31,6 +31,15 @@ PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npm run test:e2e
 
 O e2e inicia e encerra seu próprio servidor de desenvolvimento. Os screenshots e métricas ficam em `evidence/`; o relatório detalhado em `playwright-report/`. Em produção, `window.__GAME_DEBUG__` não é exposto.
 
+Verificações adicionais reproduzíveis:
+
+```sh
+node scripts/measure-vehicle.js
+# Em um terminal: npm start -- --port 3100
+# Em outro terminal:
+PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium node scripts/smoke-production.js
+```
+
 ## Controles
 
 | Tecla | Ação |

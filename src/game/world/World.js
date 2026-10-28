@@ -7,7 +7,7 @@ import { mergeStatic } from '../render/mergeStatic.js';
 export class World {
   constructor(scene,physics,materials) {
     this.scene=scene;this.physics=physics;this.m=materials;this.sectors=new Map();this.queue=[];this.disposed=false;
-    this.rockGeometry=new THREE.DodecahedronGeometry(1,0);
+    this.rockGeometry=new THREE.DodecahedronGeometry(1,0);this.farRockGeometry=new THREE.OctahedronGeometry(1,0);
     this.stripeGeometry=new THREE.PlaneGeometry(.14,3.5);this.stripeGeometry.rotateX(-Math.PI/2);
     this.rockMaterial=materials.rock;
     this.landmarks=new THREE.Group();scene.add(this.landmarks);this.landmarkBodies=[];this.buildLandmarks();mergeStatic(this.landmarks);
@@ -46,14 +46,15 @@ export class World {
     }
     const r=randomSeed(CONFIG.seed+cx*7387+cz*19349),count=32;
     const rocks=new THREE.InstancedMesh(this.rockGeometry,this.rockMaterial,count);rocks.castShadow=true;rocks.receiveShadow=true;
+    const farRocks=new THREE.InstancedMesh(this.farRockGeometry,this.rockMaterial,count);
     const dummy=new THREE.Object3D();
     for(let i=0;i<count;i++) {
       let x=cx*size+(r()-.5)*size,z=cz*size+(r()-.5)*size;
       if(Math.abs(x-roadX(z))<14)x=roadX(z)+(i%2?1:-1)*(17+r()*24);
-      const scale=1+r()*4;dummy.position.set(x,heightAt(x,z)+scale*.2,z);dummy.scale.set(scale,scale*.65,scale*.8);dummy.rotation.set(r(),r()*6,r());dummy.updateMatrix();rocks.setMatrixAt(i,dummy.matrix);
+      const scale=1+r()*4;dummy.position.set(x-cx*size,heightAt(x,z)+scale*.2,z-cz*size);dummy.scale.set(scale,scale*.65,scale*.8);dummy.rotation.set(r(),r()*6,r());dummy.updateMatrix();rocks.setMatrixAt(i,dummy.matrix);farRocks.setMatrixAt(i,dummy.matrix);
       this.collider(RAPIER.ColliderDesc.ball(scale*.7).setTranslation(x,heightAt(x,z)+scale*.2,z),bodies);
     }
-    group.add(rocks);
+    const rocksLod=new THREE.LOD();rocksLod.position.set(cx*size,0,cz*size);rocksLod.addLevel(rocks,0);rocksLod.addLevel(farRocks,240);group.add(rocksLod);
     // Plus gros éléments au loin, sans multiplier les appels de rendu.
     const hills=new THREE.InstancedMesh(this.rockGeometry,this.rockMaterial,14);
     for(let i=0;i<14;i++){const z=cz*size+(r()-.5)*size,x=cx*size+(i%2?1:-1)*(180+r()*320);dummy.position.set(x,heightAt(x,z)-8,z);dummy.scale.set(50+r()*70,18+r()*45,45+r()*40);dummy.updateMatrix();hills.setMatrixAt(i,dummy.matrix);}group.add(hills);
@@ -82,6 +83,6 @@ export class World {
     // Rocher repérable utilisé pour les essais de collision.
     const rock=add(new THREE.DodecahedronGeometry(2,0),this.m.rock,11,heightAt(11,-32)+1,-32);this.collider(RAPIER.ColliderDesc.ball(1.7).setTranslation(rock.position.x,rock.position.y,rock.position.z),this.landmarkBodies);
   }
-  remove(s) {this.scene.remove(s.group);s.bodies.forEach(b=>this.physics.removeRigidBody(b));s.owned.forEach(g=>g.dispose());}
-  dispose() {this.disposed=true;for(const s of this.sectors.values())this.remove(s);this.sectors.clear();this.landmarkBodies.forEach(b=>this.physics.removeRigidBody(b));this.scene.remove(this.landmarks);this.landmarks.traverse(o=>o.geometry?.dispose());this.rockGeometry.dispose();this.stripeGeometry.dispose();}
+  remove(s) {this.scene.remove(s.group);s.group.traverse(o=>{if(o.isInstancedMesh)o.dispose();});s.bodies.forEach(b=>this.physics.removeRigidBody(b));s.owned.forEach(g=>g.dispose());}
+  dispose() {this.disposed=true;for(const s of this.sectors.values())this.remove(s);this.sectors.clear();this.landmarkBodies.forEach(b=>this.physics.removeRigidBody(b));this.scene.remove(this.landmarks);this.landmarks.traverse(o=>o.geometry?.dispose());this.rockGeometry.dispose();this.farRockGeometry.dispose();this.stripeGeometry.dispose();}
 }

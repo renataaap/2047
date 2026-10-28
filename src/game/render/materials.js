@@ -18,6 +18,7 @@ export function createMaterials() {
   };
 }
 export function bevelGeometry(w,h,d,b=.08) {
+  b=Math.min(b,w*.22,h*.22,d*.4);
   const s=new THREE.Shape();s.moveTo(-w/2+b,-h/2);s.lineTo(w/2-b,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+b);s.lineTo(w/2,h/2-b);s.quadraticCurveTo(w/2,h/2,w/2-b,h/2);s.lineTo(-w/2+b,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-b);s.lineTo(-w/2,-h/2+b);s.quadraticCurveTo(-w/2,-h/2,-w/2+b,-h/2);
   const g=new THREE.ExtrudeGeometry(s,{depth:d,steps:1,bevelEnabled:true,bevelSegments:1,bevelSize:b*.3,bevelThickness:b*.3,curveSegments:2});g.translate(0,0,-d/2);return g;
 }

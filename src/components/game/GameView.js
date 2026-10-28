@@ -14,10 +14,10 @@ export default function GameView({autoStart=false,initialPanel=null}) {
   const closePanel=useCallback(()=>{if(panel==='settings'&&state.mode==='paused'){setPanel(null);return;}setPanel(null);if(state.mode==='paused')game.current?.resume();},[panel,state.mode]);
   const start=async()=>{setStarting(true);try{await game.current?.start();}finally{setStarting(false);}};
   const isMenu=state.mode==='menu';const activePanel=panel||(state.mode==='paused'?'pause':null);
-  return <main className={'game-shell '+(isMenu?'in-menu':'in-game')}><canvas ref={canvas} aria-label="Mundo 3D do Mar de Cinzas e Titã Rocha Clara"/><div className="vignette"/>
+  return <main className={'game-shell '+(isMenu?'in-menu':'in-game')}><canvas ref={canvas} aria-label={T.viewport}/><div className="vignette"/>
   {!error&&!state.ready&&<div className="loading-overlay"><Symbol size={48}/><span className="spinner"/><h2>{T.loading}</h2><p>{T.loadingDetail}</p></div>}
   {error?<div className="loading-overlay"><p role="alert">{error}</p><button className="primary" onClick={()=>location.reload()}>{T.back}</button></div>:<>
-  {isMenu?<><MainMenu ready={state.ready} starting={starting} onStart={start} onPanel={setPanel}/><div className="location-stamp"><span>23° 47′ S &nbsp; 46° 38′ O</span><strong>{T.region}</strong><small>{T.route}</small></div><div className="scene-caption"><span className="status-dot"/>{T.ash}<span>17:42</span></div></>:<Hud state={state} settings={settings} onPause={()=>game.current?.pause()}/>}
+  {isMenu?<><MainMenu ready={state.ready} starting={starting} onStart={start} onPanel={setPanel}/><div className="location-stamp"><span>{T.latitude} &nbsp; {T.longitude}</span><strong>{T.region}</strong><small>{T.route}</small></div><div className="scene-caption"><span className="status-dot"/>{T.ash}<span>{T.worldTime}</span></div></>:<Hud state={state} settings={settings} onPause={()=>game.current?.pause()}/>}
   {activePanel&&<Panel type={activePanel} settings={settings} onSettings={updateSettings} onClose={closePanel} onMenu={()=>{setPanel(null);game.current?.menu();}} onRecover={()=>{setPanel(null);game.current?.recover();}}/>}
   </>}</main>;
 }

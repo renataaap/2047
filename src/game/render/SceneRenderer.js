@@ -29,5 +29,5 @@ export class SceneRenderer {
     this.dust.position.copy(position);for(let i=0;i<this.preset.particles;i++){this.dustPositions[i*3]+=(.65+i%3*.12)*dt;if(this.dustPositions[i*3]>50)this.dustPositions[i*3]=-50;}this.dustGeo.attributes.position.needsUpdate=true;
     this.renderer.render(this.scene,this.camera);
   }
-  dispose() {window.removeEventListener('resize',this.resize);const gs=new Set(),ms=new Set(),ts=new Set();this.scene.traverse(o=>{if(o.geometry)gs.add(o.geometry);const mats=Array.isArray(o.material)?o.material:[o.material];mats.filter(Boolean).forEach(m=>{ms.add(m);for(const v of Object.values(m))if(v?.isTexture)ts.add(v);});});gs.forEach(g=>g.dispose());ts.forEach(t=>t.dispose());ms.forEach(m=>m.dispose());this.sun.shadow.map?.dispose();this.renderer.dispose();this.renderer.forceContextLoss();}
+  dispose() {window.removeEventListener('resize',this.resize);const gs=new Set(),ms=new Set(),ts=new Set();this.scene.traverse(o=>{if(o.isInstancedMesh)o.dispose();if(o.geometry)gs.add(o.geometry);const mats=Array.isArray(o.material)?o.material:[o.material];mats.filter(Boolean).forEach(m=>{ms.add(m);for(const v of Object.values(m))if(v?.isTexture)ts.add(v);});});gs.forEach(g=>g.dispose());ts.forEach(t=>t.dispose());ms.forEach(m=>m.dispose());this.sun.shadow.map?.dispose();this.renderer.dispose();this.renderer.forceContextLoss();}
 }

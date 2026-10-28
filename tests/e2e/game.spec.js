@@ -25,4 +25,10 @@ test('câmeras, motor, pausa, configurações e API',async({page})=>{
   await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('driving');
   const res=await page.request.get('/api/game/config');expect(res.ok()).toBeTruthy();const config=await res.json();expect(config.phase).toBe(1);expect(config.seed).toBe(2047);
   await page.keyboard.press('Escape');await page.getByRole('button',{name:'Voltar ao menu'}).click();await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled();expect(errors).toEqual([]);
+  await page.reload();await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'Configurações',exact:true}).click();await expect(page.getByRole('button',{name:'Baixo',exact:true})).toHaveAttribute('aria-pressed','true');
+});
+test('setores se renovam na viagem e o objetivo responde à posição',async({page})=>{
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'01 Novo jogo'}).click();
+  await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:0,z:-1800}));await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().sectorKeys.includes('0,-2'))).toBe(true);await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().sectors)).toBe(9);
+  await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:15,z:-2970}));await expect(page.getByRole('heading',{name:'Fim do trecho alcançado'})).toBeVisible();await page.screenshot({path:new URL('road-end.png',evidence).pathname});expect(errors).toEqual([]);
 });
