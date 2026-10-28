@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  phase: 1, seed: 2047, fixedStep: 1 / 60, maxSubSteps: 6,
+  phase: 1, seed: 2047, fixedStep: 1 / 60, maxSubSteps: 30,
   world: { sectorSize: 1024, terrainSegments: 48, roadLength: 3000, roadWidth: 10 },
   vehicle: { mass: 6800, engineForce: 12600, maxSpeed: 25, reverseSpeed: 4.5, maxSteer: .45, brakeForce: 110, wheelRadius: .61, suspensionLength: .52, idleLitersPerSecond: .0007, drivingLitersPerSecond: .018, initialFuel: 140, fuelCapacity: 180 },
   presets: {
