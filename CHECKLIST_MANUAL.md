@@ -19,3 +19,14 @@ Todos os itens abaixo estão **não verificados por uma pessoa**. Testes automá
 
 ## Escopo
 Exploração a pé, interação F, rádio narrativo, Sementes, manutenção, inventário, mapas e saves pertencem à Fase 2 ou posteriores e não foram declarados funcionais nesta fase.
+
+# Fase 2 — avaliação humana ainda não verificada
+- [ ] Completar a fatia em ritmo normal (estimativa de 10–15 min); cronometração humana ainda pendente.
+- [ ] Parar e descer com F, olhar por pointer lock, correr/pular e verificar limites do abrigo/Núcleo.
+- [ ] Receber a Semente, transferir peças/diesel e preparar radiador/suspensão antes de viajar.
+- [ ] Percorrer as duas rotas inteiras: pavimento longo a leste e ondulações a oeste; avaliar legibilidade da bifurcação.
+- [ ] Verificar visibilidade na tempestade, desgaste de filtros, consumo, superaquecimento e alertas de carga.
+- [ ] Ouvir diesel, vento, estática e chuva em caixas/fones reais.
+- [ ] Calibrar antes de uma tentativa arriscada e avaliar clareza da chance exibida.
+- [ ] Observar chuva/plantas/céu/estrada liberada após ativar e após recarregar.
+- [ ] Abrir INICIAR_JOGO.bat em Windows com Node LTS; o ambiente de teste é Linux.

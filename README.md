@@ -1,10 +1,16 @@
 # 2047: Rede Aurora
 
-Fase 1: base jogável 3D de uma jornada de sobrevivência. Dante Rocha Negra dirige o **Titã Rocha Clara** pelo **Mar de Cinzas**. Mundo e caminhão reais em Three.js; suspensão e colisões com Rapier. Somente a primeira fase foi implementada.
+Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Fase 2: abrigo → recebimento da Semente → preparo do Titã → escolha entre duas rotas → Núcleo 1 → restauração → salvar/carregar.
 
-## Executar
+## Windows
+1. Instale Node.js LTS em https://nodejs.org.
+2. Extraia o ZIP inteiro e abra a pasta que contém package.json.
+3. Dê dois cliques em **INICIAR_JOGO.bat**. Na primeira execução, a instalação usa Internet e pode levar alguns minutos.
+4. O iniciador abre http://localhost:3000 depois de o servidor responder. Mantenha a janela aberta enquanto joga. Se o navegador não abrir automaticamente, acesse esse endereço manualmente.
 
-Requer Node.js 20.9+ (verificado com 24.19.0), npm e navegador desktop com WebGL2.
+A execução do arquivo .bat em Windows ainda requer verificação humana; os comandos internos foram usados no ambiente Linux de desenvolvimento.
+
+## Instalação manual / Linux / macOS
 
 ```sh
 npm ci
@@ -12,55 +18,43 @@ npm run db:migrate
 npm run dev
 ```
 
-Abra `http://localhost:3000` e clique em **Novo jogo**. A partida começa ao volante com motor ligado; E alterna a ignição. O objetivo desta fase é percorrer os 3 km da velha rodovia. Não há persistência de progresso nesta fase; Continuar e Carregar partida estão desabilitados.
+Requer Node.js 20.9+ (verificado com 24.19.0) e navegador desktop com WebGL2. Abra http://localhost:3000.
+
+## Primeira viagem
+
+Novo jogo começa ao volante com o motor ligado e diesel na reserva. Pare, pressione F e caminhe até a sobrevivente no abrigo. F abre o diálogo; aceite a Semente. Transfira diesel e peças ao compartimento do Titã pelo inventário, abasteça e repare radiador/suspensão. M abre as rotas: desvio pavimentado a leste, atalho irregular a oeste. No Núcleo, estacione no retângulo de balizadores, desligue o motor, desça e use o terminal. Confira a chance e calibre se precisar. A primeira ativação não permite avançar fora da sequência dos sete Núcleos.
+
+| Tecla | Ação |
+| --- | --- |
+| W / S, A / D | Acelerar/frear/ré e direção; a pé, caminhar |
+| Espaço | Freio de mão; a pé, pular |
+| Shift | Correr a pé |
+| F | Descer parado, entrar ou interagir com alvo próximo |
+| E | Motor (somente dirigindo) |
+| C | Externa → cabine → livre |
+| Arrastar / roda do mouse | Orbitar / zoom na câmera livre |
+| Clique no mundo / mouse | Olhar a pé, com pointer lock |
+| L | Faróis |
+| M / R / Tab / V | Mapa / rádio / inventário / inspeção |
+| Esc | Pausa / voltar |
+
+A pausa contém salvar/carregar, ajustes, resgate e retorno ao menu. Resgate cobra diesel e integridade para não devolver recursos consumidos. Ajustes gráficos/volume/legendas são locais; progresso usa API e libSQL.
+
+## Testes e produção
 
 ```sh
 npm test
 npm run build
-npm start
-```
-
-Navegador de testes:
-
-```sh
 npx playwright install chromium
 npm run test:e2e
-# Se já houver Chromium de sistema:
+# Alternativa com Chromium de sistema:
 PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npm run test:e2e
 ```
 
-O e2e inicia e encerra seu próprio servidor de desenvolvimento. Os screenshots e métricas ficam em `evidence/`; o relatório detalhado em `playwright-report/`. Em produção, `window.__GAME_DEBUG__` não é exposto.
+Em produção, configure TURSO_DATABASE_URL (libsql:// ou https://) e TURSO_AUTH_TOKEN antes de `npm start`. Disco local é recusado em produção. SAVE_COOKIE_SECRET pode assinar o cookie anônimo (use segredo aleatório forte e estável). HttpOnly e SameSite=Strict sempre; Secure em HTTPS/produção. No localhost HTTP de desenvolvimento, Secure fica desativado para funcionar no Windows.
 
-Verificações adicionais reproduzíveis:
+O banco file:local.db é criado no projeto, atrás de src/lib/repository.js, e deve ser preservado para continuar partidas locais. Não vem no ZIP; não substitua seu banco ao instalar uma atualização. O cookie identifica o dono: apagar cookies ou trocar localhost por 127.0.0.1 muda a identidade e pode ocultar seus slots. Use sempre o mesmo navegador e endereço.
 
-```sh
-node scripts/measure-vehicle.js
-# Em um terminal: npm start -- --port 3100
-# Em outro terminal:
-PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium node scripts/smoke-production.js
-```
+GET /api/game/config, /api/game/items, /api/game/missions, /api/world/regions?slot=1; GET/POST /api/saves; GET/PUT/DELETE /api/saves/[slot]. Limite 128 KiB; erros padronizados; revisão otimista. Não há HTTP por frame: API apenas para catálogo/listagem, carregar e salvar manual/checkpoint.
 
-## Controles
-
-| Tecla | Ação |
-| --- | --- |
-| W / S | Acelerar / frear; segure S após parar para dar ré |
-| A / D | Direção |
-| Espaço | Freio de mão |
-| E | Ligar/desligar o motor |
-| C | Externa → cabine → livre |
-| Mouse arrastado / roda | Orbitar / zoom na câmera livre |
-| L | Faróis |
-| Esc | Pausa / voltar |
-
-A pausa contém recuperação para reposicionar um caminhão tombado. Qualidade Baixo/Médio/Alto, escala de resolução, legendas e volume são persistidos em localStorage. Esses ajustes não são saves de progresso.
-
-## Organização
-
-`src/game/core/Game.js` coordena módulos separados de física, mundo, veículo, entrada, renderização e áudio, fora do React. O passo fixo é 1/60 s; a renderização interpola os estados; React recebe snapshots a 10 Hz. `dispose()` libera recursos e listeners. Textos de interface estão em `src/data/pt-BR.js`, parâmetros em `src/data/config.js`.
-
-A grade móvel mantém nove setores de 1.024 m, gerados com seed 2047, com culling de frustum e setor. A estrada tem 3 km e o terreno continua além dela. Chunks são gerados um por frame nas mudanças de janela. Props repetidos usam instâncias; terreno e estrada compartilham materiais.
-
-`GET /api/game/config` retorna a configuração. `src/lib/repository.js` é o único importador do driver libSQL, com migração idempotente inicial. Saves, identidade anônima, validação de payloads e demais rotas serão implementados na Fase 2. Produção exige Turso e recusa arquivo local; o deploy Vercel está reservado para a Fase 6.
-
-Consulte `DECISOES.md`, `ASSETS_PENDENTES.md`, `CHECKLIST_MANUAL.md` e `RELATORIO_FASE_1.md` para decisões, limites e provas. FPS de laboratório não é uma promessa de desempenho em qualquer dispositivo.
+O jogo roda fora do React. Passo fixo 1/60 s, interpolação, HUD 10 Hz, janela móvel 3×3, instâncias e LOD. window.__GAME_DEBUG__ existe somente em desenvolvimento. Cada fase tem relatório com provas e limitações. Consulte CHECKLIST_MANUAL.md, DECISOES.md e ASSETS_PENDENTES.md. Sessões humanas longas, sensação dos controles e ~60 FPS em GPU integrada a 1080p permanecem não verificados.

@@ -1,7 +1,9 @@
 {
   "before": {
     "mode": "driving",
-    "fuel": 140,
+    "resumeMode": "driving",
+    "overlay": null,
+    "fuel": 4,
     "temperature": 26,
     "engineOn": true,
     "speed": 0,
@@ -10,17 +12,26 @@
     "camera": 0,
     "headlights": false,
     "arrived": false,
+    "notice": "",
+    "saving": false,
+    "storm": false,
+    "restored": false,
     "ready": true,
     "position": [
       0,
       1.7752975225448608,
       5
     ],
+    "playerPosition": [
+      -3,
+      1,
+      5
+    ],
     "speedKmh": 0,
-    "fps": 2.8575510787255336,
+    "fps": 2.6666666666666665,
     "averageFps": 0,
-    "drawCalls": 86,
-    "triangles": 56142,
+    "drawCalls": 92,
+    "triangles": 59066,
     "sectors": 9,
     "sectorKeys": [
       "0,0",
@@ -55,30 +66,109 @@
       0.49150824546813965,
       0.49150824546813965
     ],
-    "integrity": null
+    "campaign": {
+      "stage": "shelter",
+      "seed": {
+        "received": false,
+        "integrity": 100
+      },
+      "components": {
+        "engine": 70,
+        "radiator": 35,
+        "tires": 64,
+        "suspension": 38,
+        "transmission": 65,
+        "tank": 55,
+        "filters": 55,
+        "frame": 70
+      },
+      "inventory": {
+        "player": {
+          "diesel": 8,
+          "water": 4,
+          "food": 3,
+          "parts": 10,
+          "scrap": 8
+        },
+        "truck": {
+          "diesel": 0,
+          "water": 0,
+          "food": 0,
+          "parts": 2,
+          "scrap": 0
+        }
+      },
+      "flags": {
+        "metSurvivor": false,
+        "renataContact": false,
+        "plannedRoute": null,
+        "chosenRoute": null,
+        "stormEncountered": false,
+        "voiceFragments": [],
+        "finalChoice": null,
+        "titanForced": false
+      },
+      "cores": {
+        "core-1": {
+          "state": "inactive",
+          "attempts": 0
+        }
+      },
+      "restoration": {
+        "ashes": false
+      },
+      "completedMissions": [],
+      "decisions": [],
+      "collected": [],
+      "rngState": 1801293772,
+      "travelSeconds": 0,
+      "checkpoint": 0
+    },
+    "integrity": null,
+    "chance": 1,
+    "interaction": {
+      "id": "exit",
+      "text": "Descer do caminhão"
+    },
+    "canWork": true,
+    "parked": false
   },
   "after": {
     "mode": "driving",
-    "fuel": 139.90681952007,
-    "temperature": 33.062033649146194,
+    "resumeMode": "driving",
+    "overlay": null,
+    "fuel": 3.9057147293299086,
+    "temperature": 49.01515082686903,
     "engineOn": true,
-    "speed": 11.984855277490087,
-    "signedSpeed": 11.961066727144516,
+    "speed": 12.079867319461949,
+    "signedSpeed": 12.0561303136257,
     "surface": "asfalto",
     "camera": 0,
     "headlights": false,
     "arrived": false,
+    "notice": "",
+    "saving": false,
+    "storm": false,
+    "restored": false,
+    "powerMultiplier": 1,
+    "gripMultiplier": 1,
+    "loaded": false,
     "ready": true,
     "position": [
-      1.2011975414338849e-8,
-      0.8656290769577026,
-      -40.3074951171875
+      1.3950872457257901e-8,
+      0.8578119277954102,
+      -41.11070251464844
     ],
-    "speedKmh": 43.145478998964315,
-    "fps": 1.713796058269066,
-    "averageFps": 2.9900299254685163,
-    "drawCalls": 92,
-    "triangles": 62192,
+    "playerPosition": [
+      -3,
+      1,
+      5
+    ],
+    "speedKmh": 43.48752235006302,
+    "fps": 4.389815627743637,
+    "averageFps": 3.081527707806112,
+    "drawCalls": 101,
+    "triangles": 65794,
     "sectors": 9,
     "sectorKeys": [
       "0,0",
@@ -92,10 +182,10 @@
       "1,1"
     ],
     "quaternion": [
-      -0.006943687796592712,
-      -1.2063569032605415e-9,
-      8.904559034572657e-11,
-      0.9999759197235107
+      -0.006934189237654209,
+      -1.1793765963830083e-9,
+      1.3245386731863817e-10,
+      0.9999760389328003
     ],
     "wheelContacts": [
       true,
@@ -106,14 +196,79 @@
       true
     ],
     "suspension": [
-      0.4643436670303345,
-      0.4643436670303345,
-      0.48085474967956543,
-      0.48085474967956543,
-      0.48679661750793457,
-      0.48679661750793457
+      0.46434152126312256,
+      0.46434152126312256,
+      0.4808781147003174,
+      0.4808781147003174,
+      0.4867924451828003,
+      0.4867924451828003
     ],
-    "integrity": null
+    "campaign": {
+      "stage": "shelter",
+      "seed": {
+        "received": false,
+        "integrity": 100
+      },
+      "components": {
+        "engine": 70,
+        "radiator": 35,
+        "tires": 63.99527500000042,
+        "suspension": 38,
+        "transmission": 64.99324999999978,
+        "tank": 55,
+        "filters": 54.993249999999776,
+        "frame": 70
+      },
+      "inventory": {
+        "player": {
+          "diesel": 8,
+          "water": 4,
+          "food": 3,
+          "parts": 10,
+          "scrap": 8
+        },
+        "truck": {
+          "diesel": 0,
+          "water": 0,
+          "food": 0,
+          "parts": 2,
+          "scrap": 0
+        }
+      },
+      "flags": {
+        "metSurvivor": false,
+        "renataContact": false,
+        "plannedRoute": null,
+        "chosenRoute": null,
+        "stormEncountered": false,
+        "voiceFragments": [],
+        "finalChoice": null,
+        "titanForced": false
+      },
+      "cores": {
+        "core-1": {
+          "state": "inactive",
+          "attempts": 0
+        }
+      },
+      "restoration": {
+        "ashes": false
+      },
+      "completedMissions": [],
+      "decisions": [],
+      "collected": [],
+      "rngState": 1801293772,
+      "travelSeconds": 6.749999999999981,
+      "checkpoint": 0
+    },
+    "integrity": null,
+    "chance": 1,
+    "interaction": {
+      "id": "exit",
+      "text": "Descer do caminhão"
+    },
+    "canWork": false,
+    "parked": false
   },
   "consoleErrors": [],
   "renderer": "Chromium / ANGLE SwiftShader (software)",

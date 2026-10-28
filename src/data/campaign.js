@@ -29,7 +29,7 @@ export const COPY = {
   repair:'Reparo de campo · 2 peças / +25%',fullRepair:'Conserto no abrigo · 3 peças + 2 materiais',
   mechanism:'Núcleo 1 · ressonador atmosférico',calibrate:'Calibrar · 2 peças / +20%',activate:'Iniciar ativação',chance:'Chance de ancoragem',integrity:'Integridade da Semente',
   safe:'Desvio seguro',short:'Atalho perigoso',planSafe:'Planejar desvio seguro',planShort:'Planejar atalho',
-  safeDescription:'A leste: 1,7 km de asfalto em torno da barreira. Mais diesel, menos vibração.',shortDescription:'A oeste: cerca de 1,1 km em terreno irregular. Menos diesel, maiores choques na carga.',
+  safeDescription:'A leste: 1,4 km de asfalto em torno da barreira. Mais diesel, menos vibração.',shortDescription:'A oeste: cerca de 1,1 km em terreno irregular. Menos diesel, maiores choques na carga.',
   saveTitle:'Caderno de viagem',saveSlot:'Salvar neste slot',loadSlot:'Carregar este slot',deleteSlot:'Apagar este slot',empty:'Slot vazio',
   saveOk:'Partida salva no servidor.',loadOk:'Partida recuperada.',saveError:'Não foi possível salvar. Seu progresso continua nesta sessão. Tente novamente.',
   actionError:'Ação indisponível. Confira proximidade, recursos e estado da missão.',partsNeeded:'Faltam recursos no compartimento do Titã.',

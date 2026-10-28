@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat';
 import { CONFIG } from '../../data/config.js';
-import { heightAt, roadX, roadHeight, randomSeed } from './terrain.js';
+import { heightAt, roadX, roadHeight, randomSeed,detourX } from './terrain.js';
 import { bevelGeometry } from '../render/materials.js';
 import { mergeStatic } from '../render/mergeStatic.js';
 export class World {
@@ -44,6 +44,8 @@ export class World {
       this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(positions),new Uint32Array(indices)).setFriction(1),bodies);
       const count=Math.floor((end-start)/12);if(count>0){const stripes=new THREE.InstancedMesh(this.stripeGeometry,this.m.stripe,count);const dummy=new THREE.Object3D();for(let i=0;i<count;i++){const z=start+i*12+6;dummy.position.set(roadX(z),roadHeight(z)+.115,z);dummy.rotation.y=Math.atan2(roadX(z+1)-roadX(z-1),2);dummy.updateMatrix();stripes.setMatrixAt(i,dummy.matrix);}group.add(stripes);}
     }
+    const ds=Math.max(-1750,low),de=Math.min(-650,high);
+    if(ds<de){const positions=[],indices=[];let row=0;for(let z=ds;z<=de+.1;z+=4){const x=detourX(z);if(Math.round(x/size)!==cx)continue;for(const side of [-1,1])positions.push(x+side*5,roadHeight(z)+.18,z);if(row){const j=(row-1)*2;indices.push(j,j+2,j+1,j+1,j+2,j+3);}row++;}if(indices.length){const road=new THREE.BufferGeometry();road.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));road.setIndex(indices);const uv=[];for(let i=0;i<row;i++)uv.push(0,i/3,1,i/3);road.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));road.computeVertexNormals();const mesh=new THREE.Mesh(road,this.m.asphalt);mesh.receiveShadow=true;group.add(mesh);owned.push(road);this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(positions),new Uint32Array(indices)).setFriction(1),bodies);}}
     const r=randomSeed(CONFIG.seed+cx*7387+cz*19349),count=32;
     const rocks=new THREE.InstancedMesh(this.rockGeometry,this.rockMaterial,count);rocks.castShadow=true;rocks.receiveShadow=true;
     const farRocks=new THREE.InstancedMesh(this.farRockGeometry,this.rockMaterial,count);
@@ -51,6 +53,7 @@ export class World {
     for(let i=0;i<count;i++) {
       let x=cx*size+(r()-.5)*size,z=cz*size+(r()-.5)*size;
       if(Math.abs(x-roadX(z))<14)x=roadX(z)+(i%2?1:-1)*(17+r()*24);
+      if(z < -650 && z > -1750 && Math.abs(x-detourX(z))<14)x=detourX(z)+20;
       const scale=1+r()*4;dummy.position.set(x-cx*size,heightAt(x,z)+scale*.2,z-cz*size);dummy.scale.set(scale,scale*.65,scale*.8);dummy.rotation.set(r(),r()*6,r());dummy.updateMatrix();rocks.setMatrixAt(i,dummy.matrix);farRocks.setMatrixAt(i,dummy.matrix);
       this.collider(RAPIER.ColliderDesc.ball(scale*.7).setTranslation(x,heightAt(x,z)+scale*.2,z),bodies);
     }

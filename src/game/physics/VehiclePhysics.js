@@ -15,13 +15,13 @@ export class VehiclePhysics {
   update(input,state,dt) {
     if (input.throttle || input.steer) this.body.wakeUp();
     const speed=this.signedSpeed(), p=this.body.translation();state.speed=Math.abs(speed);state.signedSpeed=speed;state.surface=surfaceAt(p.x,p.z);
-    const grip=terrainFriction(state.surface,speed);
+    const grip=terrainFriction(state.surface,speed)*(state.gripMultiplier??1);
     const targetSteer=input.steer*CONFIG.vehicle.maxSteer/(1+Math.abs(speed)*.038);
     this.steer+=(targetSteer-this.steer)*Math.min(1,dt*3.6);
     this.power+=(input.throttle-this.power)*Math.min(1,dt*2);
     const braking=input.throttle<0 && speed>.6;
     const reverse=input.throttle<0 && speed<=.6;
-    let force=state.engineOn&&!braking?this.power*CONFIG.vehicle.engineForce*grip:0;
+    let force=state.engineOn&&!braking?this.power*CONFIG.vehicle.engineForce*grip*(state.powerMultiplier??1)*(state.loaded?.83:1):0;
     if((speed>CONFIG.vehicle.maxSpeed&&force>0)||(speed < -CONFIG.vehicle.reverseSpeed&&force<0))force=0;
     if(reverse)force=Math.max(force,-CONFIG.vehicle.engineForce*.6);
     for(let i=0;i<6;i++) {

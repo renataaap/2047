@@ -11,3 +11,9 @@ Nenhum arquivo remoto é necessário para rodar. As geometrias, texturas e o áu
 | Rochas instanciadas de baixa complexidade | Conjuntos de rochas com silhuetas regionais distintas na expansão do continente |
 
 Não há imagens de fundo substituindo o mundo 3D, animações pré-renderizadas ou marcas de caminhão copiadas.
+
+## Fase 2
+- Sobrevivente representada por avatar procedural funcional (cápsula, cabeça, tecido), com diálogo real. Retrato/gestos/voz humana permanecem para polimento.
+- Núcleo 1 e terminal feitos de geometrias procedurais; modelo funcional de primeira passagem, a refinar artisticamente.
+- A Semente possui cilindro, tampas e berço reais, com estado de integridade e consequências. Refinar pintura e efeitos de cristal no polimento.
+- Placas de bifurcação são silhuetas sem texto sobre a geometria; o mapa e o rádio identificam as direções. Pintura de sinalização e detalhes de percurso permanecem pendentes.
