@@ -1,3 +1,4 @@
+import { BIOMES,CORES,SIDE_MISSIONS } from './network.js';
 export const COMPONENTS = { engine:'Motor', radiator:'Radiador', tires:'Pneus', suspension:'Suspensão', transmission:'Transmissão', tank:'Tanque', filters:'Filtros', frame:'Estrutura' };
 export const ITEMS = {
   diesel:{name:'Diesel',icon:'fuel',weight:.8,description:'Combustível para o Titã. Transfira ao caminhão antes de abastecer.'},
@@ -6,11 +7,8 @@ export const ITEMS = {
   parts:{name:'Peças mecânicas',icon:'gear',weight:1.2,description:'Reparos emergenciais e calibração da Semente.'},
   scrap:{name:'Materiais recuperados',icon:'engine',weight:.6,description:'Escambo por consertos completos no abrigo.'},
 };
-export const REGIONS = [
-  {id:'ashes',name:'Mar de Cinzas',cores:['core-1']},{id:'cities',name:'Cidades Esqueleto',cores:['core-2','core-3']},
-  {id:'salt',name:'Leito Seco',cores:['core-4']},{id:'glass',name:'Cordilheira Vítrea',cores:['core-5','core-6']},{id:'storm',name:'Zonas de Tempestade',cores:['core-7']},
-];
-export const MISSIONS=[{id:'aurora-1',name:'A primeira faixa de céu',region:'ashes',core:'core-1',seed:'seed-1',steps:['shelter','transport','delivered','activated']}];
+export const REGIONS = BIOMES;
+export const MISSIONS=[...CORES.map(k=>({id:`aurora-${k.number}`,name:k.name,region:k.region,core:k.id,seed:`seed-${k.number}`,steps:['vault','transport','delivered','activated']})),...SIDE_MISSIONS];
 export const POINTS={shelter:{x:-19,z:5},core:{x:24,z:-2890},salvage:{x:-28,z:-1650},delivery:{x:7,z:-2880}};
 export const COPY = {
   phases:{shelter:'Fale com a sobrevivente no abrigo',transport:'Leve a Semente ao Núcleo 1',failed:'Calibre a Semente e tente novamente',activated:'A primeira chuva voltou'},

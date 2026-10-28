@@ -1,5 +1,15 @@
 # Decisões — Fase 1
 
+## Fase 4 — arquitetura e tarefas antes da implementação
+1. Catálogo único dos cinco biomas, sete Núcleos/Cofres, rotas, abrigos, personagens, suprimentos e missões secundárias. Regras puras de sequência, custos, tentativas, clima e restauração por faixa.
+2. Preservar o trecho de 6 km das versões anteriores: o Leito Seco inicial passa a ser uma enseada de reconhecimento. A rota principal segue pelas Cidades Esqueleto, retorna ao Leito Seco, sobe a Cordilheira Vítrea e termina nas Zonas de Tempestade. Escala condensada de aproximadamente 21 km, sem carregar o continente inteiro.
+3. Gerar estruturas/colliders por proximidade e terreno na janela 3×3. Biomas têm silhuetas e desafios físicos distintos: bloqueio/água urbana, calor/sal instável, rampas/aderência vítrea e frentes atmosféricas com bloqueios/interferência. Desvios físicos oferecem alternativas; restaurar remove obstáculos e reduz a pressão regional.
+4. Save schemaVersion 3 aceita/migra versões 1 e 2, mantém o estado da primeira entrega e registra os demais Cofres, integridades, Núcleos, missões, estoques e relógio climático. Estado de progresso continua na API/libSQL, sem HTTP por frame.
+5. Integrar objetivos, mapa, diálogos, rádio e ações contextuais; manter F/saída do caminhão da correção 0.3.1. Custos e recompensas são transações com capacidade e sem duplicação.
+6. Verificar regras e API, executar os sete transportes via e2e (teleportes apenas para encurtar deslocamentos), comprovar transformações e recarga, executar regressões/build, registrar relatório e commits por etapa verificada. Atualizar o GitHub autorizado e parar antes da Fase 5.
+
+Os conflitos morais completos, revelação da Voz e quatro finais permanecem na Fase 5. A sétima ancoragem encerra os sistemas de mundo desta fase sem escolher um final pelo jogador.
+
 ## Arquitetura e tarefas (antes da implementação)
 1. Preparar Next.js App Router, JavaScript, Vitest e Playwright. Validar o esqueleto e fazer commit.
 2. Implementar regras puras: consumo, terreno determinístico e passo fixo. Integrar Rapier DynamicRayCastVehicleController, modelo procedural, mundo em janela 3×3, câmeras e áudio. Verificar e fazer commit.

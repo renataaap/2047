@@ -1,5 +1,5 @@
 import { CONFIG } from '../../data/config.js';
-export const FRICTION = Object.freeze({ asfalto: 1, terra: .8, areia: .55, sal: .7, lama: .45, rocha: .6 });
+export const FRICTION = Object.freeze({ asfalto: 1, terra: .8, areia: .55, sal: .7, lama: .45, rocha: .6, vidro:.52, agua:.38 });
 export function terrainFriction(type, speed = 0) {
   const base = FRICTION[type] ?? FRICTION.terra;
   return base * (1 - Math.min(Math.abs(speed) / 100, .12));

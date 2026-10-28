@@ -1,4 +1,5 @@
 import { COMPONENTS,ITEMS,POINTS } from '../../data/campaign.js';
+import { NETWORK_POINTS } from '../../data/network.js';
 import { POIS } from '../../data/expedition.js';
 import { activationChance } from '../cargo/integrity.js';
 export const clone=value=>JSON.parse(JSON.stringify(value));
@@ -19,7 +20,7 @@ export function calibrate(c){if(!c.seed.received||c.stage==='activated'||c.seed.
 export function activateCore(c){if(!c.seed.received||c.stage==='activated')return null;const chance=activationChance(c.seed.integrity);c.rngState=(Math.imul(c.rngState,1664525)+1013904223)>>>0;const roll=c.rngState/4294967296;const success=roll<chance;const core=c.cores['core-1'];core.attempts++;core.state=success?'active':'failed';c.stage=success?'activated':'failed';c.restoration.ashes=success;if(success){c.completedMissions=['aurora-1'];c.decisions.push('core-1-activated');}else c.seed.integrity=Math.max(0,c.seed.integrity-8);return {success,chance,roll};}
 export function collect(c,id){if(c.collected.includes(id)||id!=='road-cache')return false;for(const [k,v] of Object.entries({diesel:6,parts:4,water:2}))c.inventory.truck[k]+=v;c.collected.push(id);return true;}
 export function near(a,b,d=5){return Math.hypot(a.x-b.x,a.z-b.z)<=d;}
-export function inFootZone(p){return near(p,POINTS.shelter,48)||near(p,POINTS.core,65)||POIS.some(poi=>near(p,poi,45));}
+export function inFootZone(p){return near(p,POINTS.shelter,48)||near(p,POINTS.core,65)||POIS.some(poi=>near(p,poi,45))||NETWORK_POINTS.some(poi=>near(p,poi,45));}
 export function mechanics(c,state,input,dt,storm){
   const m=c.components;
   const moving=state.speed>1;
