@@ -21,14 +21,14 @@ export class VehiclePhysics {
     this.power+=(input.throttle-this.power)*Math.min(1,dt*2);
     const braking=input.throttle<0 && speed>.6;
     const reverse=input.throttle<0 && speed<=.6;
-    let force=state.engineOn&&!braking?this.power*CONFIG.vehicle.engineForce*grip*(state.powerMultiplier??1)*(state.loaded?.83:1):0;
+    let force=state.engineOn&&!braking&&!input.handbrake?this.power*CONFIG.vehicle.engineForce*grip*(state.powerMultiplier??1)*(state.loaded?.83:1):0;
     if((speed>CONFIG.vehicle.maxSpeed&&force>0)||(speed < -CONFIG.vehicle.reverseSpeed&&force<0))force=0;
     if(reverse)force=Math.max(force,-CONFIG.vehicle.engineForce*.6);
     for(let i=0;i<6;i++) {
       this.controller.setWheelSteering(i,i<2?this.steer:0);
       this.controller.setWheelEngineForce(i,i>=2?-force/4:0);
-      this.controller.setWheelBrake(i,input.handbrake?(i>=2?300:0):braking?CONFIG.vehicle.brakeForce:Math.abs(input.throttle)<.01?3:0);
-      this.controller.setWheelFrictionSlip(i,2.3*grip*(input.handbrake&&i>=2?.5:1));
+      this.controller.setWheelBrake(i,input.handbrake?(i>=2?1200:Math.abs(speed)<3.2?300:0):braking?CONFIG.vehicle.brakeForce:Math.abs(input.throttle)<.01?3:0);
+      this.controller.setWheelFrictionSlip(i,2.3*grip*(input.handbrake&&i>=2&&Math.abs(speed)>3?.5:1));
     }
     this.controller.updateVehicle(dt,RAPIER.QueryFilterFlags.EXCLUDE_DYNAMIC);
   }

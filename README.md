@@ -2,6 +2,12 @@
 
 Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Fases 1–3: condução 3D, entrega da Semente ao primeiro Núcleo, restauração persistente, sobrevivência, exploração de estruturas, escambo e reconhecimento do Leito Seco.
 
+## Correção 0.3.1 — descer do Titã
+
+Com o caminhão parado, pressione **F** ou clique no botão **F · Descer do caminhão** na tela. Em movimento, segure **Espaço** para frear antes de descer. Agora é possível circular até 24 m ao redor do Titã em qualquer trecho; abrigos, Núcleo e estruturas mantêm suas áreas maiores de exploração. Para entrar, aproxime-se do caminhão e use F ou o botão correspondente.
+
+Para atualizar no Windows: feche o terminal da versão antiga antes de iniciar a nova. Extraia o ZIP corrigido numa pasta nova e confira **0.3.1** no menu. Se já tem saves, copie os arquivos **local.db** e, se existirem, **local.db-wal** e **local.db-shm** da pasta antiga para a nova, sem apagar os originais, e use o mesmo navegador e endereço http://localhost:3000.
+
 ## Windows
 1. Instale Node.js LTS em https://nodejs.org.
 2. Extraia o ZIP inteiro e abra a pasta que contém package.json.

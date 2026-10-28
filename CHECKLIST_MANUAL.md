@@ -41,3 +41,8 @@ Exploração a pé, interação F, rádio narrativo, Sementes, manutenção, inv
 - [ ] Sair da rota de sal para a crosta instável, avaliar aderência e leitura visual.
 - [ ] Confirmar que chuva e verde do primeiro Núcleo permanecem no Mar de Cinzas, sem restaurar o Leito Seco.
 - [ ] Abrir um save da Fase 2 no pacote da Fase 3 e conferir preservação das decisões (migração automatizada também testada).
+
+# Correção 0.3.1
+- [ ] Confirmar F e botão de saída no Windows, com teclado real e o navegador em foco.
+- [ ] Testar portas próximas a rochas, muros e terreno muito inclinado; a saída deve escolher espaço livre ou orientar a reposicionar.
+- [ ] Confirmar atualização preservando local.db e cookies da instalação anterior.

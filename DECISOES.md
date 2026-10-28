@@ -47,3 +47,12 @@
 - Leito Seco é um ramo de reconhecimento após o primeiro Núcleo, sem antecipar entregas da sequência principal. Regiões restantes ficam como definições; não são declaradas construídas.
 - Os estoques de comércio e os contêineres têm quantidades finitas e estado salvo. Nada reaparece ao fechar uma interface ou recarregar a partida.
 - Comida/água são consumidas por decisão do jogador, repondo medidores; comida/água de manutenção e escambo competem pelos mesmos itens físicos.
+
+## Correção 0.3.1 — saída do caminhão
+- Relato do usuário na versão 0.3.0: F não mostrou resposta. A revisão encontrou uma restrição de saída por área que o HUD não comunicava, além do risco de criar o personagem fora do limite de caminhada.
+- O Titã parado agora permite descer em qualquer trecho para circular num raio de 24 m ao redor dele. As áreas maiores de abrigo/Núcleo/estruturas permanecem; não foi iniciada a Fase 4.
+- O indicador F também é um botão real. Enquanto o Titã se move, mostra a instrução de segurar Espaço para parar. A checagem de velocidade e a mesma ação são compartilhadas entre teclado e botão.
+- A saída testa cinco posições ao redor da cabine com raycast e interseção de cápsula no Rapier, evitando criar Dante dentro de obstáculos. Se todas falharem, há mensagem para reposicionar o caminhão.
+- Um save antigo que deixe Dante fora do limite permite caminhar de volta ao Titã. Schema e dados do save permanecem compatíveis.
+
+- A regressão de frenagem também reproduziu rolamento residual com Espaço pressionado. O freio de estacionamento agora corta tração, aplica frenagem dianteira assistida abaixo de 3,2 m/s e mantém aderência em baixa velocidade. Um teste Rapier em inclinação de 1,5% protege essa imobilização; o teste de navegador verifica frear e descer.

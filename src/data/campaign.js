@@ -34,9 +34,9 @@ export const COPY = {
   saveOk:'Partida salva no servidor.',loadOk:'Partida recuperada.',saveError:'Não foi possível salvar. Seu progresso continua nesta sessão. Tente novamente.',
   actionError:'Ação indisponível. Confira proximidade, recursos e estado da missão.',partsNeeded:'Faltam recursos no compartimento do Titã.',
   park:'Estacione o Titã na área marcada, a menos de 15 m do Núcleo, e desligue o motor.',
-  exit:'Descer do caminhão',enter:'Entrar no Titã',talk:'Conversar com a sobrevivente',inspect:'Inspecionar o Titã',collect:'Recuperar suprimentos',operate:'Operar o Núcleo',
+  exitBlocked:'A saída está obstruída. Reposicione o Titã e tente descer novamente.',walkRange:'A pé: explore perto do Titã (24 m), abrigos e estruturas. F entra no caminhão.',footBoundary:'Limite de exploração neste trecho. Volte ao Titã ou aproxime o caminhão da estrutura.',exit:'Descer do caminhão',enter:'Entrar no Titã',talk:'Conversar com a sobrevivente',inspect:'Inspecionar o Titã',collect:'Recuperar suprimentos',operate:'Operar o Núcleo',
   walkHint:'WASD mover · Shift correr · Espaço pular · clique para olhar · F interagir',
   seedRisk:'Carga em risco: reduza a velocidade e evite choques.',storm:'Tempestade de cinzas · filtros sob desgaste',restored:'MAR DE CINZAS · RESTAURAÇÃO INICIADA',
-  noFoot:'Estacione próximo a um abrigo, Núcleo ou ponto de interesse para explorar a pé.',stop:'Pare o Titã antes de descer.',noSeed:'Primeiro receba a Semente no abrigo.',
+  noFoot:'Estacione próximo a um abrigo, Núcleo ou ponto de interesse para explorar a pé.',stop:'Segure Espaço até parar o Titã. Depois pressione F para descer.',noSeed:'Primeiro receba a Semente no abrigo.',
   recovery:'Resgate do Titã: -2 L de diesel e -8% de integridade. Recursos gastos não são devolvidos.',
 };
