@@ -36,3 +36,14 @@
 - Novo jogo continua ao volante com motor ligado. F permite descer com o caminhão parado; o contato narrativo acontece no abrigo ao lado. A rodovia pode ser explorada antes de receber a carga.
 - Desenvolvimento local usa libSQL em file:local.db e cria o schema idempotentemente na primeira operação. Produção exige Turso. Nenhum progresso importante depende da memória do processo.
 - Para conciliar o cookie Secure com localhost HTTP no Windows, Secure será obrigatório em produção/HTTPS e desativado somente no desenvolvimento HTTP. Cookie de identidade é assinado pelo HMAC do servidor quando SAVE_COOKIE_SECRET é configurado; sem segredo, usa UUID de alta entropia, sem expor conteúdo de outros jogadores.
+
+# Fase 3 — arquitetura e tarefas (autorização de início automático após a Fase 2)
+1. Adicionar módulo puro survival/expedition: hidratação, saciedade e fadiga; queda lenta apenas quando há viagem, penalidades graduais limitadas, sem morte ou espiral. Consumo de itens, descanso, estoque e custos reais de trocas.
+2. Expandir o terreno/rodovia até 6 km com Leito Seco explorável, material de sal, ambiente quente, radiador sob pressão e áreas de menor aderência. A extensão é reconhecimento opcional; não pula a sequência dos sete Núcleos, nem cria Núcleos/biomas completos da Fase 4.
+3. Três pontos de interesse com construção acessível e colisões, suprimentos coletáveis a pé, posto de Mãe Ivani com troca/descanso e registros persistidos. Ampliar somente as zonas de exploração próximas dessas estruturas.
+4. Save schemaVersion 2: aceitar/migrar schemaVersion 1 da Fase 2, normalizar campos novos ao carregar, preservar todas as flags anteriores. Testar regressão da fatia, viagem e save/load dos recursos/estoques/coletas.
+5. HUD/menus em PT-BR, testes unitários e e2e, capturas, build, relatório e commit. Entregar pacote atualizado pelo Drive já autorizado. Parar antes da Fase 4.
+
+- Leito Seco é um ramo de reconhecimento após o primeiro Núcleo, sem antecipar entregas da sequência principal. Regiões restantes ficam como definições; não são declaradas construídas.
+- Os estoques de comércio e os contêineres têm quantidades finitas e estado salvo. Nada reaparece ao fechar uma interface ou recarregar a partida.
+- Comida/água são consumidas por decisão do jogador, repondo medidores; comida/água de manutenção e escambo competem pelos mesmos itens físicos.

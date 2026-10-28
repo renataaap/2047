@@ -2,7 +2,7 @@ export const COMPONENTS = { engine:'Motor', radiator:'Radiador', tires:'Pneus', 
 export const ITEMS = {
   diesel:{name:'Diesel',icon:'fuel',weight:.8,description:'Combustível para o Titã. Transfira ao caminhão antes de abastecer.'},
   water:{name:'Água',icon:'thermo',weight:1,description:'Água limpa para o radiador. Recupera sua condição em campo.'},
-  food:{name:'Comida',icon:'aurora',weight:.4,description:'Reserva de viagem. Consumo de sobrevivência ampliado em fase posterior.'},
+  food:{name:'Comida',icon:'aurora',weight:.4,description:'Reserva de viagem. Refeições mantêm a saciedade durante a viagem.'},
   parts:{name:'Peças mecânicas',icon:'gear',weight:1.2,description:'Reparos emergenciais e calibração da Semente.'},
   scrap:{name:'Materiais recuperados',icon:'engine',weight:.6,description:'Escambo por consertos completos no abrigo.'},
 };
@@ -37,6 +37,6 @@ export const COPY = {
   exit:'Descer do caminhão',enter:'Entrar no Titã',talk:'Conversar com a sobrevivente',inspect:'Inspecionar o Titã',collect:'Recuperar suprimentos',operate:'Operar o Núcleo',
   walkHint:'WASD mover · Shift correr · Espaço pular · clique para olhar · F interagir',
   seedRisk:'Carga em risco: reduza a velocidade e evite choques.',storm:'Tempestade de cinzas · filtros sob desgaste',restored:'MAR DE CINZAS · RESTAURAÇÃO INICIADA',
-  noFoot:'A exploração a pé está limitada ao abrigo e ao Núcleo nesta fase.',stop:'Pare o Titã antes de descer.',noSeed:'Primeiro receba a Semente no abrigo.',
+  noFoot:'Estacione próximo a um abrigo, Núcleo ou ponto de interesse para explorar a pé.',stop:'Pare o Titã antes de descer.',noSeed:'Primeiro receba a Semente no abrigo.',
   recovery:'Resgate do Titã: -2 L de diesel e -8% de integridade. Recursos gastos não são devolvidos.',
 };

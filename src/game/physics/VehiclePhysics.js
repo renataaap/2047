@@ -33,5 +33,5 @@ export class VehiclePhysics {
     this.controller.updateVehicle(dt,RAPIER.QueryFilterFlags.EXCLUDE_DYNAMIC);
   }
   teleport(x,z,y=heightAt(x,z)+1.7) {this.body.setTranslation({x,y,z},true);this.body.setRotation({x:0,y:0,z:0,w:1},true);this.body.setLinvel({x:0,y:0,z:0},true);this.body.setAngvel({x:0,y:0,z:0},true);this.steer=this.power=0;}
-  recover() {const z=Math.max(-2980,Math.min(20,this.body.translation().z));this.teleport(roadX(z),z);}
+  recover() {const z=Math.max(-CONFIG.world.roadLength+20,Math.min(20,this.body.translation().z));this.teleport(roadX(z),z);}
 }

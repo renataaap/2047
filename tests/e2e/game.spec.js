@@ -23,7 +23,7 @@ test('câmeras, motor, pausa, configurações e API',async({page})=>{
   await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).toBeVisible();const p=await page.evaluate(()=>window.__GAME_DEBUG__.position);await page.keyboard.down('KeyW');await page.waitForTimeout(700);await page.keyboard.up('KeyW');expect(await page.evaluate(()=>window.__GAME_DEBUG__.position)).toEqual(p);
   await page.getByRole('button',{name:'Configurações',exact:true}).click();await page.getByRole('button',{name:'Baixo',exact:true}).click();expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('aurora-settings')).quality)).toBe('baixo');await page.getByRole('button',{name:'Voltar',exact:true}).last().click();await page.getByRole('button',{name:'Voltar à viagem'}).click();
   await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('driving');
-  const res=await page.request.get('/api/game/config');expect(res.ok()).toBeTruthy();const config=await res.json();expect(config.phase).toBe(2);expect(config.seed).toBe(2047);
+  const res=await page.request.get('/api/game/config');expect(res.ok()).toBeTruthy();const config=await res.json();expect(config.phase).toBe(3);expect(config.seed).toBe(2047);
   await page.keyboard.press('Escape');await page.getByRole('button',{name:'Voltar ao menu'}).click();await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled();expect(errors).toEqual([]);
   await page.reload();await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'Configurações',exact:true}).click();await expect(page.getByRole('button',{name:'Baixo',exact:true})).toHaveAttribute('aria-pressed','true');
 });

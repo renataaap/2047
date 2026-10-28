@@ -30,3 +30,14 @@ Exploração a pé, interação F, rádio narrativo, Sementes, manutenção, inv
 - [ ] Calibrar antes de uma tentativa arriscada e avaliar clareza da chance exibida.
 - [ ] Observar chuva/plantas/céu/estrada liberada após ativar e após recarregar.
 - [ ] Abrir INICIAR_JOGO.bat em Windows com Node LTS; o ambiente de teste é Linux.
+
+# Fase 3 — avaliação humana ainda não verificada
+- [ ] Reconhecer os 6 km completos e avaliar transição visual Mar de Cinzas → Leito Seco.
+- [ ] Viajar por 20–30 min e avaliar ritmo de água, comida e fadiga, sem microgerenciamento.
+- [ ] Conferir avisos antes de zerar reservas e recuperação após beber/comer.
+- [ ] Entrar a pé na oficina e estação pela porta, testar paredes/colisões, salto e pointer lock.
+- [ ] Negociar no posto de Mãe Ivani, testar preços/estoques/capacidade e descanso.
+- [ ] Comparar radiador avariado e reparado no Leito Seco; parar e esfriar o motor antes de uma pane.
+- [ ] Sair da rota de sal para a crosta instável, avaliar aderência e leitura visual.
+- [ ] Confirmar que chuva e verde do primeiro Núcleo permanecem no Mar de Cinzas, sem restaurar o Leito Seco.
+- [ ] Abrir um save da Fase 2 no pacote da Fase 3 e conferir preservação das decisões (migração automatizada também testada).

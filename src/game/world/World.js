@@ -30,10 +30,10 @@ export class World {
     const a=g.attributes.position, colors=new Float32Array(a.count*3),col=new THREE.Color();
     for(let i=0;i<a.count;i++){const x=a.getX(i)+cx*size,z=a.getZ(i)+cz*size,y=heightAt(x,z);a.setXYZ(i,x,y,z);const t=.84+Math.sin(x*.1+z*.12)*.04;col.setRGB(t,t*.98,t*.94);col.toArray(colors,i*3);}
     g.setAttribute('color',new THREE.BufferAttribute(colors,3));g.computeVertexNormals();g.computeBoundingSphere();owned.push(g);
-    const terrain=new THREE.Mesh(g,this.m.ground);terrain.receiveShadow=true;group.add(terrain);
+    g.clearGroups();let groupStart=0,materialIndex=null;const gi=g.index.array;for(let k=0;k<gi.length;k+=3){const avg=(a.getZ(gi[k])+a.getZ(gi[k+1])+a.getZ(gi[k+2]))/3,mi=avg<-3200?1:0;if(materialIndex!==null&&mi!==materialIndex){g.addGroup(groupStart,k-groupStart,materialIndex);groupStart=k;}materialIndex=mi;}g.addGroup(groupStart,gi.length-groupStart,materialIndex);const terrain=new THREE.Mesh(g,[this.m.ground,this.m.salt]);terrain.receiveShadow=true;group.add(terrain);
     this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(a.array),new Uint32Array(g.index.array)).setFriction(.8),bodies);
     const low=cz*size-size/2, high=cz*size+size/2;
-    const start=Math.max(-3000,low),end=Math.min(80,high);
+    const start=Math.max(-CONFIG.world.roadLength,low),end=Math.min(80,high);
     if(start<end && Math.abs(cx*size)<size/2+60) {
       const positions=[],indices=[];const steps=Math.ceil((end-start)/4);
       for(let i=0;i<=steps;i++){const z=start+(end-start)*i/steps,x=roadX(z);for(const s of [-1,1])positions.push(x+s*5,roadHeight(z)+.09,z);if(i<steps){const j=i*2;indices.push(j,j+2,j+1,j+1,j+2,j+3);}}
@@ -60,7 +60,7 @@ export class World {
     const rocksLod=new THREE.LOD();rocksLod.position.set(cx*size,0,cz*size);rocksLod.addLevel(rocks,0);rocksLod.addLevel(farRocks,240);group.add(rocksLod);
     // Plus gros éléments au loin, sans multiplier les appels de rendu.
     const hills=new THREE.InstancedMesh(this.rockGeometry,this.rockMaterial,14);
-    for(let i=0;i<14;i++){const z=cz*size+(r()-.5)*size,x=cx*size+(i%2?1:-1)*(180+r()*320);dummy.position.set(x,heightAt(x,z)-8,z);dummy.scale.set(50+r()*70,18+r()*45,45+r()*40);dummy.updateMatrix();hills.setMatrixAt(i,dummy.matrix);}group.add(hills);
+    for(let i=0;i<14;i++){const z=cz*size+(r()-.5)*size,x=cx*size+(i%2?1:-1)*(180+r()*320);dummy.position.set(x,heightAt(x,z)-8,z);dummy.scale.set(50+r()*70,18+r()*45,45+r()*40);dummy.updateMatrix();hills.setMatrixAt(i,dummy.matrix);}hills.visible=cz*size>-3200;group.add(hills);
     return {x:cx,z:cz,group,bodies,owned};
   }
   buildLandmarks() {

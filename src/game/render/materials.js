@@ -13,7 +13,7 @@ export function createMaterials() {
   return {
     paint:standard('#e5d9bd',{map:paintedTexture('#b9ac92')}), rust:standard('#b58b6a',{map:paintedTexture('#a36d45',77)}),
     dark:standard('#32373a'), rubber:standard('#25282a'), glass:standard('#80939c',{roughness:.85,transparent:true,opacity:.18,depthWrite:false}), light:standard('#eee3bd',{emissive:'#d6b17a',emissiveIntensity:.35}),
-    steel:standard('#62615a'), ground:standard('#d2c8b5',{map:paintedTexture('#b6a18a',42),vertexColors:true}),
+    salt:standard('#d4cdbc',{map:paintedTexture('#ded8c7',65),vertexColors:true}),steel:standard('#62615a'), ground:standard('#d2c8b5',{map:paintedTexture('#b6a18a',42),vertexColors:true}),
     asphalt:standard('#494b4b',{map:paintedTexture('#555653',20,true)}), stripe:standard('#b1a07c'), rock:standard('#7c7367',{flatShading:true}),
   };
 }

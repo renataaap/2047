@@ -17,3 +17,8 @@ Não há imagens de fundo substituindo o mundo 3D, animações pré-renderizadas
 - Núcleo 1 e terminal feitos de geometrias procedurais; modelo funcional de primeira passagem, a refinar artisticamente.
 - A Semente possui cilindro, tampas e berço reais, com estado de integridade e consequências. Refinar pintura e efeitos de cristal no polimento.
 - Placas de bifurcação são silhuetas sem texto sobre a geometria; o mapa e o rádio identificam as direções. Pintura de sinalização e detalhes de percurso permanecem pendentes.
+
+## Fase 3
+- Oficina, posto e estação são estruturas procedurais com entrada, paredes, cobertura, piso, colisão e interação no interior. Refinar interiores, objetos de história e pintura regional no polimento.
+- Mãe Ivani usa avatar procedural de primeira passagem; estoque, preços e descanso são reais. Retrato, atuação e voz final pendentes.
+- Leito Seco inclui material de sal, planície baixa, crosta instável e costelas de casco encalhado como silhueta. É uma extensão de reconhecimento; cidades intermediárias, demais Núcleos e continente completo permanecem para a Fase 4.

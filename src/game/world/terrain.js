@@ -7,6 +7,7 @@ export function heightAt(x,z) {
   const d=Math.min(Math.abs(x-roadX(z)),z < -650 && z > -1750?Math.abs(x-detourX(z)):1e9);
   const s=Math.min(1,Math.max(0,(d-8)/50)); const blend=s*s*(3-2*s);
   const n=Math.sin(x*.016+Math.cos(z*.008)*2)*5 + Math.cos(z*.012+x*.006)*3 + Math.sin(x*.043+z*.027)*1.2;
-  return roadHeight(z) + blend * (n + .8) + Math.sin(z*1.5)*.025*(1-blend);
+  const amplitude=z < -3300?.18:1;return roadHeight(z) + blend * (n + .8)*amplitude + Math.sin(z*1.5)*.025*(1-blend);
 }
-export function surfaceAt(x,z) { const d=Math.min(Math.abs(x-roadX(z)),z < -650 && z > -1750?Math.abs(x-detourX(z)):1e9); return d<CONFIG.world.roadWidth/2 && z<80 && z>-3000 ? 'asfalto' : d<16 ? 'terra' : 'areia'; }
+export function regionAt(z){return z < -3200?'salt':'ashes';}
+export function surfaceAt(x,z) {if(z < -3200)return Math.abs(x-roadX(z))>55?'lama':'sal'; const d=Math.min(Math.abs(x-roadX(z)),z < -650 && z > -1750?Math.abs(x-detourX(z)):1e9); return d<CONFIG.world.roadWidth/2 && z<80 && z>-3000 ? 'asfalto' : d<16 ? 'terra' : 'areia'; }
