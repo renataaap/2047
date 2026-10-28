@@ -24,3 +24,15 @@
 - O Three.js atual removeu PCFSoftShadowMap; usamos PCFShadowMap com filtragem, sem bloom.
 - Medições em SwiftShader são evidência de execução por software, sem inferir desempenho de GPU integrada. A meta de ~60 FPS a 1080p continua não verificada.
 - Semente/integridade são null no diagnóstico da Fase 1; nenhum valor inventado simula uma carga ainda não recebida.
+
+# Fase 2 — arquitetura antes da implementação
+1. Campanha pura e testável: recepção da Semente no abrigo, preparo, planejamento, transporte, calibração/ativação, flags e restauração. Integridade mede aceleração filtrada, impactos e frenagem com zona morta e teto por segundo.
+2. Mecânica dos oito componentes e inventário com custos reais. Controlador Rapier a pé, com colisão, corrida, salto e F contextual. Atividades a pé limitadas ao abrigo e ao Núcleo nesta fase.
+3. Mundo: barreira de areia na rodovia, desvio pavimentado longo à direita e atalho irregular à esquerda; tempestade, desgaste de filtros, Núcleo e restauração física com chuva/vegetação e liberação da estrada.
+4. Persistência: repository libSQL, identidade anônima via cookie HttpOnly/SameSite e Secure em HTTPS/produção, validação estrita, tamanho máximo 128 KiB e revisão otimista. Saves somente por requisições explícitas e checkpoints.
+5. Interface de jogo: diálogo, rádio, mapa, inventário/transferência, manutenção, mecanismo, saves/carregamento e alertas. Textos em src/data. Preservar as três câmeras e a condução existentes.
+6. Verificar regras/API/fluxo e2e com Rapier/WebGL, screenshots e build; commit por etapa verificada. Entregar ZIP com iniciador Windows e parar antes da Fase 3.
+
+- Novo jogo continua ao volante com motor ligado. F permite descer com o caminhão parado; o contato narrativo acontece no abrigo ao lado. A rodovia pode ser explorada antes de receber a carga.
+- Desenvolvimento local usa libSQL em file:local.db e cria o schema idempotentemente na primeira operação. Produção exige Turso. Nenhum progresso importante depende da memória do processo.
+- Para conciliar o cookie Secure com localhost HTTP no Windows, Secure será obrigatório em produção/HTTPS e desativado somente no desenvolvimento HTTP. Cookie de identidade é assinado pelo HMAC do servidor quando SAVE_COOKIE_SECRET é configurado; sem segredo, usa UUID de alta entropia, sem expor conteúdo de outros jogadores.
