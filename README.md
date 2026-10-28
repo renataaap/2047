@@ -1,6 +1,6 @@
 # 2047: Rede Aurora
 
-Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Fases 1–4: condução 3D, entrega da Semente ao primeiro Núcleo, restauração persistente, sobrevivência, exploração de estruturas, escambo cinco biomas, sete Núcleos com Cofres, missões secundárias e clima persistente.
+Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Fases 1–4: condução 3D, sobrevivência, manutenção, exploração, escambo e uma rede de sete Núcleos com Cofres ao longo de cinco biomas. Inclui missões secundárias, clima e transformações persistentes.
 
 ## Fase 4 — Um continente em resposta (0.4.0)
 
