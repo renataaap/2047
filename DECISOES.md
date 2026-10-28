@@ -66,3 +66,9 @@ Os conflitos morais completos, revelação da Voz e quatro finais permanecem na 
 - Um save antigo que deixe Dante fora do limite permite caminhar de volta ao Titã. Schema e dados do save permanecem compatíveis.
 
 - A regressão de frenagem também reproduziu rolamento residual com Espaço pressionado. O freio de estacionamento agora corta tração, aplica frenagem dianteira assistida abaixo de 3,2 m/s e mantém aderência em baixa velocidade. Um teste Rapier em inclinação de 1,5% protege essa imobilização; o teste de navegador verifica frear e descer.
+
+## Ajustes de integração da Fase 4
+- Carregar uma partida distante e o teleporte de diagnóstico preparam os nove setores/colliders antes de retomar a física, evitando uma queda durante a troca de região. A condução normal continua com streaming de um setor por frame.
+- O objetivo inicial permanece a obtenção da primeira Semente, mesmo se o jogador explorar além de 3 km. A mensagem de fim da antiga demonstração não se aplica ao continente da Fase 4.
+- Migração reconhece um Núcleo legado marcado ativo/falho com contador zero como uma tentativa, formato antes aceito pela validação; não altera o arquivo original.
+- Nas rampas, segure Espaço enquanto pressiona F. O teste de travessia espera a suspensão assentar antes de conferir a parada, em vez de usar o zero instantâneo do teleporte como evidência de estacionamento.

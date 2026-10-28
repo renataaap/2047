@@ -1,12 +1,28 @@
 # 2047: Rede Aurora
 
-Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Fases 1–3: condução 3D, entrega da Semente ao primeiro Núcleo, restauração persistente, sobrevivência, exploração de estruturas, escambo e reconhecimento do Leito Seco.
+Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Fases 1–4: condução 3D, entrega da Semente ao primeiro Núcleo, restauração persistente, sobrevivência, exploração de estruturas, escambo cinco biomas, sete Núcleos com Cofres, missões secundárias e clima persistente.
+
+## Fase 4 — Um continente em resposta (0.4.0)
+
+A rota tem 21 km em escala condensada: Mar de Cinzas → Cidades Esqueleto (dois Núcleos) → Leito Seco → Cordilheira Vítrea (dois Núcleos) → Zonas de Tempestade. A enseada de sal dos km 3,2–5,8 permanece para preservar o trecho explorável das versões anteriores.
+
+Depois do Núcleo 1, siga o objetivo do HUD. Localize o Cofre, estacione a até 35 m, desligue o motor, desça mantendo Espaço pressionado até usar F e procure o mecanismo. Os custos vêm do compartimento do Titã. Transporte a Semente até a área de balizadores do Núcleo seguinte, desligue o motor e use o terminal. O mapa mostra a sequência e os desvios; J abre o caderno de missões, R abre o boletim e as transmissões.
+
+Cada Semente exige a ancoragem anterior. Os seis Cofres seguintes têm custos/mecanismos próprios; o sétimo exige radiador e filtros a pelo menos 50% e transmissão a 40%. Falhas preservam a carga para calibração e nova tentativa. A chance é visível e fica garantida a partir de 80% de integridade.
+
+Lia (km 6), Afonso (km 10,2) e Noêmia (km 12,8) oferecem missões secundárias com custos e recompensas; Joel recebe viajantes no km 17,8. Os quatro abrigos têm comércio e estoque próprio. Depósitos próximos aos Cofres têm suprimentos finitos. Recompensas respeitam o limite da mochila/compartimento. Lia reaparece na Última Parada após receber ajuda; a bomba e o repetidor mudam a travessia e o rádio.
+
+Os desafios alteram a condução: viaduto bloqueado, túnel com água/arrasto e risco ao motor, sal instável/calor, rampas e menor aderência na cordilheira, frentes com rajadas/interferência e fragmentos que fecham a passagem central. Os arcos a leste são vias físicas; selecioná-los no mapa não teleporta o caminhão. A restauração remove os bloqueios, drena o túnel, melhora a atmosfera e faz crescer vegetação por faixa. O relógio climático avança só durante o jogo e é salvo; menus o pausam.
+
+Saves 1 e 2 são carregados e atualizados para schemaVersion 3, preservando a primeira entrega, inventários, coletas e decisões. O novo formato registra os sete Núcleos, Cofres/Sementes, comércio, missões e clima. A sétima ancoragem não escolhe um dos quatro finais: narrativa e finais são a Fase 5.
+
+O projeto está no repositório privado https://github.com/renataaap/2047. Consulte [CONTINUAR_NO_CELULAR.md](CONTINUAR_NO_CELULAR.md) para retomar esta conversa em outro aparelho e [STATUS_DO_PROJETO.md](STATUS_DO_PROJETO.md) para o estado do desenvolvimento.
 
 ## Correção 0.3.1 — descer do Titã
 
 Com o caminhão parado, pressione **F** ou clique no botão **F · Descer do caminhão** na tela. Em movimento, segure **Espaço** para frear antes de descer. Agora é possível circular até 24 m ao redor do Titã em qualquer trecho; abrigos, Núcleo e estruturas mantêm suas áreas maiores de exploração. Para entrar, aproxime-se do caminhão e use F ou o botão correspondente.
 
-Para atualizar no Windows: feche o terminal da versão antiga antes de iniciar a nova. Extraia o ZIP corrigido numa pasta nova e confira **0.3.1** no menu. Se já tem saves, copie os arquivos **local.db** e, se existirem, **local.db-wal** e **local.db-shm** da pasta antiga para a nova, sem apagar os originais, e use o mesmo navegador e endereço http://localhost:3000.
+Para atualizar no Windows: feche o terminal da versão antiga antes de iniciar a nova. Extraia o ZIP corrigido numa pasta nova e confira **0.4.0** no menu. Se já tem saves, copie os arquivos **local.db** e, se existirem, **local.db-wal** e **local.db-shm** da pasta antiga para a nova, sem apagar os originais, e use o mesmo navegador e endereço http://localhost:3000.
 
 ## Windows
 1. Instale Node.js LTS em https://nodejs.org.
@@ -70,7 +86,7 @@ PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npm run test:e2e
 
 Em produção, configure TURSO_DATABASE_URL (libsql:// ou https://) e TURSO_AUTH_TOKEN antes de `npm start`. Disco local é recusado em produção. SAVE_COOKIE_SECRET pode assinar o cookie anônimo (use segredo aleatório forte e estável). HttpOnly e SameSite=Strict sempre; Secure em HTTPS/produção. No localhost HTTP de desenvolvimento, Secure fica desativado para funcionar no Windows.
 
-O banco file:local.db é criado no projeto, atrás de src/lib/repository.js, e deve ser preservado para continuar partidas locais. Não vem no ZIP; não substitua seu banco ao instalar uma atualização. O cookie identifica o dono: apagar cookies ou trocar localhost por 127.0.0.1 muda a identidade e pode ocultar seus slots. Use sempre o mesmo navegador e endereço.
+O banco file:local.db é criado no projeto, atrás de src/lib/repository.js, e deve ser preservado para continuar partidas locais. Não vem no ZIP; não substitua seu banco ao instalar uma atualização. O GitHub guarda o projeto e o histórico, mas não transfere partidas locais entre computadores. O cookie identifica o dono: apagar cookies ou trocar localhost por 127.0.0.1 muda a identidade e pode ocultar seus slots. Use sempre o mesmo navegador e endereço.
 
 GET /api/game/config, /api/game/items, /api/game/missions, /api/world/regions?slot=1; GET/POST /api/saves; GET/PUT/DELETE /api/saves/[slot]. Limite 128 KiB; erros padronizados; revisão otimista. Não há HTTP por frame: API apenas para catálogo/listagem, carregar e salvar manual/checkpoint.
 

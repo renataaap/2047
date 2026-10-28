@@ -46,3 +46,14 @@ Exploração a pé, interação F, rádio narrativo, Sementes, manutenção, inv
 - [ ] Confirmar F e botão de saída no Windows, com teclado real e o navegador em foco.
 - [ ] Testar portas próximas a rochas, muros e terreno muito inclinado; a saída deve escolher espaço livre ou orientar a reposicionar.
 - [ ] Confirmar atualização preservando local.db e cookies da instalação anterior.
+
+# Fase 4 — avaliação humana ainda não verificada
+- [ ] Percorrer os 21 km sem teleportes; avaliar diesel, peças, suprimentos e oportunidades de reabastecimento.
+- [ ] Identificar os cinco biomas pelo para-brisa e os desvios a leste/oeste sem consultar coordenadas.
+- [ ] Estacionar nas rampas mantendo Espaço até pressionar F; entrar/sair nas sete áreas de entrega e Cofres.
+- [ ] Avaliar curvas/rampas da cordilheira, passagem na água, vento e visibilidade da frente.
+- [ ] Conferir que Lia é reconhecível na Última Parada e que seus diálogos soam naturais.
+- [ ] Conferir rádio, avisos, menu de missões e mapa em telas diferentes; sem revelar a identidade da Voz.
+- [ ] Medir ~60 FPS em GPU integrada a 1080p; os testes SwiftShader não validam essa meta.
+- [ ] Testar INICIAR_JOGO.bat no Windows e abertura desta conversa/GitHub no celular real.
+- [ ] Abrir saves 0.2/0.3 reais no mesmo navegador e verificar inventários/decisões após salvar em 0.4.

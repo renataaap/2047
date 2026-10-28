@@ -22,3 +22,8 @@ Não há imagens de fundo substituindo o mundo 3D, animações pré-renderizadas
 - Oficina, posto e estação são estruturas procedurais com entrada, paredes, cobertura, piso, colisão e interação no interior. Refinar interiores, objetos de história e pintura regional no polimento.
 - Mãe Ivani usa avatar procedural de primeira passagem; estoque, preços e descanso são reais. Retrato, atuação e voz final pendentes.
 - Leito Seco inclui material de sal, planície baixa, crosta instável e costelas de casco encalhado como silhueta. É uma extensão de reconhecimento; cidades intermediárias, demais Núcleos e continente completo permanecem para a Fase 4.
+
+## Fase 4
+- Cofres blindados, ressonadores, depósitos e quatro abrigos têm modelos procedurais funcionais; substituir/refinar mecanismos, sinalização e silhuetas em revisão artística. Não há animação humana final ou vozes gravadas.
+- Ruínas urbanas e torres residuais usam instâncias; montanhas são heightmap e rochas estilizadas. Refinar viadutos, montanhas, transições e interiores na Fase 6 sem remover colisores/rotas funcionais.
+- Chuva, vegetação e alterações atmosféricas são reais; qualidade perceptiva do crescimento e diferenças entre as faixas ainda exigem avaliação humana.
