@@ -3,11 +3,11 @@
     "mode": "driving",
     "resumeMode": "driving",
     "overlay": null,
-    "fuel": 4,
-    "temperature": 26,
+    "fuel": 3.9993816666666744,
+    "temperature": 28.28739355356325,
     "engineOn": true,
-    "speed": 0,
-    "signedSpeed": -0.03740746735396683,
+    "speed": 0.03544545754942021,
+    "signedSpeed": 0.03639514854333671,
     "surface": "asfalto",
     "camera": 0,
     "headlights": false,
@@ -17,23 +17,54 @@
     "storm": false,
     "restored": false,
     "region": "ashes",
+    "interference": 0.08,
     "radioActive": false,
+    "x": -2.048076014338207e-10,
+    "z": 4.972673416137695,
+    "front": false,
+    "weatherClock": 0.8833333333333344,
+    "localRestored": false,
+    "powerMultiplier": 1,
+    "gripMultiplier": 1,
+    "loaded": false,
+    "objective": null,
+    "weather": {
+      "region": "ashes",
+      "restored": false,
+      "event": "calm",
+      "front": false,
+      "interference": 0.08,
+      "fog": 1,
+      "grip": 1
+    },
+    "radioMessages": [],
+    "networkVisual": {
+      "entities": 1,
+      "rain": false,
+      "cores": {},
+      "barriers": {},
+      "floods": {},
+      "vaults": {
+        "core-1": true
+      },
+      "liaVisible": false
+    },
     "ready": true,
     "position": [
-      0,
-      1.7752975225448608,
-      5
+      -1.986643488605111e-10,
+      1.3238352537155151,
+      4.972095489501953
     ],
     "playerPosition": [
       -3,
       1,
       5
     ],
-    "speedKmh": 0,
-    "fps": 2.55330014043151,
+    "speedKmh": 0.12760364717791275,
+    "fps": 1.935359009096188,
     "averageFps": 0,
-    "drawCalls": 92,
-    "triangles": 59066,
+    "drawCalls": 111,
+    "triangles": 66752,
     "sectors": 9,
     "sectorKeys": [
       "0,0",
@@ -47,10 +78,10 @@
       "1,1"
     ],
     "quaternion": [
-      0,
-      0,
-      0,
-      1
+      -0.008488252758979797,
+      1.969480967201065e-10,
+      1.3949526256329392e-10,
+      0.9999640583992004
     ],
     "wheelContacts": [
       true,
@@ -61,12 +92,12 @@
       true
     ],
     "suspension": [
-      0.45796632766723633,
-      0.45796632766723633,
-      0.48251914978027344,
-      0.48251914978027344,
-      0.4915395975112915,
-      0.4915395975112915
+      0.45525062084198,
+      0.45525062084198,
+      0.48168349266052246,
+      0.48168349266052246,
+      0.49139392375946045,
+      0.49139392375946045
     ],
     "input": {
       "throttle": 0,
@@ -133,15 +164,43 @@
         "core-1": {
           "state": "inactive",
           "attempts": 0
+        },
+        "core-2": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-3": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-4": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-5": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-6": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-7": {
+          "state": "inactive",
+          "attempts": 0
         }
       },
       "restoration": {
-        "ashes": false
+        "ashes": false,
+        "cities": false,
+        "salt": false,
+        "glass": false,
+        "storm": false
       },
       "completedMissions": [],
       "decisions": [],
       "collected": [],
-      "rngState": 1616738178,
+      "rngState": 431689229,
       "travelSeconds": 0,
       "checkpoint": 0,
       "expedition": {
@@ -158,6 +217,74 @@
           "parts": 8
         },
         "transactions": 0
+      },
+      "network": {
+        "clock": 0.8833333333333344,
+        "cargo": null,
+        "seeds": {
+          "core-1": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-2": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-3": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-4": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-5": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-6": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-7": {
+            "obtained": false,
+            "integrity": 100
+          }
+        },
+        "quests": {
+          "supply": "available",
+          "pump": "available",
+          "relay": "available"
+        },
+        "looted": [],
+        "visited": [],
+        "routes": {},
+        "stocks": {
+          "lia": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          },
+          "afonso": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          },
+          "noemia": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          },
+          "joel": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          }
+        }
       }
     },
     "integrity": null,
@@ -173,11 +300,11 @@
     "mode": "driving",
     "resumeMode": "driving",
     "overlay": null,
-    "fuel": 3.90488314628512,
-    "temperature": 49.14251447779043,
+    "fuel": 3.908174218650245,
+    "temperature": 50.12470582322492,
     "engineOn": true,
-    "speed": 12.151013009347531,
-    "signedSpeed": 12.127312636066359,
+    "speed": 11.868317222893323,
+    "signedSpeed": 11.844447218864044,
     "surface": "asfalto",
     "camera": 0,
     "headlights": false,
@@ -187,26 +314,54 @@
     "storm": false,
     "restored": false,
     "region": "ashes",
+    "interference": 0.08,
     "radioActive": false,
+    "x": 3.819769034407727e-8,
+    "z": -39.225372314453125,
+    "front": false,
+    "weatherClock": 8.38333333333333,
+    "localRestored": false,
     "powerMultiplier": 1,
     "gripMultiplier": 1,
     "loaded": false,
+    "objective": null,
+    "weather": {
+      "region": "ashes",
+      "restored": false,
+      "event": "calm",
+      "front": false,
+      "interference": 0.08,
+      "fog": 1,
+      "grip": 1
+    },
+    "radioMessages": [],
+    "networkVisual": {
+      "entities": 1,
+      "rain": false,
+      "cores": {},
+      "barriers": {},
+      "floods": {},
+      "vaults": {
+        "core-1": true
+      },
+      "liaVisible": false
+    },
     "ready": true,
     "position": [
-      1.483732425811013e-8,
-      0.8519108891487122,
-      -41.71723937988281
+      3.706687579096979e-8,
+      0.8742245435714722,
+      -39.42323303222656
     ],
     "playerPosition": [
       -3,
       1,
       5
     ],
-    "speedKmh": 43.74364683365111,
-    "fps": 3.15806095057635,
-    "averageFps": 3.115348309706126,
-    "drawCalls": 101,
-    "triangles": 65794,
+    "speedKmh": 42.72594200241596,
+    "fps": 3.000300030003007,
+    "averageFps": 3.133650083087986,
+    "drawCalls": 105,
+    "triangles": 66254,
     "sectors": 9,
     "sectorKeys": [
       "0,0",
@@ -220,10 +375,10 @@
       "1,1"
     ],
     "quaternion": [
-      -0.00692747812718153,
-      -1.2288544626315456e-9,
-      4.909416970177993e-11,
-      0.9999760389328003
+      -0.00695416983217001,
+      -1.6232996058462845e-9,
+      -7.673017776710367e-10,
+      0.999975860118866
     ],
     "wheelContacts": [
       true,
@@ -234,12 +389,12 @@
       true
     ],
     "suspension": [
-      0.46433818340301514,
-      0.46433818340301514,
-      0.4808872938156128,
-      0.4808872938156128,
-      0.4867868423461914,
-      0.4867868423461914
+      0.46433401107788086,
+      0.46433401107788086,
+      0.48082005977630615,
+      0.48082005977630615,
+      0.4867931604385376,
+      0.4867931604385376
     ],
     "input": {
       "throttle": 0,
@@ -269,11 +424,11 @@
       "components": {
         "engine": 70,
         "radiator": 35,
-        "tires": 63.99524000000042,
+        "tires": 63.995368333333744,
         "suspension": 38,
-        "transmission": 64.99319999999977,
+        "transmission": 64.99338333333311,
         "tank": 55,
-        "filters": 54.993199999999774,
+        "filters": 54.993383333333114,
         "frame": 70
       },
       "inventory": {
@@ -306,21 +461,49 @@
         "core-1": {
           "state": "inactive",
           "attempts": 0
+        },
+        "core-2": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-3": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-4": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-5": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-6": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-7": {
+          "state": "inactive",
+          "attempts": 0
         }
       },
       "restoration": {
-        "ashes": false
+        "ashes": false,
+        "cities": false,
+        "salt": false,
+        "glass": false,
+        "storm": false
       },
       "completedMissions": [],
       "decisions": [],
       "collected": [],
-      "rngState": 1616738178,
-      "travelSeconds": 6.799999999999981,
+      "rngState": 431689229,
+      "travelSeconds": 6.6166666666666485,
       "checkpoint": 0,
       "expedition": {
-        "hydration": 99.87760000000173,
-        "satiety": 99.93879999999797,
-        "fatigue": 0.03400000000000012,
+        "hydration": 99.88090000000169,
+        "satiety": 99.94044999999802,
+        "fatigue": 0.03308333333333348,
         "deprivationSeconds": 0,
         "visited": [],
         "looted": [],
@@ -331,6 +514,74 @@
           "parts": 8
         },
         "transactions": 0
+      },
+      "network": {
+        "clock": 8.38333333333333,
+        "cargo": null,
+        "seeds": {
+          "core-1": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-2": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-3": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-4": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-5": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-6": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-7": {
+            "obtained": false,
+            "integrity": 100
+          }
+        },
+        "quests": {
+          "supply": "available",
+          "pump": "available",
+          "relay": "available"
+        },
+        "looted": [],
+        "visited": [],
+        "routes": {},
+        "stocks": {
+          "lia": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          },
+          "afonso": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          },
+          "noemia": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          },
+          "joel": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          }
+        }
       }
     },
     "integrity": null,

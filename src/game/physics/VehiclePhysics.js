@@ -14,8 +14,10 @@ export class VehiclePhysics {
   signedSpeed() { const v=this.body.linvel(),q=this.body.rotation(); const fx=-2*(q.x*q.z+q.w*q.y),fy=-2*(q.y*q.z-q.w*q.x),fz=-(1-2*(q.x*q.x+q.y*q.y));return v.x*fx+v.y*fy+v.z*fz; }
   update(input,state,dt) {
     if (input.throttle || input.steer) this.body.wakeUp();
-    const speed=this.signedSpeed(), p=this.body.translation();state.speed=Math.abs(speed);state.signedSpeed=speed;state.surface=surfaceAt(p.x,p.z);
+    const speed=this.signedSpeed(), p=this.body.translation();state.speed=Math.abs(speed);state.signedSpeed=speed;state.surface=surfaceAt(p.x,p.z);if(state.localRestored&&state.surface==='agua')state.surface='asfalto';
     const grip=terrainFriction(state.surface,speed)*(state.gripMultiplier??1);
+    if(state.surface==='agua'&&Math.abs(speed)>4)this.body.applyImpulse({x:-this.body.linvel().x*CONFIG.vehicle.mass*dt*.3,y:0,z:-this.body.linvel().z*CONFIG.vehicle.mass*dt*.3},true);
+    if(state.front&&Math.abs(speed)>1)this.body.applyImpulse({x:Math.sin((state.weatherClock||0)*.3)*CONFIG.vehicle.mass*dt*.25,y:0,z:0},true);
     const targetSteer=input.steer*CONFIG.vehicle.maxSteer/(1+Math.abs(speed)*.038);
     this.steer+=(targetSteer-this.steer)*Math.min(1,dt*3.6);
     this.power+=(input.throttle-this.power)*Math.min(1,dt*2);

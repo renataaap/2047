@@ -1,3 +1,4 @@
+import { hasCargo } from '../missions/network.js';
 import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat';
 import { POINTS } from '../../data/campaign.js';
@@ -29,7 +30,7 @@ export class CampaignWorld {
  this.rainPositions=new Float32Array(360*3);for(let i=0;i<360;i++){this.rainPositions[i*3]=(r()-.5)*45;this.rainPositions[i*3+1]=r()*25;this.rainPositions[i*3+2]=(r()-.5)*45;}const rainGeo=new THREE.BufferGeometry();rainGeo.setAttribute('position',new THREE.BufferAttribute(this.rainPositions,3));this.rain=new THREE.Points(rainGeo,new THREE.PointsMaterial({color:'#d0dce0',size:.085,transparent:true,opacity:.55,depthWrite:false}));this.rain.visible=false;scene.add(this.rain);mergeStatic(this.group,new Set([this.cache]));mergeStatic(this.cargo);
  }
  apply(restored){if(restored===this.restored)return;this.restored=restored;this.barrier.visible=!restored;if(restored&&this.barrierBody){this.physics.removeRigidBody(this.barrierBody);this.barrierBody=null;}else if(!restored&&!this.barrierBody)this.barrierBody=this.makeBarrier();this.plants.visible=this.rain.visible=restored;}
- update(c,position,dt,rendering,storm){this.apply(c.restoration.ashes);this.cargo.visible=c.seed.received&&c.stage!=='activated';this.cache.visible=!c.collected.includes('road-cache');this.growth+=(Number(this.restored)-this.growth)*Math.min(1,dt*.45);
+ update(c,position,dt,rendering,storm){this.apply(c.restoration.ashes);this.cargo.visible=hasCargo(c);this.cache.visible=!c.collected.includes('road-cache');this.growth+=(Number(this.restored)-this.growth)*Math.min(1,dt*.45);
  if(this.restored){const dummy=new THREE.Object3D();for(let i=0;i<220;i++){const p=this.plantPositions[i];dummy.position.set(p.x,p.y+p.s*this.growth/2,p.z);dummy.scale.set(p.s*this.growth,p.s*this.growth,p.s*this.growth);dummy.updateMatrix();this.plants.setMatrixAt(i,dummy.matrix);}this.plants.instanceMatrix.needsUpdate=true;this.rain.visible=position.z>-3100;this.rain.position.copy(position);for(let i=0;i<360;i++){this.rainPositions[i*3+1]-=dt*12;if(this.rainPositions[i*3+1]<0)this.rainPositions[i*3+1]=25;}this.rain.geometry.attributes.position.needsUpdate=true;}
  const localRestored=this.restored&&position.z>-3100;const base=1.6/rendering.preset.distance;rendering.scene.fog.density=base*(localRestored?.55:storm?3.6:1);rendering.scene.fog.color.lerp(new THREE.Color(localRestored?'#a9bec3':storm?'#8d7c65':'#88908e'),dt);
  rendering.sky.material.uniforms.top.value.lerp(new THREE.Color(localRestored?'#6f9ba8':storm?'#5e6265':'#4f6575'),dt*.5);rendering.sky.material.uniforms.bottom.value.lerp(new THREE.Color(localRestored?'#bfc9bc':storm?'#9d8d77':'#b7a68c'),dt*.5);

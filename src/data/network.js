@@ -8,7 +8,7 @@ export const BIOMES=[
 ];
 export function biomeAt(z){const d=-z;return d<3200?'ashes':d<5800?'salt':d<10000?'cities':d<12600?'salt':d<17600?'glass':'storm';}
 export const CORES=[
- {id:'core-1',number:1,region:'ashes',name:'Núcleo 1 · A primeira faixa',x:24,z:-2890,vault:{x:-19,z:5,cost:{},task:'A sobrevivente trouxe a Semente do primeiro Cofre.'}},
+ {id:'core-1',number:1,region:'ashes',name:'Núcleo 1 · A primeira faixa',x:24,z:-2890,vault:{x:-36,z:-20,cost:{},task:'A sobrevivente trouxe a Semente do primeiro Cofre.'}},
  {id:'core-2',number:2,region:'cities',name:'Núcleo 2 · Viaduto',x:28,z:-7200,vault:{x:-25,z:-6150,cost:{parts:1},task:'Substituir a manivela do mecanismo · 1 peça no Titã.'}},
  {id:'core-3',number:3,region:'cities',name:'Núcleo 3 · As janelas vazias',x:-30,z:-9500,vault:{x:30,z:-8050,cost:{parts:2},task:'Desobstruir o acesso com uma talha · 2 peças no Titã.'}},
  {id:'core-4',number:4,region:'salt',name:'Núcleo 4 · Mar ausente',x:28,z:-12000,vault:{x:-30,z:-10500,cost:{water:2,parts:1},task:'Resfriar o selo salino · 2 águas + 1 peça no Titã.'}},
@@ -36,9 +36,9 @@ export const SIDE_MISSIONS=[
  {id:'relay',name:'Um aviso antes do vento',shelter:'noemia',bag:'truck',cost:{parts:2,scrap:2},reward:{diesel:8,food:3},detail:'Repare o repetidor com 2 peças + 2 materiais do Titã. Recompensa: 8 L de diesel + 3 comidas e um fragmento do sinal.'},
 ];
 export const SUPPLY_CACHES=CORES.slice(1).map(c=>({id:`cache-${c.number}`,name:`Depósito de viagem ${c.number}`,x:c.vault.x+13,z:c.vault.z+18,loot:{diesel:12,parts:4,scrap:6,water:2,food:2}}));
-export const NETWORK_POINTS=[...CORES.slice(1).flatMap(c=>[{...c,kind:'network-core',core:c.id},{id:`vault-${c.number}`,name:`Cofre ${c.number}`,x:c.vault.x,z:c.vault.z,kind:'vault',core:c.id}]),...SHELTERS.map(s=>({...s,kind:'shelter'})),...SUPPLY_CACHES.map(s=>({...s,kind:'cache'}))];
+export const NETWORK_POINTS=[{id:'vault-1',name:'Cofre 1',x:CORES[0].vault.x,z:CORES[0].vault.z,kind:'vault',core:'core-1'},...CORES.slice(1).flatMap(c=>[{...c,kind:'network-core',core:c.id},{id:`vault-${c.number}`,name:`Cofre ${c.number}`,x:c.vault.x,z:c.vault.z,kind:'vault',core:c.id}]),...SHELTERS.map(s=>({...s,kind:'shelter'})),...SUPPLY_CACHES.map(s=>({...s,kind:'cache'}))];
 export const WORLD_COPY={
- vault:'Cofre de Semente',openVault:'Liberar e embarcar Semente',vaultOpened:'Cofre aberto · Semente já retirada',vaultLocked:'Aguarde a ancoragem do Núcleo anterior.',parkVault:'Estacione o Titã a até 35 m do Cofre, desligue o motor e interaja a pé. Os custos saem do compartimento.',
+ vault:'Cofre de Semente',firstVault:'A sobrevivente já retirou a primeira Semente deste Cofre. Fale com ela no Abrigo 07 para assumir a viagem.',sideMissions:'Missões secundárias',buy:'Comprar',inTruck:'no Titã',interference:'Interferência no rádio',openVault:'Liberar e embarcar Semente',vaultOpened:'Cofre aberto · Semente já retirada',vaultLocked:'Aguarde a ancoragem do Núcleo anterior.',parkVault:'Estacione o Titã a até 35 m do Cofre, desligue o motor e interaja a pé. Os custos saem do compartimento.',
  currentSeed:'Semente a bordo',noCargo:'Localize o Cofre indicado no mapa. Cada entrega depende da anterior.',allAnchored:'Sete campos ancorados',allDetail:'A Rede responde pelo continente. Os desfechos e as últimas decisões chegam na Fase 5.',
  accept:'Aceitar missão',defer:'Deixar para depois',complete:'Entregar e concluir',completed:'Missão concluída',missions:'Caderno de missões',reappeared:'Lia chegou à Última Parada com a notícia da primeira chuva.',
  trade:'Suprimentos do abrigo',stock:'Estoque local',rest:'Descansar · 1 comida + 1 água',collect:'Recolher depósito',collected:'Depósito recolhido',

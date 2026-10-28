@@ -1,6 +1,6 @@
 import { BIOMES,CORES,ROUTES,SHELTERS,SIDE_MISSIONS,SUPPLY_CACHES,biomeAt,WORLD_COPY as W } from '../../data/network.js';
 import { OFFERS } from '../../data/expedition.js';
-import { clone,bagWeight,activateCore } from './campaign.js';
+import { bagWeight,activateCore } from './campaign.js';
 import { migrateCampaign } from '../survival/expedition.js';
 import { activationChance } from '../cargo/integrity.js';
 
@@ -8,10 +8,10 @@ export function upgradeCampaign(source){
  const c=migrateCampaign(source),old=c.network;
  c.cores={...Object.fromEntries(CORES.map(k=>[k.id,{state:'inactive',attempts:0}])),...c.cores};
  c.network={clock:0,cargo:null,seeds:Object.fromEntries(CORES.map(k=>[k.id,{obtained:false,integrity:100}])),quests:Object.fromEntries(SIDE_MISSIONS.map(q=>[q.id,'available'])),looted:[],visited:[],routes:{},stocks:Object.fromEntries(SHELTERS.map(s=>[s.id,{diesel:40,water:16,food:12,parts:16}])),...old};
- if(!old){c.network.seeds['core-1']={obtained:c.seed.received,integrity:c.seed.integrity};if(c.seed.received&&c.stage!=='activated')c.network.cargo='core-1';}
+ if(!old){for(const core of Object.values(c.cores))if(core.state!=='inactive'&&core.attempts===0)core.attempts=1;c.network.seeds['core-1']={obtained:c.seed.received,integrity:c.seed.integrity};if(c.seed.received&&c.stage!=='activated')c.network.cargo='core-1';}
  syncFirst(c);syncRestoration(c);return c;
 }
-export function syncFirst(c){if(!c.network)return;c.network.seeds['core-1'].obtained=c.seed.received;if(c.stage!=='activated'&&c.seed.received){c.network.cargo='core-1';c.network.seeds['core-1'].integrity=c.seed.integrity;}else if(c.network.cargo==='core-1')c.network.cargo=null;}
+export function syncFirst(c){if(!c.network)return;c.network.seeds['core-1'].obtained=c.seed.received;if(c.stage!=='activated'&&c.seed.received){c.network.cargo='core-1';c.network.seeds['core-1'].integrity=c.seed.integrity;}else if(c.network.cargo==='core-1'){c.network.seeds['core-1'].integrity=c.seed.integrity;c.network.cargo=null;}}
 export function syncRestoration(c){for(const r of BIOMES)c.restoration[r.id]=r.cores.every(id=>c.cores[id].state==='active');}
 export function nextCore(c){return CORES.find(k=>c.cores[k.id]?.state!=='active')||null;}
 export function hasCargo(c){return c.network?!!c.network.cargo:c.seed.received&&c.stage!=='activated';}
@@ -41,7 +41,7 @@ export function questAction(c,id,action){const q=SIDE_MISSIONS.find(q=>q.id===id
  return false;
 }
 export function networkLoot(c,id){const cache=SUPPLY_CACHES.find(k=>k.id===id);if(!cache||c.network.looted.includes(id)||!transact(c,'player',{},cache.loot))return false;c.network.looted.push(id);return true;}
-export function networkBuy(c,shelter,id){const o=OFFERS[id],stock=c.network.stocks[shelter];if(!o||!stock||stock[id]<o.quantity||!transact(c,'player',{scrap:o.cost},{[id]:o.quantity}))return false;stock[id]-=o.quantity;c.expedition.transactions++;return true;}
+export function networkBuy(c,shelter,id){if(!Object.prototype.hasOwnProperty.call(OFFERS,id))return false;const o=OFFERS[id],stock=c.network.stocks[shelter];if(!o||!stock||stock[id]<o.quantity||!transact(c,'player',{scrap:o.cost},{[id]:o.quantity}))return false;stock[id]-=o.quantity;c.expedition.transactions++;return true;}
 export function weatherAt(c,z){const region=biomeAt(z),restored=restoredAt(c,z),clock=c.network?.clock||0,front=region==='storm'&&clock%120<65&&!restored;
  return {region,restored,event:front?'front':region==='salt'&&!restored?'heat':region==='glass'&&!restored?'crosswind':'calm',front,interference:region==='storm'?(front?.95:restored?.12:.65):region==='glass'?.3:region==='cities'?.18:.08,fog:restored?.55:front?3.8:region==='glass'?1.2:1,grip:restored?1:front?.72:region==='glass'?.78:1};
 }
@@ -52,5 +52,5 @@ export function networkStep(c,state,input,dt){c.network.clock+=dt;const w=weathe
  if(route?.kind==='flood'&&!w.restored&&Math.abs(state.x)<30&&state.speed>6)c.components.engine=Math.max(0,c.components.engine-dt*(state.speed-6)*.04);
  return w;
 }
-export function objective(c){const core=nextCore(c);if(!core)return {title:W.allAnchored,detail:W.allDetail};if(core.number===1)return null;const loaded=c.network.cargo===core.id;return {title:loaded?`Leve a Semente ao Núcleo ${core.number}`:`Obtenha a Semente ${core.number}`,detail:loaded?`${BIOMES.find(r=>r.id===core.region).hint} Destino: km ${(-core.z/1000).toFixed(1)}.`:`Cofre ${core.number}, km ${(-core.vault.z/1000).toFixed(2)}. ${core.vault.task}`};}
-export function radioMessages(c,z){const region=biomeAt(z),messages=[];if(c.flags.renataContact)messages.push(W.radio[region]||W.radio.cities);if(c.network?.quests.relay==='completed')messages.push(W.radio.relay,W.radio.voice);if(c.network?.quests.supply==='completed'&&region==='storm')messages.push(W.reappeared);if(!nextCore(c))messages.push(W.radio.end);return messages;}
+export function objective(c){const core=nextCore(c);if(!core)return {number:7,title:W.allAnchored,detail:W.allDetail};if(core.number===1)return null;const loaded=c.network.cargo===core.id;return {number:core.number,title:loaded?`Leve a Semente ao Núcleo ${core.number}`:`Obtenha a Semente ${core.number}`,detail:loaded?`${BIOMES.find(r=>r.id===core.region).hint} Destino: km ${(-core.z/1000).toFixed(1)}.`:`Cofre ${core.number}, km ${(-core.vault.z/1000).toFixed(2)}. ${core.vault.task}`};}
+export function radioMessages(c,z){const region=biomeAt(z),messages=[];if(c.flags.renataContact&&W.radio[region])messages.push(W.radio[region]);if(c.network?.quests.relay==='completed')messages.push(W.radio.relay,W.radio.voice);if(c.network?.quests.supply==='completed'&&region==='storm')messages.push(W.reappeared);if(!nextCore(c))messages.push(W.radio.end);return messages;}

@@ -12,7 +12,7 @@ export const EXPEDITION={
  ivaniLine:'Você trouxe o primeiro sinal de volta. Eu não posso viver de esperança, Dante. Mas quem chega nesta parada encontra água, diesel e um lugar para respirar. O preço está aí.',
  collect:'Recolher suprimentos',collected:'Suprimentos já recolhidos',lootNote:'A coleta vai para a mochila. Abra Tab ao lado do caminhão para transferir. Espaço limitado: libere peso se necessário.',
  shelter:'Posto e abrigo',salt:'LEITO SECO',ashes:'MAR DE CINZAS',saltDetail:'O fundo do oceano virou sal. Reduza a carga do motor e cuide do radiador.',
- recognized:'Reconheça o Leito Seco',recognizedDetail:'A primeira ancoragem está segura. Siga ao sul, visite o posto de Mãe Ivani e explore a estação. As próximas entregas ficam para a fase seguinte.',
+ recognized:'Reconheça o Leito Seco',recognizedDetail:'A primeira ancoragem está segura. Siga ao sul, visite o posto de Mãe Ivani e explore a estação. Siga o objetivo do HUD para localizar os próximos Cofres.',
  warning:'Água ou comida em baixa. Reponha antes de continuar.',critical:'Reservas corporais esgotadas. A perda de vigor é gradual; comer e beber recupera a viagem.',
  heat:'Calor do Leito Seco · radiador sob pressão',heatWarning:'Temperatura alta. Pare com o motor desligado, use água e repare o radiador.',
  noRoom:'A mochila está cheia ou faltam recursos. Transfira carga para o Titã e confira o custo.',

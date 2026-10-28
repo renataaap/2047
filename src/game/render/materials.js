@@ -15,6 +15,11 @@ export function createMaterials() {
     dark:standard('#32373a'), rubber:standard('#25282a'), glass:standard('#80939c',{roughness:.85,transparent:true,opacity:.18,depthWrite:false}), light:standard('#eee3bd',{emissive:'#d6b17a',emissiveIntensity:.35}),
     salt:standard('#d4cdbc',{map:paintedTexture('#ded8c7',65),vertexColors:true}),steel:standard('#62615a'), ground:standard('#d2c8b5',{map:paintedTexture('#b6a18a',42),vertexColors:true}),
     asphalt:standard('#494b4b',{map:paintedTexture('#555653',20,true)}), stripe:standard('#b1a07c'), rock:standard('#7c7367',{flatShading:true}),
+    cityGround:standard('#7a7975',{map:paintedTexture('#827b70',81),vertexColors:true}),cityRestored:standard('#9da88e',{vertexColors:true}),
+    saltRestored:standard('#bcc2a6',{map:paintedTexture('#c6c5b2',65),vertexColors:true}),
+    glassGround:standard('#7c8490',{map:paintedTexture('#68717b',85),vertexColors:true}),glassRestored:standard('#939f91',{vertexColors:true}),
+    stormGround:standard('#737784',{map:paintedTexture('#686776',88),vertexColors:true}),stormRestored:standard('#9ea890',{vertexColors:true}),
+    leaf:standard('#7e9a5b',{side:THREE.DoubleSide}),water:standard('#657b82',{transparent:true,opacity:.65,depthWrite:false}),
   };
 }
 export function bevelGeometry(w,h,d,b=.08) {
