@@ -1,5 +1,7 @@
 # 2047: Rede Aurora
 
+**0.5.2 — interface narrativa.** [Relatório e testes](RELATORIO_INTERFACE_NARRATIVA.md) · [captura real](evidence/interface/dialogue.png). Falas com avanço/revelação, escolhas por teclado, legendas ajustáveis e painéis contextuais ligados às ações existentes. Assets/gráficos continuam com as pendências da 0.5.1 abaixo.
+
 Para continuar no Claude: [relatório completo](RELATORIO_PARA_CLAUDE.md), [prompt mestre](PROMPT_MESTRE_PARA_CLAUDE.md) e [instruções de texturas](INSTRUCOES_TEXTURAS_PARA_CLAUDE.md). [Kit de documentos](handoff/kit-continuar-claude.zip) (não inclui código ou texturas; o código está neste repositório).
 
 

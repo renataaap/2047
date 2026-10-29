@@ -1,8 +1,10 @@
 # Estado do projeto — 2047: Rede Aurora
 
+Pedido mais recente: reformular diálogos, escolhas e painéis. Entrega 0.5.2 em RELATORIO_INTERFACE_NARRATIVA.md: falas/revelação, escolhas textuais, teclado/foco/som, painel inferior/lateral, escala de legenda persistida, HUD contextual. 88 unitários/build passaram; oito fluxos funcionais e repetições finais de interface/velocidade passaram conforme logs. Não confundir este trabalho de UI com a instalação das texturas Poly Haven, que continua pendente.
+
 Transferência para o Claude solicitada pelo usuário: consultar RELATORIO_PARA_CLAUDE.md, PROMPT_MESTRE_PARA_CLAUDE.md e INSTRUCOES_TEXTURAS_PARA_CLAUDE.md. Esses documentos refletem a base 0.5.1 e distinguem arquivos no Git de anexos não transferidos.
 
-Versão: **0.5.1 — integração parcial de assets; Fase 2 em andamento**. Repositório privado: https://github.com/renataaap/2047.
+Versão: **0.5.2 — interface narrativa; Fase 2 gráfica em andamento**. Repositório privado: https://github.com/renataaap/2047.
 
 
 Em 29/10/2026, o pedido de assets ampliou a Fase 2. Veja **RELATORIO_INTEGRACAO_ASSETS.md**, `docs/INTEGRACAO_ASSETS.md` e `docs/CATALOGO_ASSETS.json` antes de retomar. Foram integrados três GLBs de carros Renafox com PBR próprio, colisões e streaming, sob **CC BY-NC 4.0, para uso não comercial**. Créditos/licença preservados. O exterior do Titã ainda é o modelo anterior. Validação atual: **87 unitários, suíte completa de 14 e2e, repetição final de 5 e2e e build passaram**. A auditoria solicitada pelo usuário está em `docs/AUDITORIA_FASES_2026-10-29.md`: o jogo ainda não tem todas as fases concluídas.

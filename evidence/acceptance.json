@@ -4,18 +4,18 @@
     "resumeMode": "driving",
     "overlay": null,
     "fuel": 4,
-    "temperature": 26,
+    "temperature": 25.953852796205826,
     "engineOn": true,
-    "speed": 0,
-    "signedSpeed": 0.0017469594576794804,
+    "speed": 0.019132834751345924,
+    "signedSpeed": 0.019393480539691713,
     "surface": "asfalto",
     "camera": 0,
     "headlights": false,
     "arrived": false,
     "notice": "",
     "saving": false,
-    "massKg": 8803.33984375,
-    "cargoMassKg": 3.34,
+    "massKg": 8805.740234375,
+    "cargoMassKg": 5.74,
     "rpm": 0,
     "gear": 0,
     "gearLabel": "N",
@@ -29,16 +29,27 @@
     "engineBraking": false,
     "parkingBrake": false,
     "tractionForceN": 0,
-    "resistanceForceN": 1036.329178556497,
+    "resistanceForceN": 1036.613237766967,
     "steeringAngle": 0,
-    "longitudinalAcceleration": 0.003812404586237257,
+    "longitudinalAcceleration": -0.007492617422332006,
     "lateralAcceleration": 0,
-    "lateralSpeed": -6.773374081586307e-9,
+    "lateralSpeed": 5.479583933583847e-10,
     "storm": false,
     "restored": false,
     "region": "ashes",
     "interference": 0.08,
     "radioActive": false,
+    "x": -1.0522539783952567e-10,
+    "z": 4.982916355133057,
+    "front": false,
+    "weatherClock": 1.0333333333333345,
+    "localRestored": false,
+    "powerMultiplier": 1,
+    "gripMultiplier": 1,
+    "loaded": false,
+    "inventoryMass": 2.4,
+    "suspensionCondition": 38,
+    "steeringSensitivity": 1,
     "assets": {
       "textures": 0,
       "estimatedTextureBytes": 0,
@@ -88,39 +99,39 @@
       "animations": []
     },
     "simulation": {
-      "steps": 0,
-      "lastFrameSteps": 0,
-      "droppedSeconds": 0,
+      "steps": 62,
+      "lastFrameSteps": 2,
+      "droppedSeconds": 2.0833000000000013,
       "fixedStep": 0.016666666666666666
     },
     "instruments": {
-      "speed": 0.00628905404764613,
+      "speed": 0.06887820510484532,
       "rpm": 0,
       "fuel": 4,
-      "temperature": 26,
+      "temperature": 25.953852796205826,
       "gear": "N",
       "needleAngles": {
-        "speed": 2.3559475196174198,
+        "speed": 2.3534590320071893,
         "rpm": 2.356194490192345,
-        "fuel": 2.251474735073027,
-        "temperature": 1.539380400261663
+        "fuel": 2.2514747351226414,
+        "temperature": 1.5407962592607674
       }
     },
     "truckVisual": {
       "steeringWheelAngle": 0,
-      "cabPitch": -0.000015249617715389562,
+      "cabPitch": 0.000024554177105503022,
       "cabRoll": 0
     },
     "cameraPose": {
       "position": [
-        11.612226990469395,
-        6.028481793403626,
-        -4.0387444496154785
+        3.734240110652014,
+        6.739155706270154,
+        18.359221702049425
       ],
       "target": [
-        -2.000000003353294,
-        2.4284817934036256,
-        4.4612555503845215
+        7.294593779774789e-9,
+        2.631984392078554,
+        1.9554807899264515
       ],
       "mode": 0,
       "distance": 14,
@@ -130,12 +141,12 @@
     },
     "audio": {
       "state": "running",
-      "firingHz": 28,
+      "firingHz": 14,
+      "expectedFiringHz": 14,
       "shiftsObserved": 0,
       "engineGain": 0
     },
     "objective": null,
-    "loaded": false,
     "weather": {
       "region": "ashes",
       "restored": false,
@@ -147,30 +158,32 @@
     },
     "radioMessages": [],
     "networkVisual": {
-      "entities": 0,
+      "entities": 1,
       "rain": false,
       "cores": {},
       "barriers": {},
       "floods": {},
-      "vaults": {},
+      "vaults": {
+        "core-1": true
+      },
       "liaVisible": false
     },
     "ready": true,
     "position": [
-      0,
-      1.7752975225448608,
-      5
+      -9.740162149052267e-11,
+      1.3186360597610474,
+      4.982614994049072
     ],
     "playerPosition": [
       -3,
       1,
       5
     ],
-    "speedKmh": 0,
-    "fps": 1.6668055671305948,
+    "speedKmh": 0.06887820510484532,
+    "fps": 0.4166840285011873,
     "averageFps": 0,
-    "drawCalls": 137,
-    "triangles": 88048,
+    "drawCalls": 158,
+    "triangles": 102430,
     "sectors": 9,
     "sectorKeys": [
       "0,0",
@@ -184,10 +197,10 @@
       "1,1"
     ],
     "quaternion": [
-      0,
-      0,
-      0,
-      1
+      -0.00857714656740427,
+      -5.15693265867867e-10,
+      4.694689637041449e-10,
+      0.9999632835388184
     ],
     "wheelContacts": [
       true,
@@ -198,12 +211,12 @@
       true
     ],
     "suspension": [
-      0.4626286029815674,
-      0.4626286029815674,
-      0.48534417152404785,
-      0.48534417152404785,
-      0.49369001388549805,
-      0.49369001388549805
+      0.449886679649353,
+      0.449886679649353,
+      0.4767751693725586,
+      0.4767751693725586,
+      0.4866527318954468,
+      0.4866527318954468
     ],
     "input": {
       "throttle": 0,
@@ -306,7 +319,7 @@
       "completedMissions": [],
       "decisions": [],
       "collected": [],
-      "rngState": 828081717,
+      "rngState": 96448255,
       "travelSeconds": 0,
       "checkpoint": 0,
       "expedition": {
@@ -325,7 +338,7 @@
         "transactions": 0
       },
       "network": {
-        "clock": 0,
+        "clock": 1.0333333333333345,
         "cargo": null,
         "seeds": {
           "core-1": {
@@ -406,11 +419,11 @@
     "mode": "driving",
     "resumeMode": "driving",
     "overlay": null,
-    "fuel": 3.936865556912902,
-    "temperature": 44.45993631178808,
+    "fuel": 3.933305187696791,
+    "temperature": 44.91703991581221,
     "engineOn": true,
-    "speed": 11.910446825887965,
-    "signedSpeed": 11.876125249763506,
+    "speed": 12.280421383505429,
+    "signedSpeed": 12.281914902269074,
     "surface": "asfalto",
     "camera": 0,
     "headlights": false,
@@ -419,33 +432,33 @@
     "saving": false,
     "massKg": 8805.740234375,
     "cargoMassKg": 5.74,
-    "rpm": 1919.6882122227958,
-    "gear": 5,
-    "gearLabel": "D5",
-    "shifting": false,
-    "shiftCount": 4,
+    "rpm": 1847.1384597268905,
+    "gear": 6,
+    "gearLabel": "D6",
+    "shifting": true,
+    "shiftCount": 5,
     "throttle": 0.9999999999999996,
     "brake": 0,
-    "torqueNm": 1227.6347281846301,
-    "enginePowerKw": 246.79052488394245,
-    "fuelRateLps": 0.020764330870447743,
+    "torqueNm": 0,
+    "enginePowerKw": 0,
+    "fuelRateLps": 0.00065,
     "engineBraking": false,
     "parkingBrake": false,
-    "tractionForceN": 18879.009603531773,
-    "resistanceForceN": 1598.13660010263,
+    "tractionForceN": 0,
+    "resistanceForceN": 1637.1651231756932,
     "steeringAngle": 0,
-    "longitudinalAcceleration": 2.1769728977449,
+    "longitudinalAcceleration": 1.5823313486328578,
     "lateralAcceleration": 0,
-    "lateralSpeed": -2.0524036180197515e-8,
+    "lateralSpeed": -4.408691947820909e-9,
     "storm": false,
     "restored": false,
     "region": "ashes",
     "interference": 0.08,
     "radioActive": false,
-    "x": 9.257490773961763e-8,
-    "z": -36.17008590698242,
+    "x": 2.0964979796644911e-7,
+    "z": -39.30552673339844,
     "front": false,
-    "weatherClock": 7.09999999999998,
+    "weatherClock": 8.31666666666666,
     "localRestored": false,
     "powerMultiplier": 1,
     "gripMultiplier": 1,
@@ -502,39 +515,39 @@
       "animations": []
     },
     "simulation": {
-      "steps": 426,
-      "lastFrameSteps": 25,
-      "droppedSeconds": 0.7,
+      "steps": 499,
+      "lastFrameSteps": 30,
+      "droppedSeconds": 2.8000999999999983,
       "fixedStep": 0.016666666666666666
     },
     "instruments": {
-      "speed": 42.877608573196675,
-      "rpm": 1919.6882122227958,
-      "fuel": 3.936865556912902,
-      "temperature": 44.45993631178808,
-      "gear": "D5",
+      "speed": 44.20951698061955,
+      "rpm": 1847.1384597268905,
+      "fuel": 3.933305187696791,
+      "temperature": 44.91703991581221,
+      "gear": "D6",
       "needleAngles": {
-        "speed": 0.6764416925032433,
-        "rpm": -1.114280073414652,
-        "fuel": 2.253120396408908,
-        "temperature": 0.96056998364074
+        "speed": 0.624030258744595,
+        "rpm": -0.9903754349700622,
+        "fuel": 2.2532134263235903,
+        "temperature": 0.9463681238723902
       }
     },
     "truckVisual": {
       "steeringWheelAngle": 0,
-      "cabPitch": -0.008730216773292351,
+      "cabPitch": -0.006619265454717402,
       "cabRoll": 0
     },
     "cameraPose": {
       "position": [
-        3.7342401117814954,
-        6.239691439429425,
-        -21.025232799792235
+        3.7342401643460486,
+        6.219404466137671,
+        -23.86883986898932
       ],
       "target": [
-        1.0426809145340165e-7,
-        2.27578778189635,
-        -37.46502908448116
+        2.238148783193907e-7,
+        2.245829032753562,
+        -40.306300943464706
       ],
       "mode": 0,
       "distance": 14,
@@ -544,10 +557,10 @@
     },
     "audio": {
       "state": "running",
-      "firingHz": 95.92962646484375,
-      "expectedFiringHz": 95.9844106111398,
-      "shiftsObserved": 4,
-      "engineGain": 0.125
+      "firingHz": 91.91388702392578,
+      "expectedFiringHz": 92.35692298634453,
+      "shiftsObserved": 5,
+      "engineGain": 0.09703259915113449
     },
     "objective": null,
     "weather": {
@@ -573,18 +586,18 @@
     },
     "ready": true,
     "position": [
-      9.349175655870567e-8,
-      0.8980730772018433,
-      -36.36857223510742
+      2.1177604025979235e-7,
+      0.8669421076774597,
+      -39.51017761230469
     ],
     "playerPosition": [
       -3,
       1,
       5
     ],
-    "speedKmh": 42.877608573196675,
-    "fps": 2.2222222222222223,
-    "averageFps": 2.2263503731616248,
+    "speedKmh": 44.20951698061955,
+    "fps": 1.2245897624295883,
+    "averageFps": 2.389984389544422,
     "drawCalls": 152,
     "triangles": 101784,
     "sectors": 9,
@@ -600,10 +613,10 @@
       "1,1"
     ],
     "quaternion": [
-      -0.006856498774141073,
-      -3.34568417414971e-9,
-      4.944251258409693e-11,
-      0.9999765157699585
+      -0.007305542938411236,
+      -5.357737364874993e-9,
+      2.957005196257967e-10,
+      0.9999734163284302
     ],
     "wheelContacts": [
       true,
@@ -614,12 +627,12 @@
       true
     ],
     "suspension": [
-      0.4590332508087158,
-      0.4590332508087158,
-      0.47432875633239746,
-      0.47432875633239746,
-      0.47983288764953613,
-      0.47983288764953613
+      0.4568746089935303,
+      0.4568746089935303,
+      0.4751698970794678,
+      0.4751698970794678,
+      0.48180365562438965,
+      0.48180365562438965
     ],
     "input": {
       "throttle": 0,
@@ -649,11 +662,11 @@
       "components": {
         "engine": 70,
         "radiator": 35,
-        "tires": 63.995601666667056,
+        "tires": 63.995415000000406,
         "suspension": 38,
-        "transmission": 64.99371666666646,
+        "transmission": 64.99344999999978,
         "tank": 55,
-        "filters": 54.99371666666646,
+        "filters": 54.99344999999978,
         "frame": 70
       },
       "inventory": {
@@ -722,13 +735,13 @@
       "completedMissions": [],
       "decisions": [],
       "collected": [],
-      "rngState": 828081717,
-      "travelSeconds": 6.283333333333316,
+      "rngState": 96448255,
+      "travelSeconds": 6.549999999999982,
       "checkpoint": 0,
       "expedition": {
-        "hydration": 99.8869000000016,
-        "satiety": 99.94344999999812,
-        "fatigue": 0.031416666666666856,
+        "hydration": 99.88210000000167,
+        "satiety": 99.94104999999804,
+        "fatigue": 0.032750000000000154,
         "deprivationSeconds": 0,
         "visited": [],
         "looted": [],
@@ -741,7 +754,7 @@
         "transactions": 0
       },
       "network": {
-        "clock": 7.09999999999998,
+        "clock": 8.31666666666666,
         "cargo": null,
         "seeds": {
           "core-1": {
