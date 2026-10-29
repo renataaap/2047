@@ -70,7 +70,7 @@ export function createTruck(m) {
   const steeringWheel=new THREE.Group();steeringWheel.position.set(-.62,1.51,-2.6);steeringWheel.rotation.x=-.6;cab.add(steeringWheel);
   add(new THREE.TorusGeometry(.26,.025,8,32),m.dark,0,0,0,steeringWheel);add(new THREE.CylinderGeometry(.055,.055,.045,12).rotateX(Math.PI/2),m.steel,0,0,.015,steeringWheel);
   for(let i=0;i<3;i++){const a=i/3*Math.PI*2,spoke=add(bevelGeometry(.23,.025,.025),m.steel,Math.cos(a)*.12,Math.sin(a)*.12,.008,steeringWheel);spoke.rotation.z=a;}
-  cabBox(.65,.2,.7,m.dark,-.62,.75,-1.94);cabBox(.65,.8,.15,m.dark,-.62,1.2,-1.65);
+  cabBox(.65,.2,.7,m.leather,-.62,.75,-1.94);cabBox(.65,.8,.15,m.leather,-.62,1.2,-1.65);
   const lever=add(new THREE.CylinderGeometry(.018,.018,.45,8),m.steel,.08,.92,-2.22,cab);add(new THREE.SphereGeometry(.055,12,8),m.dark,.08,1.16,-2.22,cab);
   cabBox(1.5,.49,.06,m.dark,-.35,1.43,-3.005);
   const instruments=createInstruments();cab.add(instruments.group);

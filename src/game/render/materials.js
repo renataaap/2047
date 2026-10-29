@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { randomSeed } from '../world/terrain.js';
+import { metricUV } from './metricUV.js';
 export function paintedTexture(base, seed=2047, asphalt=false) {
   const c=document.createElement('canvas'); c.width=c.height=256;
   const ctx=c.getContext('2d'); ctx.fillStyle=base; ctx.fillRect(0,0,256,256);
@@ -20,10 +21,12 @@ export function createMaterials() {
     glassGround:standard('#7c8490',{map:paintedTexture('#68717b',85),vertexColors:true}),glassRestored:standard('#939f91',{vertexColors:true}),
     stormGround:standard('#737784',{map:paintedTexture('#686776',88),vertexColors:true}),stormRestored:standard('#9ea890',{vertexColors:true}),
     leaf:standard('#7e9a5b',{side:THREE.DoubleSide}),water:standard('#657b82',{transparent:true,opacity:.65,depthWrite:false}),
+    shoulder:standard('#8f8473'),roof:standard('#696760',{metalness:.3}),concrete:standard('#8c887f'),brick:standard('#7d6856'),
+    garage:standard('#76756b'),shutter:standard('#696c66',{metalness:.25}),container:standard('#6b7777',{metalness:.3}),wood:standard('#72685b'),leather:standard('#493d32'),
   };
 }
 export function bevelGeometry(w,h,d,b=.08) {
   b=Math.min(b,w*.22,h*.22,d*.4);
   const s=new THREE.Shape();s.moveTo(-w/2+b,-h/2);s.lineTo(w/2-b,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+b);s.lineTo(w/2,h/2-b);s.quadraticCurveTo(w/2,h/2,w/2-b,h/2);s.lineTo(-w/2+b,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-b);s.lineTo(-w/2,-h/2+b);s.quadraticCurveTo(-w/2,-h/2,-w/2+b,-h/2);
-  const g=new THREE.ExtrudeGeometry(s,{depth:d,steps:1,bevelEnabled:true,bevelSegments:1,bevelSize:b*.3,bevelThickness:b*.3,curveSegments:2});g.translate(0,0,-d/2);return g;
+  const g=new THREE.ExtrudeGeometry(s,{depth:d,steps:1,bevelEnabled:true,bevelSegments:1,bevelSize:b*.3,bevelThickness:b*.3,curveSegments:2});g.translate(0,0,-d/2);return metricUV(g);
 }

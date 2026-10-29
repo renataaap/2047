@@ -6,6 +6,9 @@ import { bevelGeometry } from '../render/materials.js';
 import { BIOMES,ROUTES } from '../../data/network.js';
 import { restoredAt } from '../missions/network.js';
 import { mergeStatic } from '../render/mergeStatic.js';
+import { groundUV } from '../render/metricUV.js';
+import { roadRibbon } from './roadGeometry.js';
+import { terrainGeometry } from './terrainGeometry.js';
 export class World {
   constructor(scene,physics,materials) {
     this.scene=scene;this.physics=physics;this.m=materials;this.sectors=new Map();this.queue=[];this.disposed=false;
@@ -28,30 +31,27 @@ export class World {
   buildSector(cx,cz) {
     const size=CONFIG.world.sectorSize,n=CONFIG.world.terrainSegments;
     const group=new THREE.Group();this.scene.add(group);const bodies=[];const owned=[];
-    const g=new THREE.PlaneGeometry(size,size,n,n);g.rotateX(-Math.PI/2);
+    const g=terrainGeometry(cx,cz);
     const a=g.attributes.position, colors=new Float32Array(a.count*3),col=new THREE.Color();
-    for(let i=0;i<a.count;i++){const x=a.getX(i)+cx*size,z=a.getZ(i)+cz*size,y=heightAt(x,z);a.setXYZ(i,x,y,z);const t=.84+Math.sin(x*.1+z*.12)*.04;col.setRGB(t,t*.98,t*.94);col.toArray(colors,i*3);}
-    g.setAttribute('color',new THREE.BufferAttribute(colors,3));g.computeVertexNormals();g.computeBoundingSphere();owned.push(g);
+    for(let i=0;i<a.count;i++){const x=a.getX(i),z=a.getZ(i);const t=.84+Math.sin(x*.1+z*.12)*.04;col.setRGB(t,t*.98,t*.94);col.toArray(colors,i*3);}
+    g.setAttribute('color',new THREE.BufferAttribute(colors,3));groundUV(g);g.computeVertexNormals();g.computeBoundingSphere();owned.push(g);
     this.terrainGroups(g);const terrain=new THREE.Mesh(g,this.terrainMaterials);terrain.receiveShadow=true;group.add(terrain);
     this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(a.array),new Uint32Array(g.index.array)).setFriction(.8),bodies);
     const low=cz*size-size/2, high=cz*size+size/2;
     const start=Math.max(-CONFIG.world.roadLength,low),end=Math.min(80,high);
     if(start<end && Math.abs(cx*size)<size/2+60) {
-      const positions=[],indices=[];const steps=Math.ceil((end-start)/4);
-      for(let i=0;i<=steps;i++){const z=start+(end-start)*i/steps,x=roadX(z);for(const s of [-1,1])positions.push(x+s*roadHalfWidth(z),roadHeight(z)+.09,z);if(i<steps){const j=i*2;indices.push(j,j+2,j+1,j+1,j+2,j+3);}}
-      const road=new THREE.BufferGeometry();road.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));road.setIndex(indices);road.computeVertexNormals();
-      // Coordonnées de texture répétées le long de la chaussée.
-      const uv=[];for(let i=0;i<=steps;i++)uv.push(0,i/3,1,i/3);road.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));
+      const road=roadRibbon({start,end,center:roadX,width:roadHalfWidth,sectorX:cx});
       const mesh=new THREE.Mesh(road,this.m.asphalt);mesh.receiveShadow=true;group.add(mesh);owned.push(road);
-      this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(positions),new Uint32Array(indices)).setFriction(1),bodies);
+      this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(road.attributes.position.array),new Uint32Array(road.index.array)).setFriction(1),bodies);
+      if(end>-3200)for(const side of [-1,1]){const shoulder=roadRibbon({start:Math.max(start,-3200),end,center:roadX,width:roadHalfWidth,side,sectorX:cx});const m=new THREE.Mesh(shoulder,this.m.shoulder);m.receiveShadow=true;group.add(m);owned.push(shoulder);this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(shoulder.attributes.position.array),new Uint32Array(shoulder.index.array)).setFriction(.72),bodies);}
       const count=Math.floor((end-start)/12);if(count>0){const stripes=new THREE.InstancedMesh(this.stripeGeometry,this.m.stripe,count);const dummy=new THREE.Object3D();for(let i=0;i<count;i++){const z=start+i*12+6;dummy.position.set(roadX(z),roadHeight(z)+.115,z);dummy.rotation.y=Math.atan2(roadX(z+1)-roadX(z-1),2);dummy.updateMatrix();stripes.setMatrixAt(i,dummy.matrix);}group.add(stripes);}
     }
     const ds=Math.max(-1750,low),de=Math.min(-650,high);
-    if(ds<de){const positions=[],indices=[];let row=0;for(let z=ds;z<=de+.1;z+=4){const x=detourX(z);if(Math.round(x/size)!==cx)continue;for(const side of [-1,1])positions.push(x+side*5,roadHeight(z)+.18,z);if(row){const j=(row-1)*2;indices.push(j,j+2,j+1,j+1,j+2,j+3);}row++;}if(indices.length){const road=new THREE.BufferGeometry();road.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));road.setIndex(indices);const uv=[];for(let i=0;i<row;i++)uv.push(0,i/3,1,i/3);road.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));road.computeVertexNormals();const mesh=new THREE.Mesh(road,this.m.asphalt);mesh.receiveShadow=true;group.add(mesh);owned.push(road);this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(positions),new Uint32Array(indices)).setFriction(1),bodies);}}
+    if(ds<de){const positions=[],indices=[];let row=0;for(let z=ds;z<=de+.1;z+=4){const x=detourX(z);if(Math.round(x/size)!==cx)continue;for(const side of [-1,1])positions.push(x+side*5,roadHeight(z)+.18,z);if(row){const j=(row-1)*2;indices.push(j,j+2,j+1,j+1,j+2,j+3);}row++;}if(indices.length){const road=new THREE.BufferGeometry();road.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));road.setIndex(indices);const uv=[];for(let i=0;i<row;i++)uv.push(0,ds+i*4,10,ds+i*4);road.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));road.computeVertexNormals();const mesh=new THREE.Mesh(road,this.m.asphalt);mesh.receiveShadow=true;group.add(mesh);owned.push(road);this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(positions),new Uint32Array(indices)).setFriction(1),bodies);}}
     for(const route of ROUTES){const rs=Math.max(-route.end,low),re=Math.min(-route.start,high);if(rs>=re)continue;
       const positions=[],indices=[],steps=Math.ceil((re-rs)/4);let row=0;
       for(let i=0;i<=steps;i++){const z=rs+(re-rs)*i/steps,x=networkDetourX(z);if(Math.round(x/size)!==cx)continue;for(const side of [-1,1])positions.push(x+side*5,roadHeight(z)+.18,z);if(row){const j=(row-1)*2;indices.push(j,j+2,j+1,j+1,j+2,j+3);}row++;}
-      if(indices.length){const road=new THREE.BufferGeometry();road.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));road.setIndex(indices);const uv=[];for(let i=0;i<row;i++)uv.push(0,i/3,1,i/3);road.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));road.computeVertexNormals();const mesh=new THREE.Mesh(road,this.m.asphalt);mesh.receiveShadow=true;group.add(mesh);owned.push(road);this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(positions),new Uint32Array(indices)).setFriction(1),bodies);}
+      if(indices.length){const road=new THREE.BufferGeometry();road.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));road.setIndex(indices);const uv=[];for(let i=0;i<row;i++)uv.push(0,rs+i*4,10,rs+i*4);road.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));road.computeVertexNormals();const mesh=new THREE.Mesh(road,this.m.asphalt);mesh.receiveShadow=true;group.add(mesh);owned.push(road);this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(positions),new Uint32Array(indices)).setFriction(1),bodies);}
     }
     const r=randomSeed(CONFIG.seed+cx*7387+cz*19349),count=32;
     const rocks=new THREE.InstancedMesh(this.rockGeometry,this.rockMaterial,count);rocks.castShadow=true;rocks.receiveShadow=true;
@@ -81,8 +81,9 @@ export class World {
     const block=(w,h,d,mat,x,y,z,collision=false)=>{const mesh=add(bevelGeometry(w,h,d),mat,x,y,z);if(collision)this.collider(RAPIER.ColliderDesc.cuboid(w/2,h/2,d/2).setTranslation(x,y,z),this.landmarkBodies);return mesh;};
     // Abrigo aberto, ao lado da estrada. Pórtico, chapa e toldo.
     const sy=heightAt(-22,8);
+    block(10.8,.08,11,this.m.garage,-22.5,sy+.04,7.5,true);
     for(const x of [-28,-17])for(const z of [2,13])block(.22,5,.22,this.m.rust,x,sy+2.5,z,true);
-    const roof=block(12,.18,14,this.m.steel,-22.5,sy+5.1,7.5);roof.rotation.z=.06;
+    const roof=block(12,.18,14,this.m.roof,-22.5,sy+5.1,7.5);roof.rotation.z=.06;
     block(11,4.1,.18,this.m.rust,-22.5,sy+2.2,14,true);
     for(let i=0;i<16;i++)block(.08,4.1,.08,this.m.steel,-27.5+i*.67,sy+2.2,13.85);
     block(1.8,1.3,2.6,this.m.dark,-25,sy+.7,10,true);
