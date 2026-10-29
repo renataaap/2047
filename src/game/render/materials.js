@@ -21,7 +21,7 @@ export function createMaterials() {
     glassGround:standard('#7c8490',{map:paintedTexture('#68717b',85),vertexColors:true}),glassRestored:standard('#939f91',{vertexColors:true}),
     stormGround:standard('#737784',{map:paintedTexture('#686776',88),vertexColors:true}),stormRestored:standard('#9ea890',{vertexColors:true}),
     leaf:standard('#7e9a5b',{side:THREE.DoubleSide}),water:standard('#657b82',{transparent:true,opacity:.65,depthWrite:false}),
-    shoulder:standard('#8f8473'),roof:standard('#696760',{metalness:.3}),concrete:standard('#8c887f'),brick:standard('#7d6856'),
+    weatheredMetal:standard('#777167',{metalness:.25}),shoulder:standard('#8f8473'),roof:standard('#696760',{metalness:.3}),concrete:standard('#8c887f'),brick:standard('#7d6856'),
     garage:standard('#76756b'),shutter:standard('#696c66',{metalness:.25}),container:standard('#6b7777',{metalness:.3}),wood:standard('#72685b'),leather:standard('#493d32'),
   };
 }

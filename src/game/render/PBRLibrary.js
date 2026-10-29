@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { applyTerrainBlend } from './TerrainBlend.js';
 
 export const MATERIAL_ROLES = {
- asphalt: ['road_damaged_2','asphalt_pit_lane','asphalt_02'], shoulder: ['gravel_road'], ground: ['dirt','mud_cracked_dry_03'],
+ weatheredMetal:['rust_coarse_01'], asphalt: ['road_damaged_2','asphalt_pit_lane','asphalt_02'], shoulder: ['gravel_road'], ground: ['dirt','mud_cracked_dry_03'],
  rock: ['rocky_terrain_03'], rust: ['rusty_metal_05','rust_coarse_01'], roof: ['corrugated_iron'],
  concrete: ['cracked_concrete_02','damaged_concrete_floor_02'], brick: ['broken_brick_wall'],
  garage: ['garage_floor','damaged_concrete_floor_02'], shutter: ['painted_metal_shutter'], container: ['container_side'],
@@ -22,7 +22,7 @@ export class PBRLibrary {
  const tile = entry.tileMeters?.length === 2 && entry.tileMeters.every(n => Number.isFinite(n) && n > 0) ? entry.tileMeters : [2,2];
  const maps = {};
  for (const [kind, file] of Object.entries(entry.maps)) {
- if (kind === 'displacement') continue; // Height stays in preparation until visual + physical mesh use it together.
+ if (kind === 'displacement' || entry.maps.arm && ['roughness','ao','metalness'].includes(kind)) continue; // Height stays in preparation until visual + physical mesh use it together.
  maps[kind] = await this.assets.texture(file.variants?.[this.quality]?.url || file.url, { color: kind === 'color', tileMeters: tile });
  }
  return { ...maps, tileMeters: tile };

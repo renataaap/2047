@@ -1,154 +1,46 @@
-import { mkdir, writeFile, readFile } from 'node:fs/promises';
-import { join, dirname } from 'node:path';
+#!/usr/bin/env node
+// Revised from the user's kit: official URLs, checksums, atomic writes and honest status.
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { atomicJSON, installAsset, validateInstalled, USER_AGENT } from './lib/polyhaven.mjs';
+import { prepareMaterial } from './lib/prepare-textures.mjs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = join(__dirname, '..');
-const OUT = join(ROOT, 'public', 'assets', 'polyhaven');
-const API = 'https://api.polyhaven.com';
-const APP_ID = '2047-rede-aurora';
-
-const args = process.argv.slice(2);
-let resolution = '2k';
-let ids = [];
-let all = false;
-let refresh = false;
-
-for (let i = 0; i < args.length; i++) {
-  if (args[i] === '--resolution' && args[i + 1]) resolution = args[++i];
-  else if (args[i] === '--ids' && args[i + 1]) ids = args[++i].split(',').map(s => s.trim());
-  else if (args[i] === '--all') all = true;
-  else if (args[i] === '--refresh') refresh = true;
-}
-
-const PRIORITY = ['road_damaged_2', 'gravel_road', 'mud_cracked_dry_03', 'dirt', 'rocky_terrain_03', 'rusty_metal_05', 'rust_coarse_01', 'corrugated_iron'];
-const COMPLEMENTARY = ['asphalt_02', 'asphalt_pit_lane', 'cracked_concrete_02', 'damaged_concrete_floor_02', 'broken_brick_wall', 'rebar_reinforced_concrete', 'painted_metal_shutter', 'container_side', 'garage_floor', 'wood_peeling_paint_weathered', 'worn_planks', 'brown_leather', 'withered_grass', 'sparse_grass', 'leafy_grass', 'sand_01'];
-
-if (!ids.length && !all) ids = PRIORITY;
-if (all) ids = [...PRIORITY, ...COMPLEMENTARY];
-
-const MAP_TYPES = ['Diffuse', 'nor_gl', 'Rough', 'AO', 'arm', 'Displacement'];
-const MAP_ALIASES = { Diffuse: 'diff', nor_gl: 'nor_gl', Rough: 'rough', AO: 'ao', arm: 'arm', Displacement: 'disp' };
-
-async function fetchJSON(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': APP_ID } });
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-  return res.json();
-}
-
-async function downloadFile(url, dest) {
-  const res = await fetch(url, { headers: { 'User-Agent': APP_ID } });
-  if (!res.ok) throw new Error(`HTTP ${res.status} downloading ${url}`);
-  const buf = Buffer.from(await res.arrayBuffer());
-  await mkdir(dirname(dest), { recursive: true });
-  await writeFile(dest, buf);
-  return buf.length;
-}
-
-async function processMaterial(id) {
-  const dir = join(OUT, id);
-  const instalacaoPath = join(dir, 'instalacao.json');
-
-  let existing = null;
-  try { existing = JSON.parse(await readFile(instalacaoPath, 'utf8')); } catch {}
-  if (existing && existing.resolution === resolution && !refresh) {
-    console.log(`  [skip] ${id} — already installed at ${resolution}`);
-    return existing;
-  }
-
-  console.log(`  [info] ${id} — fetching metadata...`);
-  let info;
-  try { info = await fetchJSON(`${API}/info/${id}`); } catch (e) {
-    console.error(`  [fail] ${id} — info: ${e.message}`);
-    return null;
-  }
-
-  let files;
-  try { files = await fetchJSON(`${API}/files/${id}`); } catch (e) {
-    console.error(`  [fail] ${id} — files: ${e.message}`);
-    return null;
-  }
-
-  const maps = {};
-  const errors = [];
-
-  for (const apiKey of MAP_TYPES) {
-    const alias = MAP_ALIASES[apiKey] || apiKey;
-    const fileEntry = files[apiKey]?.[resolution];
-    if (!fileEntry) continue;
-
-    const ext = fileEntry.png ? 'png' : fileEntry.jpg ? 'jpg' : null;
-    if (!ext) continue;
-
-    const url = fileEntry.png?.url || fileEntry.jpg?.url;
-    if (!url) continue;
-
-    const filename = `${id}_${alias}_${resolution}.${ext}`;
-    const dest = join(dir, filename);
-
-    try {
-      const size = await downloadFile(url, dest);
-      maps[alias] = { file: filename, size, url };
-      console.log(`  [ok]   ${id}/${filename} (${(size / 1024).toFixed(0)} KB)`);
-    } catch (e) {
-      errors.push(`${alias}: ${e.message}`);
-      console.error(`  [fail] ${id}/${filename}: ${e.message}`);
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const args = process.argv.slice(2), arg = (name, fallback) => args.find(a => a.startsWith(`--${name}=`))?.slice(name.length + 3) ?? fallback;
+const resolution = arg('resolution', '2k');
+if (!['1k','2k','4k'].includes(resolution)) throw new Error('Resolução permitida: 1k, 2k ou 4k');
+const catalog = JSON.parse(await fs.readFile(path.join(root, 'materiais_2047.json'), 'utf8'));
+const group = arg('group', ''), explicit = arg('ids', '');
+const known = new Set([...catalog.existing_polyhaven, ...catalog.missing.map(a => a.id)]);
+const ids = [...new Set(explicit ? explicit.split(',') : args.includes('--all') ? [...known] : catalog.missing.filter(a => !group || a.group === group).map(a => a.id))];
+if (!ids.length || ids.some(id => !known.has(id))) throw new Error('Seleção de materiais vazia ou com ID fora do catálogo');
+const target = path.resolve(arg('dest', path.join(root, 'public/assets/polyhaven')));
+await fs.mkdir(target, { recursive: true });
+const old = JSON.parse(await fs.readFile(path.join(target, 'manifest.json'), 'utf8').catch(() => '{"assets":{}}'));
+const assets = { ...old.assets }, results = [], startedAt = new Date().toISOString();
+let blocked = null;
+console.log(`${USER_AGENT}\nDestino: ${target}\nSeleção: ${ids.length} materiais / até ${resolution}`);
+for (const id of ids) {
+  try {
+    if (!args.includes('--refresh') && assets[id]?.resolution === resolution && await validateInstalled(assets[id], target)) {
+      console.log(`[${id}] cache validado (SHA-256)`); results.push({ id, status: 'cached' }); continue;
     }
+    if (blocked) { results.push({ id, status: 'not-attempted', error: blocked }); continue; }
+    console.log(`[${id}] consultando /info e /files…`);
+    const entry = await installAsset(id, { target, resolution, height: args.includes('--height'), onMap: m => console.log(`  ${m.cached ? 'mantido' : 'baixado'} ${m.kind}: ${m.width}×${m.height}, ${m.bytes} bytes`) });
+    await prepareMaterial(entry, target);
+    await atomicJSON(path.join(target, id, 'material.json'), entry);
+    assets[id] = entry; results.push({ id, status: 'installed', maps: Object.keys(entry.maps) });
+  } catch (error) {
+    const reason = [error.message, error.cause?.message].filter(Boolean).join(' / ');
+    console.error(`[${id}] FALHA: ${reason}`); results.push({ id, status: 'failed', error: reason });
+    if (!await validateInstalled(assets[id], target)) delete assets[id]; // Keep only a previously verified usable version.
+    if (error.status === 403 || /403|proxy|ENETUNREACH/.test(reason) || args.includes('--fail-fast')) blocked = reason;
   }
-
-  const result = {
-    id,
-    resolution,
-    category: info.categories?.[0] || 'unknown',
-    dimensions: info.dimensions || null,
-    maps,
-    errors,
-    downloadedAt: new Date().toISOString(),
-  };
-
-  await writeFile(instalacaoPath, JSON.stringify(result, null, 2));
-  return result;
 }
-
-async function main() {
-  console.log(`Poly Haven downloader — ${ids.length} materials at ${resolution}`);
-  console.log(`Output: ${OUT}\n`);
-
-  await mkdir(OUT, { recursive: true });
-
-  const results = [];
-  for (const id of ids) {
-    const r = await processMaterial(id);
-    if (r) results.push(r);
-  }
-
-  const manifest = {
-    generatedAt: new Date().toISOString(),
-    resolution,
-    materials: Object.fromEntries(results.map(r => [r.id, {
-      category: r.category,
-      dimensions: r.dimensions,
-      maps: Object.fromEntries(Object.entries(r.maps).map(([k, v]) => [k, v.file])),
-    }])),
-  };
-
-  const manifestPath = join(OUT, 'manifest.json');
-  await writeFile(manifestPath, JSON.stringify(manifest, null, 2));
-
-  const instalacao = {
-    generatedAt: new Date().toISOString(),
-    resolution,
-    total: ids.length,
-    installed: results.length,
-    failed: ids.length - results.length,
-    materials: results.map(r => ({ id: r.id, maps: Object.keys(r.maps).length, errors: r.errors.length })),
-  };
-
-  const instalacaoPath = join(OUT, 'instalacao.json');
-  await writeFile(instalacaoPath, JSON.stringify(instalacao, null, 2));
-
-  console.log(`\nDone: ${results.length}/${ids.length} installed. Manifest: ${manifestPath}`);
-  if (instalacao.failed > 0) console.log(`Failed: ${ids.filter(id => !results.find(r => r.id === id)).join(', ')}`);
-}
-
-main().catch(e => { console.error(e); process.exit(1); });
+await atomicJSON(path.join(target, 'manifest.json'), { schemaVersion: 1, attribution: 'Powered by Poly Haven', source: 'https://polyhaven.com', assets });
+await atomicJSON(path.join(target, 'instalacao.json'), { startedAt, completedAt: new Date().toISOString(), resolution, requested: ids, results, installed: Object.keys(assets).length });
+const failures = results.filter(r => ['failed','not-attempted'].includes(r.status));
+console.log(`Materiais disponíveis e validados: ${Object.keys(assets).length}. Falhas/pendências nesta execução: ${failures.length}.`);
+if (failures.length) process.exitCode = 1;
