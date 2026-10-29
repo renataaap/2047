@@ -30,6 +30,7 @@ export class TutorialController {
   if(kind==='action'&&payload.type==='loot'&&payload.poi==='depot')this.mark('poi');
  }
  update(s,dt){
+  this.completionSeconds=Math.max(0,(this.completionSeconds||0)-dt);
   if(!this.active){this.previous=null;return;}
   const t=this.data,prev=this.previous,driving=s.mode==='driving';
   if(prev){
@@ -53,10 +54,10 @@ export class TutorialController {
   const conditions={walk:t.walked>=3,look:has('look'),inspect:has('tools')&&has('logbook'),enter:has('enter'),cab:has('cab'),engine:has('engine'),accelerate:has('accelerate'),brake:has('brake'),turn:has('turn'),reverse:has('reverse'),park:has('park'),engineOff:has('engineOff'),exit:has('exit')&&has('maintenancePanel'),maintenance:has('repair')||has('maintenancePanel')&&Object.values(c.components).every(n=>n===100),mission:c.seed.received,inventory:has('inventory'),map:!!c.flags.plannedRoute,travel:c.seed.received&&c.flags.stormEncountered&&!!c.flags.chosenRoute,poi:has('poi')||c.expedition.looted.includes('depot'),generator:!!c.road.generator,delivery:c.cores['core-1'].state==='active'};
   // Consecutive facts may complete together; never manufacture an event or skip a missing fact.
   while(t.completed.length<STEPS.length&&conditions[STEPS[t.completed.length].id])t.completed.push(STEPS[t.completed.length].id);
-  if(t.completed.length===STEPS.length)t.status='completed';
+  if(t.completed.length===STEPS.length){t.status='completed';this.completionSeconds=6;}
   this.previous={...s,position:{...s.position},player:{...s.player}};
  }
  skip(){if(this.active)this.data.status='skipped';}
  repeat(){this.campaign.tutorial=createTutorial();this.previous=null;this.parkingSeconds=0;}
- snapshot(){const t=this.data;if(!t)return {status:'legacy'};const step=STEPS[t.completed.length];return {...t,step:step||null,total:STEPS.length,chapter:'CAPÍTULO 01 — O ÚLTIMO MOTOR'};}
+ snapshot(){const t=this.data;if(!t)return {status:'legacy'};const step=STEPS[t.completed.length];return {...t,step:step||null,total:STEPS.length,celebration:(this.completionSeconds||0)>0,chapter:'CAPÍTULO 01 — O ÚLTIMO MOTOR'};}
 }

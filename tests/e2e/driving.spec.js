@@ -1,8 +1,9 @@
+import {enterFromNewTutorial} from '../helpers/start-driving.js';
 import { test,expect } from '@playwright/test';
 import { mkdir,writeFile } from 'node:fs/promises';
 const dir='evidence/reformulation-1';
 const state=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
-async function start(page){await page.setViewportSize({width:1280,height:720});await page.addInitScript(()=>{if(!localStorage.getItem('aurora-settings'))localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:.2,subtitles:true}));});await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');}
+async function start(page){await page.setViewportSize({width:1280,height:720});await page.addInitScript(()=>{if(!localStorage.getItem('aurora-settings'))localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:.2,subtitles:true}));});await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await enterFromNewTutorial(page);await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');}
 test('condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura',async({page})=>{
  test.setTimeout(120000);await mkdir(dir,{recursive:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});await start(page);
  expect((await state(page)).engineOn).toBe(false);expect((await state(page)).gearLabel).toBe('N');await page.keyboard.down('KeyW');await page.waitForTimeout(500);await page.keyboard.up('KeyW');expect((await state(page)).tractionForceN).toBe(0);expect((await state(page)).rpm).toBe(0);

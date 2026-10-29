@@ -16,7 +16,7 @@ import { EXPEDITION as E,POIS,OFFERS } from '../../data/expedition.js';
 export default function MissionPanel({type,state,game,onClose:requestClose,onLoaded,fromMenu=false}){
  const ref=useRef();const [slots,setSlots]=useState([]),[busy,setBusy]=useState(false),[error,setError]=useState('');const c=state.campaign;
  const {close:onClose,closing}=usePanelNavigation(ref,requestClose,type,game?.settings?.volume||0);
- const narrative=type==='inspection'||type==='dialogue'||type==='radio'||type==='network'||type==='poi';
+ const narrative=type==='road'&&ROAD_POINTS.find(p=>p.id===state.roadPoint)?.kind==='tech'||type==='inspection'||type==='dialogue'||type==='radio'||type==='network'||type==='poi';
  useEffect(()=>{if(type==='saves')game.saves.list().then(setSlots).catch(e=>setError(e.message));},[type,game]);
  const perform=async fn=>{setBusy(true);setError('');try{await fn();setSlots(await game.saves.list());}catch(e){setError(e.message);}finally{setBusy(false);}};
  const title={inspection:TRAINING.objects.find(o=>o.id===state.inspection)?.title,dialogue:T.survivor,radio:T.radioTitle,map:T.map,inventory:T.inventory,maintenance:T.maintenance,core:T.mechanism,saves:T.saveTitle,expedition:E.title,poi:POIS.find(p=>p.id===state.poi)?.name,network:NETWORK_POINTS.find(p=>p.id===state.networkPoint)?.name,road:(()=>{const k=ROAD_POINTS.find(p=>p.id===state.roadPoint);return k?.kind==='tech'?RC.title.tech:k?.name;})(),journal:W.missions}[type];

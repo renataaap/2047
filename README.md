@@ -1,5 +1,11 @@
 # 2047: Rede Aurora
 
+**0.6.0 — Capítulo 01: O Último Motor.** Nova partida começa a pé no barracão, com tutorial opcional persistente. Titã inicial importado e seis rodas físicas, garagem/posto/barris reais e oito materiais Poly Haven locais, preparados por perfil gráfico. [Relatório, estados e limites](RELATORIO_TUTORIAL_ASSETS.md) · [diagnóstico de integração](docs/DIAGNOSTICO_TUTORIAL_ASSETS.md).
+
+Repositório oficial deste pedido: https://github.com/Da-Hora-stack/2047. A branch `feat/tutorial-assets` preserva a Estrada Viva e a interface 0.5.2. No Windows: `npm ci`, `npm run dev` e http://localhost:3000, ou INICIAR_JOGO.bat. O tutorial pode ser pulado e repetido pela pausa; saves anteriores continuam sem ativação automática.
+
+Os demais caminhões estão preparados, com rig/uso dirigível pendentes; o cockpit ainda é provisório. NPCs Fab continuam aguardando licença. Relatórios abaixo descrevem versões anteriores, incluindo a época em que a cópia local não continha as texturas agora encontradas no repositório oficial.
+
 Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Versão atual: **0.5.0 — Fase 1 da reformulação realista: condução**. O mundo, a sobrevivência e a Rede com sete Núcleos da versão 0.4 foram preservados.
 
 ## Condução 0.5.0

@@ -1,5 +1,9 @@
 # Estado do projeto — 2047: Rede Aurora
 
+**Estado atual: 0.6.0 — tutorial e assets locais**, em `feat/tutorial-assets`, partindo de `Da-Hora-stack/2047` (`a8a8802`). Consultar RELATORIO_TUTORIAL_ASSETS.md e docs/DIAGNOSTICO_TUTORIAL_ASSETS.md. Há 21 objetivos ligados à simulação, início a pé, skip/repetição, save opcional validado em schema 3, Titã inicial importado, garagem com portas abertas, posto/barris e oito PBR reais otimizados. Estrada Viva, interface 0.5.2, falas e campanha preservadas. Os quatro caminhões adicionais são preparados, ainda sem rig dirigível; NPCs Fab e atualização textual seguem pendentes. 113 unitários e build passaram; 18 cenários e2e foram verificados entre a execução integral e repetições focadas, conforme o relatório.
+
+**As afirmações históricas abaixo sobre zero materiais e repositório renataaap descrevem a cópia antiga.** O repositório oficial fornecido agora contém oito materiais; não foram baixados novamente. A conta conectada tem acesso de escrita ao novo repositório.
+
 Versão: **0.5.0 — Fase 1 da reformulação realista**. Repositório privado: https://github.com/renataaap/2047.
 
 A versão 0.4.0 encerrou as quatro fases do roteiro original. Em 29/10/2026, o usuário substituiu a direção estilizada por realismo e pediu começar a **Fase 1 de um novo roteiro**. A antiga Fase 5 narrativa não foi iniciada.

@@ -1,0 +1,70 @@
+[WebServer] (node:28999) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:29012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:29024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:29042) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais (36.4s)
+  ✘  2 tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade (52.0s)
+(node:29235) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  3 tests/e2e/exit.spec.js:5:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos (22.7s)
+ACEITE {"speedKmh":46.07752931243235,"fuelBefore":4,"fuelAfter":3.9268312983312357,"averageFps":0.4201667708264384,"drawCalls":90,"triangles":226416,"consoleErrors":[]}
+  ✓  4 tests/e2e/game.spec.js:5:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento (1.4m)
+  ✓  5 tests/e2e/game.spec.js:31:1 › setores se renovam até as cidades e o objetivo mantém a primeira Semente (41.4s)
+[WebServer] (node:29538) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:29548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:29557) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:29568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:29577) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  6 tests/e2e/phase2.spec.js:17:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga (1.1m)
+  ✓  7 tests/e2e/tutorial-assets.spec.js:9:1 › arquivos reais: oito PBR, garagem com interior e Titã com seis rodas (36.9s)
+
+
+  1) tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      30 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:-18,z:-160}));await page.keyboard.press('KeyE');await page.keyboard.down('KeyW');const samples=[];await expect.poll(async()=>{const sample=await snapshot(page);samples.push(sample);return Math.max(...samples.map(s=>s.speedKmh))>8&&sample.position[2]<-172&&sample.speedKmh<5;},{timeout:60000,intervals:[500]}).toBe(true);await page.keyboard.up('KeyW');
+      31 |  const collided=await snapshot(page);expect(Math.max(...samples.map(s=>s.speedKmh))).toBeGreaterThan(2);expect(collided.position[2]).toBeLessThan(-162);expect(collided.position[2]).toBeGreaterThan(-177);expect(collided.speedKmh).toBeLessThan(5);
+    > 32 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:0,z:-7000}));await expect.poll(async()=>(await snapshot(page)).environmentModels.loaded).toBe(0);await expect.poll(async()=>(await snapshot(page)).assets.modelSources).toBe(0);
+         |                                                                                                                                                                                                                                    ^
+      33 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:0,z:-160}));await expect.poll(async()=>(await snapshot(page)).environmentModels.loaded).toBeGreaterThan(0);expect((await snapshot(page)).assets.errors).toEqual([]);expect(errors).toEqual([]);await writeFile(`${dir}/real-models-browser.json`,JSON.stringify({source:'Post-Apoc Civilian Cars by Renafox; CC-BY-NC-4.0; user-supplied, converted GLB',collided,samples,consoleErrors:errors},null,2));
+      34 | });
+      35 |
+        at /workspace/work/2047-rede-aurora/tests/e2e/assets.spec.js:32:228
+
+    Error Context: test-results/assets-carros-reais-materi-155b2-arregamento-por-proximidade/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/assets-carros-reais-materi-155b2-arregamento-por-proximidade/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/assets-carros-reais-materi-155b2-arregamento-por-proximidade/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade 
+  6 passed (5.7m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice
