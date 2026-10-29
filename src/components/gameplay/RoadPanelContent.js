@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import { GAS_OFFERS,GENERATOR,LITERS_PER_SCRAP,ROAD_COPY as R,ROAD_POINTS,WORKSHOP_OFFERS,WORKSHOP_SERVICES } from '../../data/road.js';
 import { COMPONENTS,ITEMS } from '../../data/campaign.js';
 import { CONFIG } from '../../data/config.js';
@@ -13,11 +14,11 @@ export function RoadJournal({campaign:c}){
 function Tech({state,act}){
   const c=state.campaign,gen=c.road.generator,seed=c.seed.received,core=c.cores['core-1'].state;
   const text=core==='active'?(c.road.techReward?R.techAfter:R.techActive):!seed?R.techNoSeed:!gen?R.techNeedGen:core==='failed'||c.stage==='failed'?R.techFailed:R.techGenOn;
-  const bag=c.inventory.player,truck=c.inventory.truck,canPay=Object.entries(GENERATOR.cost).every(([id,n])=>bag[id]+truck[id]>=n);
-  return <><span className="eyebrow">Tomás</span><DialogueText text={text}/>
+  const bag=c.inventory.player,truck=Math.hypot(state.playerPosition[0]-state.position[0],state.playerPosition[2]-state.position[2])<=40?c.inventory.truck:{diesel:0,parts:0},canPay=Object.entries(GENERATOR.cost).every(([id,n])=>bag[id]+truck[id]>=n);
+  return <>{state.roadEntity==='equipment'?<h3>Gerador do Núcleo 1</h3>:<><span className="eyebrow">Tomás</span><DialogueText text={text}/></>}
     <p className="panel-note">{R.generatorStatus}: <b>{gen?R.on:R.off}</b>. {R.payNote}</p>
     {!gen&&<button className="primary" disabled={!seed||!canPay} onClick={()=>act('roadGenerator')}>{R.generatorCost}</button>}
-    {!gen&&seed&&!canPay&&<p role="status">{R.techLowFuel}</p>}
+    {!seed&&state.roadEntity==='equipment'&&<p role="status">{R.noSeedGenerator}</p>}{!gen&&seed&&!canPay&&<p role="status">{R.techLowFuel}</p>}
     {gen&&<p role="status">{R.generatorOn}</p>}
     {core==='active'&&<button className="wide-link" disabled={c.road.techReward} onClick={()=>act('roadClaim')}>{c.road.techReward?R.claimed:`${R.claim} · ${R.claimDetail}`}</button>}</>;
 }
@@ -30,7 +31,7 @@ function Gas({state,game,act,p}){
     if(o.kind==='can'){const l=Math.min(o.liters,stock.diesel),cost=Math.ceil(l/LITERS_PER_SCRAP);return {ok:l>=1&&scrap>=cost,cost,need:false};}
     const l=Math.min(o.liters,room,stock.diesel,scrap*LITERS_PER_SCRAP),cost=Math.ceil(l/LITERS_PER_SCRAP);return {ok:l>=1,cost,liters:l,need:true};
   };
-  return <><span className="eyebrow">{p.npc}</span><DialogueText text={p.line}/>
+  return <>
     <p className="panel-note">{R.gasLine} {R.pumpNote}</p>
     <p>{R.tank}: {fuel.toFixed(1)} / {CONFIG.vehicle.fuelCapacity} L · {R.scrap}: {scrap} · {R.stock}: {stock.diesel} L diesel · {stock.water} L água</p>
     <div className="trade-list">{GAS_OFFERS.map(o=>{const q=quote(o);return <div key={o.id}><span>{o.label}<small>{q.liters?`${q.liters} L · `:''}{q.cost} {R.scrap.toLowerCase()}</small></span>
@@ -40,7 +41,7 @@ function Gas({state,game,act,p}){
 
 function Workshop({state,game,act,p}){
   const c=state.campaign,stock=c.road.stocks[p.id],scrap=c.inventory.player.scrap,parked=game.roadController.parked(p);
-  return <><span className="eyebrow">{p.npc}</span><DialogueText text={p.line}/>
+  return <>
     <p className="panel-note">{R.shopNote}</p><p>{R.scrap}: {scrap}</p>
     <h3>{R.buyParts}</h3><div className="trade-list">{WORKSHOP_OFFERS.map(o=><div key={o.id}><span>{o.label}<small>{R.stock}: {stock[o.item]} · {o.cost} {R.scrap.toLowerCase()} · {ITEMS[o.item].name}</small></span>
       <button disabled={stock[o.item]<o.quantity||scrap<o.cost} onClick={()=>act('roadShopBuy',o.id)}>{stock[o.item]<o.quantity?R.sold:R.buy}</button></div>)}</div>
@@ -51,8 +52,8 @@ function Workshop({state,game,act,p}){
 }
 
 export default function RoadPanelContent({state,game,act}){
-  const p=ROAD_POINTS.find(k=>k.id===state.roadPoint);if(!p||!state.campaign?.road)return null;
-  if(p.kind==='tech')return <Tech state={state} act={act}/>;
-  if(p.kind==='gas')return <Gas state={state} game={game} act={act} p={p}/>;
-  return <Workshop state={state} game={game} act={act} p={p}/>;
+  const p=ROAD_POINTS.find(k=>k.id===state.roadPoint);const [tab,setTab]=useState(state.roadEntity==='npc'?'talk':'services');if(!p||!state.campaign?.road)return null;
+  if(p.kind==='tech')return <div className="conversation-content"><Tech state={state} act={act}/></div>;
+  if(state.roadEntity==='pump')return <div className="service-sheet"><Gas state={state} game={game} act={act} p={p}/></div>;
+  return <><div className="conversation-tabs" role="group" aria-label="Conversa e serviços"><button aria-pressed={tab==='talk'} onClick={()=>setTab('talk')}>Conversa</button><button aria-pressed={tab==='services'} onClick={()=>setTab('services')}>Compras e serviços</button></div>{tab==='talk'?<div className="conversation-content"><DialogueText text={p.line}/><div className="narrative-choices"><button onClick={()=>setTab('services')}>Ver compras e serviços <span aria-hidden="true">→</span></button></div></div>:<div className="service-sheet"><h3>{p.kind==='gas'?R.title.gas:R.services}</h3>{p.kind==='gas'?<Gas state={state} game={game} act={act} p={p}/>:<Workshop state={state} game={game} act={act} p={p}/>}</div>}</>;
 }

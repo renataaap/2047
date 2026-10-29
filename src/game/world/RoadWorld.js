@@ -1,3 +1,5 @@
+import {CharacterActor} from '../player/CharacterActor.js';
+import {workerDefinition} from '../player/workerDefinition.js';
 import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat';
 import { GENERATOR,ROAD_POINTS } from '../../data/road.js';
@@ -7,7 +9,7 @@ import { mergeStatic } from '../render/mergeStatic.js';
 
 // Postos, oficinas e o gerador do Núcleo 1. Só o que está perto do jogador existe (geometria e colisores).
 export class RoadWorld {
-  constructor(scene,physics,m){this.scene=scene;this.physics=physics;this.m=m;this.live=new Map();this.time=0;
+  constructor(scene,physics,m,assets,worker){this.assets=assets;this.worker=worker;this.scene=scene;this.physics=physics;this.m=m;this.live=new Map();this.time=0;
     this.smokeMaterial=new THREE.MeshStandardMaterial({color:'#9d9d96',roughness:1,metalness:0,transparent:true,opacity:.34,depthWrite:false});}
 
   build(p){
@@ -27,7 +29,7 @@ export class RoadWorld {
       if(hat)add(new THREE.SphereGeometry(.28,8,5,0,Math.PI*2,0,Math.PI/2),m.rust,0,1.88,0);
       add(bevelGeometry(.34,.1,.22),m.dark,0,1.78,.2);
       g.position.set(wx,wy,wz);e.group.add(g);
-      const b=this.physics.createRigidBody(RAPIER.RigidBodyDesc.fixed());this.physics.createCollider(RAPIER.ColliderDesc.cuboid(.35,.95,.35).setTranslation(wx,wy+.95,wz),b);e.bodies.push(b);return g;
+      const b=this.physics.createRigidBody(RAPIER.RigidBodyDesc.fixed());this.physics.createCollider(RAPIER.ColliderDesc.cuboid(.35,.95,.35).setTranslation(wx,wy+.95,wz),b);b.userData={entityType:'npc',id:p.id,interactionKey:`npc:${p.id}`};e.bodies.push(b);return g;
     };
     const pad=(w,d)=>{blk(w,.4,d,m.steel,0,-.1,0,true);blk(w-.6,4,d-.6,m.dark,0,-2.3,0,false);};
 
@@ -72,6 +74,7 @@ export class RoadWorld {
       e.gy=gy;e.sign=label(`${p.npc} · ${p.title}`,0,4,0);
       e.npc=person(p.x,p.z,y,m.rust);
     }
+    if(e.npc&&this.worker){e.actor=new CharacterActor(this.assets,e.npc);e.actor.load(workerDefinition(this.worker,p.id)).catch(error=>this.assets.errors.push(`npc ${p.id}: ${error.message}`));}
     const skip=new Set([e.fan,e.lamp,...e.smoke].filter(Boolean));mergeStatic(e.group,skip);return e;
   }
 
@@ -83,7 +86,7 @@ export class RoadWorld {
       else if(d>1150&&this.live.has(p.id)){this.remove(this.live.get(p.id));this.live.delete(p.id);}
     }
     for(const e of this.live.values()){
-      const p=e.p;
+      const p=e.p;e.actor?.update(dt,new THREE.Vector3(position.x,position.y||0,position.z));
       if(e.npc){const dx=position.x-e.npc.position.x,dz=position.z-e.npc.position.z;if(dx*dx+dz*dz<900)e.npc.rotation.y=Math.atan2(dx,dz);}
       if(p.kind==='tech'){
         const on=c.road.generator;e.lamp.material=on?this.m.light:this.m.rubber;e.fan.rotation.x+=dt*(on?22:0);
@@ -91,8 +94,8 @@ export class RoadWorld {
       }
     }
   }
-  snapshot(){return {entities:this.live.size,ids:[...this.live.keys()]};}
-  remove(e){
+  snapshot(){return {entities:this.live.size,ids:[...this.live.keys()],actors:Object.fromEntries([...this.live].map(([id,e])=>[id,e.actor?.snapshot()||null]))};}
+  remove(e){e.actor?.dispose();
     for(const b of e.bodies)this.physics.removeRigidBody(b);
     e.group.traverse(o=>{o.geometry?.dispose();if(o.isSprite){o.material.map?.dispose();o.material.dispose();}});
     e.group.removeFromParent();

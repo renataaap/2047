@@ -1,3 +1,5 @@
+import {CharacterActor} from '../player/CharacterActor.js';
+import {workerDefinition} from '../player/workerDefinition.js';
 import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat';
 import { NETWORK_POINTS,ROUTES } from '../../data/network.js';
@@ -8,15 +10,15 @@ import { mergeStatic } from '../render/mergeStatic.js';
 
 // Só os equipamentos no entorno do jogador têm geometrias e corpos físicos vivos.
 export class NetworkWorld {
- constructor(scene,physics,m){this.scene=scene;this.physics=physics;this.m=m;this.live=new Map();this.defs=[...NETWORK_POINTS,...ROUTES.map(r=>({...r,x:roadX(-r.at),z:-r.at,kind:'hazard'}))];
+ constructor(scene,physics,m,assets,worker){this.assets=assets;this.worker=worker;this.scene=scene;this.physics=physics;this.m=m;this.live=new Map();this.defs=[...NETWORK_POINTS,...ROUTES.map(r=>({...r,x:roadX(-r.at),z:-r.at,kind:'hazard'}))];
   const r=randomSeed(7047),a=new Float32Array(240*3);for(let i=0;i<a.length;i+=3){a[i]=(r()-.5)*60;a[i+1]=r()*24;a[i+2]=(r()-.5)*60;}this.rainPositions=a;const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));this.rain=new THREE.Points(g,new THREE.PointsMaterial({color:'#bcced3',size:.085,transparent:true,opacity:.5,depthWrite:false}));scene.add(this.rain);this.rain.visible=false;
  }
  build(p){const e={p,group:new THREE.Group(),bodies:[],growth:0};this.scene.add(e.group);const y=heightAt(p.x,p.z),m=this.m;
   const mesh=(g,mat,x,cy,z)=>{const o=new THREE.Mesh(g,mat);o.position.set(x,cy,z);o.castShadow=o.receiveShadow=true;e.group.add(o);return o;};
   const collider=(x,cy,z,w,h,d)=>{const b=this.physics.createRigidBody(RAPIER.RigidBodyDesc.fixed());this.physics.createCollider(RAPIER.ColliderDesc.cuboid(w/2,h/2,d/2).setTranslation(x,cy,z),b);return b;};
-  const block=(w,h,d,mat,x,cy,z,solid=false)=>{const o=mesh(bevelGeometry(w,h,d),mat,x,cy,z);if(solid)e.bodies.push(collider(x,cy,z,w,h,d));return o;};
+  const block=(w,h,d,mat,x,cy,z,solid=false)=>{const o=mesh(bevelGeometry(w,h,d),mat,x,cy,z);if(solid){const b=collider(x,cy,z,w,h,d);if(['vault','network-core'].includes(p.kind)&&x===p.x-1&&z===p.z+(p.kind==='vault'?6:8))b.userData={interactionKey:`${p.kind}:${p.id}`};e.bodies.push(b);}return o;};
   const label=(text,x,cy,z)=>{const c=document.createElement('canvas');c.width=512;c.height=96;const ctx=c.getContext('2d');ctx.fillStyle='#32373a';ctx.fillRect(0,0,512,96);ctx.fillStyle='#e5d9bd';ctx.font='bold 29px sans-serif';ctx.textAlign='center';ctx.fillText(text,256,61,490);const texture=new THREE.CanvasTexture(c);texture.colorSpace=THREE.SRGBColorSpace;const mat=new THREE.SpriteMaterial({map:texture,depthTest:true});const sprite=new THREE.Sprite(mat);sprite.position.set(x,cy,z);sprite.scale.set(10,1.875,1);e.group.add(sprite);e.label=sprite;};
-  const npc=(x,z,color)=>{const h=heightAt(x,z);mesh(new THREE.CapsuleGeometry(.32,.9,3,7),color,x,h+1,z);mesh(new THREE.SphereGeometry(.24,8,6),m.paint,x,h+1.8,z);};
+  const npc=(x,z,color)=>{const h=heightAt(x,z),g=new THREE.Group();g.position.set(x,h,z);e.group.add(g);const body=new THREE.Mesh(new THREE.CapsuleGeometry(.32,.9,3,7),color);body.position.y=1;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.24,8,6),m.paint);head.position.y=1.8;g.add(head);const npcBody=collider(x,h+.9,z,.6,1.8,.6);npcBody.userData={entityType:'npc',id:p.id,interactionKey:`npc:${p.id}`};e.bodies.push(npcBody);e.actor=new CharacterActor(this.assets,g);e.actor.load(workerDefinition(this.worker,p.id)).catch(error=>this.assets?.errors.push(`npc ${p.id}: ${error.message}`));};
   if(p.kind==='network-core'){
    mesh(new THREE.CylinderGeometry(8,9,1,16),m.dark,p.x,y+.25,p.z);e.bodies.push(collider(p.x,y+.2,p.z,12,.7,12));
    for(const dx of [-5.5,5.5])block(1.4,10,1.5,m.steel,p.x+dx,y+5.3,p.z);
@@ -52,7 +54,7 @@ export class NetworkWorld {
  }
  update(c,position,dt){
   for(const p of this.defs){const close=Math.hypot(position.x-p.x,position.z-p.z)<1000;if(close&&!this.live.has(p.id))this.live.set(p.id,this.build(p));else if(!close&&this.live.has(p.id)){this.remove(this.live.get(p.id));this.live.delete(p.id);}}
-  for(const e of this.live.values()){const p=e.p;
+  for(const e of this.live.values()){const p=e.p;e.actor?.update(dt,new THREE.Vector3(position.x,position.y||0,position.z));
    if(p.kind==='vault'){const opened=p.core==='core-1'||c.network.seeds[p.core].obtained;e.door.position.x=p.x+(opened?4:0);e.seed.visible=!opened;if(opened&&e.doorBody){this.physics.removeRigidBody(e.doorBody);e.doorBody=null;}}
    if(e.cache)e.cache.visible=!c.network.looted.includes(p.id);
    if(e.lia)e.lia.visible=c.network.quests.supply==='completed';if(e.pump)e.pump.material=c.network.quests.pump==='completed'?this.m.light:this.m.steel;
@@ -63,7 +65,7 @@ export class NetworkWorld {
  }
  atmosphere(c,position,dt,rendering){if(position.z>-5800)return;const w=weatherAt(c,position.z),base=1.6/rendering.preset.distance;rendering.scene.fog.density=base*w.fog;rendering.scene.fog.color.lerp(new THREE.Color(w.restored?'#a9bec3':w.front?'#626775':w.region==='salt'?'#c1b69e':'#88908e'),Math.min(1,dt));rendering.sky.material.uniforms.top.value.lerp(new THREE.Color(w.restored?'#6f9ba8':w.front?'#363f52':w.region==='glass'?'#61717f':'#4f6575'),Math.min(1,dt));rendering.sky.material.uniforms.bottom.value.lerp(new THREE.Color(w.restored?'#bfc9bc':w.front?'#7d8190':'#b7a68c'),Math.min(1,dt));}
  snapshot(){return {entities:this.live.size,rain:this.rain.visible,cores:Object.fromEntries([...this.live.values()].filter(e=>e.plants).map(e=>[e.p.core,{plants:e.plants.visible,count:e.plants.count,growth:e.growth}])),barriers:Object.fromEntries([...this.live.values()].filter(e=>e.p.kind==='hazard').map(e=>[e.p.id,!!e.barrierBody])),floods:Object.fromEntries([...this.live.values()].filter(e=>e.water).map(e=>[e.p.id,e.water.visible])),vaults:Object.fromEntries([...this.live.values()].filter(e=>e.door).map(e=>[e.p.core,!e.doorBody])),liaVisible:[...this.live.values()].some(e=>e.lia?.visible)};}
- remove(e){for(const b of [...e.bodies,e.doorBody,e.barrierBody].filter(Boolean))this.physics.removeRigidBody(b);e.group.traverse(o=>{o.geometry?.dispose();if(o.isInstancedMesh)o.dispose();if(o.isSprite){o.material.map?.dispose();o.material.dispose();}});e.group.removeFromParent();}
+ remove(e){e.actor?.dispose();for(const b of [...e.bodies,e.doorBody,e.barrierBody].filter(Boolean))this.physics.removeRigidBody(b);e.group.traverse(o=>{o.geometry?.dispose();if(o.isInstancedMesh)o.dispose();if(o.isSprite){o.material.map?.dispose();o.material.dispose();}});e.group.removeFromParent();}
  reset(){for(const e of this.live.values())this.remove(e);this.live.clear();}
  dispose(){this.reset();this.rain.geometry.dispose();this.rain.material.dispose();this.rain.removeFromParent();}
 }

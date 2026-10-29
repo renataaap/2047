@@ -1,3 +1,4 @@
+import {calibrateSeed} from './seedService.js';
 import { BIOMES,CORES,ROUTES,SHELTERS,SIDE_MISSIONS,SUPPLY_CACHES,biomeAt,WORLD_COPY as W } from '../../data/network.js';
 import { OFFERS } from '../../data/expedition.js';
 import { bagWeight,activateCore } from './campaign.js';
@@ -28,7 +29,7 @@ if(core.number===7&&(c.components.radiator<50||c.components.filters<50||c.compon
 if(!transact(c,'truck',core.vault.cost))return false;
 c.network.seeds[id]={obtained:true,integrity:100};c.network.cargo=id;c.seed.integrity=100;c.decisions.push(`${id}-vault-opened`);return true;
 }
-export function calibrateNetwork(c,id){if(c.network.cargo!==id||c.seed.integrity>=100||!transact(c,'truck',{parts:2}))return false;c.seed.integrity=Math.min(100,c.seed.integrity+20);c.network.seeds[id].integrity=c.seed.integrity;return true;}
+export function calibrateNetwork(c,id,context={}){return calibrateSeed(c,id,context);}
 export function anchor(c,id){
 if(nextCore(c)?.id!==id||!hasCargo(c)||c.network.cargo!==id)return null;
 if(id==='core-1'){const result=activateCore(c);syncFirst(c);syncRestoration(c);return result;}

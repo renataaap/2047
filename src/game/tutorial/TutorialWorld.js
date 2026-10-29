@@ -12,7 +12,7 @@ export class TutorialWorld {
   for(const o of TRAINING.objects){
    add(1.5,.12,.75,o.x,base+.95,o.z,materials.wood);
    for(const dx of [-.6,.6])add(.08,.9,.55,o.x+dx,base+.45,o.z,materials.weatheredMetal);
-   const body=physics.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(o.x,base+.5,o.z));physics.createCollider(RAPIER.ColliderDesc.cuboid(.75,.5,.375),body);this.bodies.push(body);
+   const body=physics.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(o.x,base+.5,o.z));physics.createCollider(RAPIER.ColliderDesc.cuboid(.75,.5,.375),body);body.userData={interactionKey:`inspection:${o.id}`};this.bodies.push(body);
    if(o.id==='logbook'){const book=add(.38,.04,.3,o.x,base+1.04,o.z,materials.leather);book.rotation.y=.2;add(.34,.035,.27,o.x,base+1.05,o.z,materials.paint);}
    else {add(.42,.16,.3,o.x-.3,base+1.1,o.z,materials.steel);for(let i=0;i<3;i++){const g=new THREE.TorusGeometry(.075,.018,6,12);this.owned.push(g);const part=new THREE.Mesh(g,materials.steel);part.rotation.x=Math.PI/2;part.position.set(o.x+.1+i*.15,base+1.04,o.z);this.group.add(part);}}
   }

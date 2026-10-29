@@ -13,7 +13,7 @@ export const TEXT = {
   drive: 'Acelerar', brake: 'Freio / ré', steer: 'Direção', handbrake: 'Freio de mão', cameraKey: 'Câmera', engine: 'Motor', pauseKey: 'Pausa', lights: 'Faróis',
   help: 'W / S  Acelerar / frear     A / D  Direção     ESPAÇO  Freio de mão',
   settingsTitle: 'Ajustes de viagem', graphics: 'Qualidade gráfica', volume: 'Volume geral', resolution: 'Escala de resolução', subtitles: 'Legendas e instruções',
-  creditsTitle: 'Feito de estrada e esperança', creditsBody: '2047: Rede Aurora\nDante Rocha Negra · Titã Rocha Clara\nMundo e áudio procedurais; modelos 3D licenciados.\nConstruído com Next.js, Three.js e Rapier.\nTutorial e reformulação realista.\nPowered by Poly Haven · CC0.\nTitã inicial: Alt (whisper.alt) · CC BY 4.0, adaptado.\nGaragem: Yury Misiyuk; posto: SURVIVED; barril: mxtc · CC BY 4.0.\nCarros: Renafox · CC BY-NC 4.0, uso não comercial.',
+  creditsTitle: 'Feito de estrada e esperança', creditsBody: '2047: Rede Aurora\nDante Rocha Negra · Titã Rocha Clara\nMundo e áudio procedurais; modelos 3D licenciados.\nConstruído com Next.js, Three.js e Rapier.\nTutorial, exploração e reformulação realista.\nPersonagens provisórios: base MakeHuman CC0, adaptações originais.\nPowered by Poly Haven · CC0.\nTitã inicial: Alt (whisper.alt) · CC BY 4.0, adaptado.\nGaragem: Yury Misiyuk; posto: SURVIVED; barril: mxtc · CC BY 4.0.\nCarros: Renafox · CC BY-NC 4.0, uso não comercial.',
   warning: 'O Titã está tombado. Pause para reposicioná-lo na estrada.', recover: 'Reposicionar na estrada',
   ready: 'O mundo ainda está lá fora.', headlight: 'Faróis',
   controls: 'CONTROLES', phase: 'REFORMULAÇÃO / FASE 01 · CONDUÇÃO', single: 'UMA JORNADA PARA UM JOGADOR',
@@ -22,5 +22,5 @@ export const TEXT = {
   hint: 'E liga o motor · W coloca o Titã na estrada',
   project: 'PROJETO AURORA', established: 'EST. 2027', silence: 'VINTE ANOS DEPOIS DO SILÊNCIO',
   shelter: 'ABRIGO 07', viewport: 'Mundo 3D da Rede Aurora e Titã Rocha Clara', north: 'N', northWest: 'NO', northEast: 'NE',
-  latitude: '23° 47′ S', longitude: '46° 38′ O', worldTime: '17:42', release: '0.6.0', panelBrand: 'REDE AURORA / 2047',
+  latitude: '23° 47′ S', longitude: '46° 38′ O', worldTime: '17:42', release: '0.7.0', panelBrand: 'REDE AURORA / 2047',
 };

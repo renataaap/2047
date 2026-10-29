@@ -63,7 +63,7 @@ export class AssetManager {
     const skeletons=new Set();gltf.scene.traverse(o => { if(o.skeleton)skeletons.add(o.skeleton);if (o.geometry) geometries.add(o.geometry); for (const m of (Array.isArray(o.material) ? o.material : [o.material]).filter(Boolean)) { materials.add(m); for (const t of Object.values(m)) if (t?.isTexture) textures.add(t); } });skeletons.forEach(s=>s.dispose());
     geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => { t.source?.data?.close?.(); t.dispose(); });
   }
-  snapshot() { return { textures: this.textures.size, estimatedTextureBytes:[...this.textureBytes.values()].reduce((a,b)=>a+b,0),modelSources: this.models.size, modelInstances: this.references, errors: [...this.errors] }; }
+  snapshot() { return { textures: this.textures.size, estimatedTextureBytes:[...this.textureBytes.values()].reduce((a,b)=>a+b,0),modelSources: this.models.size,modelURLs:[...this.models.keys()], modelInstances: this.references, errors: [...this.errors] }; }
   pruneTextures(keep) { for (const [key, job] of this.textures) job.then(texture => { if (!keep.has(texture)) { texture.dispose(); if(this.textures.get(key)===job){this.textures.delete(key);this.textureBytes.delete(key);} } }).catch(() => {}); }
   dispose() {
     if (this.disposed) return; this.disposed = true; this.abort.abort();

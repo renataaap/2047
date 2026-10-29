@@ -26,3 +26,6 @@ it('GLB do Titã contém seis rodas reais e crédito acompanha cada modelo',asyn
  for(const w of t.wheels)expect(gltf.nodes.some(n=>n.name===w.node&&n.mesh!==undefined)).toBe(true);
  for(const e of [t,...Object.values(manifest.environments),...Object.values(manifest.candidates)]){const directory=('public'+e.url).replace(/\/[^/]+$/,'');const credit=await fs.readFile(directory+'/LICENSE.txt','utf8');expect(credit).toContain(e.license==='CC-BY-4.0'?'CC BY 4.0':'CC-BY-NC');}
 });
+it('personagem anatômico CC0 tem rig, sete clips e apenas recursos locais',async()=>{
+ const manifest=JSON.parse(await fs.readFile('public/assets/models/manifest.json','utf8')),e=manifest.characters.worker;expect(e.rightsCleared).toBe(true);expect(e.license).toBe('CC0-1.0');expect(e.inPlace).toBe(true);const b=await fs.readFile('public'+e.url),g=JSON.parse(b.toString('utf8',20,20+b.readUInt32LE(12)));expect(g.skins.length).toBeGreaterThan(0);for(const name of ['Idle','Walk','Run','Enter','Exit','Interact','Repair'])expect(g.animations.some(a=>a.name===name)).toBe(true);expect(g.buffers.every(buffer=>!buffer.uri)).toBe(true);expect(g.images.every(image=>image.bufferView!==undefined)).toBe(true);expect(await fs.readFile('assets-source/characters/makehuman-base.obj','utf8')).toContain('explicitly released as CC0');expect(e.artStatus).toContain('interim');
+});

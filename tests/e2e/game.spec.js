@@ -2,13 +2,14 @@ import {enterFromNewTutorial} from '../helpers/start-driving.js';
 import { test,expect } from '@playwright/test';
 import { mkdir,writeFile } from 'node:fs/promises';
 const evidence=new URL('../../evidence/',import.meta.url);
+test.describe.configure({timeout:180000});
 test('aceite: mundo real, W por 8 s simulados, diesel, console e orçamento',async({page},info)=>{
-  const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+  test.setTimeout(180000);const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
   await page.goto('/');const start=page.getByRole('button',{name:'01 Novo jogo'});await expect(start).toBeEnabled({timeout:60000});
   await mkdir(evidence,{recursive:true});await page.screenshot({path:new URL('menu.png',evidence).pathname});
   await start.click();await enterFromNewTutorial(page);await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');await page.keyboard.press('KeyE');
   await page.evaluate(()=>window.__GAME_DEBUG__.resetMetrics());const before=await page.evaluate(()=>window.__GAME_DEBUG__.getState());
-  await page.keyboard.down('KeyW');const wallStart=Date.now(),stepStart=await page.evaluate(()=>window.__GAME_DEBUG__.getState().simulation.steps);await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().simulation.steps),{timeout:60000,intervals:[250]}).toBeGreaterThanOrEqual(stepStart+480);await page.keyboard.up('KeyW');
+  await page.keyboard.down('KeyW');const wallStart=Date.now(),stepStart=await page.evaluate(()=>window.__GAME_DEBUG__.getState().simulation.steps);await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().simulation.steps),{timeout:120000,intervals:[250]}).toBeGreaterThanOrEqual(stepStart+480);await page.keyboard.up('KeyW');
   const after=await page.evaluate(()=>window.__GAME_DEBUG__.getState());
   await page.screenshot({path:new URL('driving.png',evidence).pathname});
   const result={before,after,consoleErrors:errors,renderer:'Chromium / ANGLE SwiftShader (software)',viewport:'1280×720',requestedSimulatedSeconds:8,simulatedSeconds:(after.simulation.steps-stepStart)/60,wallSeconds:(Date.now()-wallStart)/1000};

@@ -15,3 +15,14 @@ describe('câmeras com volume e vínculo à cabine',()=>{
 describe('relógio de simulação',()=>{
  it('registra passos e tempo descartado; ignora deltas inválidos',()=>{const loop=new FixedLoop(1/60,30);let count=0;loop.advance(3,()=>count++);expect(count).toBe(30);expect(loop.droppedSeconds).toBeCloseTo(2.5);expect(loop.totalSteps).toBe(30);expect(Number.isFinite(loop.advance(NaN,()=>count++))).toBe(true);expect(count).toBe(30);loop.reset();expect(loop.stepsLastFrame).toBe(0);});
 });
+
+import {Player} from '../../src/game/player/Player.js';
+it('terceira pessoa a pé segue o mouse e a esfera permanece antes da parede',()=>{
+ const w=new RAPIER.World({x:0,y:0,z:0}),player=new Player(w);player.teleport(0,0,1);w.createCollider(RAPIER.ColliderDesc.cuboid(10,10,.2).setTranslation(0,2,2));w.step();const camera=new THREE.PerspectiveCamera();player.toggleView();for(let i=0;i<60;i++)player.camera(camera,1/60);expect(player.view).toBe('third');expect(camera.position.z).toBeLessThan(1.6);expect(camera.position.z).toBeGreaterThan(1);player.look(100,30);player.camera(camera,1/60);expect(player.yaw).toBeCloseTo(-.25);expect(camera.getWorldDirection(new THREE.Vector3()).x).toBeGreaterThan(0);player.toggleView();for(let i=0;i<60;i++)player.camera(camera,1/60);expect(camera.position.z).toBeCloseTo(0,3);player.dispose();w.free();
+});
+it('enquadramento pode ignorar o interlocutor, mantendo colisão com a parede atrás',()=>{
+ const w=new RAPIER.World({x:0,y:0,z:0}),npc=w.createRigidBody(RAPIER.RigidBodyDesc.fixed());npc.userData={entityType:'npc'};w.createCollider(RAPIER.ColliderDesc.cuboid(.3,1,.3).setTranslation(0,1,0),npc);w.createCollider(RAPIER.ColliderDesc.cuboid(10,10,.2).setTranslation(0,2,3));w.step();const at=new THREE.Vector3(0,1.5,0),desired=new THREE.Vector3(0,1.5,5);const safe=cameraPosition(w,at,desired,undefined,c=>c.parent()?.userData?.entityType!=='npc');expect(safe.z).toBeGreaterThan(2.3);expect(safe.z).toBeLessThan(2.8);w.free();
+});
+it('a câmera a pé também recua diante do Titã dinâmico',()=>{
+ const w=new RAPIER.World({x:0,y:0,z:0}),truck=w.createRigidBody(RAPIER.RigidBodyDesc.dynamic());w.createCollider(RAPIER.ColliderDesc.cuboid(2,2,.5).setTranslation(0,2,3),truck);w.step();const p=cameraPosition(w,new THREE.Vector3(0,2,0),new THREE.Vector3(0,2,5),undefined,undefined,true);expect(p.z).toBeLessThan(2.3);w.free();
+});

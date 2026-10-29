@@ -37,6 +37,7 @@ export class EnvironmentModels {
  }
  }
  }
+ presentation(menu){for(const e of this.live.values())if(e.root)e.root.visible=!(menu&&['dantes-garage','shelter-barrel','shelter-barrel-2'].includes(e.id));}
  snapshot(){return {loaded:[...this.live.values()].filter(e=>e.root).length,loading:[...this.live.values()].filter(e=>!e.root).length,ids:[...this.live.keys()]};}
  remove(e){e.removed=true;e.root?.removeFromParent();if(e.body)this.physics.removeRigidBody(e.body);e.lease?.release();}
  dispose(){this.disposed=true;for(const e of this.live.values())this.remove(e);this.live.clear();}

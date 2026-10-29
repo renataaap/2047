@@ -1,3 +1,4 @@
+import {calibrateSeed} from './seedService.js';
 import { COMPONENTS,ITEMS,POINTS } from '../../data/campaign.js';
 import { NETWORK_POINTS } from '../../data/network.js';
 import { ROAD_POINTS } from '../../data/road.js';
@@ -17,7 +18,7 @@ export function repair(c,id,full=false){if(!COMPONENTS[id]||c.components[id]>=10
 export function refuel(c,state){const n=Math.min(4,c.inventory.truck.diesel,180-state.fuel);if(n<=0)return false;c.inventory.truck.diesel-=n;state.fuel+=n;return true;}
 export function coolant(c){if(c.components.radiator>=100||!spend(c,{water:1}))return false;c.components.radiator=Math.min(100,c.components.radiator+12);return true;}
 export function receiveSeed(c){if(c.seed.received)return false;c.seed.received=true;c.stage='transport';c.flags.metSurvivor=c.flags.renataContact=true;c.decisions.push('accepted-first-seed');return true;}
-export function calibrate(c){if(!c.seed.received||c.stage==='activated'||c.seed.integrity>=100||!spend(c,{parts:2}))return false;c.seed.integrity=Math.min(100,c.seed.integrity+20);return true;}
+export function calibrate(c,context={}){return calibrateSeed(c,'core-1',context);}
 export function activateCore(c){if(!c.seed.received||c.stage==='activated')return null;const chance=activationChance(c.seed.integrity);c.rngState=(Math.imul(c.rngState,1664525)+1013904223)>>>0;const roll=c.rngState/4294967296;const success=roll<chance;const core=c.cores['core-1'];core.attempts++;core.state=success?'active':'failed';c.stage=success?'activated':'failed';c.restoration.ashes=success;if(success){c.completedMissions=['aurora-1'];c.decisions.push('core-1-activated');}else c.seed.integrity=Math.max(0,c.seed.integrity-8);return {success,chance,roll};}
 export function collect(c,id){if(c.collected.includes(id)||id!=='road-cache')return false;for(const [k,v] of Object.entries({diesel:6,parts:4,water:2}))c.inventory.truck[k]+=v;c.collected.push(id);return true;}
 export function near(a,b,d=5){return Math.hypot(a.x-b.x,a.z-b.z)<=d;}
