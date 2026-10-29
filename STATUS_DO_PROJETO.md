@@ -1,5 +1,7 @@
 # Estado do projeto — 2047: Rede Aurora
 
+Transferência para o Claude solicitada pelo usuário: consultar RELATORIO_PARA_CLAUDE.md, PROMPT_MESTRE_PARA_CLAUDE.md e INSTRUCOES_TEXTURAS_PARA_CLAUDE.md. Esses documentos refletem a base 0.5.1 e distinguem arquivos no Git de anexos não transferidos.
+
 Versão: **0.5.1 — integração parcial de assets; Fase 2 em andamento**. Repositório privado: https://github.com/renataaap/2047.
 
 

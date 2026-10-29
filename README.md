@@ -1,5 +1,7 @@
 # 2047: Rede Aurora
 
+Para continuar no Claude: [relatório completo](RELATORIO_PARA_CLAUDE.md), [prompt mestre](PROMPT_MESTRE_PARA_CLAUDE.md) e [instruções de texturas](INSTRUCOES_TEXTURAS_PARA_CLAUDE.md). [Kit de documentos](handoff/kit-continuar-claude.zip) (não inclui código ou texturas; o código está neste repositório).
+
 
 **0.5.1 — integração de assets em andamento.** [Auditoria das seis fases](docs/AUDITORIA_FASES_2026-10-29.md). [Relatório da etapa](RELATORIO_INTEGRACAO_ASSETS.md) · [Catálogo e instruções](docs/INTEGRACAO_ASSETS.md).
 
