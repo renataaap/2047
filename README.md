@@ -1,10 +1,12 @@
 # 2047: Rede Aurora
 
-**0.6.0 — Capítulo 01: O Último Motor.** Nova partida começa a pé no barracão, com tutorial opcional persistente. Titã inicial importado e seis rodas físicas, garagem/posto/barris reais e oito materiais Poly Haven locais, preparados por perfil gráfico. [Relatório, estados e limites](RELATORIO_TUTORIAL_ASSETS.md) · [diagnóstico de integração](docs/DIAGNOSTICO_TUTORIAL_ASSETS.md).
+**0.7.0 — Dante na estrada e correções de gameplay.** Tutorial de 21 objetivos preservado; oito PBR locais, Titã importado, garagem/posto/barris reais. Alvos individuais para NPC/bomba/gerador, calibração com peças da mochila/Titã acessível, recuperação após falha e consumo correto da Semente. C alterna primeira/terceira pessoa a pé. Menu 3D recomposto, fade, enquadramento de conversas e serviços separados. [Relatório atual](RELATORIO_CORRECOES_CRITICAS.md) · [diagnóstico](docs/DIAGNOSTICO_CORRECOES_CRITICAS.md) · [auditoria das fases](docs/AUDITORIA_FASES_2026-10-29.md).
 
-Repositório oficial deste pedido: https://github.com/Da-Hora-stack/2047. A branch `feat/tutorial-assets` preserva a Estrada Viva e a interface 0.5.2. No Windows: `npm ci`, `npm run dev` e http://localhost:3000, ou INICIAR_JOGO.bat. O tutorial pode ser pulado e repetido pela pausa; saves anteriores continuam sem ativação automática.
+Branch local: `feat/tutorial-assets`. Destino indicado: https://github.com/Da-Hora-stack/2047. **A publicação para esse repositório público está aguardando autorização explícita após bloqueio pela revisão automática; a branch/tag ainda não foram enviadas.** [Instruções para continuar, Windows e texturas](docs/CONTINUAR_CORRECOES_0.7.0.md).
 
-Os demais caminhões estão preparados, com rig/uso dirigível pendentes; o cockpit ainda é provisório. NPCs Fab continuam aguardando licença. Relatórios abaixo descrevem versões anteriores, incluindo a época em que a cópia local não continha as texturas agora encontradas no repositório oficial.
+No Windows, com a cópia completa desta branch: `npm ci`, `npm run dev`, abrir http://localhost:3000 nesse computador, ou usar INICIAR_JOGO.bat. Novo jogo inicia a pé no barracão; tutorial opcional pode ser pulado/repetido. A pé: WASD, Shift, mouse, C para perspectiva e F para interagir/entrar. No Titã: E motor, W/S acelerar/frear/ré, A/D direção, Espaço freio, C câmeras, F sair parado. Saves legados continuam compatíveis.
+
+Personagens atuais são arte anatômica provisória CC0, com roupas/rig/animações adaptados; falta arte final individualizada. Fab continua fora por licença desconhecida. Quatro caminhões adicionais estão preparados, ainda sem uso dirigível. [Tutorial/assets 0.6.0](RELATORIO_TUTORIAL_ASSETS.md). As seções abaixo são históricas, inclusive instruções antigas de início ao volante e ausência de texturas.
 
 Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Versão atual: **0.5.0 — Fase 1 da reformulação realista: condução**. O mundo, a sobrevivência e a Rede com sete Núcleos da versão 0.4 foram preservados.
 

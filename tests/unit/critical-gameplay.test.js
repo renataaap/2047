@@ -52,6 +52,6 @@ it('raycast aceita o próprio Titã e rejeita uma parede, mesmo junto ao alvo',(
 import {truckEntryTarget} from '../../src/game/interactions/truckEntryTarget.js';
 import {eligible} from '../../src/game/interactions/InteractionResolver.js';
 it('retorno rápido usa a porta junto à cabine, inclusive com o Titã girado',()=>{
- const p={x:0,y:0,z:5},q={x:0,y:0,z:0,w:1},observer={x:-2.8,z:2.5,yaw:0},t=truckEntryTarget(p,q,observer,'Entrar');expect(t.position).toEqual({x:-2.1,z:2.5});expect(eligible(t,observer)).toBe(true);
+ const p={x:0,y:0,z:5},q={x:0,y:0,z:0,w:1},observer={x:-2.8,z:2.5,yaw:0},t=truckEntryTarget(p,q,observer,'Entrar');expect(t.position).toEqual({x:-2.1,y:.75,z:2.5});expect(eligible(t,observer)).toBe(true);
  const rotated=truckEntryTarget({x:10,y:0,z:20},{x:0,y:Math.sin(Math.PI/4),z:0,w:Math.cos(Math.PI/4)},{x:7.5,z:22.8,yaw:Math.PI});expect(rotated.position.x).toBeCloseTo(7.5);expect(rotated.position.z).toBeCloseTo(22.1);
 });

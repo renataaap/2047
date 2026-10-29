@@ -1,0 +1,13 @@
+# Retomar imediatamente após o checkpoint
+
+O usuário pediu “suba as alterações pro github já” e “depois termine”. Publicar checkpoint nesta branch, continuar e só marcar final após verificações.
+
+- Branch feat/tutorial-assets; base oficial Da-Hora-stack/2047 a8a8802. v0.6.0 (77c96ec) concluída localmente; 0.7.0 em validação. Dois commits recentes: 1a8279c (worker CC0) e a36fdbb (lógica/UI).
+- Uma tentativa anterior de push público foi rejeitada automaticamente por falta de autorização específica. Agora o usuário pediu explicitamente esse envio após a pergunta sobre o destino público. Usar Git normal, sem contornar a revisão e sem force push.
+- 135 testes unitários passaram; primeira execução integral e2e: 14 passaram/6 falharam. Rechecagem de sete: cinco passaram, sobrevivência e sete Núcleos ainda falharam. Novo teste de sobrevivência já aguarda a visibilidade do loot, mas tem mais uma espera fixa de 2 s no consumo inicial que precisa virar condição real. Build 0.7.0 ainda pendente.
+- Bug reproduzido na Cordilheira: após teleportPlayer junto à cabine, Dante pode cair sob o terreno porque Player.teleport usa heightAt analítico, enquanto o terreno/collider interpola triângulos com menor densidade longe da via. Exemplo do último snapshot: Titã [-44.175,-27.377,-12782.945]; Dante [-47.187,-112.312,-12782.963]. Não é velocidade/tecla nem falta de recurso. Ver evidence/phase4/failure-0.7.0.json.
+- Próxima correção: amostrar a superfície realmente renderizada/física para spawn, em vez de aumentar alturas por tentativa. World mantém sector.terrain.geometry; pode interpolar o triângulo no X/Z sem depender de broadphase ainda não atualizado. Player deve receber esse amostrador em Game. Preservar coordenada Y explícita de saves/findExit. Criar teste físico para o ponto irregular. Revalidar entrada na cabine e sete Núcleos.
+- A maçaneta agora é alvo com Y físico (truckEntryTarget), e F após sair funciona no e2e. O raycast ignora somente o colisor do alvo, bloqueando paredes. Não desfazer essa arquitetura nem voltar a priorizar Network sobre ROAD_POINTS.
+- Não editar falas dos quatro arquivos data; hashes em evidence/critical-gameplay/narrative-protection.json. Worker anatômico CC0 é provisório, Fab não tem licença identificada.
+- Depois: reexecutar phase3/phase4, e2e afetados pela correção, npm test, build (parar dev antes). Atualizar relatório/status com resultados honestos, fazer commit/tag final v0.7.0 e publicar normalmente.
+- Dev está rodando na sessão 41860, porta 3000; não executar build ao mesmo tempo. Nenhuma suíte deve ficar rodando em paralelo. Última suíte de dois testes terminou com falhas, logs persistence-recheck.log.

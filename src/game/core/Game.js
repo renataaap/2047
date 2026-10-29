@@ -116,7 +116,7 @@ resume(){this.state.mode=this.state.resumeMode||'driving';this.state.overlay=nul
 menu(){this.state.mode='menu';this.state.overlay=null;this.state.engineOn=false;this.input.setContext('menu');this.vehicle.teleport(0,5);this.sync();this.emit();}
 recover(){this.vehicle.recover();this.state.fuel=Math.max(0,this.state.fuel-2);if(this.state.loaded)this.campaign.seed.integrity=Math.max(0,this.campaign.seed.integrity-8);this.sync();this.resetCargo();this.state.speed=0;this.state.resumeMode='driving';this.state.notice=COPY.recovery;this.vehicle.resetDrivetrain(this.state.engineOn,this.state);this.resume();}
 observer(){return {...this.player.body.translation(),yaw:this.player.yaw};}
-visibleTarget(target){const p=this.player.body.translation();return targetVisible(this.physics,{x:p.x,y:p.y+.55,z:p.z},{...target,position:{...target.position,y:heightAt(target.position.x,target.position.z)+1}},this.player.collider);}
+visibleTarget(target){const p=this.player.body.translation();return targetVisible(this.physics,{x:p.x,y:p.y+.55,z:p.z},{...target,position:{...target.position,y:target.position.y??heightAt(target.position.x,target.position.z)+1}},this.player.collider);}
 interactionCandidates(){
  const p=this.player.body.translation(),inspected=this.tutorialWorld.target(p);
  return [...(inspected?[{...inspected,key:`inspection:${inspected.object}`,type:'inspection',position:TRAINING.objects.find(o=>o.id===inspected.object),range:1.8,priority:30}]:[]),
