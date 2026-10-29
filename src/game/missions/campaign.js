@@ -25,7 +25,7 @@ export function mechanics(c,state,input,dt,storm){
   const m=c.components;
   const moving=state.speed>1;
   if(moving){c.travelSeconds+=dt;m.tires=Math.max(0,m.tires-dt*(state.surface==='asfalto'?.0007:.004));m.transmission=Math.max(0,m.transmission-dt*Math.abs(input.throttle)*.001);m.filters=Math.max(0,m.filters-dt*(storm?.12:.001));}
-  if(state.engineOn){const target=72+Math.abs(input.throttle)*22+(m.radiator<40?35:0);state.temperature+=(target-state.temperature)*dt*.024;state.fuel=Math.max(0,state.fuel-dt*(m.tank<40?.012:0));if(state.temperature>108)m.engine=Math.max(0,m.engine-dt*.035);}
+  if(state.engineOn){const target=72+(Number.isFinite(state.enginePowerKw)?Math.min(1,state.enginePowerKw/250):Math.abs(input.throttle))*22+(m.radiator<40?35:0);state.temperature+=(target-state.temperature)*dt*.024;state.fuel=Math.max(0,state.fuel-dt*(m.tank<40?.012:0));if(state.temperature>108)m.engine=Math.max(0,m.engine-dt*.035);}
   return {power:(m.engine<40?.45+m.engine/80:1)*(m.filters<40?.6+m.filters/100:1)*(m.transmission<40?.65:1)*(state.temperature>110?.65:1),grip:m.tires<40?.8:1};
 }
 export function impactDamage(c,speed){const loss=Math.min(18,Math.max(0,speed-3)*1.2);if(!loss)return;for(const id of ['frame','suspension','radiator','engine','tank'])c.components[id]=Math.max(0,c.components[id]-loss);}

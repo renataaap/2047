@@ -15,7 +15,11 @@ export class AutomaticTransmission {
   if(desired<0&&this.gear>=0){
    brake=Math.abs(command);if(Math.abs(speed)<=T.transmission.safeDirectionSpeed&&running&&!input.handbrake){this.directionWait+=dt;if(this.directionWait>=T.transmission.reverseDelay){this.shift(-1);brake=0;this.directionWait=0;}}else this.directionWait=0;
   }else if(desired>0&&this.gear<=0){
-   if(opposing){brake=command;this.directionWait=0;}else if(running&&Math.abs(speed)<=T.transmission.safeDirectionSpeed){this.shift(1);this.directionWait=0;}
+   if(opposing){brake=command;this.directionWait=0;}else if(running&&(this.gear===0||Math.abs(speed)<=T.transmission.safeDirectionSpeed)){
+    let selected=1;const wheelRpm=Math.abs(speed)*60/(Math.PI*2*T.wheelRadius);
+    while(selected<T.transmission.ratios.length&&wheelRpm*T.transmission.ratios[selected-1]*T.transmission.finalDrive>T.transmission.upshiftRpm)selected++;
+    this.shift(selected);this.directionWait=0;
+   }
   }else this.directionWait=0;
   if(!running&&Math.abs(speed)<.25)this.shift(0);
   const throttle=running&&!opposing&&!brake&&(!changing||Math.sign(this.gear)===desired)?Math.abs(command):0;

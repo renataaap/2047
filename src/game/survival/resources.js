@@ -12,6 +12,7 @@ export function fuelConsumed({ engineOn, throttle = 0, speed = 0,fuelRateLps }, 
 export function updateResources(state, input, dt) {
   state.fuel = Math.max(0, state.fuel - fuelConsumed({ ...state, throttle: input.throttle }, dt));
   if (state.fuel === 0) state.engineOn = false;
-  const target = state.engineOn ? 72 + Math.abs(input.throttle) * 19 : 23;
+  const load=Number.isFinite(state.enginePowerKw)?Math.min(1,state.enginePowerKw/250):Math.abs(input.throttle);
+  const target = state.engineOn ? 72 + load * 19 : 23;
   state.temperature += (target - state.temperature) * dt * .015;
 }

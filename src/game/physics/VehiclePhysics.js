@@ -50,7 +50,7 @@ export class VehiclePhysics {
   const v=this.body.linvel(),q=this.body.rotation(),right={x:1-2*(q.y*q.y+q.z*q.z),y:2*(q.x*q.y+q.w*q.z),z:2*(q.x*q.z-q.w*q.y)};
   Object.assign(state,{tractionForceN:force,resistanceForceN:resistance,steeringAngle:this.steer,longitudinalAcceleration:this.filteredAcceleration,lateralAcceleration:speed*speed*Math.tan(this.steer)/T.wheelbase,lateralSpeed:v.x*right.x+v.y*right.y+v.z*right.z});
  }
- resetDrivetrain(running=false){this.powertrain.reset(running);this.steer=0;this.previousSpeed=0;this.filteredAcceleration=0;}
+ resetDrivetrain(running=false,state){this.powertrain.reset(running);this.steer=0;this.previousSpeed=0;this.filteredAcceleration=0;if(state)Object.assign(state,{rpm:this.powertrain.engine.rpm,gear:0,gearLabel:'N',shiftCount:0,shifting:false,throttle:0,brake:0,torqueNm:0,enginePowerKw:0,engineBraking:false,parkingBrake:false});}
  teleport(x,z,y=heightAt(x,z)+1.7){this.body.setTranslation({x,y,z},true);this.body.setRotation({x:0,y:0,z:0,w:1},true);this.body.setLinvel({x:0,y:0,z:0},true);this.body.setAngvel({x:0,y:0,z:0},true);this.resetDrivetrain();}
  recover(){const z=Math.max(-CONFIG.world.roadLength+20,Math.min(20,this.body.translation().z));this.teleport(roadX(z),z);}
 }

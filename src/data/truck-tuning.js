@@ -7,7 +7,7 @@ export const TRUCK_TUNING=Object.freeze({
  transmission:{ratios:[8.1,6.1,4.6,3.45,2.6,1.95,1.46,1.1],reverseRatio:8.4,finalDrive:4.1,efficiency:.88,
   shiftSeconds:.38,dwellSeconds:.85,reverseDelay:.65,safeDirectionSpeed:.25,upshiftRpm:2050,downshiftRpm:1000,maxAxleTorque:14000},
  dynamics:{maxSpeed:25,maxReverseSpeed:3,airDensity:1.225,dragArea:6.5,drivenWeight:.62,engineBrakeNm:240,
-  serviceBrakeForce:52000,parkingBrakeForce:140000,parkingFrontAssist:30000,brakeSeconds:.13},
+  serviceBrakeForce:52000,parkingBrakeForce:60000,parkingFrontAssist:30000,brakeSeconds:.13},
  steering:{maxAngle:.62,rate:1.65,returnRate:2.1,lateralAcceleration:2.5,steeringWheelRatio:18},
  suspension:{restLength:.52,travel:.32,stiffness:34,compression:4.8,relaxation:5.8,maxForce:55000},
  surfaces:{
