@@ -1,12 +1,19 @@
 # Estado do projeto — 2047: Rede Aurora
 
-Versão: **0.5.0 — Fase 1 da reformulação realista**. Repositório privado: https://github.com/renataaap/2047.
+Versão: **0.5.1 — integração parcial de assets; Fase 2 em andamento**. Repositório privado: https://github.com/renataaap/2047.
+
+
+Em 29/10/2026, o pedido de assets ampliou a Fase 2. Veja **RELATORIO_INTEGRACAO_ASSETS.md**, `docs/INTEGRACAO_ASSETS.md` e `docs/CATALOGO_ASSETS.json` antes de retomar. Foram integrados três GLBs de carros Renafox com PBR próprio, colisões e streaming, sob **CC BY-NC 4.0, para uso não comercial**. Créditos/licença preservados. O exterior do Titã ainda é o modelo anterior. Validação atual: **87 unitários, suíte completa de 14 e2e, repetição final de 5 e2e e build passaram**. A auditoria solicitada pelo usuário está em `docs/AUDITORIA_FASES_2026-10-29.md`: o jogo ainda não tem todas as fases concluídas.
+
+O loader PBR, downloader/importer offline, mistura de solo, cache, contratos GLB/rodas e AnimationMixer estão preparados e testados com fixtures originais de diagnóstico. Isso NÃO significa que os modelos escolhidos ou materiais Poly Haven estejam instalados. **Poly Haven: 0 materiais instalados.** Dos 20 ZIPs recebidos, 17 ultrapassam o limite de transferência de 32 MiB, incluindo LP 608 e todos os mapas 4K. O caminhão Saia recebido tem 1.970.772 triângulos e licença CC BY-ND; não foi adaptado/distribuído. O pacote City People foi inspecionado (11 personagens, 28 animações); licença ausente e usuário não a encontrou. Não foi integrado/distribuído.
+
+A rede do ambiente bloqueia Poly Haven; o usuário não tem acesso para alterar a configuração. Para continuar, receber mapas em ZIPs menores que 32 MiB ou volumes de 25 MB; manter todas as partes de um arquivo dividido. Também pode executar BAIXAR_TEXTURAS.bat no Windows. Não pedir novamente autorização para GitHub nem para a conta renataaap já escolhida.
 
 A versão 0.4.0 encerrou as quatro fases do roteiro original. Em 29/10/2026, o usuário substituiu a direção estilizada por realismo e pediu começar a **Fase 1 de um novo roteiro**. A antiga Fase 5 narrativa não foi iniciada.
 
 A 0.5.0 implementa motor diesel/torque/RPM, oito marchas automáticas/ré segura, massa física da carga, resistências por piso, freios, suspensão, direção e câmeras. Cabine oca, instrumentos 3D, volante, HUD e áudio ligados ao estado real. Entrega verificada: **74 testes unitários, 11 e2e e build passando**. O resultado está em `RELATORIO_REFORMULACAO_FASE_1.md`.
 
-Roteiro vigente: `docs/REFORMULACAO_REALISTA.md`. Próxima etapa: **Fase 2 da reformulação gráfica**, com downloads reais do Poly Haven/PBR e reconstrução visual. Nenhum asset externo foi instalado na Fase 1.
+Histórico do encerramento da 0.5.0: roteiro em `docs/REFORMULACAO_REALISTA.md`. Etapa iniciada nesta versão: **Fase 2 da reformulação gráfica**, com downloads reais do Poly Haven/PBR e reconstrução visual. Nenhum asset externo foi instalado na Fase 1.
 
 
 ## O que preservar

@@ -95,3 +95,13 @@ Os conflitos morais completos, revelação da Voz e quatro finais permanecem na 
 - A câmera interna acompanha a posição/orientação da cabine; apenas o olhar local e a transição de câmera são suavizados, evitando que o banco fique para trás durante a viagem.
 
 - Se o Titã estiver em N mas rolando para a frente, W seleciona uma relação compatível com a velocidade. A segurança contra engatar o sentido contrário permanece; não é preciso parar um caminhão que já segue no sentido solicitado para sair do neutro.
+
+
+## 29/10/2026 — preparação/integracão parcial de assets (0.5.1)
+- O pedido novo e o kit foram lidos antes de editar. Física atual foi preservada; visuais, recursos e corpos físicos têm responsabilidades separadas.
+- API bloqueada e usuário sem acesso à configuração: downloader consulta endpoints oficiais e registra falhas; importer offline aceita os arquivos fornecidos. Não contornar proxy nem anunciar materiais ausentes.
+- Dezessete dos vinte ZIPs excedem 32 MiB. Três foram abertos com extração controlada. City People tem 11 rigs/28 animações, mas não veio com licença; Saia é ND e tem 1,97 milhão de triângulos. Esses modelos não foram incorporados.
+- Carros Renafox têm licença NC explícita. Três GLBs separados com UVs/PBR originais e texturas até 1K foram integrados nesta versão de desenvolvimento não comercial, com créditos e alterações registradas. Não fazer deploy comercial com esses assets.
+- Malha adaptativa junto às estradas resolve o chão que invadia o asfalto; mesma geometria no Rapier. Acostamentos físicos respondem como cascalho.
+- Shader de mistura PBR/GLB/AnimationMixer foram verificados com fixtures originais rotuladas; não são assets finais. IBL procedural ficou no Alto após custo medido em SwiftShader; os demais perfis preservam desempenho.
+- Progressão GAZ→LP→Peterbilt depende de arquivos autorizados e ajuste físico próprio; não fingir três veículos com a mesma física. Titã pode preservar a identidade do berço/conjunto Aurora ao mudar de base (proposta narrativa).

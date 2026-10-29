@@ -1,0 +1,31 @@
+
+> 2047-rede-aurora@0.5.1 test:e2e
+> playwright test
+
+
+Running 14 tests using 1 worker
+
+(node:11578) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/e2e/assets.spec.js:7:1 › sem Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais (15.4s)
+  ✓   2 tests/e2e/assets.spec.js:15:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer (21.0s)
+  ✓   3 tests/e2e/assets.spec.js:25:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade (18.2s)
+  ✓   4 tests/e2e/driving.spec.js:6:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura (22.3s)
+  ✓   5 tests/e2e/driving.spec.js:14:1 › câmera externa respeita paredes e ajustes de condução persistem (17.7s)
+  ✓   6 tests/e2e/exit.spec.js:4:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos (11.5s)
+ACEITE {"speedKmh":42.877608573196675,"fuelBefore":4,"fuelAfter":3.936865556912902,"averageFps":2.2263503731616248,"drawCalls":152,"triangles":101784,"consoleErrors":[]}
+  ✓   7 tests/e2e/game.spec.js:4:1 › aceite: mundo real, W por 8 s, diesel, console e orçamento (18.9s)
+  ✓   8 tests/e2e/game.spec.js:18:1 › câmeras, motor, pausa, configurações e API (24.8s)
+  ✓   9 tests/e2e/game.spec.js:30:1 › setores se renovam até as cidades e o objetivo mantém a primeira Semente (10.9s)
+  ✓  10 tests/e2e/phase2.spec.js:6:1 › API: cookies, isolamento, CRUD, validação e conflito (297ms)
+  ✓  11 tests/e2e/phase2.spec.js:16:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga (31.5s)
+  ✓  12 tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência (33.9s)
+  ✓  13 tests/e2e/phase4.spec.js:17:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral (1.1m)
+  ✓  14 tests/e2e/phase4.spec.js:36:1 › Fase 4: bloqueio físico, desvio transitável e frente climática persistida (23.4s)
+
+  14 passed (5.2m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice

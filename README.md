@@ -1,5 +1,20 @@
 # 2047: Rede Aurora
 
+
+**0.5.1 — integração de assets em andamento.** [Auditoria das seis fases](docs/AUDITORIA_FASES_2026-10-29.md). [Relatório da etapa](RELATORIO_INTEGRACAO_ASSETS.md) · [Catálogo e instruções](docs/INTEGRACAO_ASSETS.md).
+
+Três modelos reais de carros abandonados, com suas texturas PBR, foram integrados ao Mar de Cinzas com colisões e carregamento por proximidade. São de Renafox, sob **CC BY-NC 4.0 (uso não comercial)**; licença e alterações estão registradas. A malha junto às estradas foi refinada para impedir o terreno de atravessar a pista; acostamentos têm geometria, colisão e aderência de cascalho.
+
+**O caminhão externo e os personagens ainda não foram substituídos. Não há materiais Poly Haven instalados.** Os pacotes 4K/LP 608 enviados excederam 32 MiB; arquivos menores/divididos são necessários. O Saia recebido tem licença ND e quase 2 milhões de triângulos; City People veio sem licença identificável. Não foi anunciada a conclusão da reforma gráfica.
+
+Há ferramentas de download/preparação e importação offline prontas. No Windows, `BAIXAR_TEXTURAS.bat` baixa os arquivos reais da API e prepara resoluções por perfil; `npm run assets:import -- --from=PASTA` importa imagens já baixadas. Veja `docs/INTEGRACAO_ASSETS.md` para os formatos e limites. O runtime usa arquivos locais, com cache e tratamento de ausência.
+
+A condução da versão 0.5.0 e as missões/saves foram preservados. E liga o motor; W acelera; S freia/engata ré após parar; mantenha Espaço e aperte F para descer.
+
+---
+
+Histórico da entrega anterior:
+
 Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Versão atual: **0.5.0 — Fase 1 da reformulação realista: condução**. O mundo, a sobrevivência e a Rede com sete Núcleos da versão 0.4 foram preservados.
 
 ## Condução 0.5.0
