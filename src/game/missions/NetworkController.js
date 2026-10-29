@@ -8,7 +8,7 @@ import { generatorState,startGenerator,claimTechReward,gasBuy,shopBuy,shopServic
 export function interactionPoint(p){return {x:p.kind==='vault'||p.kind==='network-core'?p.x-1:p.x,z:p.z+(p.kind==='vault'?6:p.kind==='network-core'?8:p.kind==='shelter'?-1:0)};}
 export class NetworkController {
 constructor(game){this.g=game;}
-target(){const p=this.g.player.body.translation(),point=NETWORK_POINTS.find(k=>near(p,interactionPoint(k),k.kind==='network-core'?5:4))||ROAD_POINTS.find(k=>near(p,k.talk||k,4));return point?{id:'network',point:point.id,text:point.name}:null;}
+target(){const p=this.g.player.body.translation(),point=NETWORK_POINTS.find(k=>near(p,interactionPoint(k),k.kind==='network-core'?5:4));return point?{id:'network',point:point.id,text:point.name}:null;}
 parked(p){const g=this.g,delivery=p.kind==='network-core'?{x:p.x-14,z:p.z+10}:p;return !g.state.engineOn&&g.state.speed<.6&&near(g.current,delivery,p.kind==='network-core'?15:35);}
 action(type,payload){if(!['openVault','networkCalibrate','networkActivate','networkLoot','networkBuy','questAccept','questComplete','questDefer','networkRest','networkPlan','generatorStart','techClaim','gasBuy','shopBuy','shopService','shopSell'].includes(type))return undefined;
 const g=this.g,c=g.campaign;

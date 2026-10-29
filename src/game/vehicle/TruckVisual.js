@@ -34,7 +34,7 @@ export class TruckVisual {
       lease.scene.scale.multiplyScalar(scale);lease.scene.rotation.y=definition.rotationY||0;lease.scene.position.fromArray(definition.offset||[0,0,0]);visual.updateMatrixWorld(true);
       for(const name of definition.removeNodes||[]){const node=lease.scene.getObjectByName(name);if(!node)throw new Error(`Malha de carga não encontrada: ${name}`);if(definition.wheels.some(w=>node.getObjectByName(w.node)||node.name===w.node))throw new Error('Remoção atingiria roda/chassi');node.removeFromParent();}
       const rig=inspectTruckRig(visual,definition,this.truck.wheelPoints);
-      this.legacy=[...this.truck.root.children].filter(o=>o.isMesh||o.isGroup);
+      this.legacy=[...this.truck.root.children].filter(o=>(o.isMesh||o.isGroup)&&!o.userData.keepWithImportedTruck);
       // Cab/old exterior are hidden outside. The existing cockpit remains provisional inside.
       this.truck.root.add(visual);this.visual=visual;
       for(const {node,binding,center} of rig.wheels){const steer=new THREE.Group(),spin=new THREE.Group();visual.add(steer);steer.position.copy(center);steer.add(spin);visual.updateMatrixWorld(true);spin.attach(node);this.wheels.push({steer,spin,binding});}
@@ -46,6 +46,6 @@ export class TruckVisual {
     this.visual.visible=!inside;for(const o of this.legacy)o.visible=o===this.truck.cab&&inside;
     for(let i=0;i<this.wheels.length;i++){const {steer,spin,binding}=this.wheels[i],p=this.truck.wheelPoints[i];steer.position.y=p.y-(controller.wheelSuspensionLength(i)??.52);steer.rotation.y=controller.wheelSteering(i)||0;spin.rotation[binding.spinAxis]=(controller.wheelRotation(i)||0)*binding.spinSign;}
   }
-  snapshot(){return {status:this.status,id:this.id||null,triangles:this.rig?.triangles||0,wheelBindings:this.wheels.length,provisionalCockpit:this.status==='imported'};}
+  snapshot(){return {status:this.status,id:this.id||null,triangles:this.rig?.triangles||0,wheelBindings:this.wheels.length,provisionalCockpit:this.status==='imported',wheels:this.wheels.map(({steer,spin})=>({y:steer.position.y,steering:steer.rotation.y,rotation:spin.rotation.x,center:new THREE.Box3().setFromObject(spin).getCenter(new THREE.Vector3()).applyMatrix4(this.truck.root.matrixWorld.clone().invert()).toArray()}))};}
   dispose(){this.visual?.removeFromParent();this.lease?.release();this.lease=null;}
 }

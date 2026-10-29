@@ -1,6 +1,54 @@
 {
   "schemaVersion": 1,
-  "trucks": {},
+  "trucks": {
+    "initial": {
+      "id": "titan-old",
+      "status": "installed",
+      "rightsCleared": true,
+      "license": "CC-BY-4.0",
+      "source": "https://sketchfab.com/3d-models/truck-old-one-3c15fa1056164a539dbc3332933d52c3",
+      "attribution": "titan-old by Alt (whisper.alt). Source: https://sketchfab.com/3d-models/truck-old-one-3c15fa1056164a539dbc3332933d52c3. CC BY 4.0 https://creativecommons.org/licenses/by/4.0/. Changes: Cab/chassis extended to simulator dimensions, source wheel parts separated with UVs retained, rear axle duplicated, six physical pivots; textures 1K.",
+      "url": "/assets/models/trucks/titan-old/model.glb",
+      "dimensions": [
+        2.7656960487365723,
+        3.491555690765381,
+        8.050477027893066
+      ],
+      "triangles": 47500,
+      "wheels": [
+        {
+          "node": "wheel_0_L",
+          "spinAxis": "x",
+          "spinSign": -1
+        },
+        {
+          "node": "wheel_0_R",
+          "spinAxis": "x",
+          "spinSign": -1
+        },
+        {
+          "node": "wheel_1_L",
+          "spinAxis": "x",
+          "spinSign": -1
+        },
+        {
+          "node": "wheel_1_R",
+          "spinAxis": "x",
+          "spinSign": -1
+        },
+        {
+          "node": "wheel_2_L",
+          "spinAxis": "x",
+          "spinSign": -1
+        },
+        {
+          "node": "wheel_2_R",
+          "spinAxis": "x",
+          "spinSign": -1
+        }
+      ]
+    }
+  },
   "characters": {},
   "environments": {
     "wreck-sedan": {
@@ -50,6 +98,120 @@
         4.899999618530273
       ],
       "triangles": 1466
+    },
+    "old-garage": {
+      "id": "old-garage",
+      "status": "installed",
+      "rightsCleared": true,
+      "license": "CC-BY-4.0",
+      "source": "https://sketchfab.com/3d-models/old-garage-d665126c67ff4a8badec7864e2479d9f",
+      "attribution": "old-garage by Yury Misiyuk. Source: https://sketchfab.com/3d-models/old-garage-d665126c67ff4a8badec7864e2479d9f. CC BY 4.0 https://creativecommons.org/licenses/by/4.0/. Changes: Units normalized, centered on ground, textures limited to 1K. Side door panels opened for playable interior.",
+      "url": "/assets/models/environments/old-garage/model.glb",
+      "dimensions": [
+        7.7932024002075195,
+        4.781243801116943,
+        12.299999237060547
+      ],
+      "triangles": 2200,
+      "collision": "trimesh"
+    },
+    "rusty-barrel": {
+      "id": "rusty-barrel",
+      "status": "installed",
+      "rightsCleared": true,
+      "license": "CC-BY-4.0",
+      "source": "https://sketchfab.com/3d-models/rusty-barrel-4ac758b9811b4cc6954d08ec2356c181",
+      "attribution": "rusty-barrel by mxtc. Source: https://sketchfab.com/3d-models/rusty-barrel-4ac758b9811b4cc6954d08ec2356c181. CC BY 4.0 https://creativecommons.org/licenses/by/4.0/. Changes: Units normalized, centered on ground, textures limited to 1K.",
+      "url": "/assets/models/environments/rusty-barrel/model.glb",
+      "dimensions": [
+        0.6199997663497925,
+        0.9386177659034729,
+        0.6200000047683716
+      ],
+      "triangles": 1660,
+      "collision": "box"
+    },
+    "gas-station": {
+      "id": "gas-station",
+      "status": "installed",
+      "rightsCleared": true,
+      "license": "CC-BY-4.0",
+      "source": "https://sketchfab.com/3d-models/abandoned-gas-station-0720be99fcfd41d9a5772eee5edf5013",
+      "attribution": "gas-station by SURVIVED. Source: https://sketchfab.com/3d-models/abandoned-gas-station-0720be99fcfd41d9a5772eee5edf5013. CC BY 4.0 https://creativecommons.org/licenses/by/4.0/. Changes: Units normalized, centered on ground, textures limited to 1K.",
+      "url": "/assets/models/environments/gas-station/model.glb",
+      "dimensions": [
+        29.835651397705078,
+        11.149872779846191,
+        30.000001907348633
+      ],
+      "triangles": 7927,
+      "collision": "trimesh"
+    }
+  },
+  "candidates": {
+    "dump-truck": {
+      "id": "dump-truck",
+      "status": "prepared",
+      "rightsCleared": true,
+      "license": "CC-BY-4.0",
+      "source": "https://sketchfab.com/3d-models/dump-truck-781c616da8f44982a59cb3fc3fa67f98",
+      "attribution": "dump-truck by ElectroNick. Source: https://sketchfab.com/3d-models/dump-truck-781c616da8f44982a59cb3fc3fa67f98. CC BY 4.0 https://creativecommons.org/licenses/by/4.0/. Changes: Units normalized, centered on ground, textures limited to 1K.",
+      "url": "/assets/models/trucks/dump-truck/model.glb",
+      "dimensions": [
+        2.8050684928894043,
+        2.9662814140319824,
+        7.500000476837158
+      ],
+      "triangles": 34307,
+      "pending": "Wheel separation/pivots, cockpit and drivable validation; not a campaign unlock"
+    },
+    "semi-1960": {
+      "id": "semi-1960",
+      "status": "prepared",
+      "rightsCleared": true,
+      "license": "CC-BY-4.0",
+      "source": "https://sketchfab.com/3d-models/semi-truck-1960-2d7445a796bc471ebccc0cbb323ecd24",
+      "attribution": "semi-1960 by Brian Trepanier. Source: https://sketchfab.com/3d-models/semi-truck-1960-2d7445a796bc471ebccc0cbb323ecd24. CC BY 4.0 https://creativecommons.org/licenses/by/4.0/. Changes: Units normalized, centered on ground, textures limited to 1K.",
+      "url": "/assets/models/trucks/semi-1960/model.glb",
+      "dimensions": [
+        8.199999809265137,
+        3.1231186389923096,
+        6.896984577178955
+      ],
+      "triangles": 134205,
+      "pending": "Wheel separation/pivots, cockpit and drivable validation; not a campaign unlock"
+    },
+    "semi-baked": {
+      "id": "semi-baked",
+      "status": "prepared",
+      "rightsCleared": true,
+      "license": "CC-BY-4.0",
+      "source": "https://sketchfab.com/3d-models/semi-truck-baked-3e8c5275aeab487fa37d227ce0bd1a9a",
+      "attribution": "semi-baked by 3DE_Study. Source: https://sketchfab.com/3d-models/semi-truck-baked-3e8c5275aeab487fa37d227ce0bd1a9a. CC BY 4.0 https://creativecommons.org/licenses/by/4.0/. Changes: Units normalized, centered on ground, textures limited to 1K.",
+      "url": "/assets/models/trucks/semi-baked/model.glb",
+      "dimensions": [
+        3.8869168758392334,
+        4.317643165588379,
+        8.199999809265137
+      ],
+      "triangles": 40023,
+      "pending": "Wheel separation/pivots, cockpit and drivable validation; not a campaign unlock"
+    },
+    "tatra-815": {
+      "id": "tatra-815",
+      "status": "prepared",
+      "rightsCleared": true,
+      "license": "CC-BY-4.0",
+      "source": "https://sketchfab.com/3d-models/tatra-815-dump-truck-726508572966462d9a065120ef5ec129",
+      "attribution": "tatra-815 by Randonavt. Source: https://sketchfab.com/3d-models/tatra-815-dump-truck-726508572966462d9a065120ef5ec129. CC BY 4.0 https://creativecommons.org/licenses/by/4.0/. Changes: Units normalized, centered on ground, textures limited to 1K.",
+      "url": "/assets/models/trucks/tatra-815/model.glb",
+      "dimensions": [
+        3.5885448455810547,
+        3.644453287124634,
+        8.2016019821167
+      ],
+      "triangles": 129977,
+      "pending": "Wheel separation/pivots, cockpit and drivable validation; not a campaign unlock"
     }
   }
 }
