@@ -1,0 +1,90 @@
+
+> 2047-rede-aurora@0.5.1 test:e2e
+> playwright test
+
+
+Running 13 tests using 1 worker
+
+(node:7658) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/e2e/assets.spec.js:7:1 › sem arquivos externos instalados: inicia, dirige, explora e não busca URLs de terceiros (20.5s)
+  ✘   2 tests/e2e/assets.spec.js:15:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer (13.2s)
+(node:7884) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   3 tests/e2e/driving.spec.js:6:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura (30.8s)
+  ✓   4 tests/e2e/driving.spec.js:14:1 › câmera externa respeita paredes e ajustes de condução persistem (26.6s)
+  ✓   5 tests/e2e/exit.spec.js:4:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos (14.7s)
+ACEITE {"speedKmh":25.045464745232014,"fuelBefore":4,"fuelAfter":3.9766155023717813,"averageFps":1.3512509662787844,"drawCalls":154,"triangles":73656,"consoleErrors":[]}
+  ✘   6 tests/e2e/game.spec.js:4:1 › aceite: mundo real, W por 8 s, diesel, console e orçamento (25.3s)
+(node:8388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   7 tests/e2e/game.spec.js:18:1 › câmeras, motor, pausa, configurações e API (37.0s)
+  ✓   8 tests/e2e/game.spec.js:30:1 › setores se renovam até as cidades e o objetivo mantém a primeira Semente (16.4s)
+  ✓   9 tests/e2e/phase2.spec.js:6:1 › API: cookies, isolamento, CRUD, validação e conflito (895ms)
+  ✓  10 tests/e2e/phase2.spec.js:16:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga (40.3s)
+  ✓  11 tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência (42.8s)
+  ✓  12 tests/e2e/phase4.spec.js:17:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral (1.3m)
+  ✓  13 tests/e2e/phase4.spec.js:36:1 › Fase 4: bloqueio físico, desvio transitável e frente climática persistida (28.6s)
+
+
+  1) tests/e2e/assets.spec.js:15:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 10
+    Received:   1.7958192433109588e-10
+
+      18 |  await page.route('**/assets/test-fixtures/**',r=>{const file=new URL(r.request().url()).pathname.split('/').at(-1);if(file==='truck.glb'||file==='npc.glb')return r.fulfill({contentType:'model/gltf-binary',body:file==='truck.glb'?data.truckGLB:data.npcGLB});return r.fulfill({contentType:'image/png',body:data.pngs[file.replace('.png','')]});});
+      19 |  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'01 Novo jogo'}).click();const initial=await snapshot(page);expect(initial.pbr.terrainBlend).toBe(true);expect(initial.importedTruck.status).toBe('imported');expect(initial.importedTruck.wheelBindings).toBe(6);expect(initial.importedNpc.loaded).toBe(true);expect(initial.importedNpc.animations).toEqual(['idle','walk']);expect(initial.assets.errors).toEqual([]);expect(initial.assets.textures).toBe(3); // Shared fixture textures exercise the cache.
+    > 20 |  await page.keyboard.press('KeyE');await page.keyboard.down('KeyW');await page.waitForTimeout(3500);await page.keyboard.up('KeyW');const driven=await snapshot(page);expect(driven.speedKmh).toBeGreaterThan(10);expect(driven.pbr.applied.asphalt).toBe('road_damaged_2');expect(driven.importedNpc.animationTime).toBeGreaterThan(initial.importedNpc.animationTime);await page.screenshot({path:`${dir}/fixture-validation-only.png`});
+         |                                                                                                                                                                                              ^
+      21 |  await page.keyboard.press('KeyC');await page.waitForTimeout(500);expect((await snapshot(page)).instruments.rpm).toBeGreaterThan(600);await page.keyboard.press('Escape');await page.getByRole('button',{name:'Configurações',exact:true}).click();await page.getByRole('button',{name:'Alto',exact:true}).click();await page.waitForTimeout(800);expect((await snapshot(page)).assets.errors).toEqual([]);
+      22 |  expect(errors).toEqual([]);await writeFile(`${dir}/fixture-validation-only.json`,JSON.stringify({notice:'Synthetic original test fixtures. NOT selected trucks, NPC pack, or Poly Haven downloads.',initial,driven,consoleErrors:errors},null,2));
+      23 | });
+        at /workspace/work/2047-rede-aurora/tests/e2e/assets.spec.js:20:190
+
+    Error Context: test-results/assets-fixtures-originais--44195-as-e-NPC-usa-AnimationMixer/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/assets-fixtures-originais--44195-as-e-NPC-usa-AnimationMixer/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/assets-fixtures-originais--44195-as-e-NPC-usa-AnimationMixer/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/e2e/game.spec.js:4:1 › aceite: mundo real, W por 8 s, diesel, console e orçamento ───────
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 40
+    Received:   25.045464745232014
+
+      14 |   await writeFile(new URL('acceptance.json',evidence),JSON.stringify(result,null,2));console.log('ACEITE',JSON.stringify({speedKmh:after.speedKmh,fuelBefore:before.fuel,fuelAfter:after.fuel,averageFps:after.averageFps,drawCalls:after.drawCalls,triangles:after.triangles,consoleErrors:errors}));
+      15 |   await info.attach('metrics',{body:JSON.stringify(result,null,2),contentType:'application/json'});
+    > 16 |   expect(after.speedKmh).toBeGreaterThan(40);expect(after.fuel).toBeLessThan(before.fuel);expect(after.position[2]).toBeLessThan(before.position[2]-25);expect(after.averageFps).toBeGreaterThan(0);expect(after.sectors).toBe(9);expect(after.drawCalls).toBeLessThanOrEqual(300);expect(after.triangles).toBeLessThanOrEqual(500000);expect(errors).toEqual([]);
+         |                          ^
+      17 | });
+      18 | test('câmeras, motor, pausa, configurações e API',async({page})=>{
+      19 |   const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');await page.keyboard.press('KeyE');
+        at /workspace/work/2047-rede-aurora/tests/e2e/game.spec.js:16:26
+
+    Error Context: test-results/game-aceite-mundo-real-W-por-8-s-diesel-console-e-orçamento/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/game-aceite-mundo-real-W-por-8-s-diesel-console-e-orçamento/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/game-aceite-mundo-real-W-por-8-s-diesel-console-e-orçamento/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests/e2e/assets.spec.js:15:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer
+    tests/e2e/game.spec.js:4:1 › aceite: mundo real, W por 8 s, diesel, console e orçamento ────────
+  11 passed (6.4m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice

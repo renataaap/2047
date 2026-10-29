@@ -1,0 +1,53 @@
+
+Running 9 tests using 1 worker
+
+(node:18623) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ACEITE {"speedKmh":38.0140037961269,"fuelBefore":4,"fuelAfter":3.9495956477400345,"averageFps":2.2798816845852174,"drawCalls":152,"triangles":101784,"consoleErrors":[]}
+  ✘  1 tests/e2e/game.spec.js:4:1 › aceite: mundo real, W por 8 s, diesel, console e orçamento (19.5s)
+(node:18768) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 tests/e2e/game.spec.js:18:1 › câmeras, motor, pausa, configurações e API (25.0s)
+  ✓  3 tests/e2e/game.spec.js:30:1 › setores se renovam até as cidades e o objetivo mantém a primeira Semente (10.4s)
+  ✓  4 tests/e2e/interface.spec.js:3:1 › diálogo por falas, teclado, escala de legendas e retorno ao controle (12.1s)
+  ✓  5 tests/e2e/phase2.spec.js:6:1 › API: cookies, isolamento, CRUD, validação e conflito (199ms)
+  ✓  6 tests/e2e/phase2.spec.js:16:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga (32.7s)
+  ✓  7 tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência (33.6s)
+  ✓  8 tests/e2e/phase4.spec.js:17:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral (1.0m)
+  ✓  9 tests/e2e/phase4.spec.js:36:1 › Fase 4: bloqueio físico, desvio transitável e frente climática persistida (23.4s)
+
+
+  1) tests/e2e/game.spec.js:4:1 › aceite: mundo real, W por 8 s, diesel, console e orçamento ───────
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 40
+    Received:   38.0140037961269
+
+      14 |   await writeFile(new URL('acceptance.json',evidence),JSON.stringify(result,null,2));console.log('ACEITE',JSON.stringify({speedKmh:after.speedKmh,fuelBefore:before.fuel,fuelAfter:after.fuel,averageFps:after.averageFps,drawCalls:after.drawCalls,triangles:after.triangles,consoleErrors:errors}));
+      15 |   await info.attach('metrics',{body:JSON.stringify(result,null,2),contentType:'application/json'});
+    > 16 |   expect(after.speedKmh).toBeGreaterThan(40);expect(after.fuel).toBeLessThan(before.fuel);expect(after.position[2]).toBeLessThan(before.position[2]-25);expect(after.averageFps).toBeGreaterThan(0);expect(after.sectors).toBe(9);expect(after.drawCalls).toBeLessThanOrEqual(300);expect(after.triangles).toBeLessThanOrEqual(500000);expect(errors).toEqual([]);
+         |                          ^
+      17 | });
+      18 | test('câmeras, motor, pausa, configurações e API',async({page})=>{
+      19 |   const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');await page.keyboard.press('KeyE');
+        at /workspace/work/2047-rede-aurora/tests/e2e/game.spec.js:16:26
+
+    Error Context: test-results/game-aceite-mundo-real-W-por-8-s-diesel-console-e-orçamento/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/game-aceite-mundo-real-W-por-8-s-diesel-console-e-orçamento/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/game-aceite-mundo-real-W-por-8-s-diesel-console-e-orçamento/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/game.spec.js:4:1 › aceite: mundo real, W por 8 s, diesel, console e orçamento ────────
+  8 passed (3.7m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice
