@@ -57,3 +57,13 @@ Exploração a pé, interação F, rádio narrativo, Sementes, manutenção, inv
 - [ ] Medir ~60 FPS em GPU integrada a 1080p; os testes SwiftShader não validam essa meta.
 - [ ] Testar INICIAR_JOGO.bat no Windows e abertura desta conversa/GitHub no celular real.
 - [ ] Abrir saves 0.2/0.3 reais no mesmo navegador e verificar inventários/decisões após salvar em 0.4.
+
+# Reformulação realista — Fase 1 (0.5.0)
+- [ ] Testar em Windows real: novo jogo em N/motor desligado, E para partida, W, frenagem S e ré após parada.
+- [ ] Avaliar sensação de peso, progressão do acelerador, pressão do freio, retorno da direção e trocas automáticas no teclado real.
+- [ ] Comparar viagem vazia/carregada, subidas/descidas, cascalho/areia e suspensão reparada/avariada.
+- [ ] Conferir ergonomia dos instrumentos, volante e visibilidade em diferentes proporções de tela; também testar olhar na cabine.
+- [ ] Avaliar ruído de partida, frequência do motor, trocas e freio de motor com caixas/fones reais. O teste headless só valida nós/valores do Web Audio.
+- [ ] Medir desempenho em GPU real e 15/30/60/120 FPS reais. O teste automatizado varia o ritmo de frames simulado com passo fixo; não substitui a percepção humana.
+- [ ] Fazer travessia humana completa dos 21 km para reequilibrar consumo/manutenção após a mudança da simulação.
+- [ ] Conferir oclusão da câmera em muros, encostas, tetos baixos e posições muito próximas; a esfera considera colisores fixos, não todos os detalhes decorativos sem colisor.

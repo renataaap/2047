@@ -87,3 +87,11 @@ Os conflitos morais completos, revelação da Voz e quatro finais permanecem na 
 - O objetivo inicial permanece a obtenção da primeira Semente, mesmo se o jogador explorar além de 3 km. A mensagem de fim da antiga demonstração não se aplica ao continente da Fase 4.
 - Migração reconhece um Núcleo legado marcado ativo/falho com contador zero como uma tentativa, formato antes aceito pela validação; não altera o arquivo original.
 - Nas rampas, segure Espaço enquanto pressiona F. O teste de travessia espera a suspensão assentar antes de conferir a parada, em vez de usar o zero instantâneo do teleporte como evidência de estacionamento.
+
+### Integração da condução
+- Novo jogo começa ao volante, com motor desligado e caixa em N. E liga o motor; W engata D e acelera. Isso substitui o arranque automático do aceite antigo, conforme a nova experiência de partida pedida. Saves antigos preservam o campo engineOn original.
+- RPM/marcha são estados derivados: ao carregar uma partida parada, a caixa retorna a N e o motor assume o estado salvo. Não é necessário alterar schemaVersion 3 ou perder partidas.
+- O freio de motor corta a tração ao soltar o acelerador. Sem esse corte, a cauda do filtro do pedal continuava empurrando o caminhão durante o início da desaceleração.
+- A câmera interna acompanha a posição/orientação da cabine; apenas o olhar local e a transição de câmera são suavizados, evitando que o banco fique para trás durante a viagem.
+
+- Se o Titã estiver em N mas rolando para a frente, W seleciona uma relação compatível com a velocidade. A segurança contra engatar o sentido contrário permanece; não é preciso parar um caminhão que já segue no sentido solicitado para sair do neutro.

@@ -1,6 +1,19 @@
 # 2047: Rede Aurora
 
-Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Fases 1–4: condução 3D, sobrevivência, manutenção, exploração, escambo e uma rede de sete Núcleos com Cofres ao longo de cinco biomas. Inclui missões secundárias, clima e transformações persistentes.
+Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Versão atual: **0.5.0 — Fase 1 da reformulação realista: condução**. O mundo, a sobrevivência e a Rede com sete Núcleos da versão 0.4 foram preservados.
+
+## Condução 0.5.0
+
+Novo jogo começa ao volante com **motor desligado e caixa em N**. Pressione **E** para ligar; **W** engata avanço e acelera. **S** freia em movimento; parado, segure S por um breve intervalo para engatar ré. Em ré, W freia antes de permitir o retorno ao avanço. **Espaço**, mantido pressionado, é o freio de estacionamento; mantenha-o até pressionar **F** para descer. F também permite entrar e interagir.
+
+O motor agora tem curva de torque, RPM, oito marchas automáticas, ré e freio de motor. A carga acrescenta massa/inércia reais ao Rapier. Cascalho/areia/sal/rocha têm resistências distintas; o esterçamento é limitado com a velocidade. Desgaste de suspensão, pneus, motor, transmissão e temperatura afetam o comportamento.
+
+A cabine tem instrumentos 3D ligados ao veículo: velocidade, RPM, diesel, temperatura e marcha, com volante animado. C alterna acompanhamento, cabine e órbita livre; arraste o mouse para olhar/orbitar e use a roda para zoom nas câmeras externas. As câmeras externas respeitam colisores do cenário. Nas configurações é possível ajustar resposta da direção, distância externa e movimento da cabine. A câmera interna permanece no banco durante o deslocamento.
+
+Parâmetros de simulação: `src/data/truck-tuning.js`. Benchmark reproduzível: `node scripts/benchmark-drive.js --output evidence/reformulation-1/driving-0.5.0.json`. Relatório: [RELATORIO_REFORMULACAO_FASE_1.md](RELATORIO_REFORMULACAO_FASE_1.md). Roteiro vigente: [docs/REFORMULACAO_REALISTA.md](docs/REFORMULACAO_REALISTA.md).
+
+**Direção artística atual: realismo ambiental**, substituindo a especificação estilizada antiga. A reforma gráfica com arquivos reais do Poly Haven, remodelagem externa completa, estradas/terreno e iluminação é a Fase 2 deste novo roteiro. Nesta entrega foram corrigidos condução/câmeras e instrumentos; nenhum asset externo foi instalado. As seções e relatórios abaixo registram as fases históricas e as funcionalidades preservadas.
+
 
 ## Fase 4 — Um continente em resposta (0.4.0)
 
@@ -22,7 +35,7 @@ O projeto está no repositório privado https://github.com/renataaap/2047. Consu
 
 Com o caminhão parado, pressione **F** ou clique no botão **F · Descer do caminhão** na tela. Em movimento, segure **Espaço** para frear antes de descer. Agora é possível circular até 24 m ao redor do Titã em qualquer trecho; abrigos, Núcleo e estruturas mantêm suas áreas maiores de exploração. Para entrar, aproxime-se do caminhão e use F ou o botão correspondente.
 
-Para atualizar no Windows: feche o terminal da versão antiga antes de iniciar a nova. Extraia o ZIP corrigido numa pasta nova e confira **0.4.0** no menu. Se já tem saves, copie os arquivos **local.db** e, se existirem, **local.db-wal** e **local.db-shm** da pasta antiga para a nova, sem apagar os originais, e use o mesmo navegador e endereço http://localhost:3000.
+Para atualizar no Windows: feche o terminal da versão antiga antes de iniciar a nova. Extraia o ZIP corrigido numa pasta nova e confira **0.5.0** no menu. Se já tem saves, copie os arquivos **local.db** e, se existirem, **local.db-wal** e **local.db-shm** da pasta antiga para a nova, sem apagar os originais, e use o mesmo navegador e endereço http://localhost:3000.
 
 ## Windows
 1. Instale Node.js LTS em https://nodejs.org.
@@ -44,7 +57,7 @@ Requer Node.js 20.9+ (verificado com 24.19.0) e navegador desktop com WebGL2. Ab
 
 ## Primeira viagem
 
-Novo jogo começa ao volante com o motor ligado e diesel na reserva. Pare, pressione F e caminhe até a sobrevivente no abrigo. F abre o diálogo; aceite a Semente. Transfira diesel e peças ao compartimento do Titã pelo inventário, abasteça e repare radiador/suspensão. M abre as rotas: desvio pavimentado a leste, atalho irregular a oeste. No Núcleo, estacione no retângulo de balizadores, desligue o motor, desça e use o terminal. Confira a chance e calibre se precisar. A primeira ativação não permite avançar fora da sequência dos sete Núcleos.
+Novo jogo começa ao volante com o motor desligado, caixa em N e diesel na reserva. E liga o motor; W engata avanço. Pare, pressione F e caminhe até a sobrevivente no abrigo. F abre o diálogo; aceite a Semente. Transfira diesel e peças ao compartimento do Titã pelo inventário, abasteça e repare radiador/suspensão. M abre as rotas: desvio pavimentado a leste, atalho irregular a oeste. No Núcleo, estacione no retângulo de balizadores, desligue o motor, desça e use o terminal. Confira a chance e calibre se precisar. A primeira ativação não permite avançar fora da sequência dos sete Núcleos.
 
 | Tecla | Ação |
 | --- | --- |

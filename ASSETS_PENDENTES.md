@@ -27,3 +27,13 @@ Não há imagens de fundo substituindo o mundo 3D, animações pré-renderizadas
 - Cofres blindados, ressonadores, depósitos e quatro abrigos têm modelos procedurais funcionais; substituir/refinar mecanismos, sinalização e silhuetas em revisão artística. Não há animação humana final ou vozes gravadas.
 - Ruínas urbanas e torres residuais usam instâncias; montanhas são heightmap e rochas estilizadas. Refinar viadutos, montanhas, transições e interiores na Fase 6 sem remover colisores/rotas funcionais.
 - Chuva, vegetação e alterações atmosféricas são reais; qualidade perceptiva do crescimento e diferenças entre as faixas ainda exigem avaliação humana.
+
+## Reformulação realista — Fase 1 (0.5.0)
+A nova direção realista substitui a especificação estilizada anterior. As listas anteriores são históricas.
+
+- Instalados nesta fase: **nenhum asset externo**. Instrumentos usam geometrias e texturas Canvas originais; áudio continua procedural, agora ligado a RPM/trocas. Isso não equivale a materiais Poly Haven ou gravações reais.
+- Fase 2 obrigatória: baixar pela API oficial, validar e integrar arquivos locais dos IDs road_damaged_2, gravel_road, mud_cracked_dry_03, dirt, rocky_terrain_03, rusty_metal_05, rust_coarse_01 e corrugated_iron, começando em 2K.
+- Criar downloader idempotente e manifesto com URLs efetivamente retornadas por /files/{id}, hashes, resolução, dimensões e créditos/termos. Conectar corretamente mapas de cor e dados, normais OpenGL, UVs, escala física e AO.
+- Remodelar exterior do Titã, máscaras de pintura/desgaste, pneus/vidros e espelhos com reflexão quando viável. A cabine atual ficou oca e ganhou instrumentos funcionais, mas não é o modelo final realista.
+- HDRI, ciclo solar, céu/nuvens, terreno/estradas modulares, mistura PBR e reconstrução inicial são próximos passos do novo roteiro.
+- Remapeamento completo de teclas, gamepad, transmissão manual e áudio gravado/licenciado continuam pendentes; não foram anunciados como implementados nesta fase.
