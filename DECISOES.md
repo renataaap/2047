@@ -1,5 +1,20 @@
 # Decisões — Fase 1
 
+## Reformulação realista — Fase 1 (pedido de 29/10/2026)
+
+O novo pedido substitui a direção artística estilizada e estabelece outro roteiro de seis fases. Esta entrega executa somente a Fase 1 da reformulação: diagnóstico e condução. O continente e as funcionalidades 0.4.0 são preservados; a antiga Fase 5 narrativa não será iniciada por engano.
+
+1. Capturar uma referência reproduzível da física 0.4.0 e conferir as APIs oficiais de Rapier/Three.js instaladas. Manter Rapier DynamicRayCastVehicleController e passo fixo 1/60 s.
+2. Separar parâmetros, curva de torque/RPM, transmissão automática e forças do veículo. Aplicar massa real da Semente/estoque/combustível, resistência por terreno, arrasto, freio de motor e freio de serviço com unidades físicas. Converter força de frenagem em impulso por passo, conforme a API Rapier.
+3. Introduzir troca com interrupção breve de torque, histerese e engate seguro da ré. A entrada do acelerador responde imediatamente; embreagem/conversor e massa explicam a partida progressiva. Controlar esterçamento pela aceleração lateral permitida e amortecimento de suspensão pela condição mecânica/carga.
+4. Corrigir a ordem controlador → passo Rapier → leitura/interpolação. Medir passos/tempo descartado; pausar ao ocultar a aba. Conferir 15/30/60/120 FPS simulados e rampas com Rapier real.
+5. Integrar instrumentos 3D de RPM, velocidade, marcha, diesel e temperatura; volante, movimento secundário da cabine derivado da física e áudio dirigido por RPM/trocas. Câmeras com colisão por varredura de esfera, olhar na cabine e distância ajustável.
+6. Preservar saves 1–3, exploração F, missões, economia e os sete Núcleos. Rodar regressões/unitários/build/navegador, capturar cenas reais, registrar limites, fazer commits e atualizar o GitHub já autorizado. Entregar relatório antes da Fase 2 da reformulação.
+
+Poly Haven/PBR, remodelagem exterior completa, iluminação realista/ciclo solar e reconstrução ambiental são a próxima fase. Esta fase não declara materiais baixados nem o caminhão final realista. Nenhuma dependência nova é necessária para corrigir a simulação.
+
+Fontes consultadas: https://rapier.rs/javascript3d/classes/DynamicRayCastVehicleController.html (força das rodas, impulso de freio e suspensão), https://rapier.rs/javascript3d/classes/RigidBody.html (massa adicional/inércia), tipos oficiais da versão instalada 0.21.0 e https://threejs.org/docs/pages/Raycaster.html. Documentação Next local lida antes da integração React.
+
 ## Fase 4 — arquitetura e tarefas antes da implementação
 1. Catálogo único dos cinco biomas, sete Núcleos/Cofres, rotas, abrigos, personagens, suprimentos e missões secundárias. Regras puras de sequência, custos, tentativas, clima e restauração por faixa.
 2. Preservar o trecho de 6 km das versões anteriores: o Leito Seco inicial passa a ser uma enseada de reconhecimento. A rota principal segue pelas Cidades Esqueleto, retorna ao Leito Seco, sobe a Cordilheira Vítrea e termina nas Zonas de Tempestade. Escala condensada de aproximadamente 21 km, sem carregar o continente inteiro.
