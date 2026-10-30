@@ -1,0 +1,13 @@
+import {describe,it,expect} from 'vitest';
+import {createCampaign} from '../../src/game/missions/campaign.js';
+import {upgradeCampaign} from '../../src/game/missions/network.js';
+import {validSave} from '../../src/game/persistence/schema.js';
+import {upgradeWorld,validWorld,visitSite,siteAction} from '../../src/game/world/worldProgress.js';
+const fixture=c=>({schemaVersion:3,truck:{position:[0,2,5],rotation:[0,0,0,1]},player:{position:[-13,1.1,22]},context:'walking',fuel:4,temperature:26,engineOn:false,campaign:c});
+describe('descobertas e compatibilidade',()=>{
+ it('migra o estado sem apagar tutorial, recursos ou decisões',()=>{const c=upgradeCampaign(createCampaign()),before=JSON.stringify(c.inventory);delete c.world;c.decisions.push('kept');const w=upgradeWorld(c);expect(w.daySeconds).toBe(32400);expect(c.decisions).toContain('kept');expect(JSON.stringify(c.inventory)).toBe(before);expect(validSave(fixture(c))).toBe(true);});
+ it('aceita save legado sem o novo campo opcional',()=>{const c=upgradeCampaign(createCampaign());delete c.world;expect(validSave(fixture(c))).toBe(true);});
+ it('não concede recursos sem visita, nem repete reserva após round trip',()=>{const c=upgradeCampaign(createCampaign());for(const k in c.inventory.player)c.inventory.player[k]=0;expect(siteAction(c,'motel').ok).toBe(false);visitSite(c,'motel');expect(siteAction(c,'motel').ok).toBe(true);expect(c.inventory.player.water).toBe(2);const loaded=upgradeCampaign(JSON.parse(JSON.stringify(c)));expect(siteAction(loaded,'motel').ok).toBe(false);expect(loaded.inventory).toEqual(c.inventory);expect(validSave(fixture(loaded))).toBe(true);});
+ it('mochila cheia não perde a reserva nem altera recursos',()=>{const c=upgradeCampaign(createCampaign());for(const k in c.inventory.player)c.inventory.player[k]=0;c.inventory.player.water=40;visitSite(c,'yard');const bag=JSON.stringify(c.inventory);expect(siteAction(c,'yard').ok).toBe(false);expect(c.world.claimed).toEqual([]);expect(JSON.stringify(c.inventory)).toBe(bag);});
+ it('registra informação sem recompensa e rejeita estados repetidos ou inválidos',()=>{const c=upgradeCampaign(createCampaign()),bag=JSON.stringify(c.inventory);visitSite(c,'weighbridge');expect(siteAction(c,'weighbridge').ok).toBe(true);expect(siteAction(c,'weighbridge').ok).toBe(false);expect(JSON.stringify(c.inventory)).toBe(bag);expect(validWorld(c.world)).toBe(true);expect(validWorld({...c.world,read:['weighbridge','weighbridge']})).toBe(false);expect(validWorld({...c.world,claimed:['unknown']})).toBe(false);expect(validWorld({...c.world,daySeconds:86400})).toBe(false);});
+});

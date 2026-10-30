@@ -1,4 +1,5 @@
 import { validTutorial } from '../tutorial/TutorialController.js';
+import {validWorld} from '../world/worldProgress.js';
 import { COMPONENTS,ITEMS } from '../../data/campaign.js';
 import { BIOMES,CORES,NETWORK_POINTS,ROUTES,SHELTERS,SIDE_MISSIONS,SUPPLY_CACHES } from '../../data/network.js';
 import { AMBUSHES,ROAD_POINTS } from '../../data/road.js';
@@ -7,7 +8,7 @@ const bounded=(n,a,b)=>Number.isFinite(n)&&n>=a&&n<=b;
 const vec=(v,n,max=100000)=>Array.isArray(v)&&v.length===n&&v.every(x=>bounded(x,-max,max));
 export function validSave(s){
 if(!plain(s)||![1,2,3].includes(s.schemaVersion)||!vec(s.truck?.position,3)||!vec(s.truck?.rotation,4,1)||Math.abs(Math.hypot(...s.truck.rotation)-1)>.02||!vec(s.player?.position,3)||!['driving','walking'].includes(s.context)||!bounded(s.fuel,0,180)||!bounded(s.temperature,0,180)||typeof s.engineOn!=='boolean')return false;
-const c=s.campaign;if(!plain(c)||!validTutorial(c.tutorial)||!['shelter','transport','failed','activated'].includes(c.stage)||!plain(c.seed)||typeof c.seed.received!=='boolean'||!bounded(c.seed.integrity,0,100))return false;
+const c=s.campaign;if(!plain(c)||!validWorld(c.world)||!validTutorial(c.tutorial)||!['shelter','transport','failed','activated'].includes(c.stage)||!plain(c.seed)||typeof c.seed.received!=='boolean'||!bounded(c.seed.integrity,0,100))return false;
 if(!plain(c.components)||Object.keys(COMPONENTS).some(k=>!bounded(c.components[k],0,100)))return false;
 if(!plain(c.inventory)||['player','truck'].some(b=>!plain(c.inventory[b])||Object.keys(ITEMS).some(k=>!bounded(c.inventory[b][k],0,500))))return false;
 for(const bag of ['player','truck']){const weight=Object.entries(ITEMS).reduce((n,[id,item])=>n+item.weight*c.inventory[bag][id],0);if(weight>(bag==='player'?40:240)+.00001)return false;}
