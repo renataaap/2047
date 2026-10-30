@@ -7,7 +7,13 @@ import {terrainGeometry} from '../../src/game/world/terrainGeometry.js';
 import {meshHeightAt} from '../../src/game/world/surfaceHeight.js';
 import {heightAt,roadX} from '../../src/game/world/terrain.js';
 import {Player} from '../../src/game/player/Player.js';
+import {groundStaticModel} from '../../src/game/world/staticModelPlacement.js';
 beforeAll(()=>RAPIER.init());afterEach(()=>vi.unstubAllGlobals());
+it('modelo parado com origem elevada toca o piso e centraliza seu colisor real',()=>{
+ const model=new THREE.Group();model.position.set(3,2,-4);const g=new THREE.BoxGeometry(2,3,6),m=new THREE.MeshStandardMaterial(),mesh=new THREE.Mesh(g,m);mesh.position.set(-1,2,5);mesh.rotation.y=.3;model.add(mesh);
+ const size=groundStaticModel(model,-7,-1),bounds=new THREE.Box3().setFromObject(model),center=bounds.getCenter(new THREE.Vector3());
+ expect(bounds.min.y).toBeCloseTo(0,8);expect(center.x).toBeCloseTo(-7,8);expect(center.z).toBeCloseTo(-1,8);expect(bounds.getSize(new THREE.Vector3()).distanceTo(size)).toBeLessThan(1e-8);g.dispose();m.dispose();
+});
 for(const p of DISCOVERY_SITES)it(`${p.name}: rampa e entrada alcançam a inspeção com cápsula física`,()=>{
  vi.stubGlobal('document',{createElement:()=>({getContext:()=>({fillRect(){},strokeRect(){},fillText(){}})})});
  const physics=new RAPIER.World({x:0,y:-9.81,z:0}),terrain=terrainGeometry(0,Math.round(p.z/1024));physics.createCollider(RAPIER.ColliderDesc.trimesh(new Float32Array(terrain.attributes.position.array),new Uint32Array(terrain.index.array)));

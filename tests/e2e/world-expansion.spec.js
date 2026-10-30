@@ -23,6 +23,7 @@ test('0.8: três locais alcançáveis a pé, reservas finitas, boletim e persist
   // Diagnostics shorten only the long journey. Every ramp, entrance and interior uses Player/Rapier.
   await page.evaluate(p=>{window.__GAME_DEBUG__.teleport({x:p.truckX,z:p.z+20});window.__GAME_DEBUG__.teleportPlayer({x:p.x,z:p.z+p.depth/2+8.2});},{...p,truckX:roadX(p.z)});
   if(p.kind==='yard')await expect.poll(async()=>(await state(page)).discoveries.sites.find(s=>s.id==='yard')?.parkedModel,{timeout:30000}).toContain('/dump-truck/');
+  if(p.kind==='yard')expect((await state(page)).discoveries.sites.find(s=>s.id==='yard').parkedFloorGap).toBeCloseTo(0,5);
   const steps=(await state(page)).simulation.steps;await expect.poll(async()=>(await state(page)).simulation.steps,{timeout:20000}).toBeGreaterThan(steps+30);await page.screenshot({path:`${dir}/pois/${p.id}-exterior.png`});
   await walkTo(page,p.x,p.z+p.depth/2-.6);await walkTo(page,p.terminal.x,p.z+p.depth/2-.6);await walkTo(page,p.terminal.x,p.terminal.z);
   await expect.poll(async()=>(await state(page)).interaction?.key).toBe(`discovery:${p.id}`);const reached=await state(page);const visual=reached.discoveries.sites.find(s=>s.id===p.id);expect(reached.playerPosition[1]).toBeGreaterThan(visual.floor+.8);
