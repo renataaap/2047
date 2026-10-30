@@ -1,4 +1,5 @@
 import {meshHeightAt} from './surfaceHeight.js';
+import {reserved} from './contextLayout.js';
 import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat';
 import { CONFIG } from '../../data/config.js';
@@ -62,7 +63,7 @@ for(let i=0;i<count;i++) {
 let x=cx*size+(r()-.5)*size,z=cz*size+(r()-.5)*size;
 if(Math.abs(x-roadX(z))<14)x=roadX(z)+(i%2?1:-1)*(17+r()*24);
 if(z < -650 && z > -1750 && Math.abs(x-detourX(z))<14)x=detourX(z)+20;
-const scale=1+r()*4;dummy.position.set(x-cx*size,heightAt(x,z)+scale*.2,z-cz*size);dummy.scale.set(scale,scale*.65,scale*.8);dummy.rotation.set(r(),r()*6,r());dummy.updateMatrix();rocks.setMatrixAt(i,dummy.matrix);farRocks.setMatrixAt(i,dummy.matrix);
+const scale=1+r()*4;if(reserved(x,z,scale+2))x=cx*size+(i%2?1:-1)*(320+r()*150);dummy.position.set(x-cx*size,heightAt(x,z)+scale*.2,z-cz*size);dummy.scale.set(scale,scale*.65,scale*.8);dummy.rotation.set(r(),r()*6,r());dummy.updateMatrix();rocks.setMatrixAt(i,dummy.matrix);farRocks.setMatrixAt(i,dummy.matrix);
 this.collider(RAPIER.ColliderDesc.ball(scale*.7).setTranslation(x,heightAt(x,z)+scale*.2,z),bodies);
 }
 const rocksLod=new THREE.LOD();rocksLod.position.set(cx*size,0,cz*size);rocksLod.addLevel(rocks,0);rocksLod.addLevel(farRocks,240);group.add(rocksLod);

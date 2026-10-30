@@ -11,7 +11,7 @@ await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringi
 try{
  await page.goto('http://127.0.0.1:3000');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});
  await page.screenshot({path:`${dir}/menu.png`});await page.getByRole('button',{name:'01 Novo jogo'}).click();await expect(page.locator('.travel-transition')).not.toHaveClass(/active/,{timeout:20000});
- for(const shot of [{id:'barracao',x:-13,z:23,yaw:0},{id:'arredores',x:-6,z:40,yaw:.45},{id:'estrada',x:8,z:-310,yaw:0},{id:'oficina',x:9,z:-548,yaw:1.57},{id:'posto',x:-37,z:-2238,yaw:.45}]){
+ for(const shot of [{id:'barracao',x:-13,z:23,yaw:0},{id:'arredores',x:-6,z:40,yaw:.45},{id:'estrada',x:8,z:-310,yaw:0},{id:'oficina',x:9,z:-548,yaw:1.57},{id:'posto',x:-37,z:-2238,yaw:.45}].filter(p=>!process.argv[3]||process.argv[3].split(',').includes(p.id))){
   await page.evaluate(p=>{window.__GAME_DEBUG__.teleport({x:p.truckX,z:p.z-8});window.__GAME_DEBUG__.teleportPlayer(p);},{...shot,truckX:roadX(shot.z)});
   await page.locator('canvas').click({position:{x:750,y:370}});
   await page.evaluate(yaw=>{const previous=window.__GAME_DEBUG__.getState().playerYaw;window.dispatchEvent(new MouseEvent('mousemove',{movementX:(previous-yaw)/.0025,movementY:0}));},shot.yaw);
