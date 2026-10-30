@@ -9,6 +9,9 @@ export function furnishHome(b,labels){
  b.label('ABRIGO 07 / ULTIMO MOTOR',3,.65,-.5,2.6,-5.9,labels);b.lamp(0,3.1,-1);b.box(1.4,.7,.07,m.wood,-2,2.15,-5.85);
  for(let i=0;i<5;i++)b.box(.18,.24,.01,m.paint,-2.5+i*.24,2.18+(i%2)*.07,-5.8);
  b.crate(2.1,0,-4.9,.75);b.cable([[-3,2.8,-5.7],[0,2.8,-5.7],[0,3.1,-1]],.025,m.rubber);
+ b.box(1.4,.85,.09,m.wood,-2,2,-3);for(const x of [-2.6,-1.4])b.box(.07,2.4,.07,m.steel,x,1.2,-3.05);
+ for(let i=0;i<5;i++){b.box(.035,.3,.025,m.steel,-2.5+i*.25,2,-2.93);b.ring(.045,.012,m.steel,-2.5+i*.25,2.17,-2.93,[0,0,0]);}
+ b.label('FERRAMENTAS / FILTROS',1.4,.28,-2,2.6,-2.93,labels);
  b.cable([[-3,2.7,5.7],[0,2.65,5.7],[2.8,2.5,5.7],[2.8,1.4,4.8]],.02,m.rubber);
  // Outside: an inhabited yard with water storage, a cookstove and a covered table.
  b.cylinder(1.1,2.6,m.steel,-9,1.8,12);b.solid(-9,1.8,12,2.2,2.6,2.2);for(const dx of [-9.8,-8.2])b.box(.1,.6,1.6,m.rust,dx,.3,12);b.cable([[-9,1.2,13.1],[-9,.4,14],[-6,.3,14]],.08,m.rubber);
@@ -21,20 +24,20 @@ export function furnishHome(b,labels){
  for(const x of [-6,-3]){b.box(2.2,.25,1.4,m.wood,x,.13,17,true);b.box(1.95,.12,1.15,m.soil,x,.3,17);}
 }
 export function furnishRoad(b,p,labels){
- const m=b.m;
+ const m=b.m,variant=[...p.id].reduce((n,c)=>n+c.charCodeAt(0),0)%3;
  if(p.kind==='gas'){
   // Preserve the attendant (-1,.5), pump (3,0) and the truck manoeuvring apron.
   for(const z of [-2.6,2.6]){b.cable([[2.55,1.7,z],[2.2,.8,z+.2],[2.3,.45,z+.6],[2.8,1.1,z+.6]],.035,m.rubber);b.box(.09,.3,.08,m.steel,2.8,1.15,z+.6);}
-  b.bench(-7,0,3.5);b.shelf(-8,0,-2.5);b.barrel(-9,0,-4);b.crate(-7,0,-6);b.crate(-7,.7,-6,.8);
-  b.box(2.6,.08,2.5,m.canvas,-8,2.9,3.5);for(const x of [-9.2,-6.8])b.box(.06,2.8,.06,m.steel,x,1.4,4.65);
-  b.label('DIESEL / AGUA / REPAROS',3,.65,-4.4,2.6,4.05,labels);b.lamp(3,4.1,2);b.lamp(-7,2.7,3.5);
-  for(const z of [-3.5,-2.8,-2.1])b.box(.25,.25,.25,m.paint,-6.6,.98,z+7);
+  const side=variant===1?-3.5:3.5;b.bench(-9.5,0,side);b.shelf(-8,0,-2.5);b.barrel(-9,0,-6);b.crate(-7,0,-6);b.crate(-7,.7,-6,.8);
+  b.box(3,.08,2.5,variant===2?m.roof:m.canvas,-9.5,2.9,side);for(const x of [-10.9,-8.1])b.box(.06,2.8,.06,m.steel,x,1.4,side+1.15);
+  b.label('DIESEL / AGUA / REPAROS',3,.65,-4.4,2.6,4.15,labels);b.lamp(3,4.1,2);b.lamp(-9.5,2.7,side);
+  for(let i=0;i<3+variant;i++)b.box(.18,.25,.18,m.paint,-10.2+i*.32,1.04,side);
  }else if(p.kind==='workshop'){
   // Workbench clutter and pegboard have no extra physical obstacles.
   for(let i=0;i<7;i++){b.box(.06,.36,.04,m.steel,-6.65,2.5,-2.4+i*.7);b.ring(.075,.02,m.steel,-6.6,2.72,-2.4+i*.7,[0,Math.PI/2,0]);}
   b.box(.7,1.5,1.2,m.paint,-5.7,.8,5.7,true);for(const z of [5.4,6])b.box(.07,.35,.04,m.dark,-5.3,.9,z);
   b.box(.8,.12,1.3,m.rust,4,.14,3.5);b.cylinder(.08,.8,m.steel,4,.55,3.5);b.box(.7,.08,.15,m.steel,4,.98,3.5);b.cable([[4,.3,3.5],[4.5,.3,3.8],[5,.65,3.8]],.03,m.rubber);
-  for(let i=0;i<3;i++)b.tire(4,.3+i*.28,5.5);b.crate(-4,0,-5.7);b.barrel(5.5,0,-5.5);
+  for(let i=0;i<3+variant;i++)b.tire(4,.3+i*.28,5.5);b.crate(-4,0,-5.7);b.barrel(4.5,0,-5.5);
   b.label('OFICINA / PECAS RECUPERADAS',5,.8,0,3.8,-6.75,labels);b.lamp(0,4.2,2);b.lamp(-5.5,3.5,0);
  }
 }

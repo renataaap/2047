@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {dressWorker} from './WorkerWardrobe.js';
 
 // Animation of an imported, licensed NPC at an existing gameplay/collision anchor.
 // Locomotion must be driven by the character controller, never by a walk clip's root motion.
@@ -18,7 +19,7 @@ export class CharacterActor {
  model.position.y=-bounds.min.y;this.model=model;this.anchor=new THREE.Group();this.anchor.position.copy(this.placeholder.position);this.anchor.add(model);this.placeholder.parent.add(this.anchor);this.placeholder.visible=false;
  this.mixer=new THREE.AnimationMixer(model);this.actions={idle:this.mixer.clipAction(idle),walk:this.mixer.clipAction(walk)};for(const name of ['run','interact','repair','enter','exit']){const clip=lease.animations.find(c=>c.name===definition[name]);if(clip)this.actions[name]=this.mixer.clipAction(clip);}
  this.ownedMaterials=[];if(definition.palette)model.traverse(o=>{if(!o.isMesh)return;o.material=(Array.isArray(o.material)?o.material:[o.material]).map(m=>{const next=m.clone();const color=definition.palette[m.name];if(color)next.color.set(color);this.ownedMaterials.push(next);return next;});if(o.material.length===1)o.material=o.material[0];});
- this.actions.idle.play();this.state='idle';return true;
+ if(definition.wardrobe)this.wardrobe=dressWorker(model,definition.wardrobe);this.actions.idle.play();this.state='idle';return true;
  }
  setMotion(speed){const next=Math.abs(speed)>4&&this.actions?.run?'run':Math.abs(speed)>.08?'walk':'idle';if(this.gesture&&this.gesture.isRunning())return;if(this.gesture){this.gesture.fadeOut(.15);this.gesture=null;this.state='';}if(!this.mixer||next===this.state)return;this.actions[next].reset().fadeIn(.2).play();this.actions[this.state]?.fadeOut(.2);this.state=next;}
  playGesture(name){if(!this.actions?.[name])return;this.gesture=this.actions[name];this.gesture.reset().setLoop(THREE.LoopOnce,1);this.gesture.clampWhenFinished=true;this.gesture.fadeIn(.12).play();this.actions[this.state]?.fadeOut(.12);}
@@ -27,6 +28,6 @@ export class CharacterActor {
  if(distance<40||this.time>1/15){this.mixer.update(this.time);this.time=0;}
  if(Number.isFinite(heading)){this.anchor.rotation.y=heading;}else if(distance<6){const wanted=Math.atan2(viewer.x-this.anchor.position.x,viewer.z-this.anchor.position.z),difference=Math.atan2(Math.sin(wanted-this.anchor.rotation.y),Math.cos(wanted-this.anchor.rotation.y));this.anchor.rotation.y+=difference*(1-Math.exp(-dt*4));}
  }
- snapshot(){return {loaded:!!this.model,state:this.state,animationTime:this.mixer?.time||0,animations:this.mixer?Object.keys(this.actions):[],visible:!!this.anchor?.visible};}
- dispose(){this.disposed=true;this.ownedMaterials?.forEach(m=>m.dispose());this.mixer?.stopAllAction();if(this.model)this.mixer?.uncacheRoot(this.model);this.anchor?.removeFromParent();this.lease?.release();this.lease=null;}
+ snapshot(){return {loaded:!!this.model,state:this.state,animationTime:this.mixer?.time||0,animations:this.mixer?Object.keys(this.actions):[],visible:!!this.anchor?.visible,wardrobe:this.wardrobe?.style||null};}
+ dispose(){this.disposed=true;this.wardrobe?.dispose();this.ownedMaterials?.forEach(m=>m.dispose());this.mixer?.stopAllAction();if(this.model)this.mixer?.uncacheRoot(this.model);this.anchor?.removeFromParent();this.lease?.release();this.lease=null;}
 }

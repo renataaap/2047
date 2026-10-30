@@ -2,12 +2,13 @@ import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {metricUV} from '../render/metricUV.js';
+import {bevelGeometry} from '../render/materials.js';
 
 // Details become a handful of draw calls per streamed composition, not one per bolt.
 export class PropBatch {
  constructor(physics,materials,origin={x:0,y:0,z:0},yaw=0){this.physics=physics;this.m=materials;this.origin=origin;this.yaw=yaw;this.group=new THREE.Group();this.group.position.set(origin.x,origin.y,origin.z);this.group.rotation.y=yaw;this.parts=new Map();this.bodies=[];this.owned=[];this.lamps=[];this.count=0;}
  part(g,mat,x,y,z,rotation=[0,0,0]){metricUV(g);const matrix=new THREE.Matrix4().compose(new THREE.Vector3(x,y,z),new THREE.Quaternion().setFromEuler(new THREE.Euler(...rotation)),new THREE.Vector3(1,1,1));g.applyMatrix4(matrix);const plain=g.index?g.toNonIndexed():g;if(plain!==g)g.dispose();if(!this.parts.has(mat))this.parts.set(mat,[]);this.parts.get(mat).push(plain);this.count++;}
- box(w,h,d,mat,x,y,z,solid=false,ry=0){this.part(new THREE.BoxGeometry(w,h,d),mat,x,y,z,[0,ry,0]);if(solid)this.solid(x,y,z,w,h,d,ry);}
+ box(w,h,d,mat,x,y,z,solid=false,ry=0){this.part(w>.5&&h>.25&&d>.4?bevelGeometry(w,h,d,.035):new THREE.BoxGeometry(w,h,d),mat,x,y,z,[0,ry,0]);if(solid)this.solid(x,y,z,w,h,d,ry);}
  cylinder(r,h,mat,x,y,z,rotation=[0,0,0],top=r){this.part(new THREE.CylinderGeometry(top,r,h,12),mat,x,y,z,rotation);}
  ring(r,t,mat,x,y,z,rotation=[Math.PI/2,0,0]){this.part(new THREE.TorusGeometry(r,t,5,20),mat,x,y,z,rotation);}
  cable(points,r=.025,mat=this.m.rubber){const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));this.part(new THREE.TubeGeometry(curve,14,r,5,false),mat,0,0,0);}

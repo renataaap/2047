@@ -32,7 +32,7 @@ export class DiscoveryWorld {
  yard(b){const m=this.m;
   for(const x of [-13,13]){for(let z=-8;z<=8;z+=4)b.box(.12,2,.12,m.steel,x,1,z,true);for(const y of [.5,1.7])b.box(.06,.07,16,m.rust,x,y,0);}
   for(const x of [-8,8])b.box(8,.15,.15,m.steel,x,1.3,9);b.box(27,.15,.15,m.steel,0,1.3,-9);
-  for(const x of [3,11])for(const z of [-6,1])b.box(.15,4,.15,m.steel,x,2,z,true);b.box(10,.15,9,m.roof,7,4.1,-2.5);b.lamp(7,3.8,-2);
+  for(const x of [3,11])for(const z of [-6,1])b.box(.15,4,.15,m.steel,x,2,z,true);b.box(10,.15,9,m.roof,7,4.1,-2.5);b.box(.35,.08,.25,m.steel,7,3.8,-2);
   b.bench(9,0,-3);for(const z of [-6,-4,0])b.barrel(11,0,z);for(const x of [-10,-8,-6]){b.crate(x,0,-7);b.crate(x,.7,-7,.75);}
   for(let i=0;i<3;i++)b.tire(4,.28*i,-5);b.label('PATIO DOS RETORNANTES',10,.9,0,3.4,8.9,this.labels);b.label('IMOBILIZADO / AGUARDA REPARO',4,.6,-7,2.8,3.5,this.labels);
  }

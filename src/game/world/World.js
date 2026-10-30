@@ -38,7 +38,7 @@ this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(g.attributes.position
 const low=cz*size-size/2, high=cz*size+size/2;
 const start=Math.max(-CONFIG.world.roadLength,low),end=Math.min(80,high);
 if(start<end && Math.abs(cx*size)<size/2+60) {
-const roadG=roadRibbon({start,end,center:roadX,width:roadHalfWidth,sectorX:cx,sectorSize:size});
+const roadG=roadRibbon({start,end,center:roadX,width:roadHalfWidth,sectorX:cx,sectorSize:size,damaged:true});
 if(roadG){
 const mesh=new THREE.Mesh(roadG,this.m.asphalt);mesh.receiveShadow=true;group.add(mesh);owned.push(roadG);
 this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(roadG.attributes.position.array),new Uint32Array(roadG.index.array)).setFriction(1),bodies);
