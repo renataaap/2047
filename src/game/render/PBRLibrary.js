@@ -54,11 +54,16 @@ export class PBRLibrary {
  applyTerrainBlend(this.materials.ground, { rock: await this.maps(definitions[this.applied.rock]), gravel: await this.maps(definitions[this.applied.shoulder]), cracked }); this.blended = true;
  } catch (error) { this.assets.errors.push(`terrain blend: ${error.message}`); }
  }
- return this;
+ // Borrowed data maps must move with the source before setQuality prunes old variants.
+ for(const m of Object.values(this.materials)){
+ const source=this.materials[m.userData.dataMapsFrom];if(!source||m.userData.polyhaven)continue;
+ if(m.normalMap!==source.normalMap||m.roughnessMap!==source.roughnessMap){m.normalMap=source.normalMap;m.roughnessMap=source.roughnessMap;m.needsUpdate=true;}
+ }
+ this.loadedQuality=this.quality;return this;
  }
  setQuality(quality) {
  this.queue=this.queue.then(async()=>{if(this.assets.disposed||this.quality===quality)return;this.quality=quality;this.loaded.clear();this.unavailable=[];await this.load();const keep=new Set();for(const job of this.loaded.values())for(const value of Object.values(await job.catch(()=>({}))))if(value?.isTexture)keep.add(value);this.assets.pruneTextures(keep);});
  return this.queue;
  }
- snapshot() { return { applied: { ...this.applied }, unavailable: [...this.unavailable].sort(), terrainBlend: !!this.blended, installed: Object.keys(this.manifest?.assets || {}).length }; }
+ snapshot() { return { quality:this.loadedQuality, inheritedDataMaps:Object.fromEntries(Object.entries(this.materials).filter(([,m])=>m.userData.dataMapsFrom&&!m.userData.polyhaven).map(([role,m])=>{const source=this.materials[m.userData.dataMapsFrom];return [role,{source:m.userData.dataMapsFrom,normalMatches:!!source&&m.normalMap===source.normalMap,roughnessMatches:!!source&&m.roughnessMap===source.roughnessMap}];})), applied: { ...this.applied }, unavailable: [...this.unavailable].sort(), terrainBlend: !!this.blended, installed: Object.keys(this.manifest?.assets || {}).length }; }
 }

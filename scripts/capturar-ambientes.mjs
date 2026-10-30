@@ -15,7 +15,7 @@ try{
   await page.evaluate(p=>{window.__GAME_DEBUG__.teleport({x:p.truckX,z:p.z-8});window.__GAME_DEBUG__.teleportPlayer(p);},{...shot,truckX:roadX(shot.z)});
   if(night&&shot.id==='estrada'){
    await page.evaluate(()=>{const p=window.__GAME_DEBUG__.getState().position;window.__GAME_DEBUG__.teleportPlayer({x:p[0]-3,z:p[2]});});await page.keyboard.press('KeyF');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode),{timeout:15000}).toBe('driving');
-   await page.keyboard.press('KeyC');await page.keyboard.press('KeyL');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().headlights)).toBe(true);
+   await page.keyboard.press('KeyC');const settled=await page.evaluate(()=>window.__GAME_DEBUG__.getState().simulation.steps);await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().simulation.steps),{timeout:30000}).toBeGreaterThan(settled+30);await page.screenshot({path:`${dir}/estrada-sem-farois.png`});await page.keyboard.press('KeyL');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().headlights)).toBe(true);
   }
   await page.locator('canvas').click({position:{x:750,y:370}});
   await page.evaluate(yaw=>{const previous=window.__GAME_DEBUG__.getState().playerYaw;window.dispatchEvent(new MouseEvent('mousemove',{movementX:(previous-yaw)/.0025,movementY:0}));},shot.yaw);

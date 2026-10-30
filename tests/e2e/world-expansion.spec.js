@@ -54,3 +54,18 @@ test('0.8: ambientação por região, equipamentos e descarregamento dos novos m
  }
  expect(errors).toEqual([]);expect((await state(page)).assets.errors).toEqual([]);await writeFile(`${dir}/streaming.json`,JSON.stringify({samples,consoleErrors:errors,renderer:'Software SwiftShader; diagnostic captures, not hardware benchmarks'},null,2));
 });
+
+test('0.8: perfis reais trocam texturas, preservam dados herdados e liberam variantes antigas',async({page})=>{
+ test.setTimeout(240000);await mkdir(dir,{recursive:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+ await boot(page);const initial=await state(page);expect(initial.pbr.quality).toBe('baixo');expect(initial.pbr.inheritedDataMaps.concrete).toEqual({source:'rock',normalMatches:true,roughnessMatches:true});
+ await page.keyboard.press('Escape');await page.getByRole('button',{name:'Configurações',exact:true}).click();const samples=[];
+ for(const quality of ['alto','baixo','alto','baixo']){
+  await page.getByRole('button',{name:quality==='alto'?'Alto':'Baixo',exact:true}).click();
+  await expect.poll(async()=>(await state(page)).pbr.quality,{timeout:45000}).toBe(quality);
+  await expect.poll(async()=>(await state(page)).assets.textures,{timeout:20000}).toBe(initial.assets.textures);
+  const s=await state(page);expect(s.pbr.inheritedDataMaps.concrete).toEqual({source:'rock',normalMatches:true,roughnessMatches:true});expect(s.assets.errors).toEqual([]);samples.push({quality,pbr:s.pbr,textures:s.assets.textures,bytes:s.assets.estimatedTextureBytes});
+ }
+ expect(samples[0].bytes).toBeGreaterThan(samples[1].bytes);expect(samples[2].bytes).toBe(samples[0].bytes);expect(samples[3].bytes).toBe(samples[1].bytes);
+ await page.getByRole('button',{name:'Voltar',exact:true}).last().click();await page.getByRole('button',{name:'Voltar à viagem'}).click();await expect.poll(async()=>(await state(page)).mode).toBe('walking');await page.screenshot({path:`${dir}/quality-cycle.png`});
+ expect(errors).toEqual([]);await writeFile(`${dir}/quality-cycle.json`,JSON.stringify({initial:{pbr:initial.pbr,textures:initial.assets.textures,bytes:initial.assets.estimatedTextureBytes},samples,consoleErrors:errors,note:'Real installed Poly Haven files; profile changes use UI and asset pruning, without external requests or a synthetic manifest.'},null,2));
+});
