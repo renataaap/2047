@@ -6,14 +6,14 @@
 3. Continue escrevendo normalmente. Trocar de aparelho não exige criar outra conversa nem instalar o jogo no celular.
 
 ## Projeto no GitHub
-1. Abra https://github.com/renataaap/2047 e entre como **renataaap**. O repositório é privado; sem a conta correta pode aparecer 404.
+1. Abra https://github.com/renataaap/2047/tree/feat/tutorial-assets e entre como **renataaap**. O repositório é privado; sem a conta correta pode aparecer 404. A versão 0.7.0 está na branch **feat/tutorial-assets**.
 2. Leia `STATUS_DO_PROJETO.md`, `README.md` e o relatório da fase mais recente. Código, testes, documentação e histórico Git ficam no repositório.
-3. Para continuar em outro computador Windows, instale Node.js LTS, use **Code → Download ZIP**, extraia a pasta inteira e abra `INICIAR_JOGO.bat`. Mantenha o terminal aberto enquanto joga. Para desenvolvimento com histórico, clone o repositório com Git em vez de baixar o ZIP.
+3. Para continuar em outro computador Windows, instale Node.js LTS, selecione **feat/tutorial-assets**, use **Code → Download ZIP**, extraia a pasta inteira e abra `INICIAR_JOGO.bat`. Mantenha o terminal aberto enquanto joga. Para desenvolvimento com histórico, use `git clone --branch feat/tutorial-assets https://github.com/renataaap/2047.git` com a conta conectada no Git.
 
 ## Se precisar abrir uma conversa nova
 Compartilhe o link do repositório e esta instrução:
 
-> Meu projeto é 2047: Rede Aurora, no repositório privado renataaap/2047. Leia STATUS_DO_PROJETO.md e o relatório mais recente antes de alterar arquivos. Preserve os saves e as fases já verificadas. A especificação está em docs/PROMPT_MESTRE.md. Continue somente o trabalho que eu pedir agora.
+> Meu projeto é 2047: Rede Aurora, no repositório privado renataaap/2047, branch feat/tutorial-assets, versão 0.7.0. Leia AGENTS.md, STATUS_DO_PROJETO.md, RELATORIO_CORRECOES_CRITICAS.md e docs/RETOMAR_AGORA.md antes de alterar arquivos. Preserve saves, tutorial, texturas locais e diálogos. O roteiro atual é docs/REFORMULACAO_REALISTA.md; docs/PROMPT_MESTRE.md é histórico. Continue somente o trabalho que eu pedir agora.
 
 ## Partidas salvas
 A conta do GitHub não é uma conta de jogador. Os saves locais ficam em `local.db` e são associados a um cookie do navegador. Levar apenas o código para outro computador não traz as partidas. Preserve o banco e o navegador do computador antigo antes da troca. Copiar o banco no mesmo computador/navegador funciona para atualizar a versão; mover para outro aparelho exige transferir também a identidade. A versão atual não tem login ou sincronização de partidas entre aparelhos.

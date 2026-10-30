@@ -1,22 +1,26 @@
-# Continuar o projeto — entrega local 0.7.0
+# Continuar o projeto — versão 0.7.0 publicada
 
 Repositório de trabalho: /workspace/work/2047-rede-aurora. Branch: feat/tutorial-assets. Ler AGENTS.md, STATUS_DO_PROJETO.md e RELATORIO_CORRECOES_CRITICAS.md antes de editar. Preservar o checkpoint v0.6.0 e o tutorial existente.
 
-## Publicação
+## Publicação e acesso
 
-O destino é https://github.com/Da-Hora-stack/2047, público. O usuário autorizou explicitamente publicar código, histórico Git, relatórios e assets nesse repositório. **Não falta autorização do usuário e não é preciso pedi-la novamente.** O bloqueio antigo de revisão foi seguido de uma nova tentativa autorizada: Git retornou 403, Permission denied to renataaap; a gravação normal pelo aplicativo retornou 403, Resource not accessible by integration. Nenhuma branch/tag foi enviada.
+Publicado no repositório pessoal privado **renataaap/2047**, branch **feat/tutorial-assets**:
+https://github.com/renataaap/2047/tree/feat/tutorial-assets
 
-A conexão reconhece o usuário como colaborador com push, mas a integração não recebeu acesso suficiente ao repositório do proprietário Da-Hora-stack. As instalações visíveis são de renataaap e isaquefm; Da-Hora-stack não aparece. O proprietário deve configurar a instalação/conexão GitHub para incluir 2047 e permitir escrita de conteúdo, ou fornecer uma conexão Git normal com acesso de escrita. Não tentar contornar o 403 com outra conta sem permissão.
+Código, histórico, relatórios, assets e tags v0.6.0/v0.7.0 foram enviados por Git normal e os refs remotos conferidos. A conta renataaap foi escolhida anteriormente pelo usuário; o novo pedido para enviar ao próprio Git foi atendido nesse destino, com acesso de administrador. A tag v0.7.0 aponta para 07ae390; a branch inclui também as instruções atualizadas de publicação.
 
-Depois de corrigir o acesso, no repositório local completo:
+Entrar como renataaap para acessar. Um 404 sem essa conta pode ser apenas a privacidade do repositório. Para clonar com histórico, usar Git autenticado:
 
 ```sh
-git push --atomic official HEAD:refs/heads/feat/tutorial-assets refs/tags/v0.6.0 refs/tags/v0.7.0
+git clone --branch feat/tutorial-assets https://github.com/renataaap/2047.git
+cd 2047
 ```
 
-Usar autenticação normal configurada para a conta com acesso; não inserir tokens em comandos/relatórios. Confirmar branch e tags remotas antes de afirmar que a versão foi publicada. Não fazer force push em main.
+Para baixar ZIP, abrir o link da branch acima e selecionar Code → Download ZIP. Conferir 0.7.0 no menu. Não usar o conteúdo de uma branch antiga por engano.
 
-Enquanto isso, os commits e assets estão preservados neste workspace. Não apresentar um comando clone da branch como se ela já existisse no GitHub. O pacote de continuidade exportado contém um Git bundle incremental e instruções para recuperar esta branch sobre o snapshot oficial a8a8802. O bundle preserva os SHAs e o histórico da branch, mas precisa dessa base pública. GitHub e o bundle não sincronizam as partidas salvas no banco local.
+O outro destino, Da-Hora-stack/2047 (público), continua recusando a conexão com 403. A autorização de conteúdo já foi dada e não precisa ser repetida; aquele envio depende de acesso de escrita da conexão/instalação ao repositório. O push para o próprio repositório privado foi aceito com o acesso legítimo da conta. Não fazer force push em main.
+
+O bundle incremental exportado anteriormente continua recuperando o checkpoint 07ae390 sobre a base oficial a8a8802, mas a branch privada agora pode ser clonada diretamente. GitHub e bundle não sincronizam partidas do banco local.
 
 ## Desenvolvimento local / Windows
 

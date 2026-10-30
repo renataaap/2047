@@ -1,6 +1,6 @@
 # 2047: Rede Aurora — entrega local 0.7.0
 
-**Implementação e validação local concluídas.** Corrigidas as regressões de sobrevivência e posicionamento de Dante na Cordilheira; build final aprovado. A publicação continua bloqueada por acesso técnico ao GitHub (403), apesar da autorização explícita do usuário. A arte final e as demais fases do jogo continuam com as pendências descritas abaixo.
+**Implementação e validação concluídas; publicada no repositório pessoal.** Corrigidas as regressões de sobrevivência e posicionamento de Dante na Cordilheira; build final aprovado. Código, histórico, relatórios, assets e tags estão em [renataaap/2047 · feat/tutorial-assets](https://github.com/renataaap/2047/tree/feat/tutorial-assets), privado. O outro destino, Da-Hora-stack/2047, continua recusando acesso (403). A arte final e as demais fases do jogo continuam com as pendências descritas abaixo.
 
 Entrega local na branch `feat/tutorial-assets`, preservando o tutorial/assets 0.6.0 (`77c96ec`) e as falas mais recentes presentes no workspace. Pedido executado na sequência solicitada; prompts duplicados não foram reaplicados.
 
@@ -105,13 +105,15 @@ A próxima etapa recomendada é uma travessia humana completa no Windows/GPU rea
 
 ## 9. Checkpoints e publicação
 
-- 0.6.0: `77c96ec`, tag local `v0.6.0` — tutorial/assets e provas.
+- 0.6.0: `77c96ec`, tag `v0.6.0` publicada no repositório pessoal — tutorial/assets e provas.
 - Personagens CC0: `1a8279c` — fontes, preparação, licença e adaptadores.
 - Código e interface: `a36fdbb` — alvos/calibração, avatar/câmeras, apresentação e regressões.
 - Checkpoint solicitado antes do término: `e13d059` — estado de trabalho e documentação das falhas então abertas.
 - Correção do relevo: `a96e0b8` — superfície física para spawn e teste de sobrevivência sincronizado por estado.
-- Entrega final local: tag `v0.7.0`, incluindo este relatório e as evidências finais.
+- Entrega final: `07ae390`, tag `v0.7.0` publicada no repositório pessoal, incluindo as evidências finais. A branch recebe também a atualização destas instruções de acesso.
 
-**Publicação não realizada:** após o bloqueio antigo de revisão, o usuário autorizou expressamente publicar código, histórico Git, relatórios e assets no repositório público `Da-Hora-stack/2047`. A nova tentativa por Git retornou 403, Permission denied to renataaap. A conta aparece com push no metadado do repositório, mas a escrita pelo aplicativo também retornou 403, Resource not accessible by integration; as instalações listadas não incluem o proprietário Da-Hora-stack. Isso é um bloqueio de acesso da conexão, não uma autorização de conteúdo pendente. Nenhuma branch/tag foi enviada. [Registro técnico](evidence/critical-gameplay/publication.json).
+**Publicado em renataaap/2047:** após nova recusa de Da-Hora-stack/2047, o usuário pediu enviar para “meu git”. O repositório pessoal renataaap/2047 já havia sido escolhido anteriormente, é privado e a conta tem acesso de administrador. O push normal enviou `feat/tutorial-assets`, `v0.6.0` e `v0.7.0`; os SHAs remotos foram conferidos. [Registro da publicação](evidence/critical-gameplay/publication-private.json).
 
-O pacote incremental de continuidade preserva os commits, tags e assets adicionais desta branch; exige o snapshot público oficial como base. [Recuperação e publicação](docs/RECUPERAR_CHECKPOINT_0.7.0.md). Depois de configurar o acesso de escrita da conexão ao repositório, publicar normalmente e verificar os refs remotos, sem force push em main. [Windows, celular e texturas](docs/CONTINUAR_CORRECOES_0.7.0.md).
+**Histórico do destino público:** a autorização explícita para Da-Hora-stack/2047 permanece registrada, mas Git retornou 403, Permission denied to renataaap, e a escrita pelo aplicativo retornou Resource not accessible by integration. Nenhuma branch/tag desta entrega foi enviada àquele repositório. [Registro da recusa](evidence/critical-gameplay/publication.json). A publicação no repositório pessoal foi feita com o acesso legítimo da própria conta.
+
+O pacote incremental anterior à publicação preserva a entrega `07ae390` e exige a base oficial; agora também é possível clonar diretamente a branch privada publicada. [Como acessar e recuperar](docs/RECUPERAR_CHECKPOINT_0.7.0.md) · [Windows, celular e texturas](docs/CONTINUAR_CORRECOES_0.7.0.md).

@@ -1,12 +1,32 @@
-# Recuperar o checkpoint 0.7.0 em outro computador
+# Acessar a versão 0.7.0 em outro computador
 
-A publicação foi autorizada, mas Git e aplicativo GitHub retornaram 403. A branch `feat/tutorial-assets` e as tags desta entrega continuam locais. O pacote de continuidade contém `2047-rede-aurora-0.7.0.bundle`, com os commits e arquivos adicionais, sem alterar os SHAs originais.
+A versão foi publicada no repositório pessoal privado:
+https://github.com/renataaap/2047/tree/feat/tutorial-assets
 
-O bundle é **incremental**: precisa do snapshot público `a8a8802f88c1eb373c7133e799d16cde0a8c450f` de Da-Hora-stack/2047. Não é um ZIP autossuficiente do jogo. Os materiais originais já pertencem a essa base; os novos modelos, perfis de textura, código, relatórios e evidências estão no bundle. Não inclui banco local, credenciais ou node_modules.
+Entrar como **renataaap** e selecionar **feat/tutorial-assets**. Código, histórico, relatórios, assets e tags v0.6.0/v0.7.0 estão no GitHub; a tag v0.7.0 corresponde ao commit 07ae390. A branch inclui também as instruções atualizadas de acesso. Sem a conta correta, um repositório privado pode aparecer como 404.
 
-## Windows
+## Windows com Git
 
-Instalar Git para Windows e Node.js LTS compatível (22.13 ou superior). Extrair o pacote, abrir o terminal nessa pasta e executar:
+Instalar Git para Windows e Node.js LTS compatível (22.13 ou superior). Com o Git autenticado na conta renataaap:
+
+```sh
+git clone --branch feat/tutorial-assets https://github.com/renataaap/2047.git
+cd 2047
+npm ci
+npm run dev
+```
+
+Abrir http://localhost:3000 nesse computador e manter o terminal aberto. Conferir 0.7.0 no menu. Também é possível baixar Code → Download ZIP no link da branch, extrair tudo e usar INICIAR_JOGO.bat. O clone/instalação precisa de Internet; o jogo utiliza as texturas/modelos locais.
+
+Para continuar pelo celular, abrir esta mesma conversa/conta e compartilhar com o próximo agente docs/RETOMAR_AGORA.md, STATUS_DO_PROJETO.md e RELATORIO_CORRECOES_CRITICAS.md da branch publicada. O jogo mantém controles de desktop.
+
+GitHub não sincroniza partidas: preservar separadamente local.db e seus arquivos auxiliares, com o servidor parado e cópia de segurança. A identidade do navegador também é necessária para acessar os slots antigos; a versão não tem login/sincronização de jogador entre computadores.
+
+## Backup incremental anterior à publicação
+
+O pacote exportado com 2047-rede-aurora-0.7.0.bundle preserva o checkpoint 07ae390 com os SHAs originais. Ele é incremental e requer a base pública a8a8802f88c1eb373c7133e799d16cde0a8c450f de Da-Hora-stack/2047. Não é um ZIP autossuficiente nem contém banco local, credenciais ou node_modules.
+
+Se precisar recuperar esse snapshot pelo bundle, extrair o pacote e executar na pasta dele:
 
 ```sh
 git clone https://github.com/Da-Hora-stack/2047.git projeto
@@ -18,23 +38,8 @@ npm ci
 npm run dev
 ```
 
-Abrir http://localhost:3000 **nesse mesmo computador** e manter o terminal aberto. Conferir 0.7.0 no menu. Não usar `git clone` só da branch remota enquanto ela não tiver sido publicada. O clone da base e a instalação de dependências precisam de Internet; o jogo utiliza as texturas/modelos locais.
+O backup foi restaurado em repositório separado contendo apenas a base oficial e o bundle. Commits, árvore e tags coincidiram, e git fsck passou. A aplicação foi testada em Linux/Chromium; os passos no Windows e os controles em GPU real ainda exigem verificação humana.
 
-O bundle foi verificado com `git bundle verify`. A aplicação foi testada em Linux/Chromium; os passos no Windows e a sensação dos controles em GPU real ainda exigem verificação humana.
+Nessa recuperação alternativa, origin aponta para a base pública; no clone direto recomendado, origin aponta para renataaap/2047. Não confundir os destinos nem usar force push. O envio a Da-Hora-stack/2047 continua bloqueado por 403; sua autorização de conteúdo está concedida, mas a conexão precisa de acesso de escrita naquele repositório.
 
-Para continuar pelo celular, abrir esta mesma conversa/conta e compartilhar com o próximo agente docs/RETOMAR_AGORA.md, STATUS_DO_PROJETO.md e RELATORIO_CORRECOES_CRITICAS.md. O jogo mantém controles de desktop. Código no GitHub ou bundle não sincroniza partidas: preservar separadamente local.db e, se existirem, seus arquivos auxiliares, com o servidor parado e cópia de segurança.
-
-## Publicar depois de corrigir a conexão
-
-O proprietário Da-Hora-stack precisa incluir o repositório 2047 no acesso da conexão/instalação GitHub e permitir escrita de conteúdo, ou disponibilizar uma conexão Git com escrita. O usuário já autorizou a publicação do conteúdo; não pedir novamente essa autorização. Não colocar tokens nos comandos/relatórios.
-
-Na cópia recuperada acima, origin aponta para o destino autorizado:
-
-```sh
-git push --atomic origin feat/tutorial-assets v0.6.0 v0.7.0
-git ls-remote origin refs/heads/feat/tutorial-assets refs/tags/v0.6.0 refs/tags/v0.7.0
-```
-
-No workspace original, usar o remoto official, que aponta para o mesmo destino. Confirmar os SHAs publicados antes de anunciar sucesso. Não usar force push em main nem outro repositório/conta para contornar o 403.
-
-Para continuar materiais, personagens e validação, ler docs/CONTINUAR_CORRECOES_0.7.0.md. Os personagens são provisórios, os oito PBR são reais e as seis fases ainda têm pendências na auditoria.
+Texturas/personagens: docs/CONTINUAR_CORRECOES_0.7.0.md. Os personagens são provisórios, os oito PBR são reais e as seis fases ainda têm pendências na auditoria.
