@@ -47,7 +47,7 @@ export function furnishShelter(b,labels){
  for(const x of [-4,-1]){b.box(2,.2,1.2,m.wood,x,.12,9,true);b.box(1.8,.12,1,m.soil,x,.28,9);}
  b.box(1,.8,.8,m.steel,-8,.4,5,true);b.cylinder(.22,.15,m.steel,-8,.88,5);b.box(.7,.18,1.8,m.fabric,6,.3,7,true);b.box(.7,.14,1.8,m.canvas,6,.45,7);
  b.label('AGUA / COZINHA / DESCANSO',4,.8,-6,2.4,9.9,labels);b.lamp(-6,3.2,5);
- for(const x of [-8.2,-3.8])b.box(.08,2.85,.08,m.wood,x,1.425,9.9,true);
+ for(const x of [-8.2,-3.8])b.box(.08,2.85,.08,m.wood,x,1.425,9.9,true);b.box(4.5,.09,.08,m.wood,-6,2.4,9.83);
 }
 export function roadside(b,p,labels){
  const m=b.m,k=p.kind;

@@ -15,7 +15,7 @@ it('modelo parado com origem elevada toca o piso e centraliza seu colisor real',
  expect(bounds.min.y).toBeCloseTo(0,8);expect(center.x).toBeCloseTo(-7,8);expect(center.z).toBeCloseTo(-1,8);expect(bounds.getSize(new THREE.Vector3()).distanceTo(size)).toBeLessThan(1e-8);g.dispose();m.dispose();
 });
 for(const p of DISCOVERY_SITES)it(`${p.name}: rampa e entrada alcançam a inspeção com cápsula física`,()=>{
- vi.stubGlobal('document',{createElement:()=>({getContext:()=>({fillRect(){},strokeRect(){},fillText(){}})})});
+ vi.stubGlobal('document',{createElement:()=>({getContext:()=>({fillRect(){},strokeRect(){},fillText(){},createRadialGradient(){return {addColorStop(){}};}})})});
  const physics=new RAPIER.World({x:0,y:-9.81,z:0}),terrain=terrainGeometry(0,Math.round(p.z/1024));physics.createCollider(RAPIER.ColliderDesc.trimesh(new Float32Array(terrain.attributes.position.array),new Uint32Array(terrain.index.array)));
  const groundHeight=(x,z)=>meshHeightAt(terrain,x,z)??heightAt(x,z),m=new Proxy({}, {get:(target,k)=>target[k]??(target[k]=new THREE.MeshStandardMaterial())}),world=new DiscoveryWorld(new THREE.Scene(),physics,m,{groundHeight},null,{}),b=world.build(p);world.live.set(p.id,b);
  const player=new Player(physics,(x,z)=>world.surfaceHeight(x,z)??groundHeight(x,z));player.teleport(p.x,p.z+p.depth/2+8.2);

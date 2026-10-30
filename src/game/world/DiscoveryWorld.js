@@ -7,7 +7,10 @@ import {meshHeightAt} from './surfaceHeight.js';
 import {groundStaticModel} from './staticModelPlacement.js';
 
 export class DiscoveryWorld {
- constructor(scene,physics,m,world,assets,manifest){Object.assign(this,{scene,physics,m,world,assets,manifest});this.live=new Map();this.labels=new Map();}
+ constructor(scene,physics,m,world,assets,manifest){Object.assign(this,{scene,physics,m,world,assets,manifest});this.live=new Map();this.labels=new Map();
+  const canvas=document.createElement('canvas');canvas.width=canvas.height=128;const ctx=canvas.getContext('2d'),gradient=ctx.createRadialGradient(64,64,0,64,64,64);gradient.addColorStop(0,'rgba(0,0,0,.6)');gradient.addColorStop(.55,'rgba(0,0,0,.25)');gradient.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=gradient;ctx.fillRect(0,0,128,128);
+  this.contactMaterial=new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(canvas),transparent:true,opacity:.55,depthWrite:false,toneMapped:false});
+ }
  floor(p){let y=-Infinity;for(let x=-p.width/2;x<=p.width/2;x+=2)for(let z=-p.depth/2;z<=p.depth/2;z+=2)y=Math.max(y,this.world.groundHeight(p.x+x,p.z+z));return y+.12;}
  build(p){
   const y=this.floor(p),m=this.m,b=new PropBatch(this.physics,m,{x:p.x,y,z:p.z});b.site=p;b.floor=y;b.leases=[];b.removed=false;
@@ -39,18 +42,18 @@ export class DiscoveryWorld {
   for(const x of [3,11])for(const z of [-6,1])b.box(.15,4,.15,m.steel,x,2,z,true);b.box(10,.15,9,m.roof,7,4.1,-2.5);b.box(.35,.08,.25,m.steel,7,3.8,-2);
   b.bench(9,0,-3);for(const z of [-6,-4,0])b.barrel(11,0,z);for(const x of [-10,-8,-6]){b.crate(x,0,-7);b.crate(x,.7,-7,.75);}
   for(let i=0;i<3;i++)b.tire(4,.28*i,-5);b.label('PATIO DOS RETORNANTES',10,.9,0,3.4,8.9,this.labels);b.label('IMOBILIZADO / AGUARDA REPARO',4,.6,-7,2.8,3.5,this.labels);
-  for(const x of [-5.3,5.3])b.box(.12,3.85,.12,m.rust,x,1.925,8.9,true);
-  for(const x of [-9.2,-4.8])b.box(.07,3.15,.07,m.steel,x,1.575,3.5,true);
+  for(const x of [-5.3,5.3])b.box(.12,3.85,.12,m.rust,x,1.925,8.9,true);b.box(10.7,.12,.12,m.rust,0,3.4,8.82);
+  for(const x of [-9.2,-4.8])b.box(.07,3.15,.07,m.steel,x,1.575,3.5,true);b.box(4.5,.08,.08,m.steel,-7,2.8,3.43);
  }
  weighbridge(b){const m=this.m;
   b.box(6,.15,10,m.steel,-3,.08,-.5,true);for(const x of [-5.7,-.3])b.box(.16,.06,10,m.stripe,x,.19,-.5);for(let z=-5;z<4;z+=.7)b.box(5.8,.03,.05,m.dark,-3,.17,z);
   b.box(4,2.8,.2,m.concrete,5,1.4,-2,true);for(const x of [3,7])b.box(.2,2.8,5,m.concrete,x,1.4,.5,true);for(const x of [3.5,6.5])b.box(1,2.8,.2,m.concrete,x,1.4,3,true);b.box(4,.15,5.5,m.roof,5,2.95,.5);
   b.box(1,.8,.12,m.dark,5,1.7,-1.8);b.label('BALANCA / DESATIVADA',4,.7,5,3.4,3.1,this.labels);b.label('ACESSO NUCLEO 1 / KM 2,89',4,.7,-3,2.1,-5.3,this.labels);
-  for(const x of [-5.2,-.8])b.box(.07,2.5,.07,m.steel,x,1.25,-5.3,true);
+  for(const x of [-5.2,-.8])b.box(.07,2.5,.07,m.steel,x,1.25,-5.3,true);b.box(4.5,.08,.08,m.steel,-3,2.1,-5.37);
   for(const x of [-6.5,.5])b.box(.15,1.5,.15,m.steel,x,.75,4,true);b.box(6.7,.12,.1,m.stripe,-3,1.3,4);b.crate(7,0,-4,.8);
  }
  addParkedTruck(b){const definition=this.manifest?.candidates?.['dump-truck'];if(!definition?.rightsCleared)return;
-  this.assets.model(definition.url).then(lease=>{if(this.disposed||b.removed){lease.release();return;}b.leases.push(lease);const size=groundStaticModel(lease.scene,-7,-1);b.group.add(lease.scene);b.group.updateMatrixWorld(true);b.solid(-7,size.y/2,-1,size.x,size.y,size.z);b.parkedFloorGap=new THREE.Box3().setFromObject(lease.scene).min.y-b.floor;b.parkedModel=definition.url;}).catch(error=>{if(!this.disposed&&!b.removed)this.assets.errors.push(`parked truck: ${error.message}`);});
+  this.assets.model(definition.url).then(lease=>{if(this.disposed||b.removed){lease.release();return;}b.leases.push(lease);const size=groundStaticModel(lease.scene,-7,-1);b.group.add(lease.scene);b.group.updateMatrixWorld(true);b.solid(-7,size.y/2,-1,size.x,size.y,size.z);const shadowGeometry=new THREE.PlaneGeometry(size.x*1.15,size.z*1.05);shadowGeometry.rotateX(-Math.PI/2);const shadow=new THREE.Mesh(shadowGeometry,this.contactMaterial);shadow.position.set(-7,.012,-1);b.group.add(shadow);b.owned.push(shadowGeometry);b.parkedFloorGap=new THREE.Box3().setFromObject(lease.scene).min.y-b.floor;b.parkedModel=definition.url;}).catch(error=>{if(!this.disposed&&!b.removed)this.assets.errors.push(`parked truck: ${error.message}`);});
  }
  update(position,campaign){for(const p of DISCOVERY_SITES){const close=Math.hypot(position.x-p.x,position.z-p.z)<180;if(close&&!this.live.has(p.id)){const b=this.build(p);this.live.set(p.id,b);if(p.kind==='yard')this.addParkedTruck(b);}else if(!close&&this.live.has(p.id)){this.remove(this.live.get(p.id));this.live.delete(p.id);}}
  }
@@ -60,5 +63,5 @@ export class DiscoveryWorld {
  presentation(menu){for(const b of this.live.values())b.group.visible=!menu;}
  remove(b){b.removed=true;b.leases.forEach(l=>l.release());b.dispose();}
  reset(){for(const b of this.live.values())this.remove(b);this.live.clear();}
- dispose(){this.disposed=true;this.reset();for(const m of this.labels.values()){m.map.dispose();m.dispose();}}
+ dispose(){this.disposed=true;this.reset();this.contactMaterial.map.dispose();this.contactMaterial.dispose();for(const m of this.labels.values()){m.map.dispose();m.dispose();}}
 }
