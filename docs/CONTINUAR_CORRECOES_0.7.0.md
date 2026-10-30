@@ -4,9 +4,19 @@ Repositório de trabalho: /workspace/work/2047-rede-aurora. Branch: feat/tutoria
 
 ## Publicação
 
-O destino indicado no pedido é https://github.com/Da-Hora-stack/2047, público. A tentativa de publicar a 0.6.0 foi rejeitada pela revisão automática de aprovação: a autorização anterior era para renataaap/2047 e não cobria explicitamente publicar código, histórico e assets no novo destino público. Nada foi enviado nessa tentativa. Há uma pergunta de autorização explícita pendente na conversa. Não contornar por outra ferramenta, connector ou upload. Depois de autorização explícita, repetir a publicação normal da branch e tags, sem alterar main à força.
+O destino é https://github.com/Da-Hora-stack/2047, público. O usuário autorizou explicitamente publicar código, histórico Git, relatórios e assets nesse repositório. **Não falta autorização do usuário e não é preciso pedi-la novamente.** O bloqueio antigo de revisão foi seguido de uma nova tentativa autorizada: Git retornou 403, Permission denied to renataaap; a gravação normal pelo aplicativo retornou 403, Resource not accessible by integration. Nenhuma branch/tag foi enviada.
 
-Enquanto isso, os commits e assets estão preservados neste workspace. Não apresentar um comando clone da branch como se ela já existisse no GitHub. GitHub também não sincroniza as partidas salvas no banco local.
+A conexão reconhece o usuário como colaborador com push, mas a integração não recebeu acesso suficiente ao repositório do proprietário Da-Hora-stack. As instalações visíveis são de renataaap e isaquefm; Da-Hora-stack não aparece. O proprietário deve configurar a instalação/conexão GitHub para incluir 2047 e permitir escrita de conteúdo, ou fornecer uma conexão Git normal com acesso de escrita. Não tentar contornar o 403 com outra conta sem permissão.
+
+Depois de corrigir o acesso, no repositório local completo:
+
+```sh
+git push --atomic official HEAD:refs/heads/feat/tutorial-assets refs/tags/v0.6.0 refs/tags/v0.7.0
+```
+
+Usar autenticação normal configurada para a conta com acesso; não inserir tokens em comandos/relatórios. Confirmar branch e tags remotas antes de afirmar que a versão foi publicada. Não fazer force push em main.
+
+Enquanto isso, os commits e assets estão preservados neste workspace. Não apresentar um comando clone da branch como se ela já existisse no GitHub. O pacote de continuidade exportado contém um Git bundle incremental e instruções para recuperar esta branch sobre o snapshot oficial a8a8802. O bundle preserva os SHAs e o histórico da branch, mas precisa dessa base pública. GitHub e o bundle não sincronizam as partidas salvas no banco local.
 
 ## Desenvolvimento local / Windows
 

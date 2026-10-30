@@ -2,7 +2,7 @@
 
 **0.7.0 — Dante na estrada e correções de gameplay.** Tutorial de 21 objetivos preservado; oito PBR locais, Titã importado, garagem/posto/barris reais. Alvos individuais para NPC/bomba/gerador, calibração com peças da mochila/Titã acessível, recuperação após falha e consumo correto da Semente. C alterna primeira/terceira pessoa a pé. Menu 3D recomposto, fade, enquadramento de conversas e serviços separados. [Relatório atual](RELATORIO_CORRECOES_CRITICAS.md) · [diagnóstico](docs/DIAGNOSTICO_CORRECOES_CRITICAS.md) · [auditoria das fases](docs/AUDITORIA_FASES_2026-10-29.md).
 
-Branch local: `feat/tutorial-assets`. Destino indicado: https://github.com/Da-Hora-stack/2047. **A publicação para esse repositório público está aguardando autorização explícita após bloqueio pela revisão automática; a branch/tag ainda não foram enviadas.** [Instruções para continuar, Windows e texturas](docs/CONTINUAR_CORRECOES_0.7.0.md).
+Branch local: `feat/tutorial-assets`. Destino autorizado: https://github.com/Da-Hora-stack/2047. **A autorização para publicar código, histórico, relatórios e assets foi concedida. O envio ainda não ocorreu: Git e aplicativo retornaram 403 por acesso insuficiente da conexão ao repositório.** [Instruções para continuar, Windows e texturas](docs/CONTINUAR_CORRECOES_0.7.0.md).
 
 No Windows, com a cópia completa desta branch: `npm ci`, `npm run dev`, abrir http://localhost:3000 nesse computador, ou usar INICIAR_JOGO.bat. Novo jogo inicia a pé no barracão; tutorial opcional pode ser pulado/repetido. A pé: WASD, Shift, mouse, C para perspectiva e F para interagir/entrar. No Titã: E motor, W/S acelerar/frear/ré, A/D direção, Espaço freio, C câmeras, F sair parado. Saves legados continuam compatíveis.
 

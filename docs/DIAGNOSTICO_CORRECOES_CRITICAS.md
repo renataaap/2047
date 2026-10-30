@@ -9,6 +9,7 @@ Base preservada: checkpoint 0.6.0 `77c96ec`, na branch `feat/tutorial-assets`, d
 3. **Estado da Semente:** a falha de ativação já mantinha a carga e retirava oito pontos de integridade. O sucesso já consumia a carga. A apresentação não explicava adequadamente a diferença, e a dependência exclusiva de peças no Titã impedia a recuperação em situações válidas. Não foi criado um segundo depósito/inventário de Semente nem uma migração que duplica cargas.
 4. **Avatar/câmera:** Player só tinha cápsula física e visão em primeira pessoa. O slot de NPC aceitava GLB licenciado, mas o pacote Fab recebido continuava sem licença identificada.
 5. **Menu/diálogo:** a composição existente era funcional; o pedido exige novo enquadramento 3D, composição e diferenciação entre conversa e transação, preservando todas as falas.
+6. **Spawn em relevo:** a regressão dos sete Núcleos encontrou Dante caindo sob o terreno na Cordilheira. Player.teleport usava a função analítica, enquanto a malha visual e o colisor interpolam triângulos. Em x=-47/z=-12783, a altura analítica era -30,599 m e a superfície física -27,552 m. World.groundHeight agora interpola o triângulo real, sem depender de um broadphase ainda não atualizado. Player recebe esse amostrador para spawn e preserva Y explícito de saves/saída. O teste físico simula 240 passos na região e a travessia dos sete Núcleos passou novamente.
 
 ## Decisões implementadas
 

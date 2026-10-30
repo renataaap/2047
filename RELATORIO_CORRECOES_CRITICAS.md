@@ -1,6 +1,6 @@
-# 2047: Rede Aurora — checkpoint 0.7.0 em validação
+# 2047: Rede Aurora — entrega local 0.7.0
 
-**Checkpoint solicitado pelo usuário antes do término.** Há duas regressões ainda abertas: espera por frame no cenário de sobrevivência e posicionamento de Dante em terreno irregular da Cordilheira. O build final ainda está pendente. Não considerar esta revisão uma versão final aprovada.
+**Implementação e validação local concluídas.** Corrigidas as regressões de sobrevivência e posicionamento de Dante na Cordilheira; build final aprovado. A publicação continua bloqueada por acesso técnico ao GitHub (403), apesar da autorização explícita do usuário. A arte final e as demais fases do jogo continuam com as pendências descritas abaixo.
 
 Entrega local na branch `feat/tutorial-assets`, preservando o tutorial/assets 0.6.0 (`77c96ec`) e as falas mais recentes presentes no workspace. Pedido executado na sequência solicitada; prompts duplicados não foram reaplicados.
 
@@ -17,6 +17,7 @@ Entrega local na branch `feat/tutorial-assets`, preservando o tutorial/assets 0.
 | Mensagens genéricas confundiam recuperação/consumo | Falta de distinção visual entre danificada, falha, 100%, sem recursos e consumida | Status específico para cada impedimento; falha mantém carga recuperável; sucesso bloqueia nova calibração e orienta o próximo Cofre |
 | Nova visibilidade bloqueou entrada no Titã na regressão | Raycast detectava o próprio objeto selecionado como obstáculo | Colisores têm chave de interação; visibilidade ignora o próprio alvo e continua bloqueando paredes/outros objetos, inclusive perto dele. Novo teste físico cobre esse caso |
 | Câmera de conversa podia ficar dentro do NPC | Varredura começava dentro do colisor do interlocutor | Enquadramento ignora corpos de NPC para a câmera, mas conserva colisão com cenário |
+| Dante caía sob o terreno na Cordilheira | Spawn usava altura analítica, diferente da interpolação dos triângulos visuais/físicos; diferença superior a três metros no ponto reproduzido | World.groundHeight amostra o triângulo real para posicionar Player. Y explícito de saves/saída permanece preservado; teste físico de 240 passos e travessia dos sete Núcleos passaram |
 
 A reprodução anterior à correção está em [reproduction-unit.log](evidence/critical-gameplay/reproduction-unit.log), com os dois testes vermelhos. O [diagnóstico](docs/DIAGNOSTICO_CORRECOES_CRITICAS.md) detalha as regras.
 
@@ -51,26 +52,30 @@ Não houve novo download da API Poly Haven, que continua bloqueada neste ambient
 
 - **Interações/regras:** `src/game/interactions/{InteractionResolver,visibility}.js`, `src/game/missions/{seedService,campaign,network,RoadController,NetworkController}.js`, `src/game/core/Game.js`.
 - **Personagem/câmeras:** `src/game/player/{Player,PlayerVisual,CharacterActor,workerDefinition}.js`, `src/game/render/{cameraCollision,Cameras,ConversationCamera,MenuScene}.js`, `src/game/input/Input.js`, `src/game/persistence/settings.js`.
-- **Mundo/recursos:** `src/game/world/{CampaignWorld,RoadWorld,NetworkWorld,ExpeditionWorld}.js`, `src/game/tutorial/TutorialWorld.js`, `src/game/assets/AssetManager.js`.
+- **Mundo/recursos:** `src/game/world/{World,surfaceHeight,CampaignWorld,RoadWorld,NetworkWorld,ExpeditionWorld}.js`, `src/game/tutorial/TutorialWorld.js`, `src/game/assets/AssetManager.js`.
 - **Apresentação:** `src/components/menus/{MainMenu,Panel}.js`, `src/components/game/GameView.js`, `src/components/gameplay/{MissionPanel,RoadPanelContent,NetworkPanelContent,DialogueText}.js`, `src/components/hud/Hud.js`, `src/app/{critical.css,layout.js}`.
 - **Assets:** `assets-source/characters`, `public/assets/models/aurora-workers`, manifesto de modelos/créditos, script Blender.
-- **Verificação:** `tests/unit/{critical-gameplay,cameras,installed-assets,world}.test.js`; novo e2e `critical-gameplay.spec.js`; regressões de assets/cabeçalho de interlocutor atualizadas.
+- **Verificação:** `tests/unit/{critical-gameplay,cameras,installed-assets,world,road-geometry}.test.js`; novo e2e `critical-gameplay.spec.js`; regressões de assets/cabeçalho de interlocutor e esperas por condições reais atualizadas.
 - **Entrega:** package/lock e rótulo de versão/créditos técnicos, README, STATUS, AGENTS, diagnóstico, instruções de continuidade e auditoria das fases; evidências reais.
 
 Os quatro arquivos de narrativa `src/data/campaign.js`, `road.js`, `network.js` e `expedition.js` estão **idênticos byte a byte** ao checkpoint 0.6.0. [Prova de hashes](evidence/critical-gameplay/narrative-protection.json). Nenhum texto local foi substituído por uma versão antiga do GitHub.
 
 ## 5. Testes e resultados
 
-- `npm test`: **135 testes / 15 arquivos passaram**, incluindo motor/física em diferentes taxas de FPS, transações, saves, interação/visibilidade física, matriz de calibração, câmera e arquivos reais. [Log](evidence/critical-gameplay/unit.log).
+- `npm test`: **136 testes / 15 arquivos passaram**, incluindo motor/física em diferentes taxas de FPS, transações, saves, interação/visibilidade física, matriz de calibração, câmera, spawn em relevo e arquivos reais. [Log](evidence/critical-gameplay/unit.log).
 - Duas novas integrações Chromium passaram juntas: NPC/bomba/Tomás, avatar/perspectivas e recuperação da Semente com recarga. A regressão integral posterior inclui também a movimentação real do avatar. [Execução focada](evidence/critical-gameplay/critical-e2e.log).
-- **Execução integral: 14 passaram e 6 falharam (17,4 min)**. Os casos afetados foram corrigidos/ajustados e estão sendo repetidos, sem ocultar o resultado inicial. Atualizar com a rechecagem final antes de fechar a entrega. [Log integral](evidence/critical-gameplay/e2e.log).
-- **Build final pendente nesta revisão.** Não confundir com o build aprovado da entrega 0.6.0.
+- **Execução integral: 14 passaram e 6 falharam (17,4 min)**. Após as correções, a rechecagem de sete cenários teve cinco aprovados e dois ainda falhando; a rechecagem final de sobrevivência e sete Núcleos aprovou ambos. Assim, **os 20 cenários passaram entre a execução integral e as repetições focadas**, sem afirmar uma única execução integral verde. [Log integral](evidence/critical-gameplay/e2e.log), [rechecagem de sete](evidence/critical-gameplay/recheck.log) e [rechecagem final de dois](evidence/critical-gameplay/surface-recheck.log).
+- **Última regressão: três cenários passaram juntos (3,5 min)** — seleção de NPC/avatar/câmeras, entrada/saída/retorno ao Titã e tutorial completo com condução, recursos, ativação e save/load. [Log](evidence/critical-gameplay/spawn-regression.log).
+- `npm run build`: **passou**, Next.js 16.4.3, dez páginas/rotas geradas; APIs dinâmicas preservadas. O servidor de desenvolvimento foi encerrado antes do build. [Log da versão atual](evidence/critical-gameplay/build.log).
+- **Persistência após reinício real do servidor: passou.** Um save schema 3 foi criado pela API em libSQL local isolado; o processo Next.js foi encerrado e iniciado novamente, mantendo somente o cookie de teste. O conteúdo inteiro e a versão voltaram idênticos; o registro e o banco temporários foram removidos. Não usa nem modifica partidas do usuário e não valida Turso em produção. [Resultado](evidence/critical-gameplay/restart-persistence.json) e [log dos dois processos](evidence/critical-gameplay/restart-server.log).
 
 O cenário danificado parte de um save válido com integridade 70 e RNG 1510. A falha ocorre naturalmente pelo sorteio, deixa 62; a UI calibra para 82 pagando duas peças e a ativação seguinte tem chance de 100%. **A integridade não é editada durante o teste para produzir sucesso.** Há testes de 100%, falta de peças, estoque apenas na mochila/Titã/misto, distância, terminal, motor, estacionamento, consumo e Núcleos seguintes.
 
 A primeira rodada das duas novas integrações encontrou seletores de teste desatualizados (nome real do terminal e clone de saída oculto). Foram corrigidos sem alterar a narrativa. A regressão também identificou o retorno rápido ao Titã prejudicado pelo alvo no centro do chassi; agora o alvo é a porta mais próxima. Os teleportes de diagnóstico sincronizam imediatamente velocidade zero com a física já zerada, evitando indicadores antigos entre frames. Esperas curtas de movimento dos testes antigos foram trocadas por condições de distância/velocidade; os critérios físicos não foram reduzidos.
 
 A primeira execução integral foi interrompida após detectar a obstrução indevida da entrada no Titã; a causa física foi corrigida e coberta por teste, antes da repetição integral. Logs iniciais foram preservados.
+
+A regressão de sobrevivência usava esperas de parede que podiam terminar sem um frame físico no SwiftShader; agora aguarda consumo e visibilidade reais. Na Cordilheira, o teste expôs uma falha efetiva de spawn: no ponto x=-47/z=-12783, a função analítica dava -30,599 m e o triângulo físico -27,552 m. O novo amostrador usa a mesma geometria renderizada/colidida, só no posicionamento, sem uma busca por triângulos a cada frame. O snapshot da falha foi preservado em evidence/phase4/failure-0.7.0.json.
 
 ## 6. Capturas reais
 
@@ -84,7 +89,7 @@ São screenshots do WebGL deste projeto, não imagens externas/promocionais. Usa
 
 ## 7. Desempenho e limitações
 
-Na captura inicial em Baixo/75%: 87 draw calls, 191.350 triângulos e média de 0,79 FPS em software. No entorno de Tomás: 50 chamadas, 82.512 triângulos e média de 1,40 FPS; PBR estimado em 32 MiB, sem contabilizar texturas internas de GLBs. São amostras de diagnóstico, não um benchmark comparável em hardware.
+Na última rechecagem, em Baixo/75%: 87 draw calls, 191.350 triângulos e média de 1,07 FPS em software no início. No entorno de Tomás: 50 chamadas, 82.512 triângulos e média de 1,21 FPS; PBR estimado em 32 MiB, sem contabilizar texturas internas de GLBs. São amostras de diagnóstico, não um benchmark comparável em hardware. Dados em evidence/critical-gameplay/targets-avatar.json.
 
 A rechecagem de aceleração atingiu 48,70 km/h na leitura de 8,4 segundos simulados (mínimo exigido: oito), em 60,688 segundos de parede, com diesel de 4 para 3,9185 L, 89 draw calls e 254.212 triângulos, sem erros de console. O teste mantém a exigência física de velocidade; o tempo de espera maior acomoda o renderizador por software. Ver evidence/acceptance.json para a relação entre tempo físico e tempo de parede.
 
@@ -103,6 +108,10 @@ A próxima etapa recomendada é uma travessia humana completa no Windows/GPU rea
 - 0.6.0: `77c96ec`, tag local `v0.6.0` — tutorial/assets e provas.
 - Personagens CC0: `1a8279c` — fontes, preparação, licença e adaptadores.
 - Código e interface: `a36fdbb` — alvos/calibração, avatar/câmeras, apresentação e regressões.
-- Checkpoint final 0.7.0: registrar após as verificações finais.
+- Checkpoint solicitado antes do término: `e13d059` — estado de trabalho e documentação das falhas então abertas.
+- Correção do relevo: `a96e0b8` — superfície física para spawn e teste de sobrevivência sincronizado por estado.
+- Entrega final local: tag `v0.7.0`, incluindo este relatório e as evidências finais.
 
-**Histórico da publicação:** a revisão automática de aprovação rejeitou o push para o novo repositório público `Da-Hora-stack/2047`, pois a autorização anterior cobria outro repositório e não autorizava explicitamente expor esse código/histórico/assets nesse destino. Nenhum arquivo foi enviado nessa tentativa. O usuário agora pediu explicitamente enviar as alterações ao GitHub e terminar depois. Este checkpoint está sendo publicado por Git normal na branch de trabalho, sem alterar main à força.
+**Publicação não realizada:** após o bloqueio antigo de revisão, o usuário autorizou expressamente publicar código, histórico Git, relatórios e assets no repositório público `Da-Hora-stack/2047`. A nova tentativa por Git retornou 403, Permission denied to renataaap. A conta aparece com push no metadado do repositório, mas a escrita pelo aplicativo também retornou 403, Resource not accessible by integration; as instalações listadas não incluem o proprietário Da-Hora-stack. Isso é um bloqueio de acesso da conexão, não uma autorização de conteúdo pendente. Nenhuma branch/tag foi enviada. [Registro técnico](evidence/critical-gameplay/publication.json).
+
+O pacote incremental de continuidade preserva os commits, tags e assets adicionais desta branch; exige o snapshot público oficial como base. [Recuperação e publicação](docs/RECUPERAR_CHECKPOINT_0.7.0.md). Depois de configurar o acesso de escrita da conexão ao repositório, publicar normalmente e verificar os refs remotos, sem force push em main. [Windows, celular e texturas](docs/CONTINUAR_CORRECOES_0.7.0.md).

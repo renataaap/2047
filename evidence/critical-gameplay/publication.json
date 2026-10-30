@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-10-30T15:22:32.448210+00:00",
+  "destination": "https://github.com/Da-Hora-stack/2047",
+  "visibility": "public",
+  "authorization": "User explicitly authorized publishing code, Git history, reports and assets to this exact public repository.",
+  "published": false,
+  "git": {
+    "command": "GIT_TERMINAL_PROMPT=0 git -c credential.helper='!gh auth git-credential' push --atomic official HEAD:refs/heads/feat/tutorial-assets refs/tags/v0.6.0",
+    "exitCode": 128,
+    "httpStatus": 403,
+    "message": "Permission to Da-Hora-stack/2047.git denied to renataaap."
+  },
+  "app": {
+    "account": "renataaap",
+    "repoMetadataPushPermission": true,
+    "operation": "create_blob",
+    "sourcePath": "docs/RETOMAR_AGORA.md at e13d059",
+    "httpStatus": 403,
+    "message": "Resource not accessible by integration",
+    "visibleInstallationAccounts": [
+      "renataaap",
+      "isaquefm"
+    ]
+  },
+  "requiredAction": "Configure repository access and content-write permissions for the GitHub connection/installation, or a Git connection with write access. User content authorization is already granted.",
+  "refsNotSent": [
+    "refs/heads/feat/tutorial-assets",
+    "refs/tags/v0.6.0",
+    "refs/tags/v0.7.0"
+  ],
+  "preservation": "Logical local commits; v0.7.0 tag and incremental bundle after final documentation. No main force push.",
+  "remoteRefsVerifiedAbsent": true,
+  "remoteQueryResult": []
+}
