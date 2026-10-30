@@ -1,3 +1,5 @@
+> Registro histórico da 0.7.0. A expansão atual é descrita em [RELATORIO_EXPANSAO_0.8.0.md](../RELATORIO_EXPANSAO_0.8.0.md) e [RETOMAR_0.8.0.md](RETOMAR_0.8.0.md). Não reaplicar estas tarefas como uma nova implementação.
+
 # Continuar o projeto — versão 0.7.0 publicada
 
 Repositório de trabalho: /workspace/work/2047-rede-aurora. Branch: feat/tutorial-assets. Ler AGENTS.md, STATUS_DO_PROJETO.md e RELATORIO_CORRECOES_CRITICAS.md antes de editar. Preservar o checkpoint v0.6.0 e o tutorial existente.

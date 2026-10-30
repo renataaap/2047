@@ -1,4 +1,12 @@
-# Retomar depois da publicação 0.7.0
+# Retomar — expansão 0.8.0
+
+O trabalho ativo e os resultados atuais estão em [RETOMAR_0.8.0.md](RETOMAR_0.8.0.md), [STATUS_DO_PROJETO.md](../STATUS_DO_PROJETO.md) e [RELATORIO_EXPANSAO_0.8.0.md](../RELATORIO_EXPANSAO_0.8.0.md). Não reaplicar os prompts antigos. Repositório oficial privado renataaap/2047, origin, branch feat/tutorial-assets; publicação já autorizada, sem force push. Ler AGENTS antes de editar e preservar os quatro módulos narrativos.
+
+A entrega técnica 0.8.0 foi validada: 161 unitários, build, reinício e 24 cenários únicos entre rodadas; capturas comparadas. Branch feat/tutorial-assets e tag v0.8.0 no repositório oficial privado. O registro abaixo é histórico da 0.7.0, não o estado da expansão nem uma nova execução dos seus testes.
+
+---
+
+# Registro histórico — publicação 0.7.0
 
 As correções e a validação terminaram. Após nova recusa do destino público e o pedido para enviar ao próprio Git, a versão foi publicada em https://github.com/renataaap/2047/tree/feat/tutorial-assets, privado. Entrar como renataaap para acessar.
 

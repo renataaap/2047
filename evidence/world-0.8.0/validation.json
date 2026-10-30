@@ -1,0 +1,907 @@
+{
+  "release": "0.8.0",
+  "historicalBaseline": {
+    "release": "0.7.0",
+    "unitTests": 136,
+    "browserUniqueCases": 20,
+    "singleFullGreenRun": false,
+    "note": "Historical record; not newly rerun results."
+  },
+  "units": {
+    "passed": 161,
+    "files": 23,
+    "log": "final-unit.log",
+    "codeCheckpoint": "7115e0f",
+    "note": "Final unit execution after night-light adjustment; rear label position subsequently verified in real capture."
+  },
+  "browserRuns": [
+    {
+      "log": "full-e2e-first.log",
+      "observedPassed": 2,
+      "observedFailed": 3,
+      "cases": [
+        {
+          "index": 1,
+          "passed": true,
+          "case": "tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais",
+          "duration": "1.3m"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "case": "tests/e2e/assets.spec.js:16:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer",
+          "duration": "47.5s"
+        },
+        {
+          "index": 3,
+          "passed": false,
+          "case": "tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade",
+          "duration": "1.5m"
+        },
+        {
+          "index": 4,
+          "passed": false,
+          "case": "tests/e2e/critical-gameplay.spec.js:15:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas",
+          "duration": "32.8s"
+        },
+        {
+          "index": 5,
+          "passed": false,
+          "case": "tests/e2e/critical-gameplay.spec.js:30:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga",
+          "duration": "54.4s"
+        }
+      ],
+      "status": "interrupted",
+      "codeCheckpoint": null,
+      "note": "Initial incomplete regression before geometry/light polish; not a full result."
+    },
+    {
+      "log": "full-e2e.log",
+      "observedPassed": 16,
+      "observedFailed": 7,
+      "cases": [
+        {
+          "index": 1,
+          "passed": true,
+          "case": "tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais",
+          "duration": "1.2m"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "case": "tests/e2e/assets.spec.js:16:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer",
+          "duration": "46.9s"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "case": "tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade",
+          "duration": "1.3m"
+        },
+        {
+          "index": 4,
+          "passed": true,
+          "case": "tests/e2e/critical-gameplay.spec.js:15:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas",
+          "duration": "1.5m"
+        },
+        {
+          "index": 5,
+          "passed": false,
+          "case": "tests/e2e/critical-gameplay.spec.js:30:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga",
+          "duration": "25.2s"
+        },
+        {
+          "index": 6,
+          "passed": false,
+          "case": "tests/e2e/driving.spec.js:7:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura",
+          "duration": "53.7s"
+        },
+        {
+          "index": 7,
+          "passed": true,
+          "case": "tests/e2e/driving.spec.js:15:1 › câmera externa respeita paredes e ajustes de condução persistem",
+          "duration": "1.5m"
+        },
+        {
+          "index": 8,
+          "passed": true,
+          "case": "tests/e2e/exit.spec.js:5:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos",
+          "duration": "41.3s"
+        },
+        {
+          "index": 9,
+          "passed": true,
+          "case": "tests/e2e/game.spec.js:6:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento",
+          "duration": "1.7m"
+        },
+        {
+          "index": 10,
+          "passed": false,
+          "case": "tests/e2e/game.spec.js:20:1 › câmeras, motor, pausa, configurações e API",
+          "duration": "2.0m"
+        },
+        {
+          "index": 11,
+          "passed": true,
+          "case": "tests/e2e/game.spec.js:32:1 › setores se renovam até as cidades e o objetivo mantém a primeira Semente",
+          "duration": "47.9s"
+        },
+        {
+          "index": 12,
+          "passed": true,
+          "case": "tests/e2e/interface.spec.js:4:1 › diálogo por falas, teclado, escala de legendas e retorno ao controle",
+          "duration": "1.2m"
+        },
+        {
+          "index": 13,
+          "passed": true,
+          "case": "tests/e2e/phase2.spec.js:7:1 › API: cookies, isolamento, CRUD, validação e conflito",
+          "duration": "918ms"
+        },
+        {
+          "index": 14,
+          "passed": true,
+          "case": "tests/e2e/phase2.spec.js:17:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga",
+          "duration": "2.3m"
+        },
+        {
+          "index": 15,
+          "passed": false,
+          "case": "tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência",
+          "duration": "1.0m"
+        },
+        {
+          "index": 16,
+          "passed": false,
+          "case": "tests/e2e/phase4.spec.js:18:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral",
+          "duration": "48.8s"
+        },
+        {
+          "index": 17,
+          "passed": true,
+          "case": "tests/e2e/phase4.spec.js:37:1 › Fase 4: bloqueio físico, desvio transitável e frente climática persistida",
+          "duration": "46.2s"
+        },
+        {
+          "index": 18,
+          "passed": true,
+          "case": "tests/e2e/tutorial-assets.spec.js:9:1 › arquivos reais: oito PBR, garagem com interior e Titã com seis rodas",
+          "duration": "1.2m"
+        },
+        {
+          "index": 19,
+          "passed": true,
+          "case": "tests/e2e/tutorial-assets.spec.js:15:1 › progresso parcial retoma; pular e repetir preservam recursos e campanha",
+          "duration": "1.0m"
+        },
+        {
+          "index": 20,
+          "passed": false,
+          "case": "tests/e2e/tutorial-assets.spec.js:28:1 › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga",
+          "duration": "1.6m"
+        },
+        {
+          "index": 21,
+          "passed": false,
+          "case": "tests/e2e/world-expansion.spec.js:17:1 › 0.8: três locais alcançáveis a pé, reservas finitas, boletim e persistência",
+          "duration": "1.7m"
+        },
+        {
+          "index": 22,
+          "passed": true,
+          "case": "tests/e2e/world-expansion.spec.js:32:1 › 0.8: dia e noite, luzes locais, pausa, áudio e relógio salvo",
+          "duration": "2.4m"
+        },
+        {
+          "index": 23,
+          "passed": true,
+          "case": "tests/e2e/world-expansion.spec.js:45:1 › 0.8: ambientação por região, equipamentos e descarregamento dos novos modelos",
+          "duration": "1.1m"
+        }
+      ],
+      "status": "completed",
+      "codeCheckpoint": "1a5598b",
+      "note": "All 23 cases executed; 16 passed, 7 failed. Failures retained and investigated."
+    },
+    {
+      "log": "final-e2e.log",
+      "observedPassed": 14,
+      "observedFailed": 1,
+      "cases": [
+        {
+          "index": 1,
+          "passed": true,
+          "case": "tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais",
+          "duration": "39.5s"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "case": "tests/e2e/assets.spec.js:16:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer",
+          "duration": "26.8s"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "case": "tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade",
+          "duration": "46.9s"
+        },
+        {
+          "index": 4,
+          "passed": true,
+          "case": "tests/e2e/critical-gameplay.spec.js:15:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas",
+          "duration": "57.4s"
+        },
+        {
+          "index": 5,
+          "passed": true,
+          "case": "tests/e2e/critical-gameplay.spec.js:30:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga",
+          "duration": "46.4s"
+        },
+        {
+          "index": 6,
+          "passed": true,
+          "case": "tests/e2e/driving.spec.js:7:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura",
+          "duration": "46.4s"
+        },
+        {
+          "index": 7,
+          "passed": true,
+          "case": "tests/e2e/driving.spec.js:15:1 › câmera externa respeita paredes e ajustes de condução persistem",
+          "duration": "1.1m"
+        },
+        {
+          "index": 8,
+          "passed": true,
+          "case": "tests/e2e/exit.spec.js:5:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos",
+          "duration": "29.2s"
+        },
+        {
+          "index": 9,
+          "passed": true,
+          "case": "tests/e2e/game.spec.js:6:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento",
+          "duration": "1.7m"
+        },
+        {
+          "index": 10,
+          "passed": true,
+          "case": "tests/e2e/game.spec.js:20:1 › câmeras, motor, pausa, configurações e API",
+          "duration": "1.6m"
+        },
+        {
+          "index": 11,
+          "passed": true,
+          "case": "tests/e2e/game.spec.js:32:1 › setores se renovam até as cidades e o objetivo mantém a primeira Semente",
+          "duration": "44.4s"
+        },
+        {
+          "index": 12,
+          "passed": true,
+          "case": "tests/e2e/interface.spec.js:4:1 › diálogo por falas, teclado, escala de legendas e retorno ao controle",
+          "duration": "41.5s"
+        },
+        {
+          "index": 13,
+          "passed": true,
+          "case": "tests/e2e/phase2.spec.js:7:1 › API: cookies, isolamento, CRUD, validação e conflito",
+          "duration": "588ms"
+        },
+        {
+          "index": 14,
+          "passed": true,
+          "case": "tests/e2e/phase2.spec.js:17:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga",
+          "duration": "1.4m"
+        },
+        {
+          "index": 15,
+          "passed": false,
+          "case": "tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência",
+          "duration": "52.8s"
+        }
+      ],
+      "status": "interrupted",
+      "codeCheckpoint": "e542555",
+      "note": "Managed environment initialization ended the parent process. Fourteen passes and one failure recorded; later cases have no completed result here."
+    },
+    {
+      "log": "legacy-workshop-recheck.log",
+      "observedPassed": 1,
+      "observedFailed": 0,
+      "cases": [
+        {
+          "index": 1,
+          "passed": true,
+          "case": "tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência",
+          "duration": "1.2m"
+        }
+      ],
+      "status": "completed",
+      "codeCheckpoint": "e542555",
+      "note": "Standalone full survival flow passed before exit timing reappeared in the partial integral run."
+    },
+    {
+      "log": "legacy-exit-final.log",
+      "observedPassed": 1,
+      "observedFailed": 0,
+      "cases": [
+        {
+          "index": 1,
+          "passed": true,
+          "case": "tests/e2e/phase3.spec.js:12:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência",
+          "duration": "1.2m"
+        }
+      ],
+      "status": "completed",
+      "codeCheckpoint": "56b9c34",
+      "note": "Full survival flow passed with handbrake, simulated settling and confirmed walking."
+    },
+    {
+      "log": "remaining-e2e.log",
+      "observedPassed": 12,
+      "observedFailed": 0,
+      "cases": [
+        {
+          "index": 1,
+          "passed": true,
+          "case": "tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais",
+          "duration": "42.7s"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "case": "tests/e2e/assets.spec.js:16:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer",
+          "duration": "27.4s"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "case": "tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade",
+          "duration": "50.2s"
+        },
+        {
+          "index": 4,
+          "passed": true,
+          "case": "tests/e2e/phase4.spec.js:18:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral",
+          "duration": "1.5m"
+        },
+        {
+          "index": 5,
+          "passed": true,
+          "case": "tests/e2e/phase4.spec.js:37:1 › Fase 4: bloqueio físico, desvio transitável e frente climática persistida",
+          "duration": "34.7s"
+        },
+        {
+          "index": 6,
+          "passed": true,
+          "case": "tests/e2e/tutorial-assets.spec.js:9:1 › arquivos reais: oito PBR, garagem com interior e Titã com seis rodas",
+          "duration": "40.1s"
+        },
+        {
+          "index": 7,
+          "passed": true,
+          "case": "tests/e2e/tutorial-assets.spec.js:15:1 › progresso parcial retoma; pular e repetir preservam recursos e campanha",
+          "duration": "45.0s"
+        },
+        {
+          "index": 8,
+          "passed": true,
+          "case": "tests/e2e/tutorial-assets.spec.js:28:1 › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga",
+          "duration": "2.2m"
+        },
+        {
+          "index": 9,
+          "passed": true,
+          "case": "tests/e2e/world-expansion.spec.js:20:1 › 0.8: três locais alcançáveis a pé, reservas finitas, boletim e persistência",
+          "duration": "1.8m"
+        },
+        {
+          "index": 10,
+          "passed": true,
+          "case": "tests/e2e/world-expansion.spec.js:35:1 › 0.8: dia e noite, luzes locais, pausa, áudio e relógio salvo",
+          "duration": "1.2m"
+        },
+        {
+          "index": 11,
+          "passed": true,
+          "case": "tests/e2e/world-expansion.spec.js:48:1 › 0.8: ambientação por região, equipamentos e descarregamento dos novos modelos",
+          "duration": "49.1s"
+        },
+        {
+          "index": 12,
+          "passed": true,
+          "case": "tests/e2e/world-expansion.spec.js:58:1 › 0.8: perfis reais trocam texturas, preservam dados herdados e liberam variantes antigas",
+          "duration": "1.2m"
+        }
+      ],
+      "status": "completed",
+      "codeCheckpoint": "56b9c34",
+      "note": "Twelve cases: remaining journeys/tutorial/0.8 features, real assets and new real quality cycle."
+    },
+    {
+      "log": "visual-recheck.log",
+      "observedPassed": 2,
+      "observedFailed": 0,
+      "cases": [
+        {
+          "index": 1,
+          "passed": true,
+          "case": "tests/e2e/world-expansion.spec.js:20:1 › 0.8: três locais alcançáveis a pé, reservas finitas, boletim e persistência",
+          "duration": "1.7m"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "case": "tests/e2e/world-expansion.spec.js:49:1 › 0.8: ambientação por região, equipamentos e descarregamento dos novos modelos",
+          "duration": "46.4s"
+        }
+      ],
+      "status": "completed",
+      "codeCheckpoint": "737d484",
+      "note": "Affected POI entry/persistence/streaming and actual model floor after visual polish."
+    },
+    {
+      "log": "contact-recheck.log",
+      "observedPassed": 1,
+      "observedFailed": 0,
+      "cases": [
+        {
+          "index": 1,
+          "passed": true,
+          "case": "tests/e2e/world-expansion.spec.js:20:1 › 0.8: três locais alcançáveis a pé, reservas finitas, boletim e persistência",
+          "duration": "1.8m"
+        }
+      ],
+      "status": "completed",
+      "codeCheckpoint": "44e5986",
+      "note": "Affected POI entry/persistence/streaming and actual model floor after visual polish."
+    }
+  ],
+  "build": {
+    "passed": true,
+    "command": "npm run build",
+    "log": "build.log",
+    "codeCheckpoint": "7115e0f"
+  },
+  "restart": {
+    "passed": true,
+    "realServerRestart": true,
+    "proof": "restart-persistence.json",
+    "log": "restart.log",
+    "exactPayloadHashesMatch": true
+  },
+  "finalCaptures": {
+    "passed": true,
+    "inspected": true,
+    "renderer": "Chromium ANGLE SwiftShader, Linux software",
+    "fivePairs": [
+      {
+        "id": "barracao",
+        "sameAuthoredPose": true,
+        "before": "before/barracao.png",
+        "after": "after/barracao.png",
+        "drawCalls": 108,
+        "triangles": 186656
+      },
+      {
+        "id": "arredores",
+        "sameAuthoredPose": true,
+        "before": "before/arredores.png",
+        "after": "after/arredores.png",
+        "drawCalls": 115,
+        "triangles": 187038
+      },
+      {
+        "id": "estrada",
+        "sameAuthoredPose": true,
+        "before": "before/estrada.png",
+        "after": "after/estrada.png",
+        "drawCalls": 97,
+        "triangles": 183008
+      },
+      {
+        "id": "oficina",
+        "sameAuthoredPose": true,
+        "before": "before/oficina.png",
+        "after": "after/oficina.png",
+        "drawCalls": 51,
+        "triangles": 84326
+      },
+      {
+        "id": "posto",
+        "sameAuthoredPose": true,
+        "before": "before/posto.png",
+        "after": "after/posto.png",
+        "drawCalls": 108,
+        "triangles": 131707
+      }
+    ],
+    "additionalStages": [
+      "moradia",
+      "night",
+      "detalhes",
+      "pois",
+      "regions",
+      "atmosphere"
+    ],
+    "images": [
+      {
+        "file": "after/arredores.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "fc207d7c3db0fd2448a66e4c7a523d120ef531318afa6f28b268770f566643c2"
+      },
+      {
+        "file": "after/barracao.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "c552918b2e64236b1367498f753895ddff5fb8f15ccf1f1d2cf9b07c01ef3f36"
+      },
+      {
+        "file": "after/estrada.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "b8a45abc5abeb0c6975a1631586f265665c16fcf1190bf5cfabf72c7a42e45d1"
+      },
+      {
+        "file": "after/menu.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "d5558bb9e16949e4ef30a3aa5a66827190723050df4c5652d2b81e8b1b566d77"
+      },
+      {
+        "file": "after/oficina.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "3a17656d7e69e9c0d22941ceecc0951c82bb862555b36f8a0c688177ef59ba25"
+      },
+      {
+        "file": "after/posto.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "cd36ca67ea511a489738aca2286bc680d074576014b5941a94fe6e6becdf654c"
+      },
+      {
+        "file": "atmosphere/14.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "f45619ccdd7ad6be0d53266faf469339893c8ba97fc7b0c8291a33aa8f04920f"
+      },
+      {
+        "file": "atmosphere/18.2.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "06408e1d3b0b706488408fe2f311db61b02b473459f36b29fe12e05848200b8b"
+      },
+      {
+        "file": "atmosphere/23.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "eb650ce2381f640c9bd361e42de9963fe3cd7542db9963b4d5bda29499339ef0"
+      },
+      {
+        "file": "atmosphere/5.7.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "fbd5c277c50c31a1d4135cf43c2822ec6e91a6419019ab872f611bf57aae6dd1"
+      },
+      {
+        "file": "atmosphere/9.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "3586bc5331f3f7184a756bfa9618206cdffdcc1d7189cd49ba59820b16b7f9e5"
+      },
+      {
+        "file": "before/arredores.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "73e7f00e5101a2133440148ace5e944fd9e681104145e6e300021f4407eacbaf"
+      },
+      {
+        "file": "before/barracao.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "10c4596557a80b70bd18b0a074e4fe9184f3d2509b88957e9d08637b6f6d2aba"
+      },
+      {
+        "file": "before/estrada.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "a8a1d93120ad6b1e2ebebe9c76b593a8b351fe12a5fc4bd1b37b9874e22b7666"
+      },
+      {
+        "file": "before/menu.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "09e6ac415141e78359fa1a7f61f1642a340697e4e274cbca41812dcbcd8bb7e2"
+      },
+      {
+        "file": "before/oficina.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "043485b94f560bcf196ab7af20647034a1200388621adcc92a4f8d6f07bdc726"
+      },
+      {
+        "file": "before/posto.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "dfb0242ba14c57b88a528167147ee8af96de28ff3b3b1ec2ad057de5b1d9d0fc"
+      },
+      {
+        "file": "dante-0.8.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "f62d30ddba28840ff1d59c9e00924a4d58940a874f251b1a7f0ed2599ab62811"
+      },
+      {
+        "file": "detalhes/menu.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "5af00463ea847e82bfc5698814fa5f0fb6a0cb65630855f61898ed8f62d85888"
+      },
+      {
+        "file": "detalhes/oficina-detalhe.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "0d9c03ff18f7a05f5d7cf802876210c030de4af1a8ac3a44eb156798936af2b5"
+      },
+      {
+        "file": "detalhes/posto-detalhe.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "0e6ab6fb2fa29bd738642ca3671d0a28cf5d3bf442edadbf05b6e9ba69fa70c3"
+      },
+      {
+        "file": "increment-b/arredores.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "075a7a3de7c40128749d9e4d46c1bce5d74b77281bdd1eefb85190667cd69c4f"
+      },
+      {
+        "file": "increment-b/barracao.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "750d4f4fe5d17e202677f5196a0aa84663b5dc3138c656bfdca2ad3b841f2322"
+      },
+      {
+        "file": "increment-b/menu.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "cd0d3f87bb4134298c64482a7c89fdbbd3e9eb6e4e32bf35837e5c62ecfa33ff"
+      },
+      {
+        "file": "moradia/menu.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "919411addd4579e94385c859b383746fcdf8feb4b9e1aadc1c0794bc3607f80a"
+      },
+      {
+        "file": "moradia/moradia.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "0f5852fce695b1644f119c3fa04d44afd1c762448a709c11c51f6597f2c32ea4"
+      },
+      {
+        "file": "night/estrada-sem-farois.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "19c737768733dd73c6410e121e4ad6299474fd55e5c8c25e8b1e70d8b5139b9f"
+      },
+      {
+        "file": "night/estrada.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "20172901f365e343313a51bc72efaa72f8f7591fdd199ad86d117983f278dd1a"
+      },
+      {
+        "file": "night/menu.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "631a60f28a8ca91541ce150a8f0fb7c37a34112c862efa735b759c328d5f2f42"
+      },
+      {
+        "file": "pois/motel-exterior.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "7074ec01d0b9394f935ac1a0d4204d638d2436987c3095e1f19cdf94b649689a"
+      },
+      {
+        "file": "pois/motel.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "4e759eb076914e21430a6911c81ce9c6ecb09f820db1966a4e4e294aed2f0688"
+      },
+      {
+        "file": "pois/weighbridge-exterior.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "e214ec7c542fe31b91e68385bc8152377a957ffd07039ff3247726a610770e15"
+      },
+      {
+        "file": "pois/weighbridge.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "715f41afab0b75e32c4604b49d10803e86f72f54e64c621244677440dee55a12"
+      },
+      {
+        "file": "pois/yard-exterior.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "ca3f434784a0066841c7a021851ade0b30912ae371a5d7920e857e4471e62a68"
+      },
+      {
+        "file": "pois/yard.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "bf80453abaa32e1c184ccc133d623c882124779e1025867e1d516ab780122c0c"
+      },
+      {
+        "file": "quality-cycle.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "8a22c48012f0415771f3c370be59a7e736db7762733783a4aa9d7055469cb894"
+      },
+      {
+        "file": "regions/ashes.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "84353e88a39835beb15958e251b16e569aa05c04baf8477c7199f1357bfd9241"
+      },
+      {
+        "file": "regions/cities.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "f8a54ba5f783b2ebeea6e275dc46d31b3ee69f34c44063a4415ef8a3d3d72e8b"
+      },
+      {
+        "file": "regions/glass.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "a553d290bd5a07cb57057c771ed730845e60b8ac44e3662b2c3e753ce83cf2c5"
+      },
+      {
+        "file": "regions/salt.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "cd3201e6723b144c9c4b13ab993e78b242b4ac540bed0bddfc9c8606dc8b3b67"
+      },
+      {
+        "file": "regions/storm.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "92d2803c02d7393f00932e781ca9dd60123bb72f4f75612a01eb95c3331b3e35"
+      },
+      {
+        "file": "visual-before-fixes/motel.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "c67466ab47e530f6a332d892d423022f4acc4bde0cd80bb5145dce9052fc1911"
+      },
+      {
+        "file": "visual-before-fixes/night-low-headlights.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "f007018c5b2545979dd192737e99f897779dc4c55c50058a2f413c0f8db37549"
+      },
+      {
+        "file": "visual-before-fixes/weighbridge.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "2502bad698fdc690dba34b99c529f61febd88123a5645be1302e385485d6abae"
+      },
+      {
+        "file": "visual-before-fixes/yard.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "61597bdf5c5885cc8480e4a0b403c2699df1eb172445b53fe2994e4db5ce312c"
+      }
+    ]
+  },
+  "hardwareValidation": "Windows/GPU and human listening pending; SwiftShader is not a hardware benchmark.",
+  "browserUniqueApproved": 24,
+  "browserSingleFullGreenRun": false,
+  "browserApprovedCases": [
+    {
+      "case": "tests/e2e/assets.spec.js › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais",
+      "evidence": "remaining-e2e.log"
+    },
+    {
+      "case": "tests/e2e/assets.spec.js › carros reais: materiais próprios, colisão e descarregamento por proximidade",
+      "evidence": "remaining-e2e.log"
+    },
+    {
+      "case": "tests/e2e/assets.spec.js › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer",
+      "evidence": "remaining-e2e.log"
+    },
+    {
+      "case": "tests/e2e/critical-gameplay.spec.js › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga",
+      "evidence": "final-e2e.log"
+    },
+    {
+      "case": "tests/e2e/critical-gameplay.spec.js › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas",
+      "evidence": "final-e2e.log"
+    },
+    {
+      "case": "tests/e2e/driving.spec.js › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura",
+      "evidence": "final-e2e.log"
+    },
+    {
+      "case": "tests/e2e/driving.spec.js › câmera externa respeita paredes e ajustes de condução persistem",
+      "evidence": "final-e2e.log"
+    },
+    {
+      "case": "tests/e2e/exit.spec.js › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos",
+      "evidence": "final-e2e.log"
+    },
+    {
+      "case": "tests/e2e/game.spec.js › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento",
+      "evidence": "final-e2e.log"
+    },
+    {
+      "case": "tests/e2e/game.spec.js › câmeras, motor, pausa, configurações e API",
+      "evidence": "final-e2e.log"
+    },
+    {
+      "case": "tests/e2e/game.spec.js › setores se renovam até as cidades e o objetivo mantém a primeira Semente",
+      "evidence": "final-e2e.log"
+    },
+    {
+      "case": "tests/e2e/interface.spec.js › diálogo por falas, teclado, escala de legendas e retorno ao controle",
+      "evidence": "final-e2e.log"
+    },
+    {
+      "case": "tests/e2e/phase2.spec.js › API: cookies, isolamento, CRUD, validação e conflito",
+      "evidence": "final-e2e.log"
+    },
+    {
+      "case": "tests/e2e/phase2.spec.js › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga",
+      "evidence": "final-e2e.log"
+    },
+    {
+      "case": "tests/e2e/phase3.spec.js › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência",
+      "evidence": "legacy-exit-final.log"
+    },
+    {
+      "case": "tests/e2e/phase4.spec.js › Fase 4: bloqueio físico, desvio transitável e frente climática persistida",
+      "evidence": "remaining-e2e.log"
+    },
+    {
+      "case": "tests/e2e/phase4.spec.js › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral",
+      "evidence": "remaining-e2e.log"
+    },
+    {
+      "case": "tests/e2e/tutorial-assets.spec.js › arquivos reais: oito PBR, garagem com interior e Titã com seis rodas",
+      "evidence": "remaining-e2e.log"
+    },
+    {
+      "case": "tests/e2e/tutorial-assets.spec.js › progresso parcial retoma; pular e repetir preservam recursos e campanha",
+      "evidence": "remaining-e2e.log"
+    },
+    {
+      "case": "tests/e2e/tutorial-assets.spec.js › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga",
+      "evidence": "remaining-e2e.log"
+    },
+    {
+      "case": "tests/e2e/world-expansion.spec.js › 0.8: ambientação por região, equipamentos e descarregamento dos novos modelos",
+      "evidence": "visual-recheck.log"
+    },
+    {
+      "case": "tests/e2e/world-expansion.spec.js › 0.8: dia e noite, luzes locais, pausa, áudio e relógio salvo",
+      "evidence": "remaining-e2e.log"
+    },
+    {
+      "case": "tests/e2e/world-expansion.spec.js › 0.8: perfis reais trocam texturas, preservam dados herdados e liberam variantes antigas",
+      "evidence": "remaining-e2e.log"
+    },
+    {
+      "case": "tests/e2e/world-expansion.spec.js › 0.8: três locais alcançáveis a pé, reservas finitas, boletim e persistência",
+      "evidence": "visual-recheck.log"
+    }
+  ],
+  "finalCodeCheckpoint": "7115e0f",
+  "pending": [
+    "Windows with a real GPU and long play session",
+    "Human listening and night-driving comfort",
+    "Final character/facade/interior art and additional unavailable materials",
+    "Future systems in docs/ROADMAP_APOS_0.8.0.md"
+  ]
+}
