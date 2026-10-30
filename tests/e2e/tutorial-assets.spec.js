@@ -22,8 +22,8 @@ async function walkTo(page,x,z){
  await expect.poll(async()=>{
   const s=await state(page),dx=x-s.playerPosition[0],dz=z-s.playerPosition[2],d=Math.hypot(dx,dz),yaw=s.playerYaw||0;
   if(d<.7){await page.evaluate(()=>window.__GAME_DEBUG__.setInput({}));return true;}
-  const input={x:(dx*Math.cos(yaw)-dz*Math.sin(yaw))/d,z:(dx*Math.sin(yaw)+dz*Math.cos(yaw))/d};await page.evaluate(v=>window.__GAME_DEBUG__.setInput(v),input);return false;
- },{timeout:25000,intervals:[200,200,300]}).toBe(true);
+  const approach=Math.min(1,d/1.6),input={x:(dx*Math.cos(yaw)-dz*Math.sin(yaw))/d*approach,z:(dx*Math.sin(yaw)+dz*Math.cos(yaw))/d*approach};await page.evaluate(v=>window.__GAME_DEBUG__.setInput(v),input);return false;
+ },{timeout:60000,intervals:[200,200,300]}).toBe(true);
 }
 test('tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga',async({page})=>{
  test.setTimeout(360000);await mkdir(dir,{recursive:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));await newGame(page);

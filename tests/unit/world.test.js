@@ -9,3 +9,5 @@ describe('mundo determinístico',()=>{
 describe('ajustes persistidos',()=>{it('normaliza valores inválidos e limita volume',()=>{expect(normalizeSettings({quality:'ultra',scale:100,volume:5,subtitles:'não'})).toEqual({dayMinutes:48,quality:'medio',scale:1,volume:1,subtitles:true,steeringSensitivity:1,cameraDistance:14,cabMotion:true,subtitleScale:1,footCamera:'first'});expect(normalizeSettings(null).quality).toBe('medio');});});
 
 it('limita o tamanho de legenda aos valores acessíveis suportados',()=>{expect(normalizeSettings({subtitleScale:1.4}).subtitleScale).toBe(1.4);expect(normalizeSettings({subtitleScale:100}).subtitleScale).toBe(1);});
+
+it('recupera cada perfil salvo sem confundir qualidade com duração do dia',()=>{for(const quality of ['baixo','medio','alto']){const stored=JSON.parse(JSON.stringify({quality,dayMinutes:96,scale:.75,volume:0,subtitles:false}));expect(normalizeSettings(stored)).toMatchObject(stored);}});

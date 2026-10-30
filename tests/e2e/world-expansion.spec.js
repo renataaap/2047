@@ -3,17 +3,20 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import {DISCOVERY_SITES} from '../../src/data/ambience.js';
 import {createCampaign} from '../../src/game/missions/campaign.js';
 import {upgradeCampaign} from '../../src/game/missions/network.js';
+import {terrainGeometry} from '../../src/game/world/terrainGeometry.js';
+import {meshHeightAt} from '../../src/game/world/surfaceHeight.js';
 import {roadX} from '../../src/game/world/terrain.js';
 const dir='evidence/world-0.8.0',state=p=>p.evaluate(()=>window.__GAME_DEBUG__.getState());
 test.afterEach(async({page},info)=>{if(info.status!==info.expectedStatus){try{await writeFile(`${dir}/failure.json`,JSON.stringify(await state(page),null,2));}catch{}}});
 async function boot(page){
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
  const campaign=upgradeCampaign(createCampaign(1510));for(const key in campaign.inventory.player)campaign.inventory.player[key]=0;
- const data={schemaVersion:3,truck:{position:[0,2,5],rotation:[0,0,0,1]},player:{position:[-13,1.1,22]},context:'walking',fuel:4,temperature:26,engineOn:false,campaign};
+ const ground=terrainGeometry(0,0),playerY=meshHeightAt(ground,-13,22)+1.1;ground.dispose();
+ const data={schemaVersion:3,truck:{position:[0,2,5],rotation:[0,0,0,1]},player:{position:[-13,playerY,22]},context:'walking',fuel:4,temperature:26,engineOn:false,campaign};
  await page.request.get('/api/saves');expect((await page.request.post('/api/saves',{data:{slot:'1',data}})).status()).toBe(201);
  await page.goto('/');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:90000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>(await state(page)).mode).toBe('walking');await expect(page.locator('.travel-transition')).not.toHaveClass(/active/,{timeout:20000});
 }
-async function walkTo(page,x,z){await expect.poll(async()=>{const s=await state(page),dx=x-s.playerPosition[0],dz=z-s.playerPosition[2],distance=Math.hypot(dx,dz),yaw=s.playerYaw||0;await page.evaluate(input=>window.__GAME_DEBUG__.setInput(input),distance<.45?{}:{x:(dx*Math.cos(yaw)-dz*Math.sin(yaw))/distance,z:(dx*Math.sin(yaw)+dz*Math.cos(yaw))/distance});return distance;},{timeout:40000,intervals:[250]}).toBeLessThan(.45);}
+async function walkTo(page,x,z){await expect.poll(async()=>{const s=await state(page),dx=x-s.playerPosition[0],dz=z-s.playerPosition[2],distance=Math.hypot(dx,dz),approach=Math.min(1,distance/1.6),yaw=s.playerYaw||0;await page.evaluate(input=>window.__GAME_DEBUG__.setInput(input),distance<.45?{}:{x:(dx*Math.cos(yaw)-dz*Math.sin(yaw))/distance*approach,z:(dx*Math.sin(yaw)+dz*Math.cos(yaw))/distance*approach});return distance;},{timeout:60000,intervals:[250]}).toBeLessThan(.45);}
 test('0.8: três locais alcançáveis a pé, reservas finitas, boletim e persistência',async({page})=>{
  test.setTimeout(360000);await mkdir(`${dir}/pois`,{recursive:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));await boot(page);const records=[];
  for(const p of DISCOVERY_SITES){
