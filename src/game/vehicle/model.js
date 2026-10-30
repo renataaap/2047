@@ -75,7 +75,7 @@ export function createTruck(m) {
   cabBox(1.5,.49,.06,m.dark,-.35,1.43,-3.005);
   const instruments=createInstruments();cab.add(instruments.group);
   const lights=[];
-  for(const x of [-.89,.89]) {const spot=new THREE.SpotLight('#efd6a4',35,65,.42,.6,1.4);spot.position.set(x,.4,-4);spot.target.position.set(x,-.6,-35);root.add(spot,spot.target);lights.push(spot);}
+  for(const x of [-.89,.89]) {const spot=new THREE.SpotLight('#efd6a4',1400,100,.42,.6,2);spot.position.set(x,.4,-4);spot.target.position.set(x,-.6,-35);root.add(spot,spot.target);lights.push(spot);}
   const smokeGeo=new THREE.BufferGeometry();const smokePos=new Float32Array(24*3);smokeGeo.setAttribute('position',new THREE.BufferAttribute(smokePos,3));
   const smoke=new THREE.Points(smokeGeo,new THREE.PointsMaterial({color:'#4a4d52',size:.24,transparent:true,opacity:.35,depthWrite:false}));root.add(smoke);
   mergeStatic(cab,new Set([lever]));mergeStatic(root,new Set([...springs,...axles]));

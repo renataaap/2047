@@ -5,7 +5,7 @@ export function furnishHome(b,labels){
  b.box(1.35,.14,2.15,m.steel,-2.1,.3,3.9,true);b.box(1.28,.2,2.05,m.fabric,-2.1,.47,3.9);b.box(1.3,.07,1.45,m.canvas,-2.1,.6,3.7);b.box(.85,.12,.38,m.paint,-2.1,.65,4.65);
  for(const dx of [-2.65,-1.55])for(const dz of [3,4.8])b.box(.055,.32,.055,m.steel,dx,.14,dz);
  b.shelf(2.15,0,4.8);b.box(.7,1.35,.65,m.paint,-3.1,.68,1.8,true);b.box(.63,1.2,.06,m.steel,-3.1,.7,2.15);b.box(.04,.4,.05,m.rust,-2.88,.9,2.2);
- b.label('CADERNO / RESERVA DE VIAGEM',2.5,.6,.1,2.3,5.75,labels);b.lamp(0,3,4.9);
+ b.label('CADERNO / RESERVA DE VIAGEM',2.5,.6,.1,2.3,5,labels,Math.PI);b.lamp(0,3,4.9);
  b.label('ABRIGO 07 / ULTIMO MOTOR',3,.65,-.5,2.6,-5.9,labels);b.lamp(0,3.1,-1);b.box(1.4,.7,.07,m.wood,-2,2.15,-5.85);
  for(let i=0;i<5;i++)b.box(.18,.24,.01,m.paint,-2.5+i*.24,2.18+(i%2)*.07,-5.8);
  b.crate(2.1,0,-4.9,.75);b.cable([[-3,2.8,-5.7],[0,2.8,-5.7],[0,3.1,-1]],.025,m.rubber);
