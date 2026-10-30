@@ -23,5 +23,5 @@ export class PropBatch {
  shelf(x,y,z){const m=this.m;for(const dx of [-.65,.65])for(const dz of [-.24,.24])this.box(.05,1.9,.05,m.steel,x+dx,y+.95,z+dz);for(let i=0;i<4;i++){this.box(1.4,.06,.6,m.wood,x,y+.15+i*.52,z);for(let j=0;j<3;j++)this.cylinder(.1,.23,m.paint,x-.43+j*.4,y+.29+i*.52,z);}this.solid(x,y+.95,z,1.4,1.9,.6);}
  lamp(x,y,z){this.box(.35,.08,.25,this.m.steel,x,y,z);this.box(.27,.035,.2,this.m.lamp,x,y-.05,z);const c=Math.cos(this.yaw),s=Math.sin(this.yaw);this.lamps.push({x:this.origin.x+x*c+z*s,y:this.origin.y+y-.2,z:this.origin.z-x*s+z*c});}
  finish(){for(const [material,pieces] of this.parts){const geometry=mergeGeometries(pieces,false);pieces.forEach(g=>g.dispose());if(!geometry)throw Error('Incompatible ambient geometry');geometry.computeBoundingSphere();this.owned.push(geometry);const mesh=new THREE.Mesh(geometry,material);mesh.castShadow=material!==this.m.lamp;mesh.receiveShadow=true;this.group.add(mesh);}this.parts.clear();return this;}
- dispose(){for(const body of this.bodies)this.physics.removeRigidBody(body);for(const g of this.owned)g.dispose();this.group.removeFromParent();}
+ dispose(){for(const body of this.bodies)this.physics.removeRigidBody(body);this.group.traverse(o=>{if(o.isInstancedMesh)o.dispose();});for(const g of this.owned)g.dispose();this.group.removeFromParent();}
 }

@@ -1,0 +1,36 @@
+
+Running 1 test using 1 worker
+
+(node:5530) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/world-expansion.spec.js:31:1 › 0.8: dia e noite, luzes locais, pausa, áudio e relógio salvo (1.5m)
+
+
+  1) tests/e2e/world-expansion.spec.js:31:1 › 0.8: dia e noite, luzes locais, pausa, áudio e relógio salvo
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.05
+    Received:   0.3499999940395355
+
+      36 |  const night=await state(page);expect(night.ambience.lights).toBeGreaterThan(0);expect(night.worldTime.ambientIntensity).toBeGreaterThan(.3);expect(night.ambientAudio.spatialSources).toBe(3);
+      37 |  const previous=night.playerPosition[2],steps=night.ambientAudio.steps;await page.keyboard.down('KeyW');await expect.poll(async()=>(await state(page)).playerPosition[2],{timeout:20000}).toBeLessThan(previous-1.5);await page.keyboard.up('KeyW');await expect.poll(async()=>(await state(page)).ambientAudio.steps).toBeGreaterThan(steps);
+    > 38 |  await page.keyboard.press('Escape');const paused=await state(page);await page.waitForTimeout(1200);expect((await state(page)).campaign.world.daySeconds).toBe(paused.campaign.world.daySeconds);expect((await state(page)).ambientAudio.pausedGain).toBeLessThan(.05);
+         |                                                                                                                                                                                                                                                      ^
+      39 |  await page.getByRole('button',{name:'Configurações',exact:true}).click();await page.getByRole('combobox',{name:'Duração de um dia'}).selectOption('96');await page.getByRole('button',{name:'Voltar',exact:true}).last().click();await page.getByRole('button',{name:'Voltar à viagem'}).click();expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('aurora-settings')).dayMinutes)).toBe(96);
+      40 |  await page.keyboard.press('Escape');await page.getByRole('button',{name:'Salvar / carregar partida'}).click();await page.getByRole('button',{name:'Salvar neste slot'}).first().click();await expect(page.getByRole('dialog').getByRole('status')).toContainText('Partida salva',{timeout:20000});const saved=await state(page);
+      41 |  await page.reload();await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:90000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>(await state(page)).worldTime.period,{timeout:15000}).toBe('Noite');const loaded=await state(page);expect(loaded.campaign.world.daySeconds).toBeGreaterThanOrEqual(saved.campaign.world.daySeconds);expect(loaded.campaign.world.daySeconds-saved.campaign.world.daySeconds).toBeLessThan(180);expect(errors).toEqual([]);expect(loaded.assets.errors).toEqual([]);await writeFile(`${dir}/atmosphere-flow.json`,JSON.stringify({samples,paused,saved,loaded,consoleErrors:errors,note:'Only the existing development diagnostics choose sample hours; normal time advances in the real fixed-step loop and pauses in menus. Synthesized audio graph is inspected; no human listening/GPU claim.'},null,2));
+        at /workspace/work/2047-rede-aurora/tests/e2e/world-expansion.spec.js:38:246
+
+    Error Context: test-results/world-expansion-0-8-dia-e--aa3bc-pausa-áudio-e-relógio-salvo/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/world-expansion-0-8-dia-e--aa3bc-pausa-áudio-e-relógio-salvo/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/world-expansion-0-8-dia-e--aa3bc-pausa-áudio-e-relógio-salvo/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/world-expansion.spec.js:31:1 › 0.8: dia e noite, luzes locais, pausa, áudio e relógio salvo
