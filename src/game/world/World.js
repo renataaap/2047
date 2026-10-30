@@ -1,3 +1,4 @@
+import {meshHeightAt} from './surfaceHeight.js';
 import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat';
 import { CONFIG } from '../../data/config.js';
@@ -71,6 +72,7 @@ for(let i=0;i<14;i++){const z=cz*size+(r()-.5)*size,x=cx*size+(i%2?1:-1)*(180+r(
 if(region==='cities'||region==='storm'){const buildings=new THREE.InstancedMesh(this.ruinGeometry,this.m.dark,18);buildings.castShadow=buildings.receiveShadow=true;for(let i=0;i<18;i++){const x=cx*size+(i%2?1:-1)*(220+r()*180),z=cz*size+(r()-.5)*size,h=region==='cities'?18+r()*45:12+r()*18,w=region==='cities'?12+r()*15:2;dummy.position.set(x,heightAt(x,z)+h/2,z);dummy.scale.set(w,h,region==='cities'?12:2);dummy.rotation.set(0,r()*.2,region==='storm'?.15:0);dummy.updateMatrix();buildings.setMatrixAt(i,dummy.matrix);this.collider(RAPIER.ColliderDesc.cuboid(w/2,h/2,6).setTranslation(x,heightAt(x,z)+h/2,z),bodies);}group.add(buildings);}
 return {x:cx,z:cz,group,bodies,owned,terrain};
 }
+groundHeight(x,z){const size=CONFIG.world.sectorSize;for(const sector of this.sectors.values()){if(Math.abs(x-sector.x*size)>size/2+.001||Math.abs(z-sector.z*size)>size/2+.001)continue;const y=meshHeightAt(sector.terrain.geometry,x,z);if(y!==null)return y;}return heightAt(x,z);}
 prime(position,distance){for(let i=0;i<9;i++)this.update(position,distance);}
 setCampaign(c){this.campaign=c;const key=Object.values(c.cores).map(k=>k.state).join(',');if(this.restorationKey===key)return;this.restorationKey=key;for(const sector of this.sectors.values())this.terrainGroups(sector.terrain.geometry);}
 terrainGroups(g){g.clearGroups();const a=g.attributes.position,indices=g.index.array;let start=0,previous=null;

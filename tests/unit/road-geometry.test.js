@@ -25,3 +25,11 @@ describe('segmentos de rodovia e acostamentos',()=>{
   world.free();ground.dispose();road.dispose();
  });
 });
+
+import {meshHeightAt} from '../../src/game/world/surfaceHeight.js';
+import {heightAt} from '../../src/game/world/terrain.js';
+import {Player} from '../../src/game/player/Player.js';
+it('spawn na Cordilheira usa o triângulo físico, não a altura analítica três metros abaixo',()=>{
+ const world=new RAPIER.World({x:0,y:-9.81,z:0}),g=terrainGeometry(0,-12),x=-47,z=-12783,surface=meshHeightAt(g,x,z);world.createCollider(RAPIER.ColliderDesc.trimesh(new Float32Array(g.attributes.position.array),new Uint32Array(g.index.array)));world.step();const hit=world.castRay(new RAPIER.Ray({x,y:100,z},{x:0,y:-1,z:0}),200,true);expect(100-hit.timeOfImpact).toBeCloseTo(surface,3);expect(surface-heightAt(x,z)).toBeGreaterThan(3);
+ const player=new Player(world,(px,pz)=>meshHeightAt(g,px,pz));player.teleport(x,z);for(let i=0;i<240;i++){player.update({},1/60,{x:-44,z});world.step();}expect(player.body.translation().y).toBeGreaterThan(surface+.8);expect(player.body.translation().y).toBeLessThan(surface+1.2);player.teleport(x,z,surface+4);expect(player.body.translation().y).toBeCloseTo(surface+4,4);player.dispose();world.free();g.dispose();
+});

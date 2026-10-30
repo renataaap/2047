@@ -4,8 +4,8 @@ import {cameraPosition} from '../render/cameraCollision.js';
 import { heightAt } from '../world/terrain.js';
 import { canTakeFootStep } from './exitPolicy.js';
 export class Player {
- constructor(world){this.world=world;this.body=world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(-3,1,5));this.collider=world.createCollider(RAPIER.ColliderDesc.capsule(.55,.32),this.body);this.controller=world.createCharacterController(.03);this.controller.enableAutostep(.35,.3,true);this.controller.enableSnapToGround(.25);this.yaw=0;this.pitch=0;this.velocityY=0;this.enabled=false;this.view='first';this.cameraInitial=true;}
- teleport(x,z,y=heightAt(x,z)+1.1){this.body.setTranslation({x,y,z},true);this.body.setNextKinematicTranslation({x,y,z});this.velocityY=0;this.cameraInitial=true;}
+ constructor(world,groundHeight=heightAt){this.world=world;this.groundHeight=groundHeight;this.body=world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(-3,1,5));this.collider=world.createCollider(RAPIER.ColliderDesc.capsule(.55,.32),this.body);this.controller=world.createCharacterController(.03);this.controller.enableAutostep(.35,.3,true);this.controller.enableSnapToGround(.25);this.yaw=0;this.pitch=0;this.velocityY=0;this.enabled=false;this.view='first';this.cameraInitial=true;}
+ teleport(x,z,y=this.groundHeight(x,z)+1.1){this.body.setTranslation({x,y,z},true);this.body.setNextKinematicTranslation({x,y,z});this.velocityY=0;this.cameraInitial=true;}
  look(dx,dy){this.yaw-=dx*.0025;this.pitch=Math.max(-1.1,Math.min(1.1,this.pitch-dy*.0025));}
  update(input,dt,truck){const p=this.body.translation();const speed=(input.run?5.5:3)*(input.moveScale||1);let x=input.x||0,z=input.z||0;const l=Math.hypot(x,z);if(l>1){x/=l;z/=l;}const dx=(x*Math.cos(this.yaw)+z*Math.sin(this.yaw))*speed*dt,dz=(-x*Math.sin(this.yaw)+z*Math.cos(this.yaw))*speed*dt;
  if(this.controller.computedGrounded()&&this.velocityY<0)this.velocityY=0;if(input.jump&&this.controller.computedGrounded())this.velocityY=4.4;this.velocityY-=9.81*dt;
