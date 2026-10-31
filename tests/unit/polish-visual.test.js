@@ -47,7 +47,7 @@ it('roupas por osso e identidades não deslocam o rig nem se resumem à paleta',
 it('diário recupera saves antigos, atualiza registros únicos e não paga recursos',()=>{
  expect(discoveryEntries({})).toEqual([]);const c={world:{visited:['motel','motel'],claimed:[],read:[]},inventory:{player:{water:2}},cores:{'core-1':{state:'active'}}},before=structuredClone(c);
  const first=discoveryEntries(c);expect(first).toHaveLength(2);expect(c).toEqual(before);expect(first.find(p=>p.id==='site:motel').complete).toBe(false);
- c.world.claimed.push('motel');const next=discoveryEntries(c);expect(next).toHaveLength(2);expect(next.find(p=>p.id==='site:motel').complete).toBe(true);expect(c.inventory).toEqual(before.inventory);
+ c.world.claimed.push('motel');const next=discoveryEntries(c);expect(next).toHaveLength(2);expect(next.find(p=>p.id==='site:motel').complete).toBe(true);expect(c.inventory).toEqual(before.inventory);c.road={visited:['posto-boa-viagem']};expect(discoveryEntries(c).find(p=>p.id==='road:posto-boa-viagem').detail).toContain('Zeca');
 });
 it('descoberta exige entrada na área acessível e não registra apenas passar ao lado ou pelo teto',()=>{
  const c={},loaded=[{site:DISCOVERY_SITES[0],floor:0}];recordFootDiscoveries(c,{x:-30,z:-380,y:4},loaded);recordFootDiscoveries(c,{x:-10,z:-380,y:1.1},loaded);expect(c.world).toBeUndefined();

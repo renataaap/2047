@@ -32,8 +32,16 @@ A loja que era um bloco sólido agora tem paredes e porta lateral aberta, preser
 
 Materiais do terreno já habilitavam vertexColors, mas a geometria não fornecia o atributo. Atributo de cor adicionado, sem alterar posições, normais, UVs, índices ou superfície física, para recuperar o albedo PBR visível. Pedras próximas receberam mais subdivisão; colinas de fundo usam geometria e UVs mais suaves. Colinas continuam elementos de fundo, não terrenos físicos novos. LOD, instanciamento, setores e descarte preservados.
 
-## Próximos checkpoints
+## E — Atmosfera e experiência
 
-E: iluminação local, diário no caderno existente e refinamentos de apresentação. F: comparações finais, regressão completa, build e documentação de custos/limitações.
+Diário integrado ao caderno J. Registros derivam de visitas/ações finitas, paradas e Núcleos já persistidos. Entrar fisicamente no piso acessível dos três locais novos registra a visita uma vez; não coleta nem paga reserva. Leitura/coleta/restauração atualiza o mesmo registro, sem outra missão ou novo esquema de save. Saves antigos sem descobertas mostram caderno vazio.
+
+Bancadas têm iluminação de tarefa diurna/noturna; só as duas luzes locais mais próximas dentro do alcance são ativadas. Cabine conserva luz própria e indicadores reais. Ciclo solar, relógio, clima e áudio preexistentes preservados. Emissão visual do escapamento agora acompanha o tubo do modelo e permanece visível com o exterior importado. As fábricas existentes ganharam caixilhos, portas, tubulações, ventilação e guarda-corpos, dentro dos volumes físicos originais.
+
+Refinamentos discretos do HUD e tipografia; transição de acesso respeita redução de movimento. Sem reescrita narrativa. Validação nova: 175 unitários/25 arquivos e 3/3 E2Es em experience-e2e.log: instrumentos/olhar/saída, porta física/Zeca e diário por caminhada com inventário invariável e recarga. Evidências próprias em functional.
+
+## Próximo checkpoint
+
+F: versão, comparações finais, regressão completa, build e documentação de custos/limitações. Nenhum resultado final é presumido a partir das rodadas focadas.
 
 Nenhum resultado em SwiftShader comprova desempenho ou sessão humana de 30 minutos em Windows/GPU real.

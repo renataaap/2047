@@ -35,7 +35,7 @@ export function finishHome(b,labels){
  mug(b,1.65,1.68,5.42);b.box(.3,.045,.23,m.canvas,2.1,1.7,5.42);b.box(.25,.012,.2,m.stripe,2.1,1.73,5.42);
  b.box(.4,.66,.05,m.fabric,-2.65,1.6,5.6);b.box(.52,.07,.07,m.steel,-2.65,1.97,5.59);
  b.label('REVISAO / TITA ROCHA CLARA',1.35,.22,-2,2.65,-2.9,labels);
- b.lamp(-2.65,1.95,4.85);b.box(.04,.25,.04,m.steel,-2.65,1.8,4.85);
+ b.lamp(-2.65,1.95,4.85,true);b.box(.04,.25,.04,m.steel,-2.65,1.8,4.85);
  // Cookstove pipe joints and table setting on existing outside furniture.
  for(const y of [1.1,1.65,2.2])b.ring(.1,.014,m.steel,-6,y,10.8);
  mug(b,-3,.91,12);b.cylinder(.14,.05,m.steel,-3.4,.94,12);rag(b,-2.4,.92,12,.8);
@@ -52,7 +52,7 @@ export function finishEstablishment(b,p,labels){
   b.cable([[-8,2.4,-2.8],[-8,1.3,-2.8],[-8.5,.3,-2.8]],.02,m.rubber);
   b.label('GALÕES / DEVOLVA AS EMBALAGENS',2.5,.3,-8,2.25,-2.17,labels);
   b.bench(-4.7,0,1.6,2.8);b.shelf(-5.7,0,3.4);mug(b,-4.4,.92,1.6);rag(b,-5.6,.93,1.6,.7);
-  drawer(b,-4.7,.65,2,2.6);b.lamp(-4.7,2.4,1.6);
+  drawer(b,-4.7,.65,2,2.6);b.lamp(-4.7,2.4,1.6,true);
   for(const z of [-2.6,2.6]){b.label('DIESEL / LITROS',.42,.11,3.49,1.85,z,labels,Math.PI/2);b.ring(.055,.012,m.paint,2.56,1.3,z,[0,Math.PI/2,0]);}
  }else if(p.kind==='workshop'){
   // A cylinder head, socket set and rag on the already solid workbench.
@@ -61,7 +61,7 @@ export function finishEstablishment(b,p,labels){
   for(let i=0;i<5;i++)wrench(b,-6.61,2.35,-2.5+i*.64,.9);
   for(let i=0;i<6;i++)b.cylinder(.025,.08,m.steel,-6.25+i*.11,1.12,2.3);
   b.box(.6,.13,.42,m.dark,-5.9,1.145,2.75);drawer(b,-5.7,.95,6.33,.7);
-  b.lamp(-5.9,2.2,-.7);
+  b.lamp(-5.9,2.2,-.7,true);
   b.cable([[4.5,.2,-5.5],[4.1,.1,-4.5],[4.2,.12,-3.7]],.035,m.rubber);
   b.label('REVISAO / FILTROS / FREIOS',2.3,.3,-4,2.8,-6.6,labels);
  }
@@ -100,5 +100,29 @@ export function finishRoadside(b,p){
   b.box(.25,.025,.25,m.concrete,0,.03,0);
  }else if(p.kind==='camp'){
   mug(b,1,.91,-1);rag(b,.9,.92,-1,.7);b.box(.65,.04,1.3,m.canvas,-1,.04,1);
+ }
+}
+
+// Finish the existing roadside factories, within their original solid footprints.
+export function finishIndustry(add,block,m,ground){
+ for(const z of [-400,-450]){
+  const x=100,y=ground(x,z);
+  for(const dz of [-6,-2,2,6]){
+   block(.09,18,.12,m.steel,x-6.07,y+9,z+dz);
+   for(const hy of [4,8,12,16]){
+    block(.06,1.7,1.2,m.dark,x-6.1,y+hy,z+dz+1.4);
+    for(const side of [-1,1])block(.12,1.85,.045,m.rust,x-6.16,y+hy,z+dz+1.4+side*.61);
+    block(.16,.06,1.35,m.steel,x-6.2,y+hy-.88,z+dz+1.4);
+   }
+  }
+  block(.12,2.8,1.7,m.roof,x-6.16,y+1.4,z-4.2);block(.16,.08,.2,m.steel,x-6.25,y+1.4,z-3.62);
+  for(const hy of [.4,18.6])block(12.4,.12,16.4,m.steel,x,y+hy,z);
+  for(const dz of [-4,4]){
+   add(new THREE.CylinderGeometry(.55,.65,2.2,16),m.steel,x-2,y+20,z+dz);
+   const elbow=add(new THREE.TorusGeometry(.65,.18,8,16,Math.PI/2),m.rust,x+6.7,y+15,z+dz);elbow.rotation.z=Math.PI;
+   add(new THREE.CylinderGeometry(.18,.18,13,12),m.rust,x+6.7,y+7.8,z+dz);
+   for(const hy of [4,10,14])block(.8,.06,.4,m.steel,x+6.3,y+hy,z+dz);
+  }
+  for(const dx of [-5.8,5.8]){block(.05,1.05,16,m.rust,x+dx,y+19.3,z);for(const dz of [-7,0,7])block(.06,1.2,.06,m.steel,x+dx,y+19.3,z+dz);}
  }
 }

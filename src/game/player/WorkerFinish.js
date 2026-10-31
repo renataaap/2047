@@ -118,5 +118,5 @@ export function finishWorker(model,style='traveler'){
   const plain=parts.map(g=>{const next=g.index?g.toNonIndexed():g;if(next!==g)g.dispose();return next;}),g=mergeGeometries(plain,false);plain.forEach(p=>p.dispose());owned.push(g);const o=new THREE.Mesh(g,m);o.castShadow=o.receiveShadow=true;model.add(o);model.updateMatrixWorld(true);bone.attach(o);objects.push(o);
  }
  finishFace(model,identity,owned);
- return {style,features:identity.features,meshes:objects.length,heightScale:identity.height,dispose(){objects.forEach(o=>o.removeFromParent());owned.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());fabric.release();}};
+ return {style,features:WORKER_IDENTITIES[style]?identity.features:['work-coat','boots'],meshes:objects.length,heightScale:identity.height,dispose(){objects.forEach(o=>o.removeFromParent());owned.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());fabric.release();}};
 }

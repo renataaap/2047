@@ -17,21 +17,24 @@ try{
  for(const p of [
   {id:'barracao',x:-13,z:23,yaw:0},
   {id:'moradia',x:-13,z:22.3,yaw:Math.PI},
+  {id:'barracao-noite',x:-13,z:23,yaw:0,hour:23},
   {id:'estrada',x:8,z:-310,yaw:0},
   {id:'dante',x:0,z:-45,yaw:0,third:true},
   {id:'dante-rosto',x:0,z:-45,yaw:Math.PI,third:true,truckZOffset:-15},
   {id:'sobrevivente',x:-19,z:9.2,yaw:0},
   {id:'zeca',x:-48.7,z:-2245.2,yaw:0},
   {id:'loja-interior',x:-52.2,z:-2252.7,yaw:Math.PI},
+  {id:'loja-noite',x:-52.2,z:-2252.7,yaw:Math.PI,hour:23},
   {id:'oficina',x:9,z:-548,yaw:Math.PI/2},
   {id:'marta',x:-3.4,z:-547.8,yaw:0},
   {id:'motel',x:-30,z:-369,yaw:0},
+  {id:'motel-interior',x:-30,z:-379,yaw:0},
   {id:'patio',x:-57,z:-2005,yaw:0},
   {id:'balanca',x:25,z:-2450,yaw:0},
   {id:'tomas',x:36.5,z:-2879.5,yaw:0},
   {id:'ivani',x:-28,z:-3476,yaw:0}
  ].filter(p=>want(p.id))){
-  await page.evaluate(p=>{window.__GAME_DEBUG__.teleport({x:p.truckX,z:p.z+(p.truckZOffset||-6)});window.__GAME_DEBUG__.teleportPlayer(p);window.__GAME_DEBUG__.setTime(9);},{...p,truckX:roadX(p.z)});
+  await page.evaluate(p=>{window.__GAME_DEBUG__.teleport({x:p.truckX,z:p.z+(p.truckZOffset||-6)});window.__GAME_DEBUG__.teleportPlayer(p);window.__GAME_DEBUG__.setTime(p.hour??9);},{...p,truckX:roadX(p.z)});
   const third=(await state()).footCamera==='third';if(third!==!!p.third)await page.keyboard.press('KeyC');
   await page.locator('canvas').click({position:{x:750,y:370}});await page.evaluate(yaw=>{const s=window.__GAME_DEBUG__.getState();window.dispatchEvent(new MouseEvent('mousemove',{movementX:(s.playerYaw-yaw)/.0025,movementY:0}));},p.yaw);
   await settle();await take(p.id);await page.evaluate(()=>document.exitPointerLock());

@@ -11,6 +11,7 @@ import { BIOMES,ROUTES } from '../../data/network.js';
 import { restoredAt } from '../missions/network.js';
 import { mergeStatic } from '../render/mergeStatic.js';
 import {landscapeGeometry} from './landscapeGeometry.js';
+import {finishIndustry} from './finishCompositions.js';
 export class World {
 constructor(scene,physics,materials) {
 this.scene=scene;this.physics=physics;this.m=materials;this.sectors=new Map();this.queue=[];this.disposed=false;
@@ -98,6 +99,7 @@ add(new THREE.ConeGeometry(12.5,4,20),this.m.dark,tx,ty+29,tz);
 for(let i=0;i<6;i++){const a=i/6*Math.PI*2;block(.8,12,.8,this.m.dark,tx+Math.cos(a)*9,ty+6,tz+Math.sin(a)*9,true);}
 for(const y of [6,23]){const ring=add(new THREE.TorusGeometry(12.1,.25,5,20),this.m.steel,tx,ty+y,tz);ring.rotation.x=Math.PI/2;}
 for(const z of [-400,-450]){const x=100,y=heightAt(x,z);block(12,19,16,this.m.dark,x,y+9,z,true);block(1.9,47,1.9,this.m.rust,x+8,y+22,z,true);}
+finishIndustry(add,block,this.m,heightAt);
 // Poteaux cassés et garde-corps ponctuels, jalons du trajet.
 for(let i=0;i<20;i++){const z=-i*140-50,x=roadX(z)+10,y=heightAt(x,z);const pole=block(.22,7,.22,this.m.steel,x,y+3.5,z,true);pole.rotation.z=i%5===0?.22:0;block(3,.14,.14,this.m.dark,x,y+6.5,z);}
 // Rocher repérable utilisé pour les essais de collision.
