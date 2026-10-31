@@ -1,0 +1,82 @@
+
+Running 7 tests using 1 worker
+
+(node:39058) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/critical-gameplay.spec.js:15:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas (53.6s)
+  ✓  2 tests/e2e/exit.spec.js:5:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos (28.5s)
+ACEITE {"speedKmh":48.69637612584955,"fuelBefore":4,"fuelAfter":3.9184849517863394,"averageFps":0.4178676431166626,"drawCalls":89,"triangles":254212,"consoleErrors":[]}
+  ✓  3 tests/e2e/game.spec.js:6:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento (1.6m)
+  ✓  4 tests/e2e/game.spec.js:20:1 › câmeras, motor, pausa, configurações e API (1.6m)
+  ✓  5 tests/e2e/phase2.spec.js:17:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga (1.3m)
+  ✘  6 tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência (1.2m)
+(node:39606) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  7 tests/e2e/phase4.spec.js:17:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral (58.3s)
+
+
+  1) tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: true
+
+      15 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:38,z:-5090}));await page.waitForTimeout(700);await page.keyboard.press('KeyF');await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:42,z:-5101}));await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:'Estação meteorológica'})).toBeVisible();await page.getByRole('button',{name:'Recolher suprimentos',exact:true}).click();await expect(page.getByRole('dialog').getByRole('status')).toContainText('A mochila está cheia');await page.keyboard.press('Escape');await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:35,z:-5090}));await page.keyboard.press('KeyF');await page.keyboard.press('Tab');for(let i=0;i<4;i++)await page.getByRole('button',{name:'Transferir Peças mecânicas para Titã',exact:true}).click();await page.keyboard.press('Escape');await page.keyboard.press('KeyF');await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:42,z:-5101}));await page.keyboard.press('KeyF');await page.getByRole('button',{name:'Recolher suprimentos',exact:true}).click();await expect(page.getByRole('button',{name:'Suprimentos já recolhidos'})).toBeDisabled();await page.keyboard.press('Escape');await page.keyboard.down('KeyD');await page.waitForTimeout(1800);await page.keyboard.up('KeyD');const wall=await page.evaluate(()=>window.__GAME_DEBUG__.getState().playerPosition);expect(wall[0]).toBeGreaterThan(43);expect(wall[0]).toBeLessThan(46.3);await page.screenshot({path:'evidence/phase3/station.png'});
+      16 |  await page.keyboard.press('Escape');await page.getByRole('button',{name:'Salvar / carregar partida'}).click();const savedResponse=page.waitForResponse(r=>r.url().endsWith('/api/saves/1')&&r.request().method()==='PUT');await page.getByRole('button',{name:'Salvar neste slot'}).first().click();expect((await savedResponse).status()).toBe(200);const saved=await page.evaluate(()=>window.__GAME_DEBUG__.getState());const persisted=await (await page.request.get('/api/saves/1')).json();expect(persisted.data.schemaVersion).toBe(3);expect(persisted.data.campaign.expedition.looted).toEqual(['depot','station']);
+    > 17 |  await page.reload();await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__?.getState().campaign.expedition.looted.length)).toBe(2);const loaded=await page.evaluate(()=>window.__GAME_DEBUG__.getState());expect(loaded.campaign.expedition.stock.water).toBe(8);expect(loaded.campaign.inventory).toEqual(saved.campaign.inventory);await page.waitForTimeout(700);expect((await page.evaluate(()=>window.__GAME_DEBUG__.getState())).expeditionVisual.lootVisible.station).toBe(false);expect(errors).toEqual([]);await writeFile('evidence/phase3/expedition.json',JSON.stringify({old,saved,loaded,consoleErrors:errors},null,2));
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+      18 | });
+      19 |
+        at /workspace/work/2047-rede-aurora/tests/e2e/phase3.spec.js:17:637
+
+    Error Context: test-results/phase3-Fase-3-migração-águ-c209b-i-Leito-Seco-e-persistência/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/phase3-Fase-3-migração-águ-c209b-i-Leito-Seco-e-persistência/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/phase3-Fase-3-migração-águ-c209b-i-Leito-Seco-e-persistência/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/e2e/phase4.spec.js:17:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "driving"
+    Received: "walking"
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      11 | const state=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
+      12 | async function boot(page,data){await page.setViewportSize({width:960,height:640});await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:.15,subtitles:true})));await page.request.get('/api/saves');expect((await page.request.post('/api/saves',{data:{slot:'1',data}})).status()).toBe(201);await page.goto('/');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');}
+    > 13 | async function enter(page){const s=await state(page);if(s.mode==='paused')await page.keyboard.press('Escape');if((await state(page)).mode==='walking'){await page.evaluate(()=>{const p=window.__GAME_DEBUG__.getState().position;window.__GAME_DEBUG__.teleportPlayer({x:p[0]-3,z:p[2]});});await page.keyboard.press('KeyF');await expect.poll(async()=>(await state(page)).mode).toBe('driving');}}
+         |                                                                                                                                                                                                                                                                                                                                                                                     ^
+      14 | async function visit(page,p){await enter(page);const core=p.kind==='network-core';await page.evaluate(({x,z})=>window.__GAME_DEBUG__.teleport({x,z}),{x:p.x-(core?14:12),z:p.z+(core?10:17)});await page.keyboard.down('Space');await page.waitForTimeout(1000);await expect.poll(async()=>(await state(page)).speed,{timeout:10000}).toBeLessThan(.6);await page.keyboard.press('KeyF');await page.keyboard.up('Space');await expect.poll(async()=>(await state(page)).mode).toBe('walking');await page.evaluate(p=>window.__GAME_DEBUG__.teleportPlayer(p),interactionPoint(p));await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:p.kind==='shelter'?p.npc:p.name,exact:true})).toBeVisible();}
+      15 | async function side(page,id){const s=SHELTERS.find(s=>s.id===id);await visit(page,{...s,kind:'shelter'});await page.getByRole('button',{name:'Aceitar missão',exact:true}).click();await page.getByRole('button',{name:'Entregar e concluir',exact:true}).click();await expect.poll(async()=>(await state(page)).campaign.network.quests[s.quest]).toBe('completed');}
+      16 |
+        at enter (/workspace/work/2047-rede-aurora/tests/e2e/phase4.spec.js:13:373)
+        at visit (/workspace/work/2047-rede-aurora/tests/e2e/phase4.spec.js:14:30)
+        at /workspace/work/2047-rede-aurora/tests/e2e/phase4.spec.js:27:3
+
+    Error Context: test-results/phase4-Fase-4-save-2-Cofre-fd285-ão-local-e-recarga-integral/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/phase4-Fase-4-save-2-Cofre-fd285-ão-local-e-recarga-integral/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/phase4-Fase-4-save-2-Cofre-fd285-ão-local-e-recarga-integral/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência 
+    tests/e2e/phase4.spec.js:17:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral 
+  5 passed (8.1m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice

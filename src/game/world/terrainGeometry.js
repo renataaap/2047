@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { CONFIG } from '../../data/config.js';
 import { heightAt,roadX,detourX,routeAt,networkDetourX } from './terrain.js';
 import { groundUV } from '../render/metricUV.js';
+import {roadbedCarve} from './roadDamage.js';
 
 // Concentrate vertices around the actual main/alternative roads. A uniform 21 m
 // grid interpolated hills across the 10 m pavement, hiding it and lifting wheels.
@@ -16,7 +17,7 @@ export function terrainGeometry(cx,cz){
   }else xs=Array.from({length:base+1},(_,i)=>cx*size-size/2+i*size/base);
   columns=xs.length;
   for(const x of xs){
-   let y=heightAt(x,z);
+   let y=heightAt(x,z)-roadbedCarve(x,z,roadX(z));
    if(dense&&Math.abs(x)>500){const step=size/base,z0=low+Math.floor((z-low)/step)*step,f=(z-z0)/step,edge=heightAt(x,z0)*(1-f)+heightAt(x,z0+step)*f,t=Math.min(1,(Math.abs(x)-500)/12);y=y*(1-t)+edge*t;}
    positions.push(x,y,z);
   }

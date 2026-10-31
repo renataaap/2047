@@ -1,0 +1,55 @@
+
+> 2047-rede-aurora@0.6.0 test
+> vitest run
+
+
+ RUN  v5.0.5 /workspace/work/2047-rede-aurora
+
+ ❯ tests/unit/tutorial.test.js (7 tests | 1 failed) 14ms
+   ❯ tutorial observado, sem economia paralela (7)
+     × Tomás e os postos abrem serviços reais em vez de um painel de Rede vazio 5ms
+ ❯ tests/unit/critical-gameplay.test.js (16 tests | 1 failed) 18ms
+   ❯ calibração acessível, sem pagamento parcial ou Semente duplicada (11)
+     × save danificado → falha real → save → calibrar → sucesso → save 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/critical-gameplay.test.js > calibração acessível, sem pagamento parcial ou Semente duplicada > save danificado → falha real → save → calibrar → sucesso → save
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/unit/critical-gameplay.test.js:32:179
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/tutorial.test.js > tutorial observado, sem economia paralela > Tomás e os postos abrem serviços reais em vez de um painel de Rede vazio
+TypeError: Cannot read properties of undefined (reading 'engineOn')
+ ❯ RoadController.parked src/game/missions/RoadController.js:22:21
+     20|   parked(p){
+     21|     const g=this.g,ref=p.kind==='gas'?p.pump:p,range=p.kind==='gas'?PU…
+     22|     return !g.state.engineOn&&g.state.speed<.6&&near(g.current,ref,ran…
+       |                     ^
+     23|   }
+     24|   action(type,payload){
+ ❯ src/game/missions/RoadController.js:14:131
+ ❯ RoadController.candidates src/game/missions/RoadController.js:12:24
+ ❯ RoadController.target src/game/missions/RoadController.js:18:65
+ ❯ tests/unit/tutorial.test.js:13:244
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 13 passed (15)
+      Tests  2 failed | 127 passed (129)
+   Start at  19:20:54
+   Duration  5.13s (tests 81%, import 14%, transform 3%, worker 1%)
+
+    Isolate  15 workers spawned · ~81ms startup each (spawn + environment, per file)
+             at least ~1.13s faster with isolate: false — reuses workers across files instead of one per file
+

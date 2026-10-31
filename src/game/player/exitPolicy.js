@@ -1,8 +1,9 @@
 import { inFootZone,near } from '../missions/campaign.js';
+import {DISCOVERY_SITES} from '../../data/ambience.js';
 export const EXIT_SPEED_LIMIT=.6; // m/s: não deixa saltar de um caminhão em movimento.
 export const TRUCK_WALK_RADIUS=24;
 export function canExit(speed){return Number.isFinite(speed)&&Math.abs(speed)<=EXIT_SPEED_LIMIT;}
-export function canWalkAt(position,truck){return inFootZone(position)||near(position,truck,TRUCK_WALK_RADIUS);}
+export function canWalkAt(position,truck){return inFootZone(position)||near(position,truck,TRUCK_WALK_RADIUS)||DISCOVERY_SITES.some(p=>near(position,p,p.radius+10));}
 export function canTakeFootStep(from,to,truck){
  if(canWalkAt(to,truck))return true;
  // Saves antigos podiam deixar Dante fora do limite; permita voltar ao Titã.

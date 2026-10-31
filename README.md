@@ -1,25 +1,22 @@
 # 2047: Rede Aurora
 
-**0.5.2 — interface narrativa.** [Relatório e testes](RELATORIO_INTERFACE_NARRATIVA.md) · [captura real](evidence/interface/dialogue.png). Falas com avanço/revelação, escolhas por teclado, legendas ajustáveis e painéis contextuais ligados às ações existentes. Assets/gráficos continuam com as pendências da 0.5.1 abaixo.
+**0.8.1 — Titã com materiais corrigidos.** Carroceria, chassi e pneus opacos; vidros e lentes separados. O GLB foi reparado preservando texturas, geometria e seis rodas. Sair pela câmera interna restaura o exterior completo. [Causa, arquivos e capturas reais antes/depois](RELATORIO_CORRECAO_TITA_0.8.1.md). A expansão 0.8.0 foi mantida.
 
-Para continuar no Claude: [relatório completo](RELATORIO_PARA_CLAUDE.md), [prompt mestre](PROMPT_MESTRE_PARA_CLAUDE.md) e [instruções de texturas](INSTRUCOES_TEXTURAS_PARA_CLAUDE.md). [Kit de documentos](handoff/kit-continuar-claude.zip) (não inclui código ou texturas; o código está neste repositório).
+**Validação 0.8.1:** 167 unitários, build e dez cenários E2E relevantes aprovados. Capturas reais externas, cabine, menu, movimento, entardecer/noite e perfil Alto com sombras. Windows/GPU real continua pendente.
 
+**0.8.0 — Mundo vivo.** Ambientação contextual, moradia no barracão, estabelecimentos detalhados, três novos locais exploráveis, relógio solar persistente, luzes noturnas e áudio espacial original. Equipamentos individuais acompanham o rig existente. Tutorial de 21 objetivos, Titã com seis rodas, física Rapier, inventários, comércio, Sementes e sete Núcleos preservados. [Relatório 0.8.0](RELATORIO_EXPANSAO_0.8.0.md) · [diagnóstico](docs/DIAGNOSTICO_0.8.0.md) · [comparação visual](docs/COMPARACAO_VISUAL_0.8.0.md) · [teste humano](docs/TESTE_MANUAL_0.8.0.md).
 
-**0.5.1 — integração de assets em andamento.** [Auditoria das seis fases](docs/AUDITORIA_FASES_2026-10-29.md). [Relatório da etapa](RELATORIO_INTEGRACAO_ASSETS.md) · [Catálogo e instruções](docs/INTEGRACAO_ASSETS.md).
+**Histórico da expansão 0.8.0:** 161 unitários, build e reinício real aprovados; 24 cenários únicos de navegador aprovados entre rodadas, sem uma única integral verde. Cinco pares de capturas reais foram conferidos. Windows/GPU real e avaliação auditiva continuam pendentes. Os resultados da correção 0.8.1 ficam no seu relatório e em `evidence/truck-opacity/`.
 
-Três modelos reais de carros abandonados, com suas texturas PBR, foram integrados ao Mar de Cinzas com colisões e carregamento por proximidade. São de Renafox, sob **CC BY-NC 4.0 (uso não comercial)**; licença e alterações estão registradas. A malha junto às estradas foi refinada para impedir o terreno de atravessar a pista; acostamentos têm geometria, colisão e aderência de cascalho.
+**Repositório oficial privado:** [renataaap/2047 · feat/tutorial-assets](https://github.com/renataaap/2047/tree/feat/tutorial-assets). Entre como renataaap e selecione essa branch antes de baixar o ZIP. Correção v0.8.1; as tags históricas v0.6.0/v0.7.0/v0.8.0 foram preservadas. Código, testes, assets licenciados, relatórios e histórico ficam no Git. Não há sincronização de partidas locais pelo GitHub.
 
-**O caminhão externo e os personagens ainda não foram substituídos. Não há materiais Poly Haven instalados.** Os pacotes 4K/LP 608 enviados excederam 32 MiB; arquivos menores/divididos são necessários. O Saia recebido tem licença ND e quase 2 milhões de triângulos; City People veio sem licença identificável. Não foi anunciada a conclusão da reforma gráfica.
+No Windows, com a cópia completa desta branch: `npm ci`, `npm run dev`, abrir http://localhost:3000 nesse computador, ou usar INICIAR_JOGO.bat. Novo jogo inicia a pé no barracão; tutorial opcional pode ser pulado/repetido. A pé: WASD, Shift, mouse, C para perspectiva e F para interagir/entrar. No Titã: E motor, W/S acelerar/frear/ré, A/D direção, Espaço freio, C câmeras, L faróis, F sair parado. Saves 1–3 continuam compatíveis; não apague seu banco nem os cookies ao atualizar.
 
-Há ferramentas de download/preparação e importação offline prontas. No Windows, `BAIXAR_TEXTURAS.bat` baixa os arquivos reais da API e prepara resoluções por perfil; `npm run assets:import -- --from=PASTA` importa imagens já baixadas. Veja `docs/INTEGRACAO_ASSETS.md` para os formatos e limites. O runtime usa arquivos locais, com cache e tratamento de ausência.
+O motel (km 0,38), o pátio de caminhões (km 2,02) e a pesagem (km 2,46) têm acessos a pé e ações finitas. Relógio no HUD, dia configurável em 24/48/96 minutos de simulação ativa; menus pausam o tempo. [Continuar em outro aparelho](CONTINUAR_NO_CELULAR.md) · [próximos sistemas, ainda não implementados](docs/ROADMAP_APOS_0.8.0.md).
 
-A condução da versão 0.5.0 e as missões/saves foram preservados. E liga o motor; W acelera; S freia/engata ré após parar; mantenha Espaço e aperte F para descer.
+Oito Poly Haven da base permanecem locais. Não houve instalação dos seis ZIPs extras acima de 32 MiB; madeira, tecido e concreto receberam detalhes procedurais originais. Personagens/rostos ainda são provisórios; Fab continua fora por licença desconhecida. Carros Renafox têm restrição CC BY-NC. A caçamba parada no pátio é cenário; quatro caminhões adicionais continuam sem uso dirigível. O jogo inteiro e seus finais não estão concluídos. As seções seguintes registram checkpoints históricos.
 
----
-
-Histórico da entrega anterior:
-
-Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Versão atual: **0.5.0 — Fase 1 da reformulação realista: condução**. O mundo, a sobrevivência e a Rede com sete Núcleos da versão 0.4 foram preservados.
+Jogo 3D de navegador em JavaScript, Next.js, Three.js e Rapier. Checkpoint histórico: **0.5.0 — Fase 1 da reformulação realista: condução**. O mundo, a sobrevivência e a Rede com sete Núcleos da versão 0.4 foram preservados.
 
 ## Condução 0.5.0
 

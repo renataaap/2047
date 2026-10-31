@@ -1,0 +1,105 @@
+{
+  "version": "0.8.1",
+  "verifiedUTC": "2026-10-31T10:55:14.638392+00:00",
+  "baselineCommit": "034506abc50a8d52b3344f57bbb50f20d71d1f52",
+  "applicationFixCommit": "68d8252",
+  "unit": {
+    "command": "npm test",
+    "passed": 167,
+    "files": 24,
+    "failed": 0,
+    "log": "unit.log"
+  },
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "devStoppedBeforeBuild": true,
+    "log": "build.log"
+  },
+  "e2e": {
+    "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npm run test:e2e -- tests/e2e/truck-opacity.spec.js tests/e2e/assets.spec.js tests/e2e/driving.spec.js tests/e2e/exit.spec.js tests/e2e/tutorial-assets.spec.js",
+    "selectedScenarios": 10,
+    "passed": 10,
+    "failed": 0,
+    "durationMinutes": 10.1,
+    "singleSelectedRunGreen": true,
+    "fullProjectSuiteRun": false,
+    "log": "regression-e2e.log",
+    "initialVisualAttempt": {
+      "passed": false,
+      "log": "visual-e2e-first-attempt.log",
+      "reason": "Keys released before slow software screenshot; engine braking/steering return changed the later sampled state. Harness now holds controls during capture; physics and test thresholds unchanged."
+    }
+  },
+  "asset": {
+    "sourceSha256": "1076b3ec66b3e8aca32870d018304c00bebeac93cb6910d935d1a58e923dc013",
+    "installedSha256": "729ad051a5e4207380c4ec9d4b6cbf657cc9ffe58a711490265171ea7b732717",
+    "triangles": 47500,
+    "sixWheelPivotsPreserved": true,
+    "materialCount": 8,
+    "newExternalAssetsInstalled": 0,
+    "geometryProof": "geometry-invariants.json",
+    "idempotencyLog": "idempotency.log"
+  },
+  "visual": {
+    "renderer": "Chromium/ANGLE SwiftShader (software)",
+    "beforeViews": 11,
+    "afterViews": 12,
+    "additionalViews": 3,
+    "comparativeQuality": "Baixo 75%, 1280x720",
+    "extraQualitySequence": [
+      "Baixo",
+      "Alto",
+      "Baixo"
+    ],
+    "consoleErrors": [],
+    "mainData": "after/capture.json",
+    "additionalData": "details/capture.json",
+    "softwareIsNotWindowsGpuValidation": true,
+    "inspected": [
+      "rear",
+      "left",
+      "front",
+      "right",
+      "cockpit",
+      "menu",
+      "moving",
+      "dusk",
+      "night/headlights",
+      "night cockpit",
+      "return external",
+      "walking exit in daylight",
+      "High shadows"
+    ]
+  },
+  "narrative": {
+    "src/data/campaign.js": {
+      "sha256": "4f4d20e55b21be924927200272c40aa3bcab76ed98aacc88ad6d8d4be27a4107",
+      "unchanged": true
+    },
+    "src/data/road.js": {
+      "sha256": "0c355cd1a9f5ee6c9edec0d61a993e2dd84ceae6381a521476aab7d6258deb37",
+      "unchanged": true
+    },
+    "src/data/network.js": {
+      "sha256": "81aa95a2af5466a0aad5c1e41fc78de7632907f1b92c4748ed6c1f16642132dd",
+      "unchanged": true
+    },
+    "src/data/expedition.js": {
+      "sha256": "e43974af312e3af949ffb8f6000a5eab515cdf54e5e16df2702789400a95e66e",
+      "unchanged": true
+    }
+  },
+  "historicalOutputsPreserved": "archived-regressions.json",
+  "remaining": [
+    "Windows and real GPU inspection/performance",
+    "Provisional cockpit and original 1K truck atlas remain"
+  ],
+  "publicationTarget": {
+    "repository": "renataaap/2047",
+    "branch": "feat/tutorial-assets",
+    "tag": "v0.8.1",
+    "forcePush": false
+  },
+  "logNormalization": "Terminal carriage returns and trailing whitespace normalized; test results and messages preserved."
+}

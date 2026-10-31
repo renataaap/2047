@@ -1,0 +1,12 @@
+import {it,expect} from 'vitest';
+import {createCampaign} from '../../src/game/missions/campaign.js';
+import {upgradeCampaign} from '../../src/game/missions/network.js';
+import {advanceDay,timeSample} from '../../src/game/world/dayClock.js';
+import {validWorld} from '../../src/game/world/worldProgress.js';
+import {normalizeSettings} from '../../src/game/persistence/settings.js';
+import {environmentalMix} from '../../src/game/audio/AmbientAudio.js';
+it('tempo usa segundos simulados e permanece igual em diferentes taxas de frames',()=>{const results=[];for(const rate of [20,30,60,120]){const c=upgradeCampaign(createCampaign());for(let i=0;i<rate*10;i++)advanceDay(c,1/rate);results.push(c.world.daySeconds);expect(validWorld(c.world)).toBe(true);}for(const value of results)expect(value).toBeCloseTo(32700,5);});
+it('cruza meia-noite, guarda dia e ignora incrementos inválidos',()=>{const c=upgradeCampaign(createCampaign());c.world.daySeconds=86399;advanceDay(c,1);expect(c.world.days).toBe(1);expect(c.world.daySeconds).toBe(29);const before=JSON.stringify(c.world);for(const dt of [NaN,Infinity,-1])advanceDay(c,dt);expect(JSON.stringify(c.world)).toBe(before);});
+it('períodos e luminosidade transitam continuamente sem apagar a luz noturna',()=>{expect(timeSample(5.7*3600).period).toBe('Amanhecer');expect(timeSample(9*3600).period).toBe('Manhã');expect(timeSample(14*3600).period).toBe('Tarde');expect(timeSample(18*3600).period).toBe('Entardecer');expect(timeSample(23*3600).period).toBe('Noite');expect(timeSample(0).label).toBe('00:00');for(let t=1;t<86400;t+=131){const a=timeSample(t),b=timeSample(t+.01);expect(a.ambientIntensity).toBeGreaterThan(.3);expect(Math.abs(a.sunIntensity-b.sunIntensity)).toBeLessThan(.01);expect(a.sunIntensity).toBeGreaterThan(0);}expect(timeSample(0).a).toEqual(timeSample(86400).a);});
+it('duração configurável altera ritmo sem alterar o relógio salvo',()=>{const a=upgradeCampaign(createCampaign()),b=upgradeCampaign(createCampaign());advanceDay(a,10,24);advanceDay(b,10,96);expect(a.world.daySeconds-32400).toBe((b.world.daySeconds-32400)*4);expect(normalizeSettings({dayMinutes:96}).dayMinutes).toBe(96);expect(normalizeSettings({dayMinutes:1}).dayMinutes).toBe(48);});
+it('ambiente sonoro distingue interior, sal e proximidade de oficina',()=>{const c=upgradeCampaign(createCampaign());expect(environmentalMix({x:-13,z:22},c).indoors).toBe(true);expect(environmentalMix({x:0,z:-11000},c).region).toBe('salt');expect(environmentalMix({x:-5,z:-550},c).workshop.id).toBe('oficina-cotovelo');});

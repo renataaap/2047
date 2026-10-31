@@ -1,9 +1,5 @@
 # Assets pendentes — Fase 1
 
-Atualização 0.5.1: três carros Renafox CC BY-NC estão integrados com materiais próprios e colisões. **Nenhum Poly Haven, caminhão selecionado ou personagem Fab está integrado**. Catálogo/limites: `docs/INTEGRACAO_ASSETS.md`. O kit não contém imagens. Dezessete ZIPs novos excederam 32 MiB; o usuário pode enviar pacotes menores/volumes de 25 MB. City People aguarda licença; Saia não foi adaptado por licença ND e orçamento de 1,97 milhão de triângulos.
-
-Histórico da entrega anterior:
-
 Nenhum arquivo remoto é necessário para rodar. As geometrias, texturas e o áudio existentes são funcionais, produzidos em código.
 
 | Asset funcional atual | Substituição/refinamento futuro |

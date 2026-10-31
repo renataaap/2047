@@ -1,0 +1,54 @@
+
+ RUN  v5.0.5 /workspace/work/2047-rede-aurora
+
+ ❯ tests/unit/critical-gameplay.test.js (2 tests | 2 failed) 10ms
+   ❯ reprodução das falhas relatadas (2)
+     × calibra com peças da mochila sem criar outro inventário 8ms
+     × identifica a bomba como objeto próprio, além de Zeca 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/critical-gameplay.test.js > reprodução das falhas relatadas > calibra com peças da mochila sem criar outro inventário
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/unit/critical-gameplay.test.js:10:56
+      8|  it('calibra com peças da mochila sem criar outro inventário',()=>{
+      9|   const c=upgradeCampaign(createCampaign());receiveSeed(c);syncFirst(c…
+     10|   expect(calibrate(c,{usePlayer:true,useTruck:false})).toBe(true);expe…
+       |                                                        ^
+     11|  });
+     12|  it('identifica a bomba como objeto próprio, além de Zeca',()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/unit/critical-gameplay.test.js > reprodução das falhas relatadas > identifica a bomba como objeto próprio, além de Zeca
+AssertionError: expected undefined to be 'pump' // Object.is equality
+
+- Expected:
+"pump"
+
++ Received:
+undefined
+
+ ❯ tests/unit/critical-gameplay.test.js:14:67
+     12|  it('identifica a bomba como objeto próprio, além de Zeca',()=>{
+     13|   const point=ROAD_POINTS.find(p=>p.id==='posto-boa-viagem'),g={player…
+     14|   const target=new RoadController(g).target();expect(target.type).toBe…
+       |                                                                   ^
+     15|  });
+     16| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  19:12:24
+   Duration  154ms (transform 49%, import 29%, tests 17%, worker 5%)
+

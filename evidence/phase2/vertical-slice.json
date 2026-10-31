@@ -3,20 +3,20 @@
     "mode": "paused",
     "resumeMode": "walking",
     "overlay": "maintenance",
-    "fuel": 7.999469166666658,
-    "temperature": 28.11749631102881,
+    "fuel": 7.999328333333322,
+    "temperature": 28.584278305960087,
     "engineOn": true,
-    "speed": 0.025426146579588266,
-    "signedSpeed": -0.02828798642946323,
+    "speed": 0.0017551061696965539,
+    "signedSpeed": 0.0017550761648710404,
     "surface": "asfalto",
     "camera": 0,
     "headlights": false,
     "arrived": false,
     "notice": "",
     "saving": false,
-    "massKg": 11013.8798828125,
-    "cargoMassKg": 2213.879629120833,
-    "rpm": 643.0416990660955,
+    "massKg": 8805.740234375,
+    "cargoMassKg": 5.74,
+    "rpm": 647.9119478993055,
     "gear": 0,
     "gearLabel": "N",
     "shifting": false,
@@ -29,121 +29,286 @@
     "engineBraking": false,
     "parkingBrake": true,
     "tractionForceN": 0,
-    "resistanceForceN": 1296.5571256414516,
+    "resistanceForceN": 1036.611752654039,
     "steeringAngle": 0,
-    "longitudinalAcceleration": -0.1658592643549227,
+    "longitudinalAcceleration": -0.000009696920982496531,
     "lateralAcceleration": 0,
-    "lateralSpeed": 1.279108611082093e-8,
+    "lateralSpeed": 2.71687705767514e-10,
     "storm": false,
     "restored": false,
     "region": "ashes",
     "interference": 0.08,
     "radioActive": false,
-    "x": 1.6034876204606974e-10,
-    "z": 4.969999313354492,
+    "indoors": false,
+    "x": -1.0741817435544476e-9,
+    "z": 4.968903064727783,
     "front": false,
-    "weatherClock": 0.8166666666666675,
+    "weatherClock": 2.9999999999999942,
     "localRestored": false,
     "powerMultiplier": 1,
     "gripMultiplier": 1,
     "loaded": true,
-    "inventoryMass": 7.199999999999999,
+    "inventoryMass": 2.4,
     "suspensionCondition": 38,
     "steeringSensitivity": 1,
+    "tutorial": {
+      "version": 1,
+      "status": "skipped",
+      "completed": [],
+      "facts": [],
+      "walked": 0.001009763438780432,
+      "reversed": 0,
+      "step": {
+        "id": "walk",
+        "section": "O abrigo",
+        "title": "Caminhe pelo barracão",
+        "key": "W A S D",
+        "detail": "Percorra 3 m. Clique no cenário para olhar com o mouse. Saída pelas portas laterais abertas."
+      },
+      "total": 21,
+      "celebration": false,
+      "chapter": "CAPÍTULO 01 — O ÚLTIMO MOTOR"
+    },
     "assets": {
-      "textures": 0,
-      "estimatedTextureBytes": 0,
-      "modelSources": 1,
-      "modelInstances": 1,
+      "textures": 24,
+      "estimatedTextureBytes": 33554431.999999985,
+      "modelSources": 6,
+      "modelURLs": [
+        "/assets/models/aurora-workers/worker.glb",
+        "/assets/models/environments/gas-station/model.glb",
+        "/assets/models/trucks/titan-old/model.glb",
+        "/assets/models/environments/renafox-cars/wreck-sedan.glb",
+        "/assets/models/environments/old-garage/model.glb",
+        "/assets/models/environments/rusty-barrel/model.glb"
+      ],
+      "modelInstances": 10,
       "errors": []
     },
     "pbr": {
-      "applied": {},
+      "applied": {
+        "shoulder": "gravel_road",
+        "rock": "rocky_terrain_03",
+        "weatheredMetal": "rust_coarse_01",
+        "asphalt": "road_damaged_2",
+        "rust": "rusty_metal_05",
+        "ground": "dirt",
+        "roof": "corrugated_iron"
+      },
       "unavailable": [
-        "asphalt",
         "brick",
         "concrete",
         "container",
         "garage",
-        "ground",
         "leather",
-        "rock",
-        "roof",
-        "rust",
-        "shoulder",
         "shutter",
         "wood"
       ],
-      "terrainBlend": false,
-      "installed": 0
+      "terrainBlend": true,
+      "installed": 8
+    },
+    "ambience": {
+      "compositions": 4,
+      "parts": 367,
+      "drawBatches": 41,
+      "colliders": 40,
+      "sites": [
+        "home"
+      ],
+      "cells": [
+        "cell:-1",
+        "cell:0",
+        "cell:-2"
+      ],
+      "lights": 0
+    },
+    "discoveries": {
+      "loaded": [],
+      "sites": []
     },
     "importedTruck": {
-      "status": "legacy",
-      "id": null,
-      "triangles": 0,
-      "wheelBindings": 0,
-      "provisionalCockpit": false
+      "status": "imported",
+      "id": "titan-old",
+      "triangles": 47500,
+      "wheelBindings": 6,
+      "provisionalCockpit": true,
+      "wheels": [
+        {
+          "y": -0.5498381614685058,
+          "steering": 0,
+          "rotation": 0.10367686301469803,
+          "center": [
+            -1.2000000476837158,
+            -0.5495928184763852,
+            -2.4999433103345527
+          ]
+        },
+        {
+          "y": -0.5498381614685058,
+          "steering": 0,
+          "rotation": 0.10367684066295624,
+          "center": [
+            1.2000000476837158,
+            -0.5495928184751182,
+            -2.499943310340037
+          ]
+        },
+        {
+          "y": -0.5767578840255737,
+          "steering": 0,
+          "rotation": 0.10313981026411057,
+          "center": [
+            -1.2000000476837158,
+            -0.5768508470636454,
+            1.4496853269473498
+          ]
+        },
+        {
+          "y": -0.5767578840255737,
+          "steering": 0,
+          "rotation": 0.10313979536294937,
+          "center": [
+            1.2000000476837158,
+            -0.5768508470683352,
+            1.4496853269487344
+          ]
+        },
+        {
+          "y": -0.5866470098495483,
+          "steering": 0,
+          "rotation": 0.10200078040361404,
+          "center": [
+            -1.2000000476837163,
+            -0.5867403282689627,
+            2.8996854510754524
+          ]
+        },
+        {
+          "y": -0.5866470098495483,
+          "steering": 0,
+          "rotation": 0.10200078785419464,
+          "center": [
+            1.2000000476837154,
+            -0.5867403282666184,
+            2.899685451074758
+          ]
+        }
+      ]
     },
     "environmentModels": {
-      "loaded": 1,
+      "loaded": 4,
       "loading": 0,
       "ids": [
-        "abandoned-sedan"
+        "abandoned-sedan",
+        "dantes-garage",
+        "shelter-barrel",
+        "shelter-barrel-2"
       ]
     },
     "importedNpc": {
-      "loaded": false,
+      "loaded": true,
       "state": "idle",
-      "animationTime": 0,
-      "animations": []
+      "animationTime": 10.213400000000007,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "interact",
+        "repair",
+        "enter",
+        "exit"
+      ],
+      "visible": true,
+      "wardrobe": "survivor"
     },
+    "dante": {
+      "loaded": true,
+      "state": "idle",
+      "animationTime": 10.213400000000007,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "interact",
+        "repair",
+        "enter",
+        "exit"
+      ],
+      "visible": false,
+      "wardrobe": "dante",
+      "heading": 3.1416353846745455,
+      "position": [
+        -3,
+        0.27343714714050293,
+        5
+      ]
+    },
+    "footCamera": "first",
     "simulation": {
-      "steps": 49,
+      "steps": 180,
       "lastFrameSteps": 0,
-      "droppedSeconds": 0,
+      "droppedSeconds": 4.416399999999998,
       "fixedStep": 0.016666666666666666
     },
     "instruments": {
-      "speed": 0.09153412768651777,
-      "rpm": 643.0416990660955,
-      "fuel": 7.999469166666658,
-      "temperature": 28.11749631102881,
+      "speed": 0.006318382210907594,
+      "rpm": 647.9119478993055,
+      "fuel": 7.999328333333322,
+      "temperature": 28.584278305960087,
       "gear": "N",
       "needleAngles": {
-        "speed": 2.3525999533765276,
-        "rpm": 1.190708868612251,
-        "fuel": 2.1467688781185355,
-        "temperature": 1.472857291864751
+        "speed": 2.3559463679031403,
+        "rpm": 1.1818817503691652,
+        "fuel": 2.1467725641764934,
+        "temperature": 1.4581929028506417
       }
     },
     "truckVisual": {
       "steeringWheelAngle": 0,
-      "cabPitch": 0.0006634455492618823,
+      "cabPitch": 3.8787683929986124e-8,
       "cabRoll": 0
     },
     "cameraPose": {
       "position": [
         -3,
-        1.7190974903112037,
-        4.999999046325684
+        1.763437147140503,
+        5
       ],
       "target": [
-        -2.000000003353294,
-        2.4284817934036256,
-        4.4612555503845215
+        -4.599999998142352,
+        2.7784744024276735,
+        6.1605555534362795
       ],
       "mode": 0,
       "distance": 14,
-      "fov": 54,
+      "fov": 64,
       "angle": 0.27,
       "elevation": 0.3
     },
     "audio": {
       "state": "running",
-      "firingHz": 32.150611877441406,
-      "expectedFiringHz": 32.15208495330477,
+      "firingHz": 32.39559555053711,
+      "expectedFiringHz": 32.39559739496527,
       "shiftsObserved": 0,
       "engineGain": 0
+    },
+    "ambientAudio": {
+      "originalSynthesis": true,
+      "spatialSources": 3,
+      "steps": 1,
+      "cues": 5,
+      "indoors": false,
+      "surface": "asfalto",
+      "region": "ashes",
+      "pausedGain": 0
+    },
+    "worldTime": {
+      "hour": 9.025,
+      "period": "Manhã",
+      "label": "09:01",
+      "night": 0,
+      "sunIntensity": 2.7774494900326308,
+      "ambientIntensity": 2.05,
+      "days": 0
     },
     "objective": null,
     "weather": {
@@ -167,22 +332,47 @@
       },
       "liaVisible": false
     },
+    "roadVisual": {
+      "entities": 1,
+      "ids": [
+        "oficina-cotovelo"
+      ],
+      "actors": {
+        "oficina-cotovelo": {
+          "loaded": true,
+          "state": "idle",
+          "animationTime": 9.050000000000006,
+          "animations": [
+            "idle",
+            "walk",
+            "run",
+            "interact",
+            "repair",
+            "enter",
+            "exit"
+          ],
+          "visible": true,
+          "wardrobe": "mechanic"
+        }
+      }
+    },
     "ready": true,
     "position": [
-      3.593840225413203e-10,
-      1.3077181577682495,
-      4.970393657684326
+      -1.070599719987797e-9,
+      1.3184229135513306,
+      4.968891620635986
     ],
+    "playerYaw": 0,
     "playerPosition": [
       -3,
-      1.099097490310669,
-      4.999999046325684
+      1.143437147140503,
+      5
     ],
-    "speedKmh": 0.09153412768651777,
-    "fps": 8,
-    "averageFps": 3.870718018192369,
-    "drawCalls": 35,
-    "triangles": 38480,
+    "speedKmh": 0.006318382210907594,
+    "fps": 1.7143836790673668,
+    "averageFps": 1.0366514650439458,
+    "drawCalls": 69,
+    "triangles": 150074,
     "sectors": 9,
     "sectorKeys": [
       "0,0",
@@ -196,10 +386,10 @@
       "1,1"
     ],
     "quaternion": [
-      -0.008655322715640068,
-      -2.6728444457724265e-10,
-      6.862320711675807e-10,
-      0.999962568283081
+      -0.008588564582169056,
+      -2.600309967348835e-10,
+      2.7897667509435564e-10,
+      0.999963104724884
     ],
     "wheelContacts": [
       true,
@@ -210,12 +400,12 @@
       true
     ],
     "suspension": [
-      0.43779122829437256,
-      0.43779122829437256,
-      0.4669414758682251,
-      0.4669414758682251,
-      0.477649450302124,
-      0.477649450302124
+      0.44983816146850586,
+      0.44983816146850586,
+      0.47675788402557373,
+      0.47675788402557373,
+      0.48664700984954834,
+      0.48664700984954834
     ],
     "input": {
       "throttle": 0,
@@ -320,13 +510,13 @@
         "accepted-first-seed"
       ],
       "collected": [],
-      "rngState": 1272336988,
+      "rngState": 3180664184,
       "travelSeconds": 0,
       "checkpoint": 1,
       "expedition": {
-        "hydration": 99.98770000000017,
-        "satiety": 99.9938499999998,
-        "fatigue": 0.003416666666666665,
+        "hydration": 99.98140000000026,
+        "satiety": 99.99069999999969,
+        "fatigue": 0.00516666666666667,
         "deprivationSeconds": 0,
         "visited": [],
         "looted": [],
@@ -339,7 +529,7 @@
         "transactions": 0
       },
       "network": {
-        "clock": 0.8166666666666675,
+        "clock": 2.9999999999999942,
         "cargo": "core-1",
         "seeds": {
           "core-1": {
@@ -405,12 +595,106 @@
             "parts": 16
           }
         }
+      },
+      "road": {
+        "generator": false,
+        "techReward": false,
+        "robbed": 0,
+        "rammed": 0,
+        "visited": [],
+        "ambushes": {
+          "amb-1": "pending",
+          "amb-2": "pending",
+          "amb-3": "pending",
+          "amb-4": "pending",
+          "amb-5": "pending",
+          "amb-6": "pending",
+          "amb-7": "pending"
+        },
+        "stocks": {
+          "oficina-cotovelo": {
+            "parts": 10
+          },
+          "posto-boa-viagem": {
+            "diesel": 90,
+            "water": 12
+          },
+          "posto-mare-seca": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-sal": {
+            "parts": 10
+          },
+          "posto-viaduto-velho": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-janelas": {
+            "parts": 10
+          },
+          "posto-fronteira-do-sal": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-passo": {
+            "parts": 10
+          },
+          "posto-ultima-gota": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-horizonte": {
+            "parts": 10
+          }
+        }
+      },
+      "world": {
+        "version": 1,
+        "daySeconds": 32490,
+        "days": 0,
+        "visited": [],
+        "claimed": [],
+        "read": []
+      },
+      "tutorial": {
+        "version": 1,
+        "status": "skipped",
+        "completed": [],
+        "facts": [],
+        "walked": 0.001009763438780432,
+        "reversed": 0
       }
     },
     "integrity": 100,
     "chance": 1,
+    "calibration": {
+      "core": "core-1",
+      "code": "terminal",
+      "canCalibrate": false,
+      "message": "Aproxime-se do terminal para calibrar a Semente.",
+      "integrity": 100,
+      "parts": 8,
+      "playerParts": 6,
+      "truckParts": 2,
+      "requiredParts": 2,
+      "access": {
+        "usePlayer": true,
+        "useTruck": true
+      }
+    },
+    "networkCalibration": null,
     "interaction": {
       "id": "truck",
+      "key": "truck:titan",
+      "type": "truck",
+      "position": {
+        "x": -2.1000000001736123,
+        "y": 2.025371028684339,
+        "z": 2.456378065204796
+      },
+      "range": 3.5,
+      "priority": 5,
       "text": "Entrar no Titã"
     },
     "canWork": true,
@@ -420,46 +704,47 @@
     "mode": "driving",
     "resumeMode": "driving",
     "overlay": null,
-    "fuel": 7.988516625831356,
-    "temperature": 32.52622127394673,
+    "fuel": 7.992002764414147,
+    "temperature": 31.713007832683044,
     "engineOn": true,
-    "speed": 3.9410465085559534,
-    "signedSpeed": 3.9414041553908272,
+    "speed": 2.960534068266092,
+    "signedSpeed": 2.926108164973802,
     "surface": "asfalto",
     "camera": 0,
     "headlights": false,
     "arrived": false,
     "notice": "",
     "saving": false,
-    "massKg": 11009.080078125,
-    "cargoMassKg": 2209.079556754167,
-    "rpm": 1627.676222295869,
-    "gear": 2,
-    "gearLabel": "D2",
-    "shifting": true,
-    "shiftCount": 1,
-    "throttle": 0.9999999949433626,
+    "massKg": 11009.0791015625,
+    "cargoMassKg": 2209.0794391583336,
+    "rpm": 1352.7908658427496,
+    "gear": 1,
+    "gearLabel": "D1",
+    "shifting": false,
+    "shiftCount": 0,
+    "throttle": 0.9999987467164236,
     "brake": 0,
-    "torqueNm": 0,
-    "enginePowerKw": 0,
-    "fuelRateLps": 0.00065,
+    "torqueNm": 479.045194492349,
+    "enginePowerKw": 67.86342403671928,
+    "fuelRateLps": 0.006181117394875656,
     "engineBraking": false,
     "parkingBrake": false,
-    "tractionForceN": 0,
-    "resistanceForceN": 1357.8362986604761,
+    "tractionForceN": 22950.819672131147,
+    "resistanceForceN": 1330.076688264822,
     "steeringAngle": 0,
-    "longitudinalAcceleration": 0.6846758882664767,
+    "longitudinalAcceleration": 2.061847532371974,
     "lateralAcceleration": 0,
-    "lateralSpeed": 3.613529812023064e-8,
+    "lateralSpeed": -8.568768349972283e-9,
     "storm": false,
     "restored": false,
     "region": "ashes",
     "interference": 0.08,
     "radioActive": false,
-    "x": -2.1028274233003685e-8,
-    "z": 0.23903104662895203,
+    "indoors": false,
+    "x": -1.6762310650619838e-8,
+    "z": 2.7925491333007812,
     "front": false,
-    "weatherClock": 3.299999999999993,
+    "weatherClock": 4.766666666666655,
     "localRestored": false,
     "powerMultiplier": 1,
     "gripMultiplier": 1,
@@ -468,87 +753,232 @@
     "suspensionCondition": 63,
     "steeringSensitivity": 1,
     "cargoRisk": false,
+    "tutorial": {
+      "version": 1,
+      "status": "skipped",
+      "completed": [],
+      "facts": [],
+      "walked": 0.001009763438780432,
+      "reversed": 0,
+      "step": {
+        "id": "walk",
+        "section": "O abrigo",
+        "title": "Caminhe pelo barracão",
+        "key": "W A S D",
+        "detail": "Percorra 3 m. Clique no cenário para olhar com o mouse. Saída pelas portas laterais abertas."
+      },
+      "total": 21,
+      "celebration": false,
+      "chapter": "CAPÍTULO 01 — O ÚLTIMO MOTOR"
+    },
     "assets": {
-      "textures": 0,
-      "estimatedTextureBytes": 0,
-      "modelSources": 1,
-      "modelInstances": 1,
+      "textures": 24,
+      "estimatedTextureBytes": 33554431.999999985,
+      "modelSources": 6,
+      "modelURLs": [
+        "/assets/models/aurora-workers/worker.glb",
+        "/assets/models/environments/gas-station/model.glb",
+        "/assets/models/trucks/titan-old/model.glb",
+        "/assets/models/environments/renafox-cars/wreck-sedan.glb",
+        "/assets/models/environments/old-garage/model.glb",
+        "/assets/models/environments/rusty-barrel/model.glb"
+      ],
+      "modelInstances": 10,
       "errors": []
     },
     "pbr": {
-      "applied": {},
+      "applied": {
+        "shoulder": "gravel_road",
+        "rock": "rocky_terrain_03",
+        "weatheredMetal": "rust_coarse_01",
+        "asphalt": "road_damaged_2",
+        "rust": "rusty_metal_05",
+        "ground": "dirt",
+        "roof": "corrugated_iron"
+      },
       "unavailable": [
-        "asphalt",
         "brick",
         "concrete",
         "container",
         "garage",
-        "ground",
         "leather",
-        "rock",
-        "roof",
-        "rust",
-        "shoulder",
         "shutter",
         "wood"
       ],
-      "terrainBlend": false,
-      "installed": 0
+      "terrainBlend": true,
+      "installed": 8
+    },
+    "ambience": {
+      "compositions": 4,
+      "parts": 367,
+      "drawBatches": 41,
+      "colliders": 40,
+      "sites": [
+        "home"
+      ],
+      "cells": [
+        "cell:-1",
+        "cell:0",
+        "cell:-2"
+      ],
+      "lights": 0
+    },
+    "discoveries": {
+      "loaded": [],
+      "sites": []
     },
     "importedTruck": {
-      "status": "legacy",
-      "id": null,
-      "triangles": 0,
-      "wheelBindings": 0,
-      "provisionalCockpit": false
+      "status": "imported",
+      "id": "titan-old",
+      "triangles": 47500,
+      "wheelBindings": 6,
+      "provisionalCockpit": true,
+      "wheels": [
+        {
+          "y": -0.5590597152709961,
+          "steering": 0,
+          "rotation": 3.7505946159362793,
+          "center": [
+            -1.2000000476837156,
+            -0.559246951585195,
+            -2.50016837299248
+          ]
+        },
+        {
+          "y": -0.5590597152709961,
+          "steering": 0,
+          "rotation": 3.7505946159362793,
+          "center": [
+            1.200000047683716,
+            -0.559246951585195,
+            -2.5001683729924795
+          ]
+        },
+        {
+          "y": -0.5627972841262817,
+          "steering": 0,
+          "rotation": 3.7499117851257324,
+          "center": [
+            -1.2000000476837156,
+            -0.5628682469376801,
+            1.450320446728262
+          ]
+        },
+        {
+          "y": -0.5627972841262817,
+          "steering": 0,
+          "rotation": 3.7499117851257324,
+          "center": [
+            1.200000047683716,
+            -0.56286824693768,
+            1.450320446728262
+          ]
+        },
+        {
+          "y": -0.5641871452331543,
+          "steering": 0,
+          "rotation": 3.7487173080444336,
+          "center": [
+            -1.2000000476837154,
+            -0.5642577422871771,
+            2.9003206034232445
+          ]
+        },
+        {
+          "y": -0.5641871452331543,
+          "steering": 0,
+          "rotation": 3.7487173080444336,
+          "center": [
+            1.2000000476837163,
+            -0.5642577422871771,
+            2.9003206034232436
+          ]
+        }
+      ]
     },
     "environmentModels": {
-      "loaded": 1,
+      "loaded": 4,
       "loading": 0,
       "ids": [
-        "abandoned-sedan"
+        "abandoned-sedan",
+        "dantes-garage",
+        "shelter-barrel",
+        "shelter-barrel-2"
       ]
     },
     "importedNpc": {
-      "loaded": false,
+      "loaded": true,
       "state": "idle",
-      "animationTime": 0,
-      "animations": []
+      "animationTime": 14.080100000000005,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "interact",
+        "repair",
+        "enter",
+        "exit"
+      ],
+      "visible": true,
+      "wardrobe": "survivor"
     },
+    "dante": {
+      "loaded": true,
+      "state": "idle",
+      "animationTime": 14.080100000000005,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "interact",
+        "repair",
+        "enter",
+        "exit"
+      ],
+      "visible": false,
+      "wardrobe": "dante",
+      "heading": 3.1416353846745455,
+      "position": [
+        -3,
+        0.27343714714050293,
+        5
+      ]
+    },
+    "footCamera": "first",
     "simulation": {
-      "steps": 198,
-      "lastFrameSteps": 7,
-      "droppedSeconds": 0,
+      "steps": 286,
+      "lastFrameSteps": 30,
+      "droppedSeconds": 7.362100000000002,
       "fixedStep": 0.016666666666666666
     },
     "instruments": {
-      "speed": 14.187767430801433,
-      "rpm": 1627.6762222958687,
-      "fuel": 7.988516625831356,
-      "temperature": 32.52622127394673,
-      "gear": "D2",
+      "speed": 10.657922645757932,
+      "rpm": 1352.7908658427496,
+      "fuel": 7.992002764414147,
+      "temperature": 31.713007832683044,
+      "gear": "D1",
       "needleAngles": {
-        "speed": 1.799286278994944,
-        "rpm": -0.6297453681481583,
-        "fuel": 2.147054909411324,
-        "temperature": 1.3357654657615554
+        "speed": 1.9421724834362948,
+        "rpm": -0.07903569078131567,
+        "fuel": 2.1469621696486,
+        "temperature": 1.360763659981063
       }
     },
     "truckVisual": {
       "steeringWheelAngle": 0,
-      "cabPitch": -0.003987920011537161,
+      "cabPitch": -0.008215612860686894,
       "cabRoll": 0
     },
     "cameraPose": {
       "position": [
-        3.734240032580558,
-        6.581410098848608,
-        14.159843940009155
+        3.7342400712133794,
+        6.584652585956069,
+        16.58117055611119
       ],
       "target": [
-        -1.1899724032630735e-8,
-        2.6286996431411844,
-        -2.2826343297758456
+        -6.830915815850538e-9,
+        2.659908233420616,
+        0.13198194893939652
       ],
       "mode": 0,
       "distance": 14,
@@ -558,10 +988,29 @@
     },
     "audio": {
       "state": "running",
-      "firingHz": 84.62747955322266,
-      "expectedFiringHz": 81.38381111479345,
-      "shiftsObserved": 1,
-      "engineGain": 0.06762201339006424
+      "firingHz": 58.0052375793457,
+      "expectedFiringHz": 67.63954329213747,
+      "shiftsObserved": 0,
+      "engineGain": 0.12499993294477463
+    },
+    "ambientAudio": {
+      "originalSynthesis": true,
+      "spatialSources": 3,
+      "steps": 1,
+      "cues": 6,
+      "indoors": false,
+      "surface": "asfalto",
+      "region": "ashes",
+      "pausedGain": 1
+    },
+    "worldTime": {
+      "hour": 9.039722222222222,
+      "period": "Manhã",
+      "label": "09:02",
+      "night": 0,
+      "sunIntensity": 2.78248948892674,
+      "ambientIntensity": 2.05,
+      "days": 0
     },
     "objective": null,
     "weather": {
@@ -585,22 +1034,47 @@
       },
       "liaVisible": false
     },
+    "roadVisual": {
+      "entities": 1,
+      "ids": [
+        "oficina-cotovelo"
+      ],
+      "actors": {
+        "oficina-cotovelo": {
+          "loaded": true,
+          "state": "idle",
+          "animationTime": 12.916700000000002,
+          "animations": [
+            "idle",
+            "walk",
+            "run",
+            "interact",
+            "repair",
+            "enter",
+            "exit"
+          ],
+          "visible": true,
+          "wardrobe": "mechanic"
+        }
+      }
+    },
     "ready": true,
     "position": [
-      -2.0157081337401905e-8,
-      1.2613869905471802,
-      0.17337724566459656
+      -1.6779386768916993e-8,
+      1.28993558883667,
+      2.7432215213775635
     ],
+    "playerYaw": 0,
     "playerPosition": [
       -3,
-      1.099097490310669,
-      4.999999046325684
+      1.143437147140503,
+      5
     ],
-    "speedKmh": 14.187767430801433,
-    "fps": 9.72920382682016,
-    "averageFps": 6.548614576442932,
-    "drawCalls": 83,
-    "triangles": 43406,
+    "speedKmh": 10.657922645757932,
+    "fps": 3.051261187957698,
+    "averageFps": 1.437218900778093,
+    "drawCalls": 86,
+    "triangles": 166598,
     "sectors": 9,
     "sectorKeys": [
       "0,0",
@@ -614,10 +1088,10 @@
       "1,1"
     ],
     "quaternion": [
-      -0.007170240860432386,
-      -1.8652948075015274e-9,
-      1.7086165815527465e-9,
-      0.9999743103981018
+      -0.005657912697643042,
+      -1.248051995084154e-9,
+      4.37219233040409e-10,
+      0.999984085559845
     ],
     "wheelContacts": [
       true,
@@ -628,12 +1102,12 @@
       true
     ],
     "suspension": [
-      0.44995689392089844,
-      0.44995689392089844,
-      0.46523237228393555,
-      0.46523237228393555,
-      0.4708399772644043,
-      0.4708399772644043
+      0.4590597152709961,
+      0.4590597152709961,
+      0.46279728412628174,
+      0.46279728412628174,
+      0.4641871452331543,
+      0.4641871452331543
     ],
     "input": {
       "throttle": 0,
@@ -663,11 +1137,11 @@
       "components": {
         "engine": 70,
         "radiator": 60,
-        "tires": 63.9988450000001,
+        "tires": 63.999346666666725,
         "suspension": 63,
-        "transmission": 64.99834999999995,
+        "transmission": 64.99906666666664,
         "tank": 55,
-        "filters": 54.998349999999945,
+        "filters": 54.999066666666636,
         "frame": 70
       },
       "inventory": {
@@ -739,13 +1213,13 @@
         "planned-safe"
       ],
       "collected": [],
-      "rngState": 1272336988,
-      "travelSeconds": 1.649999999999999,
+      "rngState": 3180664184,
+      "travelSeconds": 0.9333333333333346,
       "checkpoint": 1,
       "expedition": {
-        "hydration": 99.9580000000006,
-        "satiety": 99.9789999999993,
-        "fatigue": 0.011666666666666659,
+        "hydration": 99.9646000000005,
+        "satiety": 99.98229999999941,
+        "fatigue": 0.009833333333333336,
         "deprivationSeconds": 0,
         "visited": [],
         "looted": [],
@@ -758,7 +1232,7 @@
         "transactions": 0
       },
       "network": {
-        "clock": 3.299999999999993,
+        "clock": 4.766666666666655,
         "cargo": "core-1",
         "seeds": {
           "core-1": {
@@ -824,12 +1298,99 @@
             "parts": 16
           }
         }
+      },
+      "road": {
+        "generator": false,
+        "techReward": false,
+        "robbed": 0,
+        "rammed": 0,
+        "visited": [],
+        "ambushes": {
+          "amb-1": "pending",
+          "amb-2": "pending",
+          "amb-3": "pending",
+          "amb-4": "pending",
+          "amb-5": "pending",
+          "amb-6": "pending",
+          "amb-7": "pending"
+        },
+        "stocks": {
+          "oficina-cotovelo": {
+            "parts": 10
+          },
+          "posto-boa-viagem": {
+            "diesel": 90,
+            "water": 12
+          },
+          "posto-mare-seca": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-sal": {
+            "parts": 10
+          },
+          "posto-viaduto-velho": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-janelas": {
+            "parts": 10
+          },
+          "posto-fronteira-do-sal": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-passo": {
+            "parts": 10
+          },
+          "posto-ultima-gota": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-horizonte": {
+            "parts": 10
+          }
+        }
+      },
+      "world": {
+        "version": 1,
+        "daySeconds": 32543,
+        "days": 0,
+        "visited": [],
+        "claimed": [],
+        "read": []
+      },
+      "tutorial": {
+        "version": 1,
+        "status": "skipped",
+        "completed": [],
+        "facts": [],
+        "walked": 0.001009763438780432,
+        "reversed": 0
       }
     },
     "integrity": 100,
     "chance": 1,
+    "calibration": {
+      "core": "core-1",
+      "code": "terminal",
+      "canCalibrate": false,
+      "message": "Aproxime-se do terminal para calibrar a Semente.",
+      "integrity": 100,
+      "parts": 8,
+      "playerParts": 6,
+      "truckParts": 2,
+      "requiredParts": 2,
+      "access": {
+        "usePlayer": true,
+        "useTruck": true
+      }
+    },
+    "networkCalibration": null,
     "interaction": {
       "id": "exit",
+      "key": "truck:exit",
+      "type": "exit",
       "text": "Segure Espaço até parar o Titã. Depois pressione F para descer."
     },
     "canWork": false,
@@ -839,20 +1400,20 @@
     "mode": "paused",
     "resumeMode": "walking",
     "overlay": "pause",
-    "fuel": 7.986848292497995,
-    "temperature": 35.77536271165295,
+    "fuel": 7.989771097747443,
+    "temperature": 36.337886328037555,
     "engineOn": false,
-    "speed": 0.0011536226346540437,
-    "signedSpeed": -0.0011536804803770377,
+    "speed": 0.0008791418547696221,
+    "signedSpeed": -0.0008790603644064861,
     "surface": "asfalto",
     "camera": 0,
     "headlights": false,
     "arrived": false,
     "notice": "Partida salva no servidor.",
     "saving": true,
-    "massKg": 8809.0693359375,
-    "cargoMassKg": 9.069018324235826,
-    "rpm": 0.0003152676336825704,
+    "massKg": 8809.0712890625,
+    "cargoMassKg": 9.071458866619114,
+    "rpm": 0.005571770095993252,
     "gear": 0,
     "gearLabel": "N",
     "shifting": false,
@@ -865,20 +1426,21 @@
     "engineBraking": false,
     "parkingBrake": true,
     "tractionForceN": 0,
-    "resistanceForceN": 1037.0036475255213,
+    "resistanceForceN": 1037.003875224937,
     "steeringAngle": 0,
-    "longitudinalAcceleration": -3.404621989510891e-8,
+    "longitudinalAcceleration": 0.0000024989732831476606,
     "lateralAcceleration": 0,
-    "lateralSpeed": 0.0005714465736982164,
+    "lateralSpeed": 0.0036607076299520645,
     "storm": false,
     "restored": true,
     "region": "ashes",
     "interference": 0.08,
     "radioActive": false,
-    "x": 6.992546558380127,
+    "indoors": false,
+    "x": 6.972337245941162,
     "z": -2880.000244140625,
     "front": false,
-    "weatherClock": 8.483333333333334,
+    "weatherClock": 10.300000000000091,
     "localRestored": true,
     "powerMultiplier": 1,
     "gripMultiplier": 1,
@@ -887,44 +1449,153 @@
     "suspensionCondition": 63,
     "steeringSensitivity": 1,
     "cargoRisk": false,
+    "roadPoint": "core1-tech",
+    "roadEntity": "npc",
     "activationResult": {
       "success": true,
       "chance": 1,
-      "roll": 0.5238920475821942
+      "roll": 0.36045613675378263
+    },
+    "tutorial": {
+      "version": 1,
+      "status": "skipped",
+      "completed": [],
+      "facts": [],
+      "walked": 0.001009763438780432,
+      "reversed": 0,
+      "step": {
+        "id": "walk",
+        "section": "O abrigo",
+        "title": "Caminhe pelo barracão",
+        "key": "W A S D",
+        "detail": "Percorra 3 m. Clique no cenário para olhar com o mouse. Saída pelas portas laterais abertas."
+      },
+      "total": 21,
+      "celebration": false,
+      "chapter": "CAPÍTULO 01 — O ÚLTIMO MOTOR"
     },
     "assets": {
-      "textures": 0,
-      "estimatedTextureBytes": 0,
-      "modelSources": 1,
-      "modelInstances": 1,
+      "textures": 24,
+      "estimatedTextureBytes": 33554431.999999985,
+      "modelSources": 4,
+      "modelURLs": [
+        "/assets/models/aurora-workers/worker.glb",
+        "/assets/models/environments/gas-station/model.glb",
+        "/assets/models/trucks/titan-old/model.glb",
+        "/assets/models/environments/renafox-cars/wreck-sedan.glb"
+      ],
+      "modelInstances": 8,
       "errors": []
     },
     "pbr": {
-      "applied": {},
+      "applied": {
+        "shoulder": "gravel_road",
+        "rock": "rocky_terrain_03",
+        "weatheredMetal": "rust_coarse_01",
+        "asphalt": "road_damaged_2",
+        "rust": "rusty_metal_05",
+        "ground": "dirt",
+        "roof": "corrugated_iron"
+      },
       "unavailable": [
-        "asphalt",
         "brick",
         "concrete",
         "container",
         "garage",
-        "ground",
         "leather",
-        "rock",
-        "roof",
-        "rust",
-        "shoulder",
         "shutter",
         "wood"
       ],
-      "terrainBlend": false,
-      "installed": 0
+      "terrainBlend": true,
+      "installed": 8
+    },
+    "ambience": {
+      "compositions": 5,
+      "parts": 417,
+      "drawBatches": 46,
+      "colliders": 60,
+      "sites": [],
+      "cells": [
+        "cell:-20",
+        "cell:-19",
+        "cell:-18",
+        "cell:-17",
+        "cell:-16"
+      ],
+      "lights": 0
+    },
+    "discoveries": {
+      "loaded": [],
+      "sites": []
     },
     "importedTruck": {
-      "status": "legacy",
-      "id": null,
-      "triangles": 0,
-      "wheelBindings": 0,
-      "provisionalCockpit": false
+      "status": "imported",
+      "id": "titan-old",
+      "triangles": 47500,
+      "wheelBindings": 6,
+      "provisionalCockpit": true,
+      "wheels": [
+        {
+          "y": -0.556234335899353,
+          "steering": 0,
+          "rotation": 7.678154468536377,
+          "center": [
+            -1.2000000476837158,
+            -0.5562211406049411,
+            -2.499748538697986
+          ]
+        },
+        {
+          "y": -0.5549367427825928,
+          "steering": 0,
+          "rotation": 7.7147674560546875,
+          "center": [
+            1.200000047683714,
+            -0.554932761024084,
+            -2.499748224211544
+          ]
+        },
+        {
+          "y": -0.5780151844024658,
+          "steering": 0,
+          "rotation": 7.396777153015137,
+          "center": [
+            -1.2000000476837158,
+            -0.5777980010201954,
+            1.4497540341744752
+          ]
+        },
+        {
+          "y": -0.5831311702728271,
+          "steering": 0,
+          "rotation": 5.922842979431152,
+          "center": [
+            1.200000047683714,
+            -0.5833550266309865,
+            1.4497600901900114
+          ]
+        },
+        {
+          "y": -0.5860588312149048,
+          "steering": 0,
+          "rotation": 7.131083011627197,
+          "center": [
+            -1.200000047683714,
+            -0.5859138443574766,
+            2.899705666821319
+          ]
+        },
+        {
+          "y": -0.5933798313140869,
+          "steering": 0,
+          "rotation": 5.899730682373047,
+          "center": [
+            1.200000047683714,
+            -0.5936091845102991,
+            2.8997653476958476
+          ]
+        }
+      ]
     },
     "environmentModels": {
       "loaded": 1,
@@ -934,49 +1605,82 @@
       ]
     },
     "importedNpc": {
-      "loaded": false,
+      "loaded": true,
       "state": "idle",
-      "animationTime": 0,
-      "animations": []
+      "animationTime": 20.063400000000012,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "interact",
+        "repair",
+        "enter",
+        "exit"
+      ],
+      "visible": true,
+      "wardrobe": "survivor"
     },
+    "dante": {
+      "loaded": true,
+      "state": "idle",
+      "animationTime": 20.06340000000001,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "interact",
+        "repair",
+        "enter",
+        "exit"
+      ],
+      "visible": false,
+      "wardrobe": "dante",
+      "heading": 3.1416353846745455,
+      "position": [
+        23.00043487548828,
+        0.09905899047851563,
+        -2882
+      ]
+    },
+    "footCamera": "first",
     "simulation": {
-      "steps": 509,
+      "steps": 618,
       "lastFrameSteps": 0,
-      "droppedSeconds": 0,
+      "droppedSeconds": 10.613299999999994,
       "fixedStep": 0.016666666666666666
     },
     "instruments": {
-      "speed": 0.004153041484754557,
-      "rpm": 0.0003152676336825704,
-      "fuel": 7.986848292497995,
-      "temperature": 35.77536271165295,
+      "speed": 0.00316491067717064,
+      "rpm": 0.005571770095993252,
+      "fuel": 7.989771097747443,
+      "temperature": 36.337886328037555,
       "gear": "N",
       "needleAngles": {
-        "speed": 2.3560314006345364,
-        "rpm": 2.3561939187713787,
-        "fuel": 2.1470992908502793,
-        "temperature": 1.232278310289845
+        "speed": 2.356070204440681,
+        "rpm": 2.3561843915931746,
+        "fuel": 2.147022771987783,
+        "temperature": 1.2146061226902263
       }
     },
     "truckVisual": {
       "steeringWheelAngle": 0,
-      "cabPitch": 1.353504774490896e-10,
+      "cabPitch": -9.991569089696302e-9,
       "cabRoll": 0
     },
     "cameraPose": {
       "position": [
-        23.000267028822897,
-        1.5892021608365177,
-        -2881.999755859375
+        23.000434875488292,
+        1.589058990478492,
+        -2882
       ],
       "target": [
-        8.817503467010583,
-        2.7708400995165836,
-        -2865.864997313569
+        11.48400515214652,
+        2.68416038494201,
+        -2840.0651513781063
       ],
       "mode": 0,
       "distance": 14,
-      "fov": 54,
+      "fov": 64,
       "angle": 0.27,
       "elevation": 0.3
     },
@@ -986,6 +1690,25 @@
       "expectedFiringHz": 14,
       "shiftsObserved": 0,
       "engineGain": 0
+    },
+    "ambientAudio": {
+      "originalSynthesis": true,
+      "spatialSources": 3,
+      "steps": 1,
+      "cues": 7,
+      "indoors": false,
+      "surface": "terra",
+      "region": "ashes",
+      "pausedGain": 0
+    },
+    "worldTime": {
+      "hour": 9.085833333333333,
+      "period": "Manhã",
+      "label": "09:05",
+      "night": 0,
+      "sunIntensity": 2.7980862092793584,
+      "ambientIntensity": 2.05,
+      "days": 0
     },
     "objective": {
       "number": 2,
@@ -1011,22 +1734,64 @@
       "vaults": {},
       "liaVisible": false
     },
+    "roadVisual": {
+      "entities": 2,
+      "ids": [
+        "core1-tech",
+        "posto-boa-viagem"
+      ],
+      "actors": {
+        "core1-tech": {
+          "loaded": true,
+          "state": "idle",
+          "animationTime": 4.966700000000004,
+          "animations": [
+            "idle",
+            "walk",
+            "run",
+            "interact",
+            "repair",
+            "enter",
+            "exit"
+          ],
+          "visible": true,
+          "wardrobe": "tomas"
+        },
+        "posto-boa-viagem": {
+          "loaded": true,
+          "state": "idle",
+          "animationTime": 4.966700000000005,
+          "animations": [
+            "idle",
+            "walk",
+            "run",
+            "interact",
+            "repair",
+            "enter",
+            "exit"
+          ],
+          "visible": true,
+          "wardrobe": "zeca"
+        }
+      }
+    },
     "ready": true,
     "position": [
-      6.992542743682861,
-      1.4108209609985352,
+      6.972337245941162,
+      1.3775851726531982,
       -2880.000244140625
     ],
+    "playerYaw": 0,
     "playerPosition": [
-      23.000267028808594,
-      0.9692021608352661,
-      -2881.999755859375
+      23.00043487548828,
+      0.9690589904785156,
+      -2882
     ],
-    "speedKmh": 0.004153041484754557,
-    "fps": 11.997600479903967,
-    "averageFps": 7.356695684591498,
-    "drawCalls": 22,
-    "triangles": 27316,
+    "speedKmh": 0.00316491067717064,
+    "fps": 2.1817388458601576,
+    "averageFps": 1.5717200323983267,
+    "drawCalls": 54,
+    "triangles": 64062,
     "sectors": 9,
     "sectorKeys": [
       "0,-2",
@@ -1040,10 +1805,10 @@
       "1,-4"
     ],
     "quaternion": [
-      0.00047167378943413496,
-      0.0005640068557113409,
-      0.003685467178002,
-      0.9999930262565613
+      0.000196229710127227,
+      0.000647595792543143,
+      0.017775362357497215,
+      0.9998418092727661
     ],
     "wheelContacts": [
       true,
@@ -1054,12 +1819,12 @@
       true
     ],
     "suspension": [
-      0.45591580867767334,
-      0.45507943630218506,
-      0.48007357120513916,
-      0.4810062646865845,
-      0.48905301094055176,
-      0.4904223680496216
+      0.456234335899353,
+      0.4549367427825928,
+      0.4780151844024658,
+      0.48313117027282715,
+      0.4860588312149048,
+      0.4933798313140869
     ],
     "input": {
       "throttle": 0,
@@ -1076,7 +1841,7 @@
     "worldVisual": {
       "rain": true,
       "plants": true,
-      "growth": 0.799796499715782,
+      "growth": 0.6489681079774527,
       "barrierOpen": true,
       "plantCount": 220
     },
@@ -1089,19 +1854,19 @@
       "components": {
         "engine": 70,
         "radiator": 60,
-        "tires": 63.99883333333344,
+        "tires": 63.99841333333336,
         "suspension": 63,
-        "transmission": 64.99834999999995,
+        "transmission": 64.99906666666664,
         "tank": 55,
-        "filters": 54.99634999999994,
+        "filters": 54.9710666666666,
         "frame": 70
       },
       "inventory": {
         "player": {
-          "diesel": 4,
+          "diesel": 0,
           "water": 4,
           "food": 3,
-          "parts": 6,
+          "parts": 5,
           "scrap": 8
         },
         "truck": {
@@ -1166,16 +1931,17 @@
         "accepted-first-seed",
         "planned-safe",
         "route-safe",
+        "core1-generator-on",
         "core-1-activated"
       ],
       "collected": [],
-      "rngState": 2250099211,
-      "travelSeconds": 1.6666666666666656,
-      "checkpoint": 4,
+      "rngState": 1548147319,
+      "travelSeconds": 1.1666666666666674,
+      "checkpoint": 5,
       "expedition": {
-        "hydration": 99.9577000000006,
-        "satiety": 99.9788499999993,
-        "fatigue": 0.011749999999999991,
+        "hydration": 99.96040000000056,
+        "satiety": 99.98019999999934,
+        "fatigue": 0.010999999999999996,
         "deprivationSeconds": 0,
         "visited": [],
         "looted": [],
@@ -1188,7 +1954,7 @@
         "transactions": 0
       },
       "network": {
-        "clock": 8.483333333333334,
+        "clock": 10.300000000000091,
         "cargo": null,
         "seeds": {
           "core-1": {
@@ -1254,12 +2020,107 @@
             "parts": 16
           }
         }
+      },
+      "road": {
+        "generator": true,
+        "techReward": false,
+        "robbed": 0,
+        "rammed": 0,
+        "visited": [
+          "core1-tech"
+        ],
+        "ambushes": {
+          "amb-1": "pending",
+          "amb-2": "pending",
+          "amb-3": "pending",
+          "amb-4": "pending",
+          "amb-5": "pending",
+          "amb-6": "pending",
+          "amb-7": "pending"
+        },
+        "stocks": {
+          "oficina-cotovelo": {
+            "parts": 10
+          },
+          "posto-boa-viagem": {
+            "diesel": 90,
+            "water": 12
+          },
+          "posto-mare-seca": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-sal": {
+            "parts": 10
+          },
+          "posto-viaduto-velho": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-janelas": {
+            "parts": 10
+          },
+          "posto-fronteira-do-sal": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-passo": {
+            "parts": 10
+          },
+          "posto-ultima-gota": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-horizonte": {
+            "parts": 10
+          }
+        }
+      },
+      "world": {
+        "version": 1,
+        "daySeconds": 32709,
+        "days": 0,
+        "visited": [],
+        "claimed": [],
+        "read": []
+      },
+      "tutorial": {
+        "version": 1,
+        "status": "skipped",
+        "completed": [],
+        "facts": [],
+        "walked": 0.001009763438780432,
+        "reversed": 0
       }
     },
     "integrity": 100,
     "chance": 1,
+    "calibration": {
+      "core": "core-1",
+      "code": "consumed",
+      "canCalibrate": false,
+      "message": "O Núcleo já foi ativado. Procure a próxima Semente no próximo Cofre.",
+      "integrity": null,
+      "parts": 7,
+      "playerParts": 5,
+      "truckParts": 2,
+      "requiredParts": 2,
+      "access": {
+        "usePlayer": true,
+        "useTruck": true
+      }
+    },
+    "networkCalibration": null,
     "interaction": {
       "id": "core",
+      "key": "terminal:core-1",
+      "type": "terminal",
+      "position": {
+        "x": 23,
+        "z": -2882
+      },
+      "range": 5,
+      "priority": 20,
       "text": "Operar o Núcleo"
     },
     "canWork": false,
@@ -1269,19 +2130,19 @@
     "mode": "walking",
     "resumeMode": "walking",
     "overlay": null,
-    "fuel": 7.986848292497995,
-    "temperature": 35.6482299158245,
+    "fuel": 7.989771097747443,
+    "temperature": 36.337886328037555,
     "engineOn": false,
-    "speed": 0.001150976051098563,
-    "signedSpeed": -0.001151012415342603,
+    "speed": 0,
+    "signedSpeed": 0,
     "surface": "asfalto",
     "camera": 0,
     "headlights": false,
     "arrived": false,
     "notice": "Partida recuperada.",
     "saving": false,
-    "massKg": 8809.0693359375,
-    "cargoMassKg": 9.069018324235826,
+    "massKg": 8803.33984375,
+    "cargoMassKg": 3.34,
     "rpm": 0,
     "gear": 0,
     "gearLabel": "N",
@@ -1293,110 +2154,240 @@
     "enginePowerKw": 0,
     "fuelRateLps": 0,
     "engineBraking": false,
-    "parkingBrake": true,
+    "parkingBrake": false,
     "tractionForceN": 0,
-    "resistanceForceN": 1037.0036475010404,
+    "resistanceForceN": 1036.3291785200317,
     "steeringAngle": 0,
-    "longitudinalAcceleration": -0.00007504413128355534,
+    "longitudinalAcceleration": 0.0036985109640113615,
     "lateralAcceleration": 0,
-    "lateralSpeed": 0.0005736328022844146,
+    "lateralSpeed": 1.167968280529687e-8,
     "storm": false,
-    "restored": true,
+    "restored": false,
     "region": "ashes",
     "interference": 0.08,
     "radioActive": false,
-    "x": 6.992422580718994,
-    "z": -2880.000244140625,
-    "front": false,
-    "weatherClock": 9.150000000000034,
-    "localRestored": true,
-    "powerMultiplier": 1,
-    "gripMultiplier": 1,
-    "loaded": false,
-    "inventoryMass": 2.4,
-    "suspensionCondition": 63,
-    "steeringSensitivity": 1,
+    "indoors": false,
+    "tutorial": {
+      "version": 1,
+      "status": "skipped",
+      "completed": [],
+      "facts": [],
+      "walked": 0.001009763438780432,
+      "reversed": 0,
+      "step": {
+        "id": "walk",
+        "section": "O abrigo",
+        "title": "Caminhe pelo barracão",
+        "key": "W A S D",
+        "detail": "Percorra 3 m. Clique no cenário para olhar com o mouse. Saída pelas portas laterais abertas."
+      },
+      "total": 21,
+      "celebration": false,
+      "chapter": "CAPÍTULO 01 — O ÚLTIMO MOTOR"
+    },
     "assets": {
-      "textures": 0,
-      "estimatedTextureBytes": 0,
-      "modelSources": 1,
-      "modelInstances": 0,
+      "textures": 24,
+      "estimatedTextureBytes": 33554431.999999985,
+      "modelSources": 4,
+      "modelURLs": [
+        "/assets/models/aurora-workers/worker.glb",
+        "/assets/models/environments/gas-station/model.glb",
+        "/assets/models/trucks/titan-old/model.glb",
+        "/assets/models/environments/renafox-cars/wreck-sedan.glb"
+      ],
+      "modelInstances": 8,
       "errors": []
     },
     "pbr": {
-      "applied": {},
+      "applied": {
+        "weatheredMetal": "rust_coarse_01",
+        "asphalt": "road_damaged_2",
+        "shoulder": "gravel_road",
+        "ground": "dirt",
+        "rock": "rocky_terrain_03",
+        "rust": "rusty_metal_05",
+        "roof": "corrugated_iron"
+      },
       "unavailable": [
-        "asphalt",
         "brick",
         "concrete",
         "container",
         "garage",
-        "ground",
         "leather",
-        "rock",
-        "roof",
-        "rust",
-        "shoulder",
         "shutter",
         "wood"
       ],
-      "terrainBlend": false,
-      "installed": 0
+      "terrainBlend": true,
+      "installed": 8
+    },
+    "ambience": {
+      "compositions": 5,
+      "parts": 417,
+      "drawBatches": 46,
+      "colliders": 60,
+      "sites": [],
+      "cells": [
+        "cell:-20",
+        "cell:-19",
+        "cell:-18",
+        "cell:-17",
+        "cell:-16"
+      ],
+      "lights": 0
+    },
+    "discoveries": {
+      "loaded": [],
+      "sites": []
     },
     "importedTruck": {
-      "status": "legacy",
-      "id": null,
-      "triangles": 0,
-      "wheelBindings": 0,
-      "provisionalCockpit": false
+      "status": "imported",
+      "id": "titan-old",
+      "triangles": 47500,
+      "wheelBindings": 6,
+      "provisionalCockpit": true,
+      "wheels": [
+        {
+          "y": -0.5626278877258301,
+          "steering": 0,
+          "rotation": 0.05997247248888016,
+          "center": [
+            -1.2000000476837156,
+            -0.5623803022093968,
+            -2.4999540836194423
+          ]
+        },
+        {
+          "y": -0.5626278877258301,
+          "steering": 0,
+          "rotation": 0.05997246131300926,
+          "center": [
+            1.2000000476837156,
+            -0.5623803022088835,
+            -2.4999540836222094
+          ]
+        },
+        {
+          "y": -0.5853444099426269,
+          "steering": 0,
+          "rotation": 0.059108320623636246,
+          "center": [
+            -1.2000000476837156,
+            -0.5854511360236679,
+            1.4496897239624615
+          ]
+        },
+        {
+          "y": -0.5853444099426269,
+          "steering": 0,
+          "rotation": 0.05910830944776535,
+          "center": [
+            1.2000000476837156,
+            -0.5854511360271357,
+            1.4496897239636544
+          ]
+        },
+        {
+          "y": -0.5936904907226562,
+          "steering": 0,
+          "rotation": 0.05827845633029938,
+          "center": [
+            -1.2000000476837156,
+            -0.5937974725576431,
+            2.899689830569461
+          ]
+        },
+        {
+          "y": -0.5936904907226562,
+          "steering": 0,
+          "rotation": 0.05827847123146057,
+          "center": [
+            1.2000000476837156,
+            -0.5937974725530196,
+            2.899689830567866
+          ]
+        }
+      ]
     },
     "environmentModels": {
-      "loaded": 0,
-      "loading": 1,
+      "loaded": 1,
+      "loading": 0,
       "ids": [
         "core-approach-sedan"
       ]
     },
     "importedNpc": {
-      "loaded": false,
+      "loaded": true,
       "state": "idle",
-      "animationTime": 0,
-      "animations": []
+      "animationTime": 1.05,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "interact",
+        "repair",
+        "enter",
+        "exit"
+      ],
+      "visible": true,
+      "wardrobe": "survivor"
     },
+    "dante": {
+      "loaded": true,
+      "state": "idle",
+      "animationTime": 1.05,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "interact",
+        "repair",
+        "enter",
+        "exit"
+      ],
+      "visible": false,
+      "wardrobe": "dante",
+      "heading": 3.141592653589793,
+      "position": [
+        -3,
+        0.13,
+        5
+      ]
+    },
+    "footCamera": "first",
     "simulation": {
-      "steps": 40,
-      "lastFrameSteps": 22,
+      "steps": 0,
+      "lastFrameSteps": 0,
       "droppedSeconds": 0,
       "fixedStep": 0.016666666666666666
     },
     "instruments": {
-      "speed": 0.004143513783954827,
+      "speed": 0.0062796096211021266,
       "rpm": 0,
-      "fuel": 7.986848292497995,
-      "temperature": 35.6482299158245,
+      "fuel": 4,
+      "temperature": 26,
       "gear": "N",
       "needleAngles": {
-        "speed": 2.356030905804168,
+        "speed": 2.355947890601009,
         "rpm": 2.356194490192345,
-        "fuel": 2.1471944741864064,
-        "temperature": 1.2364845711866463
+        "fuel": 2.2514747783140843,
+        "temperature": 1.5393807375419084
       }
     },
     "truckVisual": {
       "steeringWheelAngle": 0,
-      "cabPitch": 9.648248554152678e-7,
+      "cabPitch": -0.000014792879719165802,
       "cabRoll": 0
     },
     "cameraPose": {
       "position": [
-        22.999160033883058,
-        1.5894305779768292,
-        -2881.869096631598
+        11.792744889578625,
+        4.428474402427673,
+        -3.5394444465637207
       ],
       "target": [
-        -2.000000003353294,
-        2.4284817934036256,
-        4.4612555503845215
+        -4.599999998142352,
+        2.7784744024276735,
+        6.1605555534362795
       ],
       "mode": 0,
       "distance": 14,
@@ -1406,16 +2397,26 @@
     },
     "audio": {
       "state": "running",
-      "firingHz": 14.129241943359375,
-      "expectedFiringHz": 14,
+      "firingHz": 28,
       "shiftsObserved": 0,
       "engineGain": 0
+    },
+    "ambientAudio": null,
+    "worldTime": {
+      "hour": 17.7,
+      "period": "Entardecer",
+      "label": "17:42",
+      "night": 0.6030818085443099,
+      "sunIntensity": 1.0023323508517312,
+      "ambientIntensity": 1.0428533797310025,
+      "days": 0
     },
     "objective": {
       "number": 2,
       "title": "Obtenha a Semente 2",
       "detail": "Cofre 2, km 6.15. Substituir a manivela do mecanismo · 1 peça no Titã."
     },
+    "loaded": false,
     "weather": {
       "region": "ashes",
       "restored": true,
@@ -1435,22 +2436,64 @@
       "vaults": {},
       "liaVisible": false
     },
+    "roadVisual": {
+      "entities": 2,
+      "ids": [
+        "core1-tech",
+        "posto-boa-viagem"
+      ],
+      "actors": {
+        "core1-tech": {
+          "loaded": true,
+          "state": "idle",
+          "animationTime": 0,
+          "animations": [
+            "idle",
+            "walk",
+            "run",
+            "interact",
+            "repair",
+            "enter",
+            "exit"
+          ],
+          "visible": true,
+          "wardrobe": "tomas"
+        },
+        "posto-boa-viagem": {
+          "loaded": true,
+          "state": "idle",
+          "animationTime": 0,
+          "animations": [
+            "idle",
+            "walk",
+            "run",
+            "interact",
+            "repair",
+            "enter",
+            "exit"
+          ],
+          "visible": true,
+          "wardrobe": "zeca"
+        }
+      }
+    },
     "ready": true,
     "position": [
-      6.9924187660217285,
-      1.4108192920684814,
+      6.972337245941162,
+      1.3775851726531982,
       -2880.000244140625
     ],
+    "playerYaw": 0,
     "playerPosition": [
-      22.99968910217285,
-      0.9692361354827881,
-      -2881.999755859375
+      23.00043487548828,
+      0.9690589904785156,
+      -2882
     ],
-    "speedKmh": 0.004143513783954827,
-    "fps": 7.142857142857143,
-    "averageFps": 7.142857142857143,
-    "drawCalls": 22,
-    "triangles": 27316,
+    "speedKmh": 0,
+    "fps": 1.7140898183064803,
+    "averageFps": 0,
+    "drawCalls": 32,
+    "triangles": 130787,
     "sectors": 9,
     "sectorKeys": [
       "0,-3",
@@ -1464,10 +2507,10 @@
       "1,-2"
     ],
     "quaternion": [
-      0.0004728200437966734,
-      0.0005877487128600478,
-      0.003685792675241828,
-      0.9999930262565613
+      0.000196229710127227,
+      0.000647595792543143,
+      0.017775362357497215,
+      0.9998418092727661
     ],
     "wheelContacts": [
       true,
@@ -1478,12 +2521,12 @@
       true
     ],
     "suspension": [
-      0.45591986179351807,
-      0.4550837278366089,
-      0.4800689220428467,
-      0.4810011386871338,
-      0.48904263973236084,
-      0.490414023399353
+      0.4626278877258301,
+      0.4626278877258301,
+      0.48534440994262695,
+      0.48534440994262695,
+      0.49369049072265625,
+      0.49369049072265625
     ],
     "input": {
       "throttle": 0,
@@ -1504,7 +2547,7 @@
     "worldVisual": {
       "rain": true,
       "plants": true,
-      "growth": 0.21234375,
+      "growth": 0,
       "barrierOpen": true,
       "plantCount": 220
     },
@@ -1517,19 +2560,19 @@
       "components": {
         "engine": 70,
         "radiator": 60,
-        "tires": 63.99883333333344,
+        "tires": 63.99841333333336,
         "suspension": 63,
-        "transmission": 64.99834999999995,
+        "transmission": 64.99906666666664,
         "tank": 55,
-        "filters": 54.99634999999994,
+        "filters": 54.9710666666666,
         "frame": 70
       },
       "inventory": {
         "player": {
-          "diesel": 4,
+          "diesel": 0,
           "water": 4,
           "food": 3,
-          "parts": 6,
+          "parts": 5,
           "scrap": 8
         },
         "truck": {
@@ -1594,16 +2637,17 @@
         "accepted-first-seed",
         "planned-safe",
         "route-safe",
+        "core1-generator-on",
         "core-1-activated"
       ],
       "collected": [],
-      "rngState": 2250099211,
-      "travelSeconds": 1.6666666666666656,
-      "checkpoint": 4,
+      "rngState": 1548147319,
+      "travelSeconds": 1.1666666666666674,
+      "checkpoint": 5,
       "expedition": {
-        "hydration": 99.9577000000006,
-        "satiety": 99.9788499999993,
-        "fatigue": 0.011749999999999991,
+        "hydration": 99.96040000000056,
+        "satiety": 99.98019999999934,
+        "fatigue": 0.010999999999999996,
         "deprivationSeconds": 0,
         "visited": [],
         "looted": [],
@@ -1616,7 +2660,7 @@
         "transactions": 0
       },
       "network": {
-        "clock": 9.150000000000034,
+        "clock": 10.300000000000091,
         "cargo": null,
         "seeds": {
           "core-1": {
@@ -1682,12 +2726,107 @@
             "parts": 16
           }
         }
+      },
+      "road": {
+        "generator": true,
+        "techReward": false,
+        "robbed": 0,
+        "rammed": 0,
+        "visited": [
+          "core1-tech"
+        ],
+        "ambushes": {
+          "amb-1": "pending",
+          "amb-2": "pending",
+          "amb-3": "pending",
+          "amb-4": "pending",
+          "amb-5": "pending",
+          "amb-6": "pending",
+          "amb-7": "pending"
+        },
+        "stocks": {
+          "oficina-cotovelo": {
+            "parts": 10
+          },
+          "posto-boa-viagem": {
+            "diesel": 90,
+            "water": 12
+          },
+          "posto-mare-seca": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-sal": {
+            "parts": 10
+          },
+          "posto-viaduto-velho": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-janelas": {
+            "parts": 10
+          },
+          "posto-fronteira-do-sal": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-passo": {
+            "parts": 10
+          },
+          "posto-ultima-gota": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-horizonte": {
+            "parts": 10
+          }
+        }
+      },
+      "world": {
+        "version": 1,
+        "daySeconds": 32709,
+        "days": 0,
+        "visited": [],
+        "claimed": [],
+        "read": []
+      },
+      "tutorial": {
+        "version": 1,
+        "status": "skipped",
+        "completed": [],
+        "facts": [],
+        "walked": 0.001009763438780432,
+        "reversed": 0
       }
     },
     "integrity": 100,
     "chance": 1,
+    "calibration": {
+      "core": "core-1",
+      "code": "consumed",
+      "canCalibrate": false,
+      "message": "O Núcleo já foi ativado. Procure a próxima Semente no próximo Cofre.",
+      "integrity": null,
+      "parts": 7,
+      "playerParts": 5,
+      "truckParts": 2,
+      "requiredParts": 2,
+      "access": {
+        "usePlayer": true,
+        "useTruck": true
+      }
+    },
+    "networkCalibration": null,
     "interaction": {
       "id": "core",
+      "key": "terminal:core-1",
+      "type": "terminal",
+      "position": {
+        "x": 23,
+        "z": -2882
+      },
+      "range": 5,
+      "priority": 20,
       "text": "Operar o Núcleo"
     },
     "canWork": false,

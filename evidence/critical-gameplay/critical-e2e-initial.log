@@ -1,0 +1,86 @@
+
+Running 2 tests using 1 worker
+
+(node:33072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/critical-gameplay.spec.js:15:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas (42.8s)
+(node:33336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 tests/e2e/critical-gameplay.spec.js:29:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga (26.5s)
+
+
+  1) tests/e2e/critical-gameplay.spec.js:15:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: locator('.place-subtitle')
+    Expected: "Posto Boa Viagem"
+    Error: strict mode violation: locator('.place-subtitle') resolved to 2 elements:
+        1) <p class="place-subtitle">Posto Boa Viagem</p> aka getByRole('dialog').getByText('Posto Boa Viagem')
+        2) <p class="place-subtitle">Posto Boa Viagem</p> aka getByText('Posto Boa Viagem').nth(1)
+
+    Call log:
+      - Expect "toHaveText" locator('.place-subtitle') with timeout 5000ms
+      - waiting for locator('.place-subtitle')
+
+
+      20 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:-29,z:-2234}));
+      21 |  for(const p of [{x:-48.7,z:-2249.5},{x:-47.2,z:-2248.3},{x:-48.3,z:-2251.2}]){
+    > 22 |   await teleportPlayer(page,p.x,p.z);await expect.poll(async()=>(await state(page)).interaction?.text).toBe('Falar com Zeca');await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:'Zeca',exact:true})).toBeVisible();await expect(page.locator('.place-subtitle')).toHaveText('Posto Boa Viagem');await page.getByRole('button',{name:'Exibir texto completo'}).click();await expect(page.getByRole('dialog')).toContainText('A bomba ainda puxa.');await page.keyboard.press('Escape');
+         |                                                                                                                                                                                                                                                                                              ^
+      23 |  }
+      24 |  await teleportPlayer(page,-48.7,-2249.5);await page.keyboard.press('KeyF');await page.getByRole('button',{name:'Compras e serviços',exact:true}).click();await expect(page.getByRole('button',{name:'Comprar',exact:true}).first()).toBeEnabled();await page.screenshot({path:`${dir}/zeca-services.png`});await page.keyboard.press('Escape');
+      25 |  await teleportPlayer(page,-44.7,-2250);await expect.poll(async()=>(await state(page)).interaction?.type).toBe('pump');await page.getByRole('button',{name:'F Abastecer caminhão',exact:true}).click();await expect(page.getByRole('heading',{name:'Bomba de combustível'})).toBeVisible();const fuelBefore=(await state(page)).fuel;await page.getByRole('button',{name:'Comprar',exact:true}).first().click();expect((await state(page)).fuel).toBeGreaterThan(fuelBefore);await page.keyboard.press('Escape');
+        at /workspace/work/2047-rede-aurora/tests/e2e/critical-gameplay.spec.js:22:286
+
+    Error Context: test-results/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/e2e/critical-gameplay.spec.js:29:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Mecanismo do Núcleo' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: 'Mecanismo do Núcleo' }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: 'Mecanismo do Núcleo' })
+
+
+      28 | });
+      29 | test('Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga',async({page})=>{
+    > 30 |  test.setTimeout(180000);await mkdir(dir,{recursive:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));await boot(page,fixture());await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:'Mecanismo do Núcleo'})).toBeVisible();await expect(page.getByRole('button',{name:'Calibrar · 2 peças / +20%'})).toBeEnabled();const before=await state(page);await page.getByRole('button',{name:'Iniciar ativação',exact:true}).click();await expect.poll(async()=>(await state(page)).campaign.cores['core-1'].state).toBe('failed');const failed=await state(page);expect(failed.integrity).toBe(62);expect(failed.campaign.network.cargo).toBe('core-1');expect(failed.campaign.inventory).toEqual(before.campaign.inventory);await page.screenshot({path:`${dir}/seed-failed.png`});
+         |                                                                                                                                                                                                                                                             ^
+      31 |  await page.getByRole('button',{name:'Calibrar · 2 peças / +20%'}).click();const calibrated=await state(page);expect(calibrated.integrity).toBe(82);expect(calibrated.campaign.inventory.player.parts).toBe(2);expect(calibrated.campaign.inventory.truck.parts).toBe(0);await expect(page.getByTestId('activation-chance')).toHaveText('100%');await page.getByRole('button',{name:'Iniciar ativação',exact:true}).click();await expect.poll(async()=>(await state(page)).campaign.cores['core-1'].state).toBe('active');await expect(page.getByRole('button',{name:'Calibrar · 2 peças / +20%'})).toBeDisabled();await expect(page.locator('.calibration-status')).toContainText('próxima Semente');await page.screenshot({path:`${dir}/seed-activated.png`});const completed=await state(page);
+      32 |  await page.keyboard.press('Escape');await page.keyboard.press('Escape');await page.getByRole('button',{name:'Salvar / carregar partida'}).click();await page.getByRole('button',{name:'Salvar neste slot'}).first().click();await expect(page.getByRole('dialog').getByRole('status')).toContainText('Partida salva',{timeout:15000});await page.reload();await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:90000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>(await state(page)).campaign.cores['core-1'].state).toBe('active');const loaded=await state(page);expect(loaded.campaign.inventory).toEqual(completed.campaign.inventory);expect(loaded.campaign.network.cargo).toBeNull();expect(errors).toEqual([]);await writeFile(`${dir}/seed-recovery.json`,JSON.stringify({before,failed,calibrated,completed,loaded,consoleErrors:errors,note:'Damage and RNG are initial saved-game conditions, never edited during the test. Failed activation/calibration/success use real UI rules.'},null,2));
+      33 | });
+        at /workspace/work/2047-rede-aurora/tests/e2e/critical-gameplay.spec.js:30:253
+
+    Error Context: test-results/critical-gameplay-Semente--0ac19-libração-ativação-e-recarga/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/critical-gameplay-Semente--0ac19-libração-ativação-e-recarga/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/critical-gameplay-Semente--0ac19-libração-ativação-e-recarga/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests/e2e/critical-gameplay.spec.js:15:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas 
+    tests/e2e/critical-gameplay.spec.js:29:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga 
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice

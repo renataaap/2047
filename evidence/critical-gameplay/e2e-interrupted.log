@@ -1,0 +1,154 @@
+
+> 2047-rede-aurora@0.7.0 test:e2e
+> playwright test
+
+
+Running 20 tests using 1 worker
+
+(node:34487) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   1 tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais (29.9s)
+(node:34710) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   2 tests/e2e/assets.spec.js:16:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer (14.4s)
+(node:34870) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   3 tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade (28.7s)
+(node:35042) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   4 tests/e2e/critical-gameplay.spec.js:15:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas (1.0m)
+  ✓   5 tests/e2e/critical-gameplay.spec.js:30:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga (48.6s)
+  ✘   6 tests/e2e/driving.spec.js:7:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura (25.3s)
+
+
+  1) tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "driving"
+    Received: "walking"
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+       at ../helpers/start-driving.js:7
+
+      5 |  await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();
+      6 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-3,z:5}));
+    > 7 |  await page.keyboard.press('KeyF');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('driving');
+        |                                                                                                                    ^
+      8 | }
+      9 |
+        at enterFromNewTutorial (/workspace/work/2047-rede-aurora/tests/helpers/start-driving.js:7:116)
+        at /workspace/work/2047-rede-aurora/tests/e2e/assets.spec.js:10:329
+
+    Error Context: test-results/assets-Poly-Haven-instalad-316df--usa-apenas-arquivos-locais/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/assets-Poly-Haven-instalad-316df--usa-apenas-arquivos-locais/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/assets-Poly-Haven-instalad-316df--usa-apenas-arquivos-locais/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/e2e/assets.spec.js:16:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "driving"
+    Received: "walking"
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+       at ../helpers/start-driving.js:7
+
+      5 |  await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();
+      6 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-3,z:5}));
+    > 7 |  await page.keyboard.press('KeyF');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('driving');
+        |                                                                                                                    ^
+      8 | }
+      9 |
+        at enterFromNewTutorial (/workspace/work/2047-rede-aurora/tests/helpers/start-driving.js:7:116)
+        at /workspace/work/2047-rede-aurora/tests/e2e/assets.spec.js:20:297
+
+    Error Context: test-results/assets-fixtures-originais--44195-as-e-NPC-usa-AnimationMixer/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/assets-fixtures-originais--44195-as-e-NPC-usa-AnimationMixer/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/assets-fixtures-originais--44195-as-e-NPC-usa-AnimationMixer/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "driving"
+    Received: "walking"
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+       at ../helpers/start-driving.js:7
+
+      5 |  await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();
+      6 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-3,z:5}));
+    > 7 |  await page.keyboard.press('KeyF');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('driving');
+        |                                                                                                                    ^
+      8 | }
+      9 |
+        at enterFromNewTutorial (/workspace/work/2047-rede-aurora/tests/helpers/start-driving.js:7:116)
+        at /workspace/work/2047-rede-aurora/tests/e2e/assets.spec.js:28:295
+
+    Error Context: test-results/assets-carros-reais-materi-155b2-arregamento-por-proximidade/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/assets-carros-reais-materi-155b2-arregamento-por-proximidade/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/assets-carros-reais-materi-155b2-arregamento-por-proximidade/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests/e2e/driving.spec.js:7:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "driving"
+    Received: "walking"
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+       at ../helpers/start-driving.js:7
+
+      5 |  await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();
+      6 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-3,z:5}));
+    > 7 |  await page.keyboard.press('KeyF');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('driving');
+        |                                                                                                                    ^
+      8 | }
+      9 |
+        at enterFromNewTutorial (/workspace/work/2047-rede-aurora/tests/helpers/start-driving.js:7:116)
+        at start (/workspace/work/2047-rede-aurora/tests/e2e/driving.spec.js:6:438)
+        at /workspace/work/2047-rede-aurora/tests/e2e/driving.spec.js:8:192
+
+    Error: End of central directory record signature not found. Either not a zip file, or file is truncated.
+
+    Error Context: test-results/driving-condução-partida-f-431e4-reio-exploração-e-ré-segura/error-context.md
+
+  4 failed
+    tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais 
+    tests/e2e/assets.spec.js:16:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer 
+    tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade 
+    tests/e2e/driving.spec.js:7:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura 
+  14 did not run
+  2 passed (3.6m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice

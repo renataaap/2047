@@ -1,0 +1,44 @@
+
+Running 1 test using 1 worker
+
+(node:24286) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/tutorial-assets.spec.js:22:1 › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga (1.4m)
+
+
+  1) tests/e2e/tutorial-assets.spec.js:22:1 › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga 
+
+    Error: expect(received).toContain(expected) // indexOf
+
+    Expected value: "park"
+    Received array: ["look", "logbook", "tools", "enter", "cab", "engine", "accelerate", "brake", "reverse"]
+
+    Call Log:
+    - Timeout 15000ms exceeded while waiting on the predicate
+
+      32 |  // Input-only steering toward the training rectangle. The Rapier body does the movement.
+      33 |  await expect.poll(async()=>{const s=await state(page),yaw=Math.atan2(2*(s.quaternion[3]*s.quaternion[1]+s.quaternion[0]*s.quaternion[2]),1-2*(s.quaternion[1]**2+s.quaternion[0]**2)),dx=-s.position[0],dz=-54-s.position[2],target=Math.atan2(-dx,-dz),error=Math.atan2(Math.sin(target-yaw),Math.cos(target-yaw));await page.evaluate(v=>window.__GAME_DEBUG__.setInput(v),{throttle:1,steer:Math.max(-.5,Math.min(.5,error*2))});return s.position[2];},{timeout:40000,intervals:[300]}).toBeLessThan(-49);
+    > 34 |  await page.evaluate(()=>window.__GAME_DEBUG__.setInput({handbrake:true}));await expect.poll(async()=>(await state(page)).tutorial.facts,{timeout:15000}).toContain('park');await page.keyboard.press('KeyE');await page.keyboard.press('KeyF');await page.keyboard.press('KeyV');const beforeRepair=await state(page);await page.getByRole('button',{name:'Reparo de campo · 2 peças / +25% Radiador',exact:true}).click();await page.keyboard.press('Escape');await expect.poll(async()=>(await state(page)).tutorial.completed).toContain('maintenance');expect((await state(page)).campaign.inventory.truck.parts).toBe(beforeRepair.campaign.inventory.truck.parts-2);await page.screenshot({path:`${dir}/training-done.png`});
+         |                                                                                                                                                           ^
+      35 |  // Long return/travel sections use diagnostics only to shorten this automated regression.
+      36 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-19,z:5}));await page.keyboard.press('KeyF');await page.getByRole('button',{name:'Aceitar a Semente e assumir a viagem'}).click();await page.keyboard.press('Escape');await page.keyboard.press('Tab');await expect(page.getByRole('heading',{name:'Inventário',exact:true})).toBeVisible();await page.keyboard.press('Escape');await page.keyboard.press('KeyM');await page.getByRole('button',{name:'Planejar desvio seguro'}).click();await page.keyboard.press('Escape');
+      37 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:(window.__GAME_DEBUG__.getState().position[0])-3,z:window.__GAME_DEBUG__.getState().position[2]}));await page.keyboard.press('KeyF');await page.keyboard.press('KeyE');await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:220,z:-900}));await expect.poll(async()=>(await state(page)).tutorial.completed).toContain('travel');
+        at /workspace/work/2047-rede-aurora/tests/e2e/tutorial-assets.spec.js:34:155
+
+    Error Context: test-results/tutorial-assets-tutorial-b-cfc87-gerador-conclusão-e-recarga/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/tutorial-assets-tutorial-b-cfc87-gerador-conclusão-e-recarga/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/tutorial-assets-tutorial-b-cfc87-gerador-conclusão-e-recarga/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/tutorial-assets.spec.js:22:1 › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga 
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice

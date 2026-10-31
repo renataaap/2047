@@ -1,0 +1,36 @@
+
+Running 1 test using 1 worker
+
+(node:19741) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/truck-opacity.spec.js:4:1 › Titã: sólidos opacos, vidros próprios, seis rodas e retorno correto da cabine (2.2m)
+
+
+  1) tests/e2e/truck-opacity.spec.js:4:1 › Titã: sólidos opacos, vidros próprios, seis rodas e retorno correto da cabine
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 10
+    Received:   4.371256745433643
+
+      13 |  }
+      14 |  const moving=result.shots.find(s=>s.id==='movimento').state;
+    > 15 |  expect(moving.speedKmh).toBeGreaterThan(10);expect(moving.importedTruck.wheels.some(w=>Math.abs(w.rotation)>.1)).toBe(true);expect(moving.importedTruck.wheels.some(w=>Math.abs(w.steering)>.03)).toBe(true);expect(moving.wheelContacts.filter(Boolean).length).toBeGreaterThan(3);expect(moving.importedTruck.wheels.every(w=>Number.isFinite(w.y))).toBe(true);
+         |                          ^
+      16 |  expect(result.shots.find(s=>s.id==='noite').state.headlights).toBe(true);expect(result.exited.mode).toBe('walking');expect(result.exited.importedTruck.visible).toBe(true);expect(result.exited.importedTruck.legacyCabVisible).toBe(false);expect(result.exited.importedTruck.cabShellVisible).toBe(true);expect(result.consoleErrors).toEqual([]);
+      17 | });
+      18 |
+        at /workspace/work/2047-rede-aurora/tests/e2e/truck-opacity.spec.js:15:26
+
+    Error Context: test-results/truck-opacity-Titã-sólidos-a0dcc-e-retorno-correto-da-cabine/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/truck-opacity-Titã-sólidos-a0dcc-e-retorno-correto-da-cabine/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/truck-opacity-Titã-sólidos-a0dcc-e-retorno-correto-da-cabine/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/truck-opacity.spec.js:4:1 › Titã: sólidos opacos, vidros próprios, seis rodas e retorno correto da cabine

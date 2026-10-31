@@ -1,0 +1,44 @@
+
+> 2047-rede-aurora@0.6.0 test
+> vitest run
+
+
+ RUN  v5.0.5 /workspace/work/2047-rede-aurora
+
+ ❯ tests/unit/world.test.js (5 tests | 1 failed) 10ms
+   ❯ ajustes persistidos (1)
+     × normaliza valores inválidos e limita volume 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/world.test.js > ajustes persistidos > normaliza valores inválidos e limita volume
+AssertionError: expected { footCamera: 'first', …(8) } to deeply equal { quality: 'medio', scale: 1, …(6) }
+
+- Expected
++ Received
+
+@@ -1,8 +1,9 @@
+  {
+    "cabMotion": true,
+    "cameraDistance": 14,
++   "footCamera": "first",
+    "quality": "medio",
+    "scale": 1,
+    "steeringSensitivity": 1,
+    "subtitleScale": 1,
+    "subtitles": true,
+
+ ❯ tests/unit/world.test.js:9:171
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 14 passed (15)
+      Tests  1 failed | 128 passed (129)
+   Start at  19:25:32
+   Duration  5.02s (tests 81%, import 14%, transform 3%, worker 1%)
+
+    Isolate  15 workers spawned · ~77ms startup each (spawn + environment, per file)
+             at least ~1.07s faster with isolate: false — reuses workers across files instead of one per file
+

@@ -1,0 +1,241 @@
+
+> 2047-rede-aurora@0.7.0 test:e2e
+> playwright test
+
+
+Running 20 tests using 1 worker
+
+(node:35809) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais (40.0s)
+  ✓   2 tests/e2e/assets.spec.js:16:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer (23.1s)
+  ✓   3 tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade (58.5s)
+  ✓   4 tests/e2e/critical-gameplay.spec.js:15:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas (1.0m)
+  ✓   5 tests/e2e/critical-gameplay.spec.js:30:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga (50.1s)
+  ✓   6 tests/e2e/driving.spec.js:7:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura (47.6s)
+  ✓   7 tests/e2e/driving.spec.js:15:1 › câmera externa respeita paredes e ajustes de condução persistem (57.3s)
+  ✘   8 tests/e2e/exit.spec.js:5:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos (28.1s)
+(node:36776) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   9 tests/e2e/game.spec.js:5:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento (1.6m)
+(node:37065) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  10 tests/e2e/game.spec.js:19:1 › câmeras, motor, pausa, configurações e API (1.6m)
+(node:37365) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  11 tests/e2e/game.spec.js:31:1 › setores se renovam até as cidades e o objetivo mantém a primeira Semente (48.0s)
+  ✓  12 tests/e2e/interface.spec.js:4:1 › diálogo por falas, teclado, escala de legendas e retorno ao controle (42.2s)
+  ✓  13 tests/e2e/phase2.spec.js:7:1 › API: cookies, isolamento, CRUD, validação e conflito (691ms)
+  ✘  14 tests/e2e/phase2.spec.js:17:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga (20.3s)
+(node:37772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  15 tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência (35.4s)
+(node:38001) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  16 tests/e2e/phase4.spec.js:17:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral (58.7s)
+(node:38358) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  17 tests/e2e/phase4.spec.js:36:1 › Fase 4: bloqueio físico, desvio transitável e frente climática persistida (35.4s)
+  ✓  18 tests/e2e/tutorial-assets.spec.js:9:1 › arquivos reais: oito PBR, garagem com interior e Titã com seis rodas (41.3s)
+  ✓  19 tests/e2e/tutorial-assets.spec.js:15:1 › progresso parcial retoma; pular e repetir preservam recursos e campanha (47.8s)
+  ✓  20 tests/e2e/tutorial-assets.spec.js:28:1 › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga (2.3m)
+
+
+  1) tests/e2e/exit.spec.js:5:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "driving"
+    Received: "walking"
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+       8 |  await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await enterFromNewTutorial(page);await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');await page.keyboard.press('KeyE');
+       9 |  await page.keyboard.press('KeyF');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('walking');const first=await page.evaluate(()=>window.__GAME_DEBUG__.getState());await page.screenshot({path:'evidence/hotfix-0.3.1/foot-at-shelter.png'});
+    > 10 |  await page.keyboard.press('KeyF');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('driving');await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:22.2,z:-700}));await page.waitForTimeout(800);
+         |                                                                                                                    ^
+      11 |  await page.getByRole('button',{name:'F Descer do caminhão',exact:true}).click();await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('walking');
+      12 |  const outside=await page.evaluate(()=>window.__GAME_DEBUG__.getState());await page.keyboard.down('KeyW');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().playerPosition[2]),{timeout:15000}).toBeLessThan(outside.playerPosition[2]-.3);await page.keyboard.up('KeyW');const moved=await page.evaluate(()=>window.__GAME_DEBUG__.getState());expect(moved.playerPosition[2]).toBeLessThan(outside.playerPosition[2]-.3);await page.screenshot({path:'evidence/hotfix-0.3.1/foot-by-road.png'});
+      13 |  await page.keyboard.down('KeyS');await expect.poll(()=>page.evaluate(()=>{const s=window.__GAME_DEBUG__.getState();return Math.hypot(s.playerPosition[0]-s.position[0],s.playerPosition[2]-s.position[2]);}),{timeout:15000}).toBeLessThan(4.5);await page.keyboard.up('KeyS');await page.keyboard.press('KeyF');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('driving');await page.keyboard.down('KeyW');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().speed),{timeout:15000}).toBeGreaterThan(1);await page.keyboard.up('KeyW');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().speed)).toBeGreaterThan(.6);await page.keyboard.press('KeyF');expect(await page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('driving');await expect(page.getByRole('button',{name:/Segure Espaço até parar/})).toBeVisible();
+        at /workspace/work/2047-rede-aurora/tests/e2e/exit.spec.js:10:116
+
+    Error Context: test-results/exit-0-3-1-sair-com-F-ou-b-c6f70-ar-ao-Titã-fora-dos-abrigos/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/exit-0-3-1-sair-com-F-ou-b-c6f70-ar-ao-Titã-fora-dos-abrigos/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/exit-0-3-1-sair-com-F-ou-b-c6f70-ar-ao-Titã-fora-dos-abrigos/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/e2e/game.spec.js:5:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 631
+    Received:    576
+
+    Call Log:
+    - Test timeout of 90000ms exceeded
+
+       9 |   await start.click();await enterFromNewTutorial(page);await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');await page.keyboard.press('KeyE');
+      10 |   await page.evaluate(()=>window.__GAME_DEBUG__.resetMetrics());const before=await page.evaluate(()=>window.__GAME_DEBUG__.getState());
+    > 11 |   await page.keyboard.down('KeyW');const wallStart=Date.now(),stepStart=await page.evaluate(()=>window.__GAME_DEBUG__.getState().simulation.steps);await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().simulation.steps),{timeout:60000,intervals:[250]}).toBeGreaterThanOrEqual(stepStart+480);await page.keyboard.up('KeyW');
+         |                                                                                                                                                                                                                                                                                ^
+      12 |   const after=await page.evaluate(()=>window.__GAME_DEBUG__.getState());
+      13 |   await page.screenshot({path:new URL('driving.png',evidence).pathname});
+      14 |   const result={before,after,consoleErrors:errors,renderer:'Chromium / ANGLE SwiftShader (software)',viewport:'1280×720',requestedSimulatedSeconds:8,simulatedSeconds:(after.simulation.steps-stepStart)/60,wallSeconds:(Date.now()-wallStart)/1000};
+        at /workspace/work/2047-rede-aurora/tests/e2e/game.spec.js:11:272
+
+    Error Context: test-results/game-aceite-mundo-real-W-p-992a4--diesel-console-e-orçamento/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/game-aceite-mundo-real-W-p-992a4--diesel-console-e-orçamento/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/game-aceite-mundo-real-W-p-992a4--diesel-console-e-orçamento/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests/e2e/game.spec.js:19:1 › câmeras, motor, pausa, configurações e API ──────────────────────
+
+    Test timeout of 90000ms exceeded.
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator:  getByRole('button', { name: '01 Novo jogo' })
+    Expected: enabled
+    Received: disabled
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('button', { name: '01 Novo jogo' }) with timeout 60000ms
+      - waiting for getByRole('button', { name: '01 Novo jogo' })
+        2 × locator resolved to <button disabled aria-label="01 Novo jogo">…</button>
+          - unexpected value "disabled"
+      - Test timeout of 90000ms exceeded.
+
+
+      27 |   const res=await page.request.get('/api/game/config');expect(res.ok()).toBeTruthy();const config=await res.json();expect(config.phase).toBe(4);expect(config.seed).toBe(2047);
+      28 |   await page.keyboard.press('Escape');await page.getByRole('button',{name:'Voltar ao menu'}).click();await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled();expect(errors).toEqual([]);
+    > 29 |   await page.reload();await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'Configurações',exact:true}).click();await expect(page.getByRole('button',{name:'Baixo',exact:true})).toHaveAttribute('aria-pressed','true');
+         |                                                                                    ^
+      30 | });
+      31 | test('setores se renovam até as cidades e o objetivo mantém a primeira Semente',async({page})=>{
+      32 |   const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await enterFromNewTutorial(page);
+        at /workspace/work/2047-rede-aurora/tests/e2e/game.spec.js:29:84
+
+    Error Context: test-results/game-câmeras-motor-pausa-configurações-e-API/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/game-câmeras-motor-pausa-configurações-e-API/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/game-câmeras-motor-pausa-configurações-e-API/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests/e2e/phase2.spec.js:17:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 2.2707252979278563
+    Received:   2.4707252979278564
+
+      20 |  await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await enterFromNewTutorial(page);await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');await page.keyboard.press('KeyE');
+      21 |  await page.keyboard.press('KeyF');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('walking');
+    > 22 |  const beforeWalk=await page.evaluate(()=>window.__GAME_DEBUG__.getState().playerPosition);await page.keyboard.down('KeyW');await page.waitForTimeout(600);await page.keyboard.up('KeyW');const afterWalk=await page.evaluate(()=>window.__GAME_DEBUG__.getState().playerPosition);expect(afterWalk[2]).toBeLessThan(beforeWalk[2]-.2);
+         |                                                                                                                                                                                                                                                                                                         ^
+      23 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-19,z:5}));await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:'Sobrevivente',exact:true})).toBeVisible();await page.screenshot({path:`${dir}/shelter.png`});await page.getByRole('button',{name:'Aceitar a Semente e assumir a viagem'}).click();await expect(page.getByRole('heading',{name:'Rádio de ondas curtas'})).toBeVisible();await page.keyboard.press('Escape');
+      24 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-3,z:5}));await page.keyboard.press('Tab');await expect(page.getByRole('heading',{name:'Inventário',exact:true})).toBeVisible();for(let i=0;i<4;i++)await page.getByRole('button',{name:'Transferir Peças mecânicas para Titã',exact:true}).click();for(let i=0;i<4;i++)await page.getByRole('button',{name:'Transferir Diesel para Titã',exact:true}).click();await page.getByRole('button',{name:'Abastecer 4 L'}).click();expect(await page.evaluate(()=>window.__GAME_DEBUG__.getState().fuel)).toBeGreaterThan(7);
+      25 |  await page.keyboard.press('Escape');await page.keyboard.press('KeyV');await page.getByRole('button',{name:'Reparo de campo · 2 peças / +25% Radiador',exact:true}).click();await page.getByRole('button',{name:'Reparo de campo · 2 peças / +25% Suspensão',exact:true}).click();const prepared=await page.evaluate(()=>window.__GAME_DEBUG__.getState());expect(prepared.campaign.components.suspension).toBe(63);expect(prepared.campaign.components.radiator).toBe(60);await page.screenshot({path:`${dir}/maintenance.png`});await page.keyboard.press('Escape');
+        at /workspace/work/2047-rede-aurora/tests/e2e/phase2.spec.js:22:297
+
+    Error Context: test-results/phase2-fatia-vertical-abri-8d7cf-leo-transformação-e-recarga/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/phase2-fatia-vertical-abri-8d7cf-leo-transformação-e-recarga/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/phase2-fatia-vertical-abri-8d7cf-leo-transformação-e-recarga/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Oficina abandonada', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: 'Oficina abandonada', exact: true }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: 'Oficina abandonada', exact: true })
+
+
+      10 |  await page.keyboard.down('KeyW');await page.waitForTimeout(2000);await page.keyboard.up('KeyW');state=await page.evaluate(()=>window.__GAME_DEBUG__.getState());expect(state.campaign.expedition.hydration).toBeLessThan(100);expect(state.campaign.expedition.satiety).toBeLessThan(100);
+      11 |  await page.keyboard.press('KeyH');const stopped=await page.evaluate(()=>window.__GAME_DEBUG__.getState().campaign.expedition.hydration);await page.waitForTimeout(700);expect(await page.evaluate(()=>window.__GAME_DEBUG__.getState().campaign.expedition.hydration)).toBe(stopped);await page.getByRole('button',{name:/Beber 1 L de água/}).first().click();await page.getByRole('button',{name:/Comer 1 ração/}).first().click();state=await page.evaluate(()=>window.__GAME_DEBUG__.getState());expect(state.campaign.inventory.player.water).toBe(3);expect(state.campaign.inventory.player.food).toBe(2);await page.screenshot({path:'evidence/phase3/survival.png'});await page.keyboard.press('Escape');
+    > 12 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:-33,z:-1640}));await page.waitForTimeout(700);await page.keyboard.press('KeyF');await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-38,z:-1647}));await page.keyboard.down('KeyW');await page.waitForTimeout(650);await page.keyboard.up('KeyW');await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-38,z:-1651}));await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:'Oficina abandonada',exact:true})).toBeVisible();await page.getByRole('button',{name:'Recolher suprimentos',exact:true}).click();await expect(page.getByRole('button',{name:'Suprimentos já recolhidos'})).toBeDisabled();await page.keyboard.press('Escape');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().expeditionVisual.lootVisible.depot)).toBe(false);await page.screenshot({path:'evidence/phase3/workshop.png'});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+      13 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-36,z:-1640}));await page.keyboard.press('KeyF');await page.waitForFunction(()=>window.__GAME_DEBUG__.getState().mode==='driving');await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:-22,z:-3470}));await page.waitForTimeout(700);await page.keyboard.press('KeyF');await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-28,z:-3481}));await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:'Posto de Mãe Ivani'})).toBeVisible();const beforeTrade=await page.evaluate(()=>window.__GAME_DEBUG__.getState().campaign);await page.getByRole('button',{name:'Comprar Água',exact:true}).click();await page.getByRole('button',{name:'Descansar · 1 comida + 1 água',exact:true}).click();state=await page.evaluate(()=>window.__GAME_DEBUG__.getState());expect(state.campaign.expedition.stock.water).toBe(8);expect(state.campaign.inventory.player.scrap).toBe(beforeTrade.inventory.player.scrap-1);expect(state.campaign.expedition.fatigue).toBe(0);await page.screenshot({path:'evidence/phase3/ivani.png'});await page.keyboard.press('Escape');
+      14 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-25,z:-3470}));await page.keyboard.press('KeyF');await page.waitForFunction(()=>window.__GAME_DEBUG__.getState().mode==='driving');await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:10,z:-4300}));await page.waitForTimeout(900);expect((await page.evaluate(()=>window.__GAME_DEBUG__.getState())).region).toBe('salt');expect((await page.evaluate(()=>window.__GAME_DEBUG__.getState())).surface).toBe('sal');await page.keyboard.down('KeyW');await page.waitForTimeout(4000);await page.keyboard.up('KeyW');state=await page.evaluate(()=>window.__GAME_DEBUG__.getState());expect(state.temperature).toBeGreaterThan(40);expect(state.worldVisual.rain).toBe(false);await page.screenshot({path:'evidence/phase3/salt.png'});
+      15 |  await page.evaluate(()=>window.__GAME_DEBUG__.teleport({x:38,z:-5090}));await page.waitForTimeout(700);await page.keyboard.press('KeyF');await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:42,z:-5101}));await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:'Estação meteorológica'})).toBeVisible();await page.getByRole('button',{name:'Recolher suprimentos',exact:true}).click();await expect(page.getByRole('dialog').getByRole('status')).toContainText('A mochila está cheia');await page.keyboard.press('Escape');await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:35,z:-5090}));await page.keyboard.press('KeyF');await page.keyboard.press('Tab');for(let i=0;i<4;i++)await page.getByRole('button',{name:'Transferir Peças mecânicas para Titã',exact:true}).click();await page.keyboard.press('Escape');await page.keyboard.press('KeyF');await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:42,z:-5101}));await page.keyboard.press('KeyF');await page.getByRole('button',{name:'Recolher suprimentos',exact:true}).click();await expect(page.getByRole('button',{name:'Suprimentos já recolhidos'})).toBeDisabled();await page.keyboard.press('Escape');await page.keyboard.down('KeyD');await page.waitForTimeout(1800);await page.keyboard.up('KeyD');const wall=await page.evaluate(()=>window.__GAME_DEBUG__.getState().playerPosition);expect(wall[0]).toBeGreaterThan(43);expect(wall[0]).toBeLessThan(46.3);await page.screenshot({path:'evidence/phase3/station.png'});
+        at /workspace/work/2047-rede-aurora/tests/e2e/phase3.spec.js:12:506
+
+    Error Context: test-results/phase3-Fase-3-migração-águ-c209b-i-Leito-Seco-e-persistência/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/phase3-Fase-3-migração-águ-c209b-i-Leito-Seco-e-persistência/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/phase3-Fase-3-migração-águ-c209b-i-Leito-Seco-e-persistência/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) tests/e2e/phase4.spec.js:17:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "driving"
+    Received: "walking"
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      11 | const state=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
+      12 | async function boot(page,data){await page.setViewportSize({width:960,height:640});await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:.15,subtitles:true})));await page.request.get('/api/saves');expect((await page.request.post('/api/saves',{data:{slot:'1',data}})).status()).toBe(201);await page.goto('/');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');}
+    > 13 | async function enter(page){const s=await state(page);if(s.mode==='paused')await page.keyboard.press('Escape');if((await state(page)).mode==='walking'){await page.evaluate(()=>{const p=window.__GAME_DEBUG__.getState().position;window.__GAME_DEBUG__.teleportPlayer({x:p[0]-3,z:p[2]});});await page.keyboard.press('KeyF');await expect.poll(async()=>(await state(page)).mode).toBe('driving');}}
+         |                                                                                                                                                                                                                                                                                                                                                                                     ^
+      14 | async function visit(page,p){await enter(page);const core=p.kind==='network-core';await page.evaluate(({x,z})=>window.__GAME_DEBUG__.teleport({x,z}),{x:p.x-(core?14:12),z:p.z+(core?10:17)});await page.keyboard.down('Space');await page.waitForTimeout(1000);await expect.poll(async()=>(await state(page)).speed,{timeout:10000}).toBeLessThan(.6);await page.keyboard.press('KeyF');await page.keyboard.up('Space');await expect.poll(async()=>(await state(page)).mode).toBe('walking');await page.evaluate(p=>window.__GAME_DEBUG__.teleportPlayer(p),interactionPoint(p));await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:p.kind==='shelter'?p.npc:p.name,exact:true})).toBeVisible();}
+      15 | async function side(page,id){const s=SHELTERS.find(s=>s.id===id);await visit(page,{...s,kind:'shelter'});await page.getByRole('button',{name:'Aceitar missão',exact:true}).click();await page.getByRole('button',{name:'Entregar e concluir',exact:true}).click();await expect.poll(async()=>(await state(page)).campaign.network.quests[s.quest]).toBe('completed');}
+      16 |
+        at enter (/workspace/work/2047-rede-aurora/tests/e2e/phase4.spec.js:13:373)
+        at visit (/workspace/work/2047-rede-aurora/tests/e2e/phase4.spec.js:14:30)
+        at /workspace/work/2047-rede-aurora/tests/e2e/phase4.spec.js:27:3
+
+    Error Context: test-results/phase4-Fase-4-save-2-Cofre-fd285-ão-local-e-recarga-integral/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/phase4-Fase-4-save-2-Cofre-fd285-ão-local-e-recarga-integral/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/phase4-Fase-4-save-2-Cofre-fd285-ão-local-e-recarga-integral/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    tests/e2e/exit.spec.js:5:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos 
+    tests/e2e/game.spec.js:5:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento 
+    tests/e2e/game.spec.js:19:1 › câmeras, motor, pausa, configurações e API ───────────────────────
+    tests/e2e/phase2.spec.js:17:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga 
+    tests/e2e/phase3.spec.js:4:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência 
+    tests/e2e/phase4.spec.js:17:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral 
+  14 passed (17.4m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+npm notice To update run: npm install -g npm@12.2.1
+npm notice

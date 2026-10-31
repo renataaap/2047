@@ -1,0 +1,168 @@
+{
+  "version": "0.7.0",
+  "codeCheckpoint": "a96e0b805a71d8f919c34c959c0ab6d7f481c660",
+  "unit": {
+    "passed": 136,
+    "files": 15,
+    "log": "unit.log"
+  },
+  "build": {
+    "passed": true,
+    "log": "build.log"
+  },
+  "browser": {
+    "uniqueScenarios": 20,
+    "allHavePassingRecheck": true,
+    "singleGreenFullRun": false,
+    "initialFullRun": {
+      "passed": 14,
+      "failed": 6
+    },
+    "finalFocusedRuns": [
+      {
+        "log": "surface-recheck.log",
+        "passed": 2
+      },
+      {
+        "log": "spawn-regression.log",
+        "passed": 3
+      }
+    ],
+    "cases": [
+      {
+        "file": "tests/e2e/assets.spec.js",
+        "name": "Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/assets.spec.js",
+        "name": "fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/assets.spec.js",
+        "name": "carros reais: materiais próprios, colisão e descarregamento por proximidade",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/critical-gameplay.spec.js",
+        "name": "alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas",
+        "lastResult": "passed",
+        "lastLog": "spawn-regression.log"
+      },
+      {
+        "file": "tests/e2e/critical-gameplay.spec.js",
+        "name": "Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/driving.spec.js",
+        "name": "condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/driving.spec.js",
+        "name": "câmera externa respeita paredes e ajustes de condução persistem",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/exit.spec.js",
+        "name": "0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos",
+        "lastResult": "passed",
+        "lastLog": "spawn-regression.log"
+      },
+      {
+        "file": "tests/e2e/game.spec.js",
+        "name": "aceite: mundo real, W por 8 s simulados, diesel, console e orçamento",
+        "lastResult": "passed",
+        "lastLog": "recheck.log"
+      },
+      {
+        "file": "tests/e2e/game.spec.js",
+        "name": "câmeras, motor, pausa, configurações e API",
+        "lastResult": "passed",
+        "lastLog": "recheck.log"
+      },
+      {
+        "file": "tests/e2e/game.spec.js",
+        "name": "setores se renovam até as cidades e o objetivo mantém a primeira Semente",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/interface.spec.js",
+        "name": "diálogo por falas, teclado, escala de legendas e retorno ao controle",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/phase2.spec.js",
+        "name": "API: cookies, isolamento, CRUD, validação e conflito",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/phase2.spec.js",
+        "name": "fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga",
+        "lastResult": "passed",
+        "lastLog": "recheck.log"
+      },
+      {
+        "file": "tests/e2e/phase3.spec.js",
+        "name": "Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência",
+        "lastResult": "passed",
+        "lastLog": "surface-recheck.log"
+      },
+      {
+        "file": "tests/e2e/phase4.spec.js",
+        "name": "Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral",
+        "lastResult": "passed",
+        "lastLog": "surface-recheck.log"
+      },
+      {
+        "file": "tests/e2e/phase4.spec.js",
+        "name": "Fase 4: bloqueio físico, desvio transitável e frente climática persistida",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/tutorial-assets.spec.js",
+        "name": "arquivos reais: oito PBR, garagem com interior e Titã com seis rodas",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/tutorial-assets.spec.js",
+        "name": "progresso parcial retoma; pular e repetir preservam recursos e campanha",
+        "lastResult": "passed",
+        "lastLog": "e2e.log"
+      },
+      {
+        "file": "tests/e2e/tutorial-assets.spec.js",
+        "name": "tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga",
+        "lastResult": "passed",
+        "lastLog": "spawn-regression.log"
+      }
+    ]
+  },
+  "narrativeFilesUnchanged": true,
+  "publication": "published-private-renataaap/2047; public-target-still-403",
+  "limits": [
+    "SwiftShader software rendering; no hardware GPU/Windows verification.",
+    "Character art and cab entry/exit animations are provisional.",
+    "Six-phase game roadmap remains incomplete; see phase audit."
+  ],
+  "serverRestartPersistence": {
+    "passed": true,
+    "evidence": "restart-persistence.json",
+    "isolatedDatabase": true,
+    "productionTursoTested": false
+  },
+  "publicationEvidence": "publication-private.json"
+}

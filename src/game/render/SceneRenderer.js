@@ -8,10 +8,13 @@ export class SceneRenderer {
     this.renderer.shadowMap.type=THREE.PCFShadowMap;
     this.scene=new THREE.Scene();this.scene.background=new THREE.Color('#75848a');this.scene.fog=new THREE.FogExp2('#88908e',.0029);
     this.camera=new THREE.PerspectiveCamera(54,1,.1,1800);
-    this.scene.add(new THREE.HemisphereLight('#9caeba','#6b5844',2.1));
+    this.ambient=new THREE.HemisphereLight('#9caeba','#6b5844',2.1);this.scene.add(this.ambient);
     this.sun=new THREE.DirectionalLight('#f3ce9d',3.1);this.sun.position.set(-100,65,-160);this.sun.castShadow=true;
     const sc=this.sun.shadow.camera;sc.left=sc.bottom=-45;sc.right=sc.top=45;sc.near=1;sc.far=300;this.sun.shadow.bias=-.0005;this.sun.shadow.normalBias=.12;this.scene.add(this.sun,this.sun.target);
-    const skyGeo=new THREE.SphereGeometry(1500,24,12);const skyMat=new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:{top:{value:new THREE.Color('#4f6575')},bottom:{value:new THREE.Color('#b7a68c')}},vertexShader:'varying vec3 v;void main(){v=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',fragmentShader:'varying vec3 v;uniform vec3 top;uniform vec3 bottom;void main(){float h=clamp(normalize(v).y*1.6,0.0,1.0);float cloud=sin(v.x*.006+sin(v.z*.009))*sin(v.z*.006+v.y*.012)*.035;gl_FragColor=vec4(mix(bottom,top,h)+cloud,1.0);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}'});
+    const skyGeo=new THREE.SphereGeometry(1500,24,12);const skyMat=new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:{top:{value:new THREE.Color('#4f6575')},bottom:{value:new THREE.Color('#b7a68c')},sunDirection:{value:new THREE.Vector3(-.6,.4,-.5)},night:{value:0},clock:{value:0}},vertexShader:`varying vec3 v;void main(){v=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);gl_Position.z=gl_Position.w;}`,fragmentShader:`varying vec3 v;uniform vec3 top;uniform vec3 bottom;uniform vec3 sunDirection;uniform float night;uniform float clock;void main(){float h=clamp(normalize(v).y*1.6,0.0,1.0);float cloud=sin(v.x*.006+clock*.018+sin(v.z*.009))*sin(v.z*.006+v.y*.012)*.035;float disk=smoothstep(.9995,.99985,dot(normalize(v),sunDirection));float stars=step(.9985,fract(sin(dot(floor(normalize(v)*850.0),vec3(12.989,78.233,32.42)))*43758.54))*night*max(0.0,normalize(v).y);gl_FragColor=vec4(mix(bottom,top,h)+cloud+disk*mix(vec3(1.0,.78,.5),vec3(.65,.77,1.0),night)*1.4+stars*.25,1.0);
+#include <tonemapping_fragment>
+#include <colorspace_fragment>
+}`});
     this.sky=new THREE.Mesh(skyGeo,skyMat);this.scene.add(this.sky);
     // Original procedural sky, convolved for image-based lighting. No external HDRI claimed.
     this.scene.environmentIntensity=.4;
@@ -21,14 +24,14 @@ export class SceneRenderer {
   }
   applySettings(settings) {
     this.settings=settings;this.preset=CONFIG.presets[settings.quality]||CONFIG.presets.medio;
-    if(settings.quality==='alto'&&!this.environment){const skyScene=new THREE.Scene(),skyMaterial=this.sky.material.clone();skyScene.add(new THREE.Mesh(this.sky.geometry,skyMaterial));const pmrem=new THREE.PMREMGenerator(this.renderer);this.environment=pmrem.fromScene(skyScene,0,.1,2000);pmrem.dispose();skyMaterial.dispose();}this.scene.environment=settings.quality==='alto'?this.environment.texture:null;
+    if(settings.quality==='alto'&&!this.environment){const skyScene=new THREE.Scene(),skyMaterial=this.sky.material.clone();skyMaterial.uniforms.top.value.set('#627d91');skyMaterial.uniforms.bottom.value.set('#c8bda2');skyMaterial.uniforms.night.value=0;skyMaterial.uniforms.clock.value=0;skyMaterial.uniforms.sunDirection.value.set(-.6,.4,-.5).normalize();skyScene.add(new THREE.Mesh(this.sky.geometry,skyMaterial));const pmrem=new THREE.PMREMGenerator(this.renderer);this.environment=pmrem.fromScene(skyScene,0,.1,2000);pmrem.dispose();skyMaterial.dispose();}this.scene.environment=settings.quality==='alto'?this.environment.texture:null;
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,this.preset.pixelRatio)*(settings.scale||1));this.renderer.shadowMap.enabled=this.preset.shadows;this.sun.shadow.mapSize.setScalar(this.preset.shadowSize);
     if(this.sun.shadow.map){this.sun.shadow.map.dispose();this.sun.shadow.map=null;}
     this.dustGeo.setDrawRange(0,this.preset.particles);this.scene.fog.density=1.6/this.preset.distance;this.camera.far=this.preset.distance*2.3;this.camera.updateProjectionMatrix();this.resize?.();
   }
   render(position,dt) {
     this.sky.position.copy(this.camera.position);
-    this.sun.position.set(position.x-100,position.y+65,position.z-160);this.sun.target.position.copy(position);this.sun.target.updateMatrixWorld();
+    const sun=this.sunOffset||new THREE.Vector3(-100,65,-160);this.sun.position.set(position.x+sun.x,position.y+sun.y,position.z+sun.z);this.sun.target.position.copy(position);this.sun.target.updateMatrixWorld();
     this.dust.position.copy(position);for(let i=0;i<this.preset.particles;i++){this.dustPositions[i*3]+=(.65+i%3*.12)*dt;if(this.dustPositions[i*3]>50)this.dustPositions[i*3]=-50;}this.dustGeo.attributes.position.needsUpdate=true;
     this.renderer.render(this.scene,this.camera);
   }

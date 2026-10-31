@@ -9,7 +9,7 @@ export class Cameras {
  zoom(delta){if(this.mode!==1)this.distance=Math.max(6,Math.min(25,this.distance+delta*.01));}
  update(truck,menu,time,dt){
   const root=truck.root||truck,p=root.position,q=root.quaternion,inside=this.mode===1&&!menu;
-  if(menu){this.desired.set(11+Math.sin(time*.06)*1.2,4.7,-9).add(p);this.focus.copy(p).add(new THREE.Vector3(-2,1.1,-.5));}
+  if(menu){this.desired.set(11.5+Math.sin(time*.035)*.8,3.1,-8.5).add(p);this.focus.copy(p).add(new THREE.Vector3(-4.6,1.45,1.2));}
   else if(inside){
    const cab=truck.cab||root;cab.updateWorldMatrix(true,false);this.desired.set(-.62,1.95,-1.98).applyMatrix4(cab.matrixWorld);
    this.camera.up.set(0,1,0).transformDirection(cab.matrixWorld);
