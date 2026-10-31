@@ -1,6 +1,12 @@
 # Estado do projeto — 2047: Rede Aurora
 
-**Estado atual: 0.8.1 — correção de transparência do Titã**, na branch feat/tutorial-assets, sobre a 0.8.0 (`034506a`). Ler [RELATORIO_CORRECAO_TITA_0.8.1.md](RELATORIO_CORRECAO_TITA_0.8.1.md). O único material BLEND original foi separado por função no GLB; sólidos escrevem profundidade e vidros/lentes continuam transparentes. Posições, normais, UVs, três PNGs e seis pivôs preservados. O exterior volta corretamente ao descer pela câmera interna. Cockpit ainda provisório. Resultados desta correção em `evidence/truck-opacity/`; não confundir com as rodadas históricas abaixo.
+**Estado atual: 0.8.2 — polimento em revisão**, branch feat/polimento-0.8.2, derivada da main d8a3b2a (0.8.1). Ler [RELATORIO_POLIMENTO_0.8.2.md](RELATORIO_POLIMENTO_0.8.2.md), docs/INCREMENTOS_0.8.2.md e docs/TESTE_MANUAL_0.8.2.md. Cabine modular e âncora dos olhos; instrumentos reais; seis identidades de roupas/equipamentos; pose sentada e transições; terreno PBR recuperado sem trocar malha física; oficina/barracão/POIs/fábricas refinados; loja acessível; diário único derivado dos saves existentes.
+
+**Validação 0.8.2:** 175 unitários aprovados; build e 28 E2Es integrais finais ainda em preparação/execução neste checkpoint. Base executada novamente: 167 unitários, build e 25/25 E2Es numa integral. Não somar rodadas repetidas como cenários extras. Provas próprias em evidence/polish-0.8.2. Main e histórico preservados; nenhum force push.
+
+**Limites:** personagens ainda usam base CC0 compartilhada; não há arte facial final, subida completa com contato nem retrovisores dinâmicos. Windows/GPU, audição e viagem humana de 30 minutos continuam pendentes. Capturas usam diagnóstico de posição/horário, sem alegar viagem humana. O roteiro manual está disponível. Jogo inteiro/finais não concluídos.
+
+**Histórico 0.8.1 — correção de transparência do Titã**, na branch feat/tutorial-assets, sobre a 0.8.0 (`034506a`). Ler [RELATORIO_CORRECAO_TITA_0.8.1.md](RELATORIO_CORRECAO_TITA_0.8.1.md). O único material BLEND original foi separado por função no GLB; sólidos escrevem profundidade e vidros/lentes continuam transparentes. Posições, normais, UVs, três PNGs e seis pivôs preservados. O exterior volta corretamente ao descer pela câmera interna. Cockpit ainda provisório. Resultados desta correção em `evidence/truck-opacity/`; não confundir com as rodadas históricas abaixo.
 
 **Validação nova da 0.8.1:** 167 unitários/24 arquivos, build e dez E2Es relevantes aprovados (uma rodada 10/10, não a suíte inteira). Onze pares de capturas reais, saída pela cabine e inspeção adicional Baixo/Alto/Baixo com sombras. Windows/GPU real continua pendente.
 

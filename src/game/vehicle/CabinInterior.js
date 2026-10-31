@@ -37,6 +37,7 @@ export function createCabin({instrumentsFactory=createInstruments}={}){
  const label=(row,w,h,x,y,z)=>{const g=new THREE.PlaneGeometry(w,h),uv=g.attributes.uv;for(let i=0;i<uv.count;i++)uv.setY(i,(7-row+uv.getY(i))/8);return add(g,textMat,x,y,z);};
  // Solid shell: tall dashboard, thin pillars and headliner; clear central view.
  box(2.15,.1,1.9,rubber,0,-.2,-2.48);box(2.15,.75,.08,lining,0,.22,-1.58);box(2.2,.08,1.92,lining,0,1.23,-2.48);
+ box(2.14,.73,.075,lining,0,.125,-3.34); // Solid firewall below the windshield/dashboard.
  for(const s of [-1,1]){
   box(.07,1.37,.09,paint,s*1.08,.56,-3.32,group,[.05,0,s*.035]);box(.065,1.3,.08,paint,s*1.08,.58,-1.62);
   box(.075,.58,1.45,lining,s*1.075,.18,-2.48);box(.04,.07,1.55,rubber,s*1.035,.49,-2.48);

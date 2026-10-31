@@ -17,6 +17,7 @@ it('cabine deixa o eixo visual livre, preserva vidro próprio e usa olho dentro 
   const eye=new THREE.Vector3(...CABIN_EYE),bounds=new THREE.Box3().setFromObject(cabin.group);expect(bounds.containsPoint(eye)).toBe(true);
   const hits=new THREE.Raycaster(eye,new THREE.Vector3(0,-.1,-1).normalize(),0,2).intersectObject(cabin.group,true);
   const solid=hits.filter(h=>!h.object.material.transparent);expect(solid).toHaveLength(0);expect(hits.some(h=>h.object.material===cabin.materials.glass)).toBe(true);
+  const lowerRay=new THREE.Vector3(.05,.12,-3.4).sub(eye).normalize();expect(new THREE.Raycaster(eye,lowerRay,0,1.8).intersectObject(cabin.group,true).some(h=>!h.object.material.transparent)).toBe(true);
   for(const [name,m]of Object.entries(cabin.materials)){expect(m.transparent).toBe(name==='glass');expect(m.depthWrite).toBe(name!=='glass');}
   cabin.update({worldNight:1,headlights:true});expect(cabin.snapshot().dome).toBe(true);cabin.setInside(false);cabin.update({worldNight:1});expect(cabin.snapshot().dome).toBe(false);
  }finally{cabin.dispose();}

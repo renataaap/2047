@@ -1,0 +1,694 @@
+{
+  "renderer": "Chromium ANGLE SwiftShader, 1280×720, Baixo, escala 75%",
+  "note": "Same diagnostic script, positions, time and quality. The cab eye changed intentionally to fit the real shell; its framing differs. Software timings are not GPU benchmarks. Asset estimate excludes procedural textures; renderer memory is available only after the diagnostic was added.",
+  "comparisons": [
+    {
+      "id": "menu",
+      "label": "Menu inicial",
+      "paired": true,
+      "before": {
+        "drawCalls": 40,
+        "triangles": 83381,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 6,
+        "sectors": 9,
+        "hour": 17.7,
+        "softwareFps": 0
+      },
+      "after": {
+        "drawCalls": 44,
+        "triangles": 118949,
+        "geometryCount": 44,
+        "textureCount": 51,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 6,
+        "sectors": 9,
+        "hour": 17.7,
+        "softwareFps": 0
+      }
+    },
+    {
+      "id": "barracao",
+      "label": "Barracão / bancada",
+      "paired": true,
+      "before": {
+        "drawCalls": 104,
+        "triangles": 107576,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 6,
+        "sectors": 9,
+        "hour": 9.029861111111112,
+        "softwareFps": 1.367682347155564
+      },
+      "after": {
+        "drawCalls": 136,
+        "triangles": 155794,
+        "geometryCount": 156,
+        "textureCount": 109,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 6,
+        "sectors": 9,
+        "hour": 9.030277777777778,
+        "softwareFps": 1.1561071882195237
+      }
+    },
+    {
+      "id": "moradia",
+      "label": "Barracão / moradia",
+      "paired": true,
+      "before": {
+        "drawCalls": 30,
+        "triangles": 28350,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 6,
+        "sectors": 9,
+        "hour": 9.030833333333334,
+        "softwareFps": 1.4577649656403684
+      },
+      "after": {
+        "drawCalls": 31,
+        "triangles": 52298,
+        "geometryCount": 159,
+        "textureCount": 110,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 6,
+        "sectors": 9,
+        "hour": 9.034444444444444,
+        "softwareFps": 1.3798151030179555
+      }
+    },
+    {
+      "id": "barracao-noite",
+      "label": "Barracão / noite",
+      "paired": false,
+      "before": null,
+      "after": {
+        "drawCalls": 136,
+        "triangles": 155794,
+        "geometryCount": 159,
+        "textureCount": 110,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 6,
+        "sectors": 9,
+        "hour": 23.0375,
+        "softwareFps": 1.3490173924699222
+      }
+    },
+    {
+      "id": "estrada",
+      "label": "Estrada inicial",
+      "paired": true,
+      "before": {
+        "drawCalls": 99,
+        "triangles": 133916,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.024861111111111,
+        "softwareFps": 1.3933921064328512
+      },
+      "after": {
+        "drawCalls": 125,
+        "triangles": 186930,
+        "geometryCount": 202,
+        "textureCount": 117,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.029444444444444,
+        "softwareFps": 1.2610166423143103
+      }
+    },
+    {
+      "id": "dante",
+      "label": "Dante / costas",
+      "paired": true,
+      "before": {
+        "drawCalls": 98,
+        "triangles": 149496,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.027222222222223,
+        "softwareFps": 1.3169831616974241
+      },
+      "after": {
+        "drawCalls": 130,
+        "triangles": 200328,
+        "geometryCount": 180,
+        "textureCount": 128,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.029305555555556,
+        "softwareFps": 1.2212534300759605
+      }
+    },
+    {
+      "id": "dante-rosto",
+      "label": "Dante / frente",
+      "paired": true,
+      "before": {
+        "drawCalls": 89,
+        "triangles": 100186,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.032916666666667,
+        "softwareFps": 1.04691867980319
+      },
+      "after": {
+        "drawCalls": 117,
+        "triangles": 146084,
+        "geometryCount": 196,
+        "textureCount": 128,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.042361111111111,
+        "softwareFps": 1.2415516587776378
+      }
+    },
+    {
+      "id": "sobrevivente",
+      "label": "Sobrevivente do Abrigo 07",
+      "paired": true,
+      "before": {
+        "drawCalls": 83,
+        "triangles": 100526,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 6,
+        "sectors": 9,
+        "hour": 9.029305555555556,
+        "softwareFps": 1.2759751377290895
+      },
+      "after": {
+        "drawCalls": 112,
+        "triangles": 144914,
+        "geometryCount": 195,
+        "textureCount": 125,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 6,
+        "sectors": 9,
+        "hour": 9.029305555555556,
+        "softwareFps": 1.245265910784313
+      }
+    },
+    {
+      "id": "zeca",
+      "label": "Zeca / Boa Viagem",
+      "paired": true,
+      "before": {
+        "drawCalls": 106,
+        "triangles": 128579,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 3,
+        "sectors": 9,
+        "hour": 9.029861111111112,
+        "softwareFps": 1.2876705559048258
+      },
+      "after": {
+        "drawCalls": 140,
+        "triangles": 177301,
+        "geometryCount": 206,
+        "textureCount": 118,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 3,
+        "sectors": 9,
+        "hour": 9.029722222222222,
+        "softwareFps": 1.2250780403082742
+      }
+    },
+    {
+      "id": "loja-interior",
+      "label": "Interior acessível da loja",
+      "paired": false,
+      "before": null,
+      "after": {
+        "drawCalls": 74,
+        "triangles": 104254,
+        "geometryCount": 221,
+        "textureCount": 119,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 3,
+        "sectors": 9,
+        "hour": 9.029583333333333,
+        "softwareFps": 1.2151138685475378
+      }
+    },
+    {
+      "id": "loja-noite",
+      "label": "Loja / noite",
+      "paired": false,
+      "before": null,
+      "after": {
+        "drawCalls": 74,
+        "triangles": 104254,
+        "geometryCount": 221,
+        "textureCount": 119,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 3,
+        "sectors": 9,
+        "hour": 23.02638888888889,
+        "softwareFps": 1.2418397133941803
+      }
+    },
+    {
+      "id": "oficina",
+      "label": "Oficina do Cotovelo",
+      "paired": true,
+      "before": {
+        "drawCalls": 51,
+        "triangles": 84326,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 5,
+        "sectors": 9,
+        "hour": 9.033888888888889,
+        "softwareFps": 1.4178681871294774
+      },
+      "after": {
+        "drawCalls": 64,
+        "triangles": 127108,
+        "geometryCount": 198,
+        "textureCount": 116,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 5,
+        "sectors": 9,
+        "hour": 9.03138888888889,
+        "softwareFps": 1.2577388689350353
+      }
+    },
+    {
+      "id": "marta",
+      "label": "Dona Marta",
+      "paired": true,
+      "before": {
+        "drawCalls": 64,
+        "triangles": 86902,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 5,
+        "sectors": 9,
+        "hour": 9.029305555555556,
+        "softwareFps": 1.481066444057389
+      },
+      "after": {
+        "drawCalls": 81,
+        "triangles": 125968,
+        "geometryCount": 205,
+        "textureCount": 116,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 5,
+        "sectors": 9,
+        "hour": 9.033611111111112,
+        "softwareFps": 1.2933991876487358
+      }
+    },
+    {
+      "id": "motel",
+      "label": "Motel Última Luz",
+      "paired": true,
+      "before": {
+        "drawCalls": 87,
+        "triangles": 95344,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.029722222222222,
+        "softwareFps": 1.456121640749751
+      },
+      "after": {
+        "drawCalls": 107,
+        "triangles": 143320,
+        "geometryCount": 207,
+        "textureCount": 116,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.029583333333333,
+        "softwareFps": 1.2856111369128342
+      }
+    },
+    {
+      "id": "motel-interior",
+      "label": "Motel / interior",
+      "paired": false,
+      "before": null,
+      "after": {
+        "drawCalls": 100,
+        "triangles": 140014,
+        "geometryCount": 207,
+        "textureCount": 116,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.02736111111111,
+        "softwareFps": 1.2921093610965908
+      }
+    },
+    {
+      "id": "patio",
+      "label": "Pátio dos Retornantes",
+      "paired": true,
+      "before": {
+        "drawCalls": 81,
+        "triangles": 117790,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 5,
+        "sectors": 9,
+        "hour": 9.033611111111112,
+        "softwareFps": 1.4243662300239563
+      },
+      "after": {
+        "drawCalls": 100,
+        "triangles": 149038,
+        "geometryCount": 182,
+        "textureCount": 118,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 5,
+        "sectors": 9,
+        "hour": 9.028611111111111,
+        "softwareFps": 1.295227797449417
+      }
+    },
+    {
+      "id": "balanca",
+      "label": "Balança Rodoviária 07",
+      "paired": true,
+      "before": {
+        "drawCalls": 76,
+        "triangles": 86792,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 4,
+        "sectors": 9,
+        "hour": 9.029861111111112,
+        "softwareFps": 1.4209773312933793
+      },
+      "after": {
+        "drawCalls": 94,
+        "triangles": 122314,
+        "geometryCount": 215,
+        "textureCount": 130,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 4,
+        "sectors": 9,
+        "hour": 9.029444444444444,
+        "softwareFps": 1.3014877877248836
+      }
+    },
+    {
+      "id": "tomas",
+      "label": "Tomás",
+      "paired": true,
+      "before": {
+        "drawCalls": 74,
+        "triangles": 92752,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 4,
+        "sectors": 9,
+        "hour": 9.029444444444444,
+        "softwareFps": 1.4281569778643695
+      },
+      "after": {
+        "drawCalls": 102,
+        "triangles": 119152,
+        "geometryCount": 229,
+        "textureCount": 142,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 4,
+        "sectors": 9,
+        "hour": 9.037777777777778,
+        "softwareFps": 1.315217468439534
+      }
+    },
+    {
+      "id": "ivani",
+      "label": "Mãe Ivani",
+      "paired": true,
+      "before": {
+        "drawCalls": 45,
+        "triangles": 76954,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 3,
+        "sectors": 9,
+        "hour": 9.024027777777778,
+        "softwareFps": 1.5837420728557046
+      },
+      "after": {
+        "drawCalls": 59,
+        "triangles": 91994,
+        "geometryCount": 183,
+        "textureCount": 127,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 3,
+        "sectors": 9,
+        "hour": 9.02138888888889,
+        "softwareFps": 1.3865807517555864
+      }
+    },
+    {
+      "id": "tita-exterior",
+      "label": "Titã / exterior",
+      "paired": true,
+      "before": {
+        "drawCalls": 51,
+        "triangles": 105274,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.052083333333334,
+        "softwareFps": 1.5910326504226417
+      },
+      "after": {
+        "drawCalls": 85,
+        "triangles": 187190,
+        "geometryCount": 203,
+        "textureCount": 130,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.043333333333333,
+        "softwareFps": 1.4057423113340417
+      }
+    },
+    {
+      "id": "tita-interior",
+      "label": "Titã / cabine",
+      "paired": true,
+      "before": {
+        "drawCalls": 107,
+        "triangles": 121825,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.078472222222222,
+        "softwareFps": 1.5703793423664543
+      },
+      "after": {
+        "drawCalls": 138,
+        "triangles": 197723,
+        "geometryCount": 245,
+        "textureCount": 139,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.05375,
+        "softwareFps": 0.9209090192964685
+      }
+    },
+    {
+      "id": "cabine-lateral",
+      "label": "Cabine / banco e porta",
+      "paired": false,
+      "before": null,
+      "after": {
+        "drawCalls": 67,
+        "triangles": 155731,
+        "geometryCount": 249,
+        "textureCount": 139,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.083194444444445,
+        "softwareFps": 0.9236249979527154
+      }
+    },
+    {
+      "id": "cabine-pedais",
+      "label": "Cabine / pedais",
+      "paired": false,
+      "before": null,
+      "after": {
+        "drawCalls": 73,
+        "triangles": 157143,
+        "geometryCount": 249,
+        "textureCount": 139,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 9.114305555555555,
+        "softwareFps": 1.0161935087908789
+      }
+    },
+    {
+      "id": "entardecer",
+      "label": "Entardecer",
+      "paired": true,
+      "before": {
+        "drawCalls": 51,
+        "triangles": 105274,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 18.220972222222223,
+        "softwareFps": 1.5461444551213126
+      },
+      "after": {
+        "drawCalls": 85,
+        "triangles": 187190,
+        "geometryCount": 236,
+        "textureCount": 142,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 18.226388888888888,
+        "softwareFps": 1.4091302604221616
+      }
+    },
+    {
+      "id": "noite-farois",
+      "label": "Noite / faróis",
+      "paired": true,
+      "before": {
+        "drawCalls": 51,
+        "triangles": 105274,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 23.025277777777777,
+        "softwareFps": 1.5277633590693427
+      },
+      "after": {
+        "drawCalls": 85,
+        "triangles": 187190,
+        "geometryCount": 236,
+        "textureCount": 142,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 23.020972222222223,
+        "softwareFps": 1.4142612714967027
+      }
+    },
+    {
+      "id": "cabine-noite",
+      "label": "Cabine / noite",
+      "paired": true,
+      "before": {
+        "drawCalls": 107,
+        "triangles": 121825,
+        "geometryCount": null,
+        "textureCount": null,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 23.04875,
+        "softwareFps": 1.5177859609681055
+      },
+      "after": {
+        "drawCalls": 138,
+        "triangles": 197723,
+        "geometryCount": 249,
+        "textureCount": 139,
+        "estimatedAssetTextureMiB": 31.999999999999986,
+        "assetTextures": 24,
+        "modelSources": 7,
+        "sectors": 9,
+        "hour": 23.034305555555555,
+        "softwareFps": 1.0481177540769948
+      }
+    }
+  ]
+}
