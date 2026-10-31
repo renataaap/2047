@@ -7,7 +7,7 @@
       "rightsCleared": true,
       "license": "CC-BY-4.0",
       "source": "https://sketchfab.com/3d-models/truck-old-one-3c15fa1056164a539dbc3332933d52c3",
-      "attribution": "titan-old by Alt (whisper.alt). Source: https://sketchfab.com/3d-models/truck-old-one-3c15fa1056164a539dbc3332933d52c3. CC BY 4.0 https://creativecommons.org/licenses/by/4.0/. Changes: Cab/chassis extended to simulator dimensions, source wheel parts separated with UVs retained, rear axle duplicated, six physical pivots; textures 1K.",
+      "attribution": "titan-old by Alt (whisper.alt). Source: https://sketchfab.com/3d-models/truck-old-one-3c15fa1056164a539dbc3332933d52c3. CC BY 4.0 https://creativecommons.org/licenses/by/4.0/. Changes: Cab/chassis extended to simulator dimensions, source wheel parts separated with UVs retained, rear axle duplicated, six physical pivots; textures 1K. Opacity repair: original atlas preserved; structural/rubber/glass/lens primitives separated without changing vertex data or six wheel pivots.",
       "url": "/assets/models/trucks/titan-old/model.glb",
       "dimensions": [
         2.7656960487365723,
@@ -46,6 +46,22 @@
           "spinAxis": "x",
           "spinSign": -1
         }
+      ],
+      "materialRoles": {
+        "Titan_Paint": "paint",
+        "Titan_Metal": "metal",
+        "Titan_Rubber": "rubber",
+        "Titan_Glass": "glass",
+        "Titan_Lens": "lens",
+        "Titan_CabPaint": "paint",
+        "Titan_CabMetal": "metal",
+        "Titan_CabTrim": "rubber"
+      },
+      "cockpitHiddenMaterials": [
+        "Titan_Glass",
+        "Titan_CabPaint",
+        "Titan_CabMetal",
+        "Titan_CabTrim"
       ]
     }
   },
