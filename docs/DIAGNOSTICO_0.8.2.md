@@ -6,9 +6,9 @@ Leituras: AGENTS, STATUS, README, relatórios 0.8.1/0.8.0, roadmap e guia Next.j
 
 ## Referência e validação inicial
 
-Executados novamente `npm test` (167 aprovados) e `npm run build` (aprovado, sem dev ativo). A execução integral inicial de `npm run test:e2e` tem seu próprio log, `evidence/polish-0.8.2/baseline-e2e.log`; resultados anteriores não contam como esta execução.
+Executados novamente `npm test` (167 aprovados), `npm run build` (aprovado, sem dev ativo) e `npm run test:e2e` (**25/25 em uma rodada integral**, 26,3 minutos). Logs próprios em `evidence/polish-0.8.2/baseline-*`; resultados anteriores não contam como esta execução. Outputs históricos foram restaurados após copiar os desta rodada para baseline-artifacts.
 
-Dezessete capturas WebGL novas em `evidence/polish-0.8.2/before`, incluindo os dez enquadramentos pedidos, moradia, Marta, Tomás, Ivani e três POIs. Mesmo script/posições/horários/perfil serão usados depois. Capturas usam diagnóstico de deslocamento e horário; não constituem uma sessão humana de 30 minutos. Chromium usa SwiftShader, sem GPU física.
+Vinte capturas WebGL novas em `evidence/polish-0.8.2/before` (18 iniciais e dois retratos adicionais), incluindo os dez enquadramentos pedidos, moradia, Marta, Tomás, Ivani, sobrevivente e três POIs. Mesmo script/posições/horários/perfil serão usados depois. Capturas usam diagnóstico de deslocamento e horário; não constituem uma sessão humana de 30 minutos. Chromium usa SwiftShader, sem GPU física.
 
 Hashes de diálogos, GLB do Titã, física e parâmetros preservados em baseline.json. Nenhum modelo novo ou textura externa será declarado instalado sem transferência/licença verificadas.
 
