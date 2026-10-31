@@ -1,0 +1,116 @@
+{
+  "inputSha256": "1076b3ec66b3e8aca32870d018304c00bebeac93cb6910d935d1a58e923dc013",
+  "sourceMaterials": [
+    {
+      "alphaMode": "BLEND",
+      "doubleSided": true,
+      "name": "DefaultMaterial",
+      "normalTexture": {
+        "index": 0
+      },
+      "occlusionTexture": {
+        "index": 1,
+        "strength": 0.5124446153640747
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 2
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    }
+  ],
+  "materialRoles": {
+    "Titan_Paint": "paint",
+    "Titan_Metal": "metal",
+    "Titan_Rubber": "rubber",
+    "Titan_Glass": "glass",
+    "Titan_Lens": "lens",
+    "Titan_CabPaint": "paint",
+    "Titan_CabMetal": "metal",
+    "Titan_CabTrim": "rubber"
+  },
+  "cockpitHiddenMaterials": [
+    "Titan_Glass",
+    "Titan_CabPaint",
+    "Titan_CabMetal",
+    "Titan_CabTrim"
+  ],
+  "meshes": [
+    {
+      "node": "titan_body",
+      "triangles": 37948,
+      "materials": {
+        "Titan_Paint": 5472,
+        "Titan_Metal": 15985,
+        "Titan_Rubber": 1774,
+        "Titan_Glass": 170,
+        "Titan_Lens": 902,
+        "Titan_CabPaint": 6854,
+        "Titan_CabMetal": 5657,
+        "Titan_CabTrim": 1134
+      }
+    },
+    {
+      "node": "wheel_0_L",
+      "triangles": 1592,
+      "materials": {
+        "Titan_Metal": 1208,
+        "Titan_Rubber": 384
+      }
+    },
+    {
+      "node": "wheel_0_R",
+      "triangles": 1592,
+      "materials": {
+        "Titan_Metal": 1208,
+        "Titan_Rubber": 384
+      }
+    },
+    {
+      "node": "wheel_1_L",
+      "triangles": 1592,
+      "materials": {
+        "Titan_Metal": 1208,
+        "Titan_Rubber": 384
+      }
+    },
+    {
+      "node": "wheel_1_R",
+      "triangles": 1592,
+      "materials": {
+        "Titan_Metal": 1208,
+        "Titan_Rubber": 384
+      }
+    },
+    {
+      "node": "wheel_2_L",
+      "triangles": 1592,
+      "materials": {
+        "Titan_Metal": 1208,
+        "Titan_Rubber": 384
+      }
+    },
+    {
+      "node": "wheel_2_R",
+      "triangles": 1592,
+      "materials": {
+        "Titan_Metal": 1208,
+        "Titan_Rubber": 384
+      }
+    }
+  ],
+  "preserved": {
+    "vertices": true,
+    "normals": true,
+    "uvs": true,
+    "embeddedImages": true,
+    "nodeTransforms": true,
+    "sixWheelPivots": true
+  },
+  "notes": "Only index ordering and glTF material/primitive declarations change. No recolouring, alpha texture edits, rescaling or geometry deletion.",
+  "outputSha256": "729ad051a5e4207380c4ec9d4b6cbf657cc9ffe58a711490265171ea7b732717",
+  "triangles": 47500
+}

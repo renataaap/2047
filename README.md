@@ -1,10 +1,14 @@
 # 2047: Rede Aurora
 
+**0.8.1 — Titã com materiais corrigidos.** Carroceria, chassi e pneus opacos; vidros e lentes separados. O GLB foi reparado preservando texturas, geometria e seis rodas. Sair pela câmera interna restaura o exterior completo. [Causa, arquivos e capturas reais antes/depois](RELATORIO_CORRECAO_TITA_0.8.1.md). A expansão 0.8.0 foi mantida.
+
+**Validação 0.8.1:** 167 unitários, build e dez cenários E2E relevantes aprovados. Capturas reais externas, cabine, menu, movimento, entardecer/noite e perfil Alto com sombras. Windows/GPU real continua pendente.
+
 **0.8.0 — Mundo vivo.** Ambientação contextual, moradia no barracão, estabelecimentos detalhados, três novos locais exploráveis, relógio solar persistente, luzes noturnas e áudio espacial original. Equipamentos individuais acompanham o rig existente. Tutorial de 21 objetivos, Titã com seis rodas, física Rapier, inventários, comércio, Sementes e sete Núcleos preservados. [Relatório 0.8.0](RELATORIO_EXPANSAO_0.8.0.md) · [diagnóstico](docs/DIAGNOSTICO_0.8.0.md) · [comparação visual](docs/COMPARACAO_VISUAL_0.8.0.md) · [teste humano](docs/TESTE_MANUAL_0.8.0.md).
 
-**Verificado nesta entrega:** 161 unitários, build e reinício real aprovados; 24 cenários únicos de navegador aprovados entre rodadas, sem uma única integral verde. Cinco pares de capturas reais foram conferidos. Windows/GPU real e avaliação auditiva continuam pendentes.
+**Histórico da expansão 0.8.0:** 161 unitários, build e reinício real aprovados; 24 cenários únicos de navegador aprovados entre rodadas, sem uma única integral verde. Cinco pares de capturas reais foram conferidos. Windows/GPU real e avaliação auditiva continuam pendentes. Os resultados da correção 0.8.1 ficam no seu relatório e em `evidence/truck-opacity/`.
 
-**Repositório oficial privado:** [renataaap/2047 · feat/tutorial-assets](https://github.com/renataaap/2047/tree/feat/tutorial-assets). Entre como renataaap e selecione essa branch antes de baixar o ZIP. Release v0.8.0; as tags históricas v0.6.0/v0.7.0 foram preservadas. Código, testes, assets licenciados, relatórios e histórico ficam no Git. Não há sincronização de partidas locais pelo GitHub.
+**Repositório oficial privado:** [renataaap/2047 · feat/tutorial-assets](https://github.com/renataaap/2047/tree/feat/tutorial-assets). Entre como renataaap e selecione essa branch antes de baixar o ZIP. Correção v0.8.1; as tags históricas v0.6.0/v0.7.0/v0.8.0 foram preservadas. Código, testes, assets licenciados, relatórios e histórico ficam no Git. Não há sincronização de partidas locais pelo GitHub.
 
 No Windows, com a cópia completa desta branch: `npm ci`, `npm run dev`, abrir http://localhost:3000 nesse computador, ou usar INICIAR_JOGO.bat. Novo jogo inicia a pé no barracão; tutorial opcional pode ser pulado/repetido. A pé: WASD, Shift, mouse, C para perspectiva e F para interagir/entrar. No Titã: E motor, W/S acelerar/frear/ré, A/D direção, Espaço freio, C câmeras, L faróis, F sair parado. Saves 1–3 continuam compatíveis; não apague seu banco nem os cookies ao atualizar.
 

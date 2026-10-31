@@ -1,0 +1,21 @@
+
+> 2047-rede-aurora@0.8.1 test:e2e
+> playwright test tests/e2e/truck-opacity.spec.js tests/e2e/assets.spec.js tests/e2e/driving.spec.js tests/e2e/exit.spec.js tests/e2e/tutorial-assets.spec.js
+
+
+Running 10 tests using 1 worker
+
+(node:20008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais (41.7s)
+  ✓   2 tests/e2e/assets.spec.js:16:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer (27.6s)
+  ✓   3 tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade (52.9s)
+  ✓   4 tests/e2e/driving.spec.js:7:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura (48.3s)
+  ✓   5 tests/e2e/driving.spec.js:15:1 › câmera externa respeita paredes e ajustes de condução persistem (56.9s)
+  ✓   6 tests/e2e/exit.spec.js:5:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos (33.0s)
+  ✓   7 tests/e2e/truck-opacity.spec.js:4:1 › Titã: sólidos opacos, vidros próprios, seis rodas e retorno correto da cabine (2.1m)
+  ✓   8 tests/e2e/tutorial-assets.spec.js:9:1 › arquivos reais: oito PBR, garagem com interior e Titã com seis rodas (40.5s)
+  ✓   9 tests/e2e/tutorial-assets.spec.js:15:1 › progresso parcial retoma; pular e repetir preservam recursos e campanha (42.2s)
+  ✓  10 tests/e2e/tutorial-assets.spec.js:28:1 › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga (2.2m)
+
+  10 passed (10.1m)
