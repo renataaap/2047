@@ -44,6 +44,8 @@ export class TruckVisual {
     }catch(error){this.materialState?.owned.forEach(m=>m.dispose());this.materialState=null;lease.release();this.lease=null;throw error;}
   }
   update(controller,inside){
+    this.truck.cockpit?.setInside(inside);
+    if(this.truck.fallbackShell)this.truck.fallbackShell.visible=!this.visual&&!inside;
     if(!this.visual)return;
     // Only the imported cab overlaps the provisional cockpit; cargo/chassis/wheels stay.
     this.visual.visible=this.materialState.classified||!inside;for(const mesh of this.materialState.cabMeshes)mesh.visible=!inside;
