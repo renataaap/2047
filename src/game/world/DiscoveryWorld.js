@@ -5,6 +5,7 @@ import {PropBatch} from './PropBatch.js';
 import {roadX} from './terrain.js';
 import {meshHeightAt} from './surfaceHeight.js';
 import {groundStaticModel} from './staticModelPlacement.js';
+import {finishDiscovery} from './finishCompositions.js';
 
 export class DiscoveryWorld {
  constructor(scene,physics,m,world,assets,manifest){Object.assign(this,{scene,physics,m,world,assets,manifest});this.live=new Map();this.labels=new Map();
@@ -19,6 +20,7 @@ export class DiscoveryWorld {
   const ramp=new THREE.BufferGeometry();ramp.setAttribute('position',new THREE.Float32BufferAttribute([-2,0,edge,2,0,edge,-2,left,far,2,right,far],3));ramp.setIndex([0,2,1,1,2,3]);ramp.setAttribute('uv',new THREE.Float32BufferAttribute([0,0,4,0,0,8,4,8],2));ramp.computeVertexNormals();b.ramp=ramp.clone();b.owned.push(b.ramp);
   const body=this.physics.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(p.x,y,p.z));this.physics.createCollider(RAPIER.ColliderDesc.trimesh(new Float32Array(ramp.attributes.position.array),new Uint32Array(ramp.index.array)),body);b.bodies.push(body);b.part(ramp,m.shoulder,0,0,0);
   if(p.kind==='motel')this.motel(b);else if(p.kind==='yard')this.yard(b);else this.weighbridge(b);
+  finishDiscovery(b,p,this.labels);
   // The inspection point is in front of the board, on the walkable side of the desk.
   const tx=p.terminal.x-p.x,tz=p.terminal.z-p.z;
   b.box(1.4,1,.6,m.wood,tx,.5,tz-1,true);b.box(1.6,.12,.8,m.steel,tx,1.05,tz-1);b.label('INSPECAO / RESERVA',1.3,.35,tx,1.3,tz-.66,this.labels);

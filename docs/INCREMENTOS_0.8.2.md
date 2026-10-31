@@ -24,8 +24,16 @@ Validação unitária desta etapa: 175 aprovados, incluindo pose no rig real sem
 
 Limites: base anatômica MakeHuman CC0 ainda é compartilhada, sem rosto/textura fotorealista final. Os clips atuais não oferecem subida com contato preciso nas mãos e degraus: gesto, pose sentada e transição visual são melhorias parciais; a animação completa continua pendente. A inspeção identificou um proxy invisível de Ivani que mergeStatic incorporava como superfície preta opaca. Foi removida só a malha auxiliar: o colisor permanece. A recaptura no mesmo lugar confirma Ivani visível; o lenço também foi ajustado para deixar os olhos livres.
 
+## D — Mar de Cinzas
+
+Acabamentos integrados aos lotes e setores já existentes: ferramentas moldadas, motor de partida em manutenção, jogo de soquetes, panos, costuras da cama, caneca e objetos de viagem; balcão/prateleira na loja; bancada, ferramental e cabeçote na oficina; cortinas/chaves/roupa de cama no motel; compressor e mangueiras no pátio; fixações/equipamentos na pesagem e na estrada. Pequenas peças sem colisores. Uma bancada nova sólida no barracão fica fora do corredor do tutorial.
+
+A loja que era um bloco sólido agora tem paredes e porta lateral aberta, preservando localização, bombas e Zeca. Teste E2E novo atravessou a abertura com o controlador Rapier e conversou com Zeca: 1/1 aprovado. Unitários: 175/25 aprovados. Capturas reais em environment-check, inclusive interior acessível da loja. O teste usa viagem diagnóstica até o posto; a passagem pela porta usa movimentação física.
+
+Materiais do terreno já habilitavam vertexColors, mas a geometria não fornecia o atributo. Atributo de cor adicionado, sem alterar posições, normais, UVs, índices ou superfície física, para recuperar o albedo PBR visível. Pedras próximas receberam mais subdivisão; colinas de fundo usam geometria e UVs mais suaves. Colinas continuam elementos de fundo, não terrenos físicos novos. LOD, instanciamento, setores e descarte preservados.
+
 ## Próximos checkpoints
 
-D: integrar acabamento dos estabelecimentos e POIs, abrir fisicamente a loja e corrigir atributo de cor ausente no terreno, mantendo superfícies e colisões. E: iluminação local, diário no caderno existente e refinamentos de apresentação. F: comparações finais, regressão completa, build e documentação de custos/limitações.
+E: iluminação local, diário no caderno existente e refinamentos de apresentação. F: comparações finais, regressão completa, build e documentação de custos/limitações.
 
 Nenhum resultado em SwiftShader comprova desempenho ou sessão humana de 30 minutos em Windows/GPU real.
