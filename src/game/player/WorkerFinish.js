@@ -102,7 +102,7 @@ export function finishWorker(model,style='traveler'){
   for(const x of [-.07,.02,.11]){box(spine,.02,.18,.015,steel,x,.89,.2);box(spine,.04,.07,.028,trim,x,.83,.2);}
   for(const s of [-1,1]){ball(head,s*.14,1.63,0,.035,.065,.06,trim);box(head,.075,.045,.025,leather,s*.05,1.71,.105);}cable(head,[[-.14,1.65,0],[0,1.78,0],[.14,1.65,0]],.01,steel);
  }else if(style==='ivani'){
-  part(head,new THREE.SphereGeometry(.143,24,12,0,Math.PI*2,0,Math.PI*.62),trim,0,1.67,-.02);
+  part(head,new THREE.SphereGeometry(.143,24,12,0,Math.PI*2,0,Math.PI*.5),trim,0,1.67,-.02);
   ball(head,0,1.645,-.13,.09,.085,.06,hair);ball(head,-.11,1.61,-.07,.04,.05,.04,cloth);
   cable(spine,[[-.22,1.4,0],[0,1.32,.18],[.22,1.4,0]],.037,trim);box(spine,.23,.12,.022,trim,0,.95,.18);
  }else if(style==='survivor'){

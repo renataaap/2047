@@ -7,6 +7,8 @@ import {finishWorker,WORKER_IDENTITIES} from '../../src/game/player/WorkerFinish
 import {discoveryEntries,recordFootDiscoveries} from '../../src/game/world/discoveryJournal.js';
 import {buildOpenGasShop} from '../../src/game/world/shopShell.js';
 import {DISCOVERY_SITES} from '../../src/data/ambience.js';
+import {SeatedPose} from '../../src/game/player/SeatedPose.js';
+import {readGlb} from '../../scripts/lib/truck-gltf.mjs';
 beforeAll(async()=>{await RAPIER.init();});
 
 it('cabine deixa o eixo visual livre, preserva vidro próprio e usa olho dentro da casca',()=>{
@@ -54,4 +56,11 @@ it('descoberta exige entrada na área acessível e não registra apenas passar a
 it('a loja tem abertura física na porta e parede real fora do acesso',()=>{
  const w=new RAPIER.World({x:0,y:-9.81,z:0});buildOpenGasShop((width,height,depth,m,x,y,z,hard)=>{if(hard)w.createCollider(RAPIER.ColliderDesc.cuboid(width/2,height/2,depth/2).setTranslation(x,y,z));},{});w.step();
  try{expect(w.castRay(new RAPIER.Ray({x:-1,y:1,z:-2.7},{x:-1,y:0,z:0}),4,true)).toBeNull();expect(w.castRay(new RAPIER.Ray({x:-1,y:.8,z:1},{x:-1,y:0,z:0}),4,true)).not.toBeNull();}finally{w.free();}
+});
+it('pose sentada usa o rig real, dobra joelhos e conserva raiz e translações dos ossos',async()=>{
+ const {json:g}=await readGlb('public/assets/models/aurora-workers/worker.glb'),joints=new Set(g.skins.flatMap(s=>s.joints));
+ const nodes=g.nodes.map((n,i)=>{const o=joints.has(i)?new THREE.Bone():new THREE.Group();o.name=n.name||'';if(n.translation)o.position.fromArray(n.translation);if(n.rotation)o.quaternion.fromArray(n.rotation);if(n.scale)o.scale.fromArray(n.scale);if(n.matrix)new THREE.Matrix4().fromArray(n.matrix).decompose(o.position,o.quaternion,o.scale);return o;});
+ g.nodes.forEach((n,i)=>n.children?.forEach(j=>nodes[i].add(nodes[j])));const model=new THREE.Group();g.scenes[g.scene||0].nodes.forEach(i=>model.add(nodes[i]));model.updateMatrixWorld(true);
+ const rotations=nodes.map(n=>n.quaternion.toArray()),translations=nodes.map(n=>n.position.toArray()),before=model.getObjectByName('shinL').getWorldPosition(new THREE.Vector3()),root=model.matrixWorld.clone(),pose=new SeatedPose(model);pose.apply();model.updateMatrixWorld(true);
+ const after=model.getObjectByName('shinL').getWorldPosition(new THREE.Vector3());expect(after.z).toBeGreaterThan(before.z+.15);expect(model.matrixWorld.equals(root)).toBe(true);expect(nodes.map(n=>n.position.toArray())).toEqual(translations);expect(pose.pose.size).toBeGreaterThan(4);pose.restore();expect(nodes.map(n=>n.quaternion.toArray())).toEqual(rotations);
 });

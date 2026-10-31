@@ -1,0 +1,33 @@
+
+ RUN  v5.0.5 /workspace/work/2047-rede-aurora
+
+ ❯ tests/unit/polish-visual.test.js (4 tests | 1 failed) 306ms
+   × cabine deixa o eixo visual livre, preserva vidro próprio e usa olho dentro da casca 214ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/polish-visual.test.js > cabine deixa o eixo visual livre, preserva vidro próprio e usa olho dentro da casca
+AssertionError: expected [ { …(8) } ] to have a length of +0 but got 1
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ tests/unit/polish-visual.test.js:13:76
+     11|   const eye=new THREE.Vector3(...CABIN_EYE),bounds=new THREE.Box3().se…
+     12|   const hits=new THREE.Raycaster(eye,new THREE.Vector3(0,-.1,-1).norma…
+     13|   const solid=hits.filter(h=>!h.object.material.transparent);expect(so…
+       |                                                                            ^
+     14|   for(const [name,m]of Object.entries(cabin.materials)){expect(m.trans…
+     15|   cabin.update({worldNight:1,headlights:true});expect(cabin.snapshot()…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  22:52:18
+   Duration  764ms (tests 53%, import 25%, transform 22%, worker 1%)
+

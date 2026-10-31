@@ -1,0 +1,31 @@
+# Checkpoints da 0.8.2
+
+Base: main d8a3b2a, versão 0.8.1. Implementação isolada em feat/polimento-0.8.2.
+
+## A — Referência
+
+Commits 668b6b4 e 5212b92. Diagnóstico, 20 capturas reais anteriores, hashes dos arquivos protegidos, teste manual para Windows e novas execuções de 167 unitários, build e 25 E2Es integrais. Ver DIAGNOSTICO_0.8.2.md e evidence/polish-0.8.2/baseline-results.json.
+
+## B — Titã
+
+Commit 4d20dee. Interior modular com bancos moldados, costuras, portas, maçanetas, pedais, coluna, volante, instrumentos existentes, ventilação, rádio, limpadores, compartimentos e objetos de viagem. Texturas originais pequenas e materiais separados; vidro controlado. Nova âncora dos olhos dentro da cabine importada. Indicadores usam motor, freio, faróis e temperatura da simulação.
+
+Exterior: degraus, fixações, reservatórios, mangueiras e reforços, sem alterar o GLB reparado, seis rodas, pivôs, massa ou física. Cabine importada é ocultada somente na câmera interna durante direção. O primeiro painel ocultava os mostradores: a captura identificou o problema, e o molde foi corrigido antes do checkpoint.
+
+Validação nova: 174 unitários; 3 E2Es relevantes (direção/câmera e opacidade). Capturas de conferência em titan-check e primeira tentativa documentada em titan-first. Não equivalem à regressão final da atualização. Módulos auxiliares de cenário/diário preparados nesse commit só contarão como entregues depois de integrados e validados.
+
+## C — Personagens e acesso
+
+Roupas com volume e equipamentos presos aos ossos do rig existente. Dante usa jaqueta de trabalho, mochila costurada, barba e botas; Zeca colete, boné, óculos e rádio; Tomás avental de couro e proteção; Ivani xale, avental e lenço; sobrevivente capuz, cachecol e mochila; Marta macacão, cabelo preso e ferramentas. Pequenas diferenças de rosto, silhueta e altura visual. Tecidos compartilhados com contagem de referências e descarte; cada instância preserva o modelo-fonte.
+
+Olhar sutil e gestos ocasionais usam o AnimationMixer existente. Caminhada/corrida continuam ancoradas na posição Rapier. Pose sentada do motorista aparece nas câmeras externas; a transição de acesso não interfere no controle nem na escolha da câmera.
+
+Validação unitária desta etapa: 175 aprovados, incluindo pose no rig real sem mudar posições dos ossos. Capturas reais em characters-check. Regressão de interação/entrada/saída registrada em characters-e2e.log ao término da rodada.
+
+Limites: base anatômica MakeHuman CC0 ainda é compartilhada, sem rosto/textura fotorealista final. Os clips atuais não oferecem subida com contato preciso nas mãos e degraus: gesto, pose sentada e transição visual são melhorias parciais; a animação completa continua pendente. A inspeção identificou um proxy invisível de Ivani que mergeStatic incorporava como superfície preta opaca. Foi removida só a malha auxiliar: o colisor permanece. A recaptura no mesmo lugar confirma Ivani visível; o lenço também foi ajustado para deixar os olhos livres.
+
+## Próximos checkpoints
+
+D: integrar acabamento dos estabelecimentos e POIs, abrir fisicamente a loja e corrigir atributo de cor ausente no terreno, mantendo superfícies e colisões. E: iluminação local, diário no caderno existente e refinamentos de apresentação. F: comparações finais, regressão completa, build e documentação de custos/limitações.
+
+Nenhum resultado em SwiftShader comprova desempenho ou sessão humana de 30 minutos em Windows/GPU real.
