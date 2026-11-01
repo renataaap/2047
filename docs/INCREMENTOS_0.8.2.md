@@ -40,9 +40,9 @@ Bancadas têm iluminação de tarefa diurna/noturna; só as duas luzes locais ma
 
 Refinamentos discretos do HUD e tipografia; transição de acesso respeita redução de movimento. Sem reescrita narrativa. Validação nova: 175 unitários/25 arquivos e 3/3 E2Es em experience-e2e.log: instrumentos/olhar/saída, porta física/Zeca e diário por caminhada com inventário invariável e recarga. Evidências próprias em functional.
 
-## Próximo checkpoint
+## Critério de passagem para F
 
-F: versão, comparações finais, regressão completa, build e documentação de custos/limitações. Nenhum resultado final é presumido a partir das rodadas focadas.
+Versão, comparações finais, regressão completa, build e documentação de custos/limitações. Os resultados finais abaixo vêm da execução integral, sem presumir aprovação a partir das rodadas focadas.
 
 Nenhum resultado em SwiftShader comprova desempenho ou sessão humana de 30 minutos em Windows/GPU real.
 
@@ -52,8 +52,12 @@ Vinte pares reais e sete ângulos adicionais no Baixo; três amostras no Alto e 
 
 175 unitários e build novamente aprovados. Recuperação por API depois de parar/reiniciar o servidor: dados idênticos, com estado da exploração, inventário, posições e horário. Capturas/recursos/limites no relatório.
 
-Primeira integral da aplicação foi 26/28 em 29 minutos: dois testes antigos usavam 800/1000 ms de parede após teleporte e pressionavam F antes de acomodar a física. Foram preservadas as regras da aplicação e corrigida a sincronização dos testes: freio, 120 passos, motor desligado e modo a pé confirmado. Pausa/retorno ao volante também recebem confirmação. Ambas as rechecagens passaram (2/2, 3,5 minutos), incluindo a primeira entrega e toda a sequência dos Núcleos. Não equivalem a uma integral verde. Nova integral de 28 cenários será executada com esses testes.
+Primeira integral da aplicação foi 26/28 em 29 minutos: dois testes antigos usavam 800/1000 ms de parede após teleporte e pressionavam F antes de acomodar a física. Foram preservadas as regras da aplicação e corrigida a sincronização dos testes: freio, 120 passos, motor desligado e modo a pé confirmado. Pausa/retorno ao volante também recebem confirmação. Ambas as rechecagens passaram (2/2, 3,5 minutos), incluindo a primeira entrega e toda a sequência dos Núcleos. Não equivalem a uma integral verde. A integral seguinte está registrada abaixo.
 
-Segunda integral: 27/28, 30,6 minutos. O Titã ainda avançava a 8,57 km/h, 0,51 m antes do ponto exigido quando o teto de 40 s de parede do teste expirou. O teste passa a permitir 90 s de parede, mantendo chegada/controles e limitando o percurso a 60 s simulados. Rechecagem completa do tutorial: 1/1 aprovado em 2,4 minutos; 21 objetivos, reparo, gerador, ativação e recarga. Estado/contexto e rodada guardados separadamente. A próxima integral usa esse checkpoint; nenhum resultado é presumido.
+Segunda integral: 27/28, 30,6 minutos. O Titã ainda avançava a 8,57 km/h, 0,51 m antes do ponto exigido quando o teto de 40 s de parede do teste expirou. O teste passa a permitir 90 s de parede, mantendo chegada/controles e limitando o percurso a 60 s simulados. Rechecagem completa do tutorial: 1/1 aprovado em 2,4 minutos; 21 objetivos, reparo, gerador, ativação e recarga. Estado/contexto e rodada guardados separadamente. A integral final usa esse checkpoint; a rechecagem não é somada como cenário único adicional.
 
 Comparação também disponível em COMPARACAO_VISUAL_0.8.2.md, com os 51 PNGs reais acessíveis diretamente pelo GitHub.
+
+Fechamento de F em 01/11/2026: **28/28 E2Es aprovados numa única integral, 30,8 minutos, sem retries**, no checkpoint 37ac96d. Unitários finais: 175/25 arquivos; build aprovado, com fonte da aplicação idêntica à testada. Sete hashes protegidos intactos; posições/normais/UVs/índices de cinco setores preservados. Após a execução, 109 saídas históricas geradas foram arquivadas em final-artifacts e seus caminhos antigos restaurados. Consolidação em evidence/polish-0.8.2/validation.json. PR #1 publicado em rascunho; main continua 0.8.1.
+
+Automação aprovada não encerra a validação Windows/GPU, sessão humana de 30 minutos, arte facial final, escalada com contatos ou retrovisores dinâmicos. Esses limites continuam abertos na matriz de aceite e no relatório.

@@ -79,6 +79,8 @@ Mesmo roteiro, posições, horários, viewport 1280×720 e perfil Baixo a 75%. A
 
 ## Validação nova, sem confundir com histórico
 
+Integral final concluída em 01/11/2026, no checkpoint `37ac96d`, sem mudanças de código ou testes durante a execução. Dados consolidados em [validation.json](evidence/polish-0.8.2/validation.json).
+
 | Execução | Resultado nesta atualização | Evidência |
 | --- | --- | --- |
 | Antes: npm test | 167/24 arquivos aprovados | baseline-unit.log |
@@ -94,6 +96,7 @@ Mesmo roteiro, posições, horários, viewport 1280×720 e perfil Baixo a 75%. A
 | Rechecagem das duas falhas | 2/2: primeira entrega e Núcleos 2–7, com física/saída confirmadas | settled-exit-e2e.log |
 | Segunda integral 0.8.2 | 27/28, limite de 40 s de parede no trajeto de treino | regression-second.log |
 | Rechecagem do tutorial | 1/1 aprovado em 2,4 min, com os 21 objetivos e recarga | tutorial-recheck.log |
+| Integral final 0.8.2 | **28/28 aprovados numa única execução, 30,8 min, zero retries** | final-e2e.log |
 
 Logs próprios em `evidence/polish-0.8.2/`. Outputs das regressões antigas são copiados para subpastas desta atualização e seus caminhos históricos restaurados, sem apresentar dados antigos como novas execuções. Três cenários foram acrescentados; não se somam rodadas repetidas como cenários únicos extras.
 
@@ -150,6 +153,6 @@ Reinício adicional: scripts/verificar-reinicio-polimento.mjs prepara uma partid
 
 ## Arquivos e retomada
 
-Veículo/render: CabinInterior.js, TruckFinish.js, model.js, TruckVisual.js, Instruments.js, Cameras.js e diagnóstico em Game.js. Personagens: CharacterActor.js, PlayerVisual.js, SeatedPose.js, WorkerFinish.js, WorkerWardrobe.js, workerDefinition.js e correção em ExpeditionWorld.js. Mundo: AmbientWorld.js, DiscoveryWorld.js, RoadWorld.js, World.js, terrainGeometry.js, finishCompositions.js, landscapeGeometry.js, shopShell.js e groundColors.js. Diário/UI: discoveryJournal.js, DiscoveryJournal.js, NetworkPanelContent.js, GameView.js, polish.css e layout.js. Versão técnica: package.json/lock, pt-BR.js e ui.js. Créditos, scripts, documentação e testes complementam a entrega. A lista exata será registrada em docs/ARQUIVOS_0.8.2.txt.
+Veículo/render: CabinInterior.js, TruckFinish.js, model.js, TruckVisual.js, Instruments.js, Cameras.js e diagnóstico em Game.js. Personagens: CharacterActor.js, PlayerVisual.js, SeatedPose.js, WorkerFinish.js, WorkerWardrobe.js, workerDefinition.js e correção em ExpeditionWorld.js. Mundo: AmbientWorld.js, DiscoveryWorld.js, RoadWorld.js, World.js, terrainGeometry.js, finishCompositions.js, landscapeGeometry.js, shopShell.js e groundColors.js. Diário/UI: discoveryJournal.js, DiscoveryJournal.js, NetworkPanelContent.js, GameView.js, polish.css e layout.js. Versão técnica: package.json/lock, pt-BR.js e ui.js. Créditos, scripts, documentação e testes complementam a entrega. A [lista exata de arquivos alterados](docs/ARQUIVOS_0.8.2.txt) inclui código, testes, documentação e evidências, comparados à main original.
 
-Checkpoints A–E em [INCREMENTOS_0.8.2.md](docs/INCREMENTOS_0.8.2.md). Rodar `npm ci`, `npm run dev`, abrir localhost:3000 no computador que executa o servidor. Para atualizar, preservar local.db e o cookie do navegador. GitHub guarda o projeto, não sincroniza partidas. Desenvolvimento continua em feat/polimento-0.8.2; a main só deve receber a alteração após revisão do resultado e das pendências.
+Checkpoints A–F em [INCREMENTOS_0.8.2.md](docs/INCREMENTOS_0.8.2.md). Rodar `npm ci`, `npm run dev`, abrir localhost:3000 no computador que executa o servidor. Para atualizar, preservar local.db e o cookie do navegador. GitHub guarda o projeto, não sincroniza partidas. Desenvolvimento continua em feat/polimento-0.8.2; a main só deve receber a alteração após revisão do resultado e das pendências. Código e evidências publicados na branch, com [PR #1 em rascunho](https://github.com/renataaap/2047/pull/1).

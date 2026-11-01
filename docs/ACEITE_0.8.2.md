@@ -19,7 +19,7 @@ Código em feat/polimento-0.8.2, sobre main d8a3b2a/0.8.1. A versão está prepa
 | Campanha | Sete Núcleos/Sementes, tutorial e diálogos mantidos; hashes narrativos idênticos | Quatro finais ainda não implementados |
 | Otimização | Setores, lotes por material, instâncias, LOD, cache e descarte preservados; métricas reais no relatório | Mais detalhes custam chamadas/triângulos; FPS de GPU não medido |
 | Comparação visual | 20 pares reais no Baixo e sete ângulos extras; três amostras no Alto e uma no Médio | Mudança intencional da altura dos olhos altera enquadramento interno |
-| Testes | Base repetida 167 unitários/build/25 E2Es; novos 175 unitários e rodadas focadas; reinício real aprovado | Resultado da integral final de 28 cenários é registrado ao término, sem somar a rodada interrompida |
+| Testes | Base repetida 167 unitários/build/25 E2Es; final 175 unitários/25 arquivos, build e 28/28 numa única integral de 30,8 min; reinício real aprovado | Chromium/SwiftShader; a integral não substitui Windows/GPU ou sessão humana. Tentativas e rechecagens documentadas separadamente |
 | Primeiros 30 minutos | Checklist manual detalhado, automações separadas dos sistemas | Sessão humana sem teleportes não executada |
 
 Os assets externos mantêm suas licenças. Renafox permanece CC BY-NC; personagens Fab sem licença confirmada continuam fora. Não há liberação comercial global.

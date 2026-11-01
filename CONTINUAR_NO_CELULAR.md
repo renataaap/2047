@@ -6,6 +6,9 @@
 3. Continue escrevendo normalmente. Trocar de aparelho não exige criar outra conversa nem instalar o jogo no celular.
 
 ## Projeto no GitHub
+
+Revisão da atualização: [PR #1 — polimento 0.8.2](https://github.com/renataaap/2047/pull/1). As [comparações reais](https://github.com/renataaap/2047/blob/feat/polimento-0.8.2/docs/COMPARACAO_VISUAL_0.8.2.md) abrem diretamente no GitHub, inclusive pelo celular. O PR está em rascunho; a main continua na 0.8.1 durante a revisão.
+
 1. Abra https://github.com/renataaap/2047/tree/feat/polimento-0.8.2 e entre como **renataaap**. O repositório é privado; sem a conta correta pode aparecer 404. A 0.8.2 em revisão está na branch **feat/polimento-0.8.2**.
 2. Leia `STATUS_DO_PROJETO.md`, `README.md` e o relatório da fase mais recente. Código, testes, documentação e histórico Git ficam no repositório.
 3. Para continuar em outro computador Windows, instale Node.js LTS, selecione **feat/polimento-0.8.2**, use **Code → Download ZIP**, extraia a pasta inteira e abra `INICIAR_JOGO.bat`. Mantenha o terminal aberto enquanto joga. Para desenvolvimento com histórico, use `git clone --branch feat/polimento-0.8.2 https://github.com/renataaap/2047.git` com a conta conectada no Git.

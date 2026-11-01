@@ -4,7 +4,7 @@ Este é um roteiro para Windows/GPU real, não o relato de uma sessão humana re
 
 ## Preparação
 
-Atualizar a branch de trabalho publicada, instalar dependências com `npm ci`, iniciar com `npm run dev` ou INICIAR_JOGO.bat e confirmar 0.8.2 no menu quando a versão estiver preparada. Preservar local.db e os cookies de partidas antigas. Registrar GPU, navegador, resolução e perfil gráfico. Começar no Médio; comparar Baixo/Alto depois, nas mesmas posições e horas.
+Atualizar a branch de trabalho publicada, instalar dependências com `npm ci`, iniciar com `npm run dev` ou INICIAR_JOGO.bat e confirmar 0.8.2 no menu. Preservar local.db e os cookies de partidas antigas. Registrar GPU, navegador, resolução e perfil gráfico. Começar no Médio; comparar Baixo/Alto depois, nas mesmas posições e horas.
 
 ## Percurso de referência
 
