@@ -1,0 +1,64 @@
+
+> 2047-rede-aurora@0.8.2 test:e2e
+> playwright test
+
+[WebServer] (node:31410) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:31422) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 28 tests using 1 worker
+
+(node:31440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais (46.3s)
+  ✓   2 tests/e2e/assets.spec.js:16:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer (35.2s)
+  ✓   3 tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade (59.1s)
+  ✓   4 tests/e2e/critical-gameplay.spec.js:15:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas (58.9s)
+[WebServer] (node:31779) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:31790) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:31798) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:31815) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:31823) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:31834) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   5 tests/e2e/critical-gameplay.spec.js:30:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga (50.2s)
+  ✓   6 tests/e2e/driving.spec.js:7:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura (48.2s)
+  ✓   7 tests/e2e/driving.spec.js:15:1 › câmera externa respeita paredes e ajustes de condução persistem (57.7s)
+  ✓   8 tests/e2e/exit.spec.js:5:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos (26.6s)
+  ✘   9 tests/e2e/game.spec.js:6:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento (1.3m)
+
+
+  1) tests/e2e/game.spec.js:6:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento
+
+    Test was interrupted.
+
+    Error: page.evaluate: Target page, context or browser has been closed
+
+      10 |   await start.click();await enterFromNewTutorial(page);await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');await page.keyboard.press('KeyE');
+      11 |   await page.evaluate(()=>window.__GAME_DEBUG__.resetMetrics());const before=await page.evaluate(()=>window.__GAME_DEBUG__.getState());
+    > 12 |   await page.keyboard.down('KeyW');const wallStart=Date.now(),stepStart=await page.evaluate(()=>window.__GAME_DEBUG__.getState().simulation.steps);await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().simulation.steps),{timeout:120000,intervals:[250]}).toBeGreaterThanOrEqual(stepStart+480);await page.keyboard.up('KeyW');
+         |                                                                                                                                                                               ^
+      13 |   const after=await page.evaluate(()=>window.__GAME_DEBUG__.getState());
+      14 |   await page.screenshot({path:new URL('driving.png',evidence).pathname});
+      15 |   const result={before,after,consoleErrors:errors,renderer:'Chromium / ANGLE SwiftShader (software)',viewport:'1280×720',requestedSimulatedSeconds:8,simulatedSeconds:(after.simulation.steps-stepStart)/60,wallSeconds:(Date.now()-wallStart)/1000};
+        at expect.poll.timeout (/workspace/work/2047-rede-aurora/tests/e2e/game.spec.js:12:175)
+        at /workspace/work/2047-rede-aurora/tests/e2e/game.spec.js:12:148
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/game-aceite-mundo-real-W-p-992a4--diesel-console-e-orçamento/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/game-aceite-mundo-real-W-p-992a4--diesel-console-e-orçamento/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 interrupted
+    tests/e2e/game.spec.js:6:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento
+  19 did not run
+  8 passed (7.8m)

@@ -37,7 +37,7 @@ export class RoadWorld {
     if(p.kind==='gas'){
       pad(16,20);
       buildOpenGasShop(blk,m);blk(6.2,.3,9.2,m.rust,-4.5,3.65,0);                             // loja acessível e telhadinho
-      blk(.12,1.2,5.4,m.glass,-1.95,2.1,0);blk(.12,.25,6,m.light,-1.95,3.2,0);
+      blk(.12,.25,6,m.light,-1.95,3.2,0);
       blk(9,.35,12,m.steel,3.5,4.5,0);blk(6,.08,.5,m.light,3.5,4.28,0);                                 // cobertura das bombas
       for(const lx of [-.3,6.9])for(const lz of [-5.6,5.6])blk(.35,4.4,.35,m.steel,lx,2.3,lz,true);
       blk(1.6,.25,7,m.dark,3,.22,0);

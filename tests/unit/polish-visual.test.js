@@ -55,8 +55,8 @@ it('descoberta exige entrada na área acessível e não registra apenas passar a
  recordFootDiscoveries(c,{x:-30,z:-380,y:1.1},loaded);recordFootDiscoveries(c,{x:-30,z:-380,y:1.1},loaded);expect(c.world.visited).toEqual(['motel']);expect(c.world.claimed).toEqual([]);
 });
 it('a loja tem abertura física na porta e parede real fora do acesso',()=>{
- const w=new RAPIER.World({x:0,y:-9.81,z:0});buildOpenGasShop((width,height,depth,m,x,y,z,hard)=>{if(hard)w.createCollider(RAPIER.ColliderDesc.cuboid(width/2,height/2,depth/2).setTranslation(x,y,z));},{});w.step();
- try{expect(w.castRay(new RAPIER.Ray({x:-1,y:1,z:-2.7},{x:-1,y:0,z:0}),4,true)).toBeNull();expect(w.castRay(new RAPIER.Ray({x:-1,y:.8,z:1},{x:-1,y:0,z:0}),4,true)).not.toBeNull();}finally{w.free();}
+ const w=new RAPIER.World({x:0,y:-9.81,z:0}),visual=new THREE.Group(),material=new THREE.MeshBasicMaterial();buildOpenGasShop((width,height,depth,m,x,y,z,hard)=>{const mesh=new THREE.Mesh(new THREE.BoxGeometry(width,height,depth),material);mesh.position.set(x,y,z);visual.add(mesh);if(hard)w.createCollider(RAPIER.ColliderDesc.cuboid(width/2,height/2,depth/2).setTranslation(x,y,z));},{});w.step();visual.updateMatrixWorld(true);
+ try{expect(w.castRay(new RAPIER.Ray({x:-1,y:1,z:-2.7},{x:-1,y:0,z:0}),4,true)).toBeNull();expect(w.castRay(new RAPIER.Ray({x:-1,y:.8,z:1},{x:-1,y:0,z:0}),4,true)).not.toBeNull();expect(new THREE.Raycaster(new THREE.Vector3(-1,1.8,-2.7),new THREE.Vector3(-1,0,0),0,2).intersectObject(visual,true)).toHaveLength(0);}finally{visual.traverse(o=>o.geometry?.dispose());material.dispose();w.free();}
 });
 it('pose sentada usa o rig real, dobra joelhos e conserva raiz e translações dos ossos',async()=>{
  const {json:g}=await readGlb('public/assets/models/aurora-workers/worker.glb'),joints=new Set(g.skins.flatMap(s=>s.joints));

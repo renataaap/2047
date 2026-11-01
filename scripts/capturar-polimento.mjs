@@ -2,7 +2,8 @@
 import {chromium,expect} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {roadX} from '../src/game/world/terrain.js';
-const stage=process.argv[2]||'after',dir=`evidence/polish-0.8.2/${stage}`,only=process.argv[3]?.split(','),want=id=>!only||only.includes(id);
+const stage=process.argv[2]||'after',dir=`evidence/polish-0.8.2/${stage}`,only=process.argv[3]?.split(','),want=id=>!only||only.includes(id),quality=process.argv[4]||'baixo';
+if(!['baixo','medio','alto'].includes(quality))throw Error('Perfil gráfico inválido');
 await mkdir(dir,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE||'/usr/bin/chromium',headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 const page=await browser.newPage({viewport:{width:1280,height:720}}),errors=[],shots=[];
@@ -10,7 +11,7 @@ const state=()=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
 const settle=async()=>{const n=(await state()).simulation.steps;await expect.poll(async()=>(await state()).simulation.steps,{timeout:60000}).toBeGreaterThan(n+35);};
 const take=async id=>{await page.screenshot({path:`${dir}/${id}.png`});shots.push({id,state:await state()});};
 page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
-await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
+await page.addInitScript(quality=>localStorage.setItem('aurora-settings',JSON.stringify({quality,scale:.75,volume:0})),quality);
 try{
  await page.goto('http://127.0.0.1:3000');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});if(want('menu'))await take('menu');
  await page.getByRole('button',{name:'01 Novo jogo'}).click();await expect.poll(async()=>(await state()).mode,{timeout:30000}).toBe('walking');
@@ -26,6 +27,7 @@ try{
   {id:'loja-interior',x:-52.2,z:-2252.7,yaw:Math.PI},
   {id:'loja-noite',x:-52.2,z:-2252.7,yaw:Math.PI,hour:23},
   {id:'oficina',x:9,z:-548,yaw:Math.PI/2},
+  {id:'oficina-bancada',x:-8.7,z:-551.5,yaw:Math.PI/2},
   {id:'marta',x:-3.4,z:-547.8,yaw:0},
   {id:'motel',x:-30,z:-369,yaw:0},
   {id:'motel-interior',x:-30,z:-379,yaw:0},
@@ -53,5 +55,5 @@ try{
  if(want('entardecer')){await camera(2);await page.evaluate(()=>window.__GAME_DEBUG__.setTime(18.2));await settle();await take('entardecer');}
  if(want('noite-farois')||want('cabine-noite')){await camera(2);await page.evaluate(()=>window.__GAME_DEBUG__.setTime(23));await page.keyboard.press('KeyL');await settle();if(want('noite-farois'))await take('noite-farois');if(want('cabine-noite')){await camera(1);await take('cabine-noite');}}
  }
- expect(errors).toEqual([]);await writeFile(`${dir}/${only?'capture-'+only.join('-'):'capture'}.json`,JSON.stringify({stage,shots,errors,renderer:'Chromium ANGLE SwiftShader; low 75%, 1280x720',diagnostics:'Travel/time only. Not a human playthrough. No edited images or external renders.'},null,2)+'\n');
+ expect(errors).toEqual([]);await writeFile(`${dir}/${only?'capture-'+only.join('-'):'capture'}.json`,JSON.stringify({stage,shots,errors,renderer:`Chromium ANGLE SwiftShader; ${quality} 75%, 1280x720`,diagnostics:'Travel/time only. Not a human playthrough. No edited images or external renders.'},null,2)+'\n');
 }finally{await browser.close();}

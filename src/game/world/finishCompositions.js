@@ -118,7 +118,7 @@ export function finishIndustry(add,block,m,ground){
   block(.12,2.8,1.7,m.roof,x-6.16,y+1.4,z-4.2);block(.16,.08,.2,m.steel,x-6.25,y+1.4,z-3.62);
   for(const hy of [.4,18.6])block(12.4,.12,16.4,m.steel,x,y+hy,z);
   for(const dz of [-4,4]){
-   add(new THREE.CylinderGeometry(.55,.65,2.2,16),m.steel,x-2,y+20,z+dz);
+   add(new THREE.CylinderGeometry(.55,.65,3,16),m.steel,x-2,y+20,z+dz);
    const elbow=add(new THREE.TorusGeometry(.65,.18,8,16,Math.PI/2),m.rust,x+6.7,y+15,z+dz);elbow.rotation.z=Math.PI;
    add(new THREE.CylinderGeometry(.18,.18,13,12),m.rust,x+6.7,y+7.8,z+dz);
    for(const hy of [4,10,14])block(.8,.06,.4,m.steel,x+6.3,y+hy,z+dz);

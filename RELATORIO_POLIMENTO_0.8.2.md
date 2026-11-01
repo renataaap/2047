@@ -73,7 +73,7 @@ Mantidos Titã de Alt, garagem de Yury Misiyuk, posto de SURVIVED, barril de mxt
 
 Referência anterior: `evidence/polish-0.8.2/before`. Resultado: `after`. Índice visual em [comparacao.html](evidence/polish-0.8.2/comparacao.html) e dados em [comparison.json](evidence/polish-0.8.2/comparison.json), gerados pelo script `scripts/comparar-polimento.mjs` após a captura final.
 
-Vinte pares previstos: menu, barracão, moradia, estrada, Dante de costas/frente, sobrevivente, Zeca, oficina, Marta, três POIs, Tomás, Ivani, exterior/interior do Titã, entardecer, noite com faróis e cabine noturna. Ângulos adicionais mostram loja acessível, interior do motel, bancos/portas/pedais da cabine e luzes noturnas locais. PNGs são os arquivos reais do navegador, sem montagem promocional ou tratamento de imagem.
+Vinte pares reais: menu, barracão, moradia, estrada, Dante de costas/frente, sobrevivente, Zeca, oficina, Marta, três POIs, Tomás, Ivani, exterior/interior do Titã, entardecer, noite com faróis e cabine noturna. Ângulos adicionais mostram loja acessível, interior do motel, bancos/portas/pedais da cabine e luzes noturnas locais. São 20 pares e sete ângulos adicionais no Baixo. Três capturas separadas no Alto (Titã externo/interno e bancada) e uma no Médio (cabine) verificam esses perfis, sem misturá-los à comparação equivalente do Baixo. PNGs são os arquivos reais do navegador, sem montagem promocional ou tratamento de imagem.
 
 Mesmo roteiro, posições, horários, viewport 1280×720 e perfil Baixo a 75%. A nova âncora interna muda seu enquadramento; animação, partículas e pequenas variações de tempo entre frames não são idênticas. Viagens/horários de diagnóstico foram usados nas capturas, não numa suposta sessão humana completa.
 
@@ -124,15 +124,18 @@ O navegador disponível usa **ANGLE SwiftShader por software**, com FPS baixo. N
 3. Solo preto: atributo de cor exigido pelo material fornecido, preservando a malha física.
 4. Ivani coberta por proxy fundido: malha auxiliar removida sem alterar seu colisor.
 5. Pose sentada poderia permanecer em tracks estáticas: restauração explícita antes de atualizar o mixer.
-6. Fumaça na altura do escapamento antigo e ocultada com ele: ponto visual e visibilidade corrigidos.
+6. Fumaça na altura do escapamento antigo: ponto visual reposicionado no tubo, com visibilidade preservada.
 7. Evidência do diário capturada durante fade e fora da rolagem: teste final aguarda a animação do painel e verifica o registro no viewport antes da captura. Diário movido para o início do caderno para facilitar o acesso.
 8. Vista lateral revelou abertura abaixo do painel: parede inferior fechada, teste de visada acrescentado e quatro ângulos internos recapturados.
+9. Vidro antigo avançava sobre a parte superior da porta do posto: recortado junto à janela, verificação visual por raio na altura dos olhos e recaptura do local. Uma rodada integral foi interrompida manualmente após 8 aprovações para fazer a correção; não é contada como integral aprovada. Pequeno ajuste também apoia a ventilação industrial sobre o telhado.
 
 ## Primeiros 30 minutos e pendências
 
 Não foi simulada uma sessão humana honesta de 30 minutos. Os testes automatizados cobrem partes separadas do fluxo, incluindo tutorial, direção, interações, Sementes e persistência; seus deslocamentos diagnósticos são declarados. O roteiro [TESTE_MANUAL_0.8.2.md](docs/TESTE_MANUAL_0.8.2.md) descreve a viagem real sem teleportes, com reserva de 4 L de diesel e uma peça para o gerador. Windows/GPU, sensação de condução, audição e viagem humana completa permanecem pendentes.
 
 Para a 0.9.0: arte facial/roupas/animações finais, contato completo na cabine e portas articuladas, retrovisores dinâmicos conforme orçamento e polimento artístico adicional. Economia dinâmica, contratos, Código da Última Estrada, facções, rotinas completas, quatro caminhões extras e quatro finais continuam no [roadmap](docs/ROADMAP_APOS_0.8.0.md). A Voz permanece sem revelação antecipada.
+
+Reinício adicional: scripts/verificar-reinicio-polimento.mjs prepara uma partida própria por API, mantém sua identidade somente em arquivo temporário fora do Git e verifica os dados após parar/reiniciar o servidor. Resultado aprovado em restart.json: dados idênticos após reinício real, incluindo visita, horário, inventário e posições. Não é sessão humana nem substitui a carga pela interface.
 
 ## Arquivos e retomada
 
