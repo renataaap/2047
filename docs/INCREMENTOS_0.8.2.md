@@ -53,3 +53,7 @@ Vinte pares reais e sete ângulos adicionais no Baixo; três amostras no Alto e 
 175 unitários e build novamente aprovados. Recuperação por API depois de parar/reiniciar o servidor: dados idênticos, com estado da exploração, inventário, posições e horário. Capturas/recursos/limites no relatório.
 
 Primeira integral da aplicação foi 26/28 em 29 minutos: dois testes antigos usavam 800/1000 ms de parede após teleporte e pressionavam F antes de acomodar a física. Foram preservadas as regras da aplicação e corrigida a sincronização dos testes: freio, 120 passos, motor desligado e modo a pé confirmado. Pausa/retorno ao volante também recebem confirmação. Ambas as rechecagens passaram (2/2, 3,5 minutos), incluindo a primeira entrega e toda a sequência dos Núcleos. Não equivalem a uma integral verde. Nova integral de 28 cenários será executada com esses testes.
+
+Segunda integral: 27/28, 30,6 minutos. O Titã ainda avançava a 8,57 km/h, 0,51 m antes do ponto exigido quando o teto de 40 s de parede do teste expirou. O teste passa a permitir 90 s de parede, mantendo chegada/controles e limitando o percurso a 60 s simulados. Rechecagem completa do tutorial: 1/1 aprovado em 2,4 minutos; 21 objetivos, reparo, gerador, ativação e recarga. Estado/contexto e rodada guardados separadamente. A próxima integral usa esse checkpoint; nenhum resultado é presumido.
+
+Comparação também disponível em COMPARACAO_VISUAL_0.8.2.md, com os 51 PNGs reais acessíveis diretamente pelo GitHub.

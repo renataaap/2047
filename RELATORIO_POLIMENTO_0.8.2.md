@@ -71,7 +71,7 @@ Mantidos Titã de Alt, garagem de Yury Misiyuk, posto de SURVIVED, barril de mxt
 
 ## Comparações reais
 
-Referência anterior: `evidence/polish-0.8.2/before`. Resultado: `after`. Índice visual em [comparacao.html](evidence/polish-0.8.2/comparacao.html) e dados em [comparison.json](evidence/polish-0.8.2/comparison.json), gerados pelo script `scripts/comparar-polimento.mjs` após a captura final.
+Referência anterior: `evidence/polish-0.8.2/before`. Resultado: `after`. [Comparação que abre diretamente no GitHub](docs/COMPARACAO_VISUAL_0.8.2.md), [galeria HTML para abrir localmente](evidence/polish-0.8.2/comparacao.html) e dados em [comparison.json](evidence/polish-0.8.2/comparison.json), gerados pelo script `scripts/comparar-polimento.mjs` após a captura final.
 
 Vinte pares reais: menu, barracão, moradia, estrada, Dante de costas/frente, sobrevivente, Zeca, oficina, Marta, três POIs, Tomás, Ivani, exterior/interior do Titã, entardecer, noite com faróis e cabine noturna. Ângulos adicionais mostram loja acessível, interior do motel, bancos/portas/pedais da cabine e luzes noturnas locais. São 20 pares e sete ângulos adicionais no Baixo. Três capturas separadas no Alto (Titã externo/interno e bancada) e uma no Médio (cabine) verificam esses perfis, sem misturá-los à comparação equivalente do Baixo. PNGs são os arquivos reais do navegador, sem montagem promocional ou tratamento de imagem.
 
@@ -90,7 +90,10 @@ Mesmo roteiro, posições, horários, viewport 1280×720 e perfil Baixo a 75%. A
 | E: cabine, loja e diário | 175 unitários; 3 E2Es novos aprovados numa rodada | experience-unit.log / experience-e2e.log |
 | Final 0.8.2: npm test | 175/25 arquivos aprovados | final-unit.log |
 | Final: npm run build | Aprovado, dev parado | final-build.log |
-| Final: npm run test:e2e | PENDENTE NESTE CHECKPOINT — 28 cenários | final-e2e.log |
+| Primeira integral 0.8.2 | 26/28, duas falhas de sincronização após teleporte | regression-first.log |
+| Rechecagem das duas falhas | 2/2: primeira entrega e Núcleos 2–7, com física/saída confirmadas | settled-exit-e2e.log |
+| Segunda integral 0.8.2 | 27/28, limite de 40 s de parede no trajeto de treino | regression-second.log |
+| Rechecagem do tutorial | 1/1 aprovado em 2,4 min, com os 21 objetivos e recarga | tutorial-recheck.log |
 
 Logs próprios em `evidence/polish-0.8.2/`. Outputs das regressões antigas são copiados para subpastas desta atualização e seus caminhos históricos restaurados, sem apresentar dados antigos como novas execuções. Três cenários foram acrescentados; não se somam rodadas repetidas como cenários únicos extras.
 
@@ -132,6 +135,10 @@ O navegador disponível usa **ANGLE SwiftShader por software**, com FPS baixo. N
 7. Evidência do diário capturada durante fade e fora da rolagem: teste final aguarda a animação do painel e verifica o registro no viewport antes da captura. Diário movido para o início do caderno para facilitar o acesso.
 8. Vista lateral revelou abertura abaixo do painel: parede inferior fechada, teste de visada acrescentado e quatro ângulos internos recapturados.
 9. Vidro antigo avançava sobre a parte superior da porta do posto: recortado junto à janela, verificação visual por raio na altura dos olhos e recaptura do local. Uma rodada integral foi interrompida manualmente após 8 aprovações para fazer a correção; não é contada como integral aprovada. Pequeno ajuste também apoia a ventilação industrial sobre o telhado.
+
+Os dois testes antigos tentavam F após 800/1000 ms de parede, enquanto o teleporte ainda precisava de passos físicos. A espera foi substituída por freio, 120 passos reais, velocidade segura, motor desligado e modo a pé confirmado. O retorno da pausa e a entrada no Titã também recebem confirmação. As regras da aplicação não foram relaxadas. Os dois fluxos passaram na rechecagem antes da nova integral. Arquivos: tests/helpers/parked-exit.js e os cenários phase2/phase4. O contador singular do diário foi corrigido. Capturas e contextos da falha ficaram separados dos resultados finais; traces com possíveis cabeçalhos de teste não são publicados.
+
+Na segunda integral, 27 cenários passaram e o trajeto do tutorial terminou seu limite de 40 segundos de parede a 0,51 m da chegada, ainda a 8,57 km/h. O contexto/estado está em tutorial-timing. O teste mantém trajeto, controles e chegada; agora permite 90 segundos de parede com limite de 60 segundos simulados. A rechecagem do tutorial inteiro passou em 2,4 minutos, com os 21 objetivos, ativação e recarga. Nenhuma regra de movimento da aplicação foi alterada.
 
 ## Primeiros 30 minutos e pendências
 

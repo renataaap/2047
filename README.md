@@ -1,6 +1,6 @@
 # 2047: Rede Aurora
 
-**0.8.2 — Polimento e exploração, em revisão.** Cabine detalhada, instrumentos reais, acabamento do Titã, roupas/equipamentos individuais, barracão/oficina/POIs refinados, loja fisicamente acessível, terreno PBR corrigido e diário no caderno J. [Relatório](RELATORIO_POLIMENTO_0.8.2.md) · [comparação real](evidence/polish-0.8.2/comparacao.html) · [avaliação Windows](docs/TESTE_MANUAL_0.8.2.md).
+**0.8.2 — Polimento e exploração, em revisão.** Cabine detalhada, instrumentos reais, acabamento do Titã, roupas/equipamentos individuais, barracão/oficina/POIs refinados, loja fisicamente acessível, terreno PBR corrigido e diário no caderno J. [Relatório](RELATORIO_POLIMENTO_0.8.2.md) · [comparação real](docs/COMPARACAO_VISUAL_0.8.2.md) · [avaliação Windows](docs/TESTE_MANUAL_0.8.2.md).
 
 **Validação nova:** 175 unitários aprovados. Build e suíte integral final em execução/preparação; os resultados finais serão registrados no relatório. Referência anterior executada novamente: 167 unitários, build e 25/25 E2Es integrais. Rodadas focadas dos novos sistemas também passaram. SwiftShader por software; Windows/GPU física e sessão humana de 30 minutos pendentes. Base humana/rostos finais, escalada com contato e retrovisores dinâmicos continuam pendentes.
 
