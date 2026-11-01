@@ -111,6 +111,10 @@ Métricas das mesmas cenas em comparison.json:
 | Titã externo | 51 → 85 | 105.274 → 187.190 |
 | Cabine | 107 → 138 | 121.825 → 197.723 |
 
+Na condução de aceite no Médio, o mesmo roteiro de oito segundos simulados passou de 142 chamadas / 218.894 triângulos para 226 / 397.762, dentro do orçamento original de 300 / 500.000. A média em software caiu de aproximadamente 0,64 para 0,36 FPS. Ver driving-budget.json. O custo é significativo e precisa de avaliação em GPU antes de promover esta versão a arte/desempenho finais.
+
+Os perfis conferidos registraram aproximadamente 32 MiB no loader do Baixo, 128 MiB no Médio e 256 MiB no Alto, com seis rodas e sem erros de assets. Esses valores não incluem toda a VRAM.
+
 Nove setores em ambos; loader mantém 24 texturas e aproximadamente 32 MiB estimados no perfil Baixo. Mais geometria e chamadas são o custo mensurado das novas peças/roupas e da subdivisão. O custo aumentou: não se afirma melhoria de FPS. Na amostra de software, barracão passou de aproximadamente 1,37 para 1,16 FPS; cabine de 1,57 para 0,92 FPS, com enquadramento intencionalmente diferente. Essas amostras dependem de compilação/cache, histórico da sessão e carga do ambiente; não medem GPU física nem isolam cada módulo.
 
 Contagens após a instrumentação incluem geometrias e texturas do renderer. A estimativa do AssetManager cobre texturas geridas pelo loader, não todos os mapas procedurais; renderer.info acrescenta contagens depois da instrumentação. Não há medição equivalente de VRAM antes da nova instrumentação.

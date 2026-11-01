@@ -4,10 +4,10 @@
     "resumeMode": "driving",
     "overlay": null,
     "fuel": 4,
-    "temperature": 25.861529812883422,
+    "temperature": 25.8895697060148,
     "engineOn": false,
-    "speed": 5.547120575377651e-11,
-    "signedSpeed": 5.547120575377651e-11,
+    "speed": 1.426239942120544e-11,
+    "signedSpeed": -1.426239942120544e-11,
     "surface": "asfalto",
     "camera": 1,
     "headlights": false,
@@ -31,9 +31,9 @@
     "tractionForceN": 0,
     "resistanceForceN": 1036.611740390625,
     "steeringAngle": 0,
-    "longitudinalAcceleration": -0.00003645842835647138,
+    "longitudinalAcceleration": -0.000046373648988605035,
     "lateralAcceleration": 0,
-    "lateralSpeed": 1.8960819547394018e-9,
+    "lateralSpeed": -1.1949176476689068e-10,
     "worldNight": 0,
     "storm": false,
     "restored": false,
@@ -41,10 +41,10 @@
     "interference": 0.08,
     "radioActive": false,
     "indoors": false,
-    "x": 1.1171932823295094e-10,
-    "z": 4.969547748565674,
+    "x": 1.0689434060129344e-10,
+    "z": 4.9699482917785645,
     "front": false,
-    "weatherClock": 3.1499999999999937,
+    "weatherClock": 2.499999999999996,
     "localRestored": false,
     "powerMultiplier": 1,
     "gripMultiplier": 1,
@@ -59,7 +59,7 @@
       "status": "skipped",
       "completed": [],
       "facts": [],
-      "walked": 0.0008055256729237871,
+      "walked": 0.0004658848554315374,
       "reversed": 0,
       "step": {
         "id": "walk",
@@ -97,13 +97,13 @@
         }
       },
       "applied": {
-        "asphalt": "road_damaged_2",
-        "shoulder": "gravel_road",
-        "weatheredMetal": "rust_coarse_01",
-        "rust": "rusty_metal_05",
-        "roof": "corrugated_iron",
         "ground": "dirt",
-        "rock": "rocky_terrain_03"
+        "shoulder": "gravel_road",
+        "asphalt": "road_damaged_2",
+        "rock": "rocky_terrain_03",
+        "rust": "rusty_metal_05",
+        "weatheredMetal": "rust_coarse_01",
+        "roof": "corrugated_iron"
       },
       "unavailable": [
         "brick",
@@ -269,63 +269,63 @@
       ],
       "wheels": [
         {
-          "y": -0.5498231410980224,
+          "y": -0.5498242139816284,
           "steering": 0,
-          "rotation": 0.11639769375324249,
+          "rotation": 0.11617577821016312,
+          "center": [
+            -1.2000000476837156,
+            -0.5495795986942249,
+            -2.499940248321198
+          ]
+        },
+        {
+          "y": -0.5498242139816284,
+          "steering": 0,
+          "rotation": 0.11617575585842133,
+          "center": [
+            1.200000047683716,
+            -0.5495795986928893,
+            -2.499940248326665
+          ]
+        },
+        {
+          "y": -0.5767637252807617,
+          "steering": 0,
+          "rotation": 0.11381182074546814,
           "center": [
             -1.2000000476837158,
-            -0.5495785390764685,
-            -2.4999401940387345
+            -0.5768533243857765,
+            1.4496843527855505
           ]
         },
         {
-          "y": -0.5498231410980224,
+          "y": -0.5767637252807617,
           "steering": 0,
-          "rotation": 0.1163976714015007,
+          "rotation": 0.11381180584430695,
           "center": [
             1.2000000476837158,
-            -0.5495785390751315,
-            -2.499940194044202
+            -0.5768533243904806,
+            1.4496843527868855
           ]
         },
         {
-          "y": -0.5767619371414184,
+          "y": -0.5866598844528198,
           "steering": 0,
-          "rotation": 0.11394056677818298,
+          "rotation": 0.11199991405010223,
           "center": [
             -1.200000047683716,
-            -0.5768514956012252,
-            1.4496843412526381
+            -0.5867500520892607,
+            2.8996845337170107
           ]
         },
         {
-          "y": -0.5767619371414184,
+          "y": -0.5866598844528198,
           "steering": 0,
-          "rotation": 0.11394055932760239,
+          "rotation": 0.11199991405010223,
           "center": [
             1.2000000476837156,
-            -0.5768514956035773,
-            1.4496843412533051
-          ]
-        },
-        {
-          "y": -0.5866582155227661,
-          "steering": 0,
-          "rotation": 0.11209370940923691,
-          "center": [
-            -1.2000000476837158,
-            -0.5867483535605919,
-            2.8996845252610957
-          ]
-        },
-        {
-          "y": -0.5866582155227661,
-          "steering": 0,
-          "rotation": 0.11209370940923691,
-          "center": [
-            1.2000000476837158,
-            -0.586748353560592,
-            2.8996845252610957
+            -0.5867500520892607,
+            2.8996845337170125
           ]
         }
       ]
@@ -343,7 +343,7 @@
     "importedNpc": {
       "loaded": true,
       "state": "idle",
-      "animationTime": 2.9332999999999974,
+      "animationTime": 1.9573000000089404,
       "animations": [
         "idle",
         "walk",
@@ -365,7 +365,7 @@
     "dante": {
       "loaded": true,
       "state": "idle",
-      "animationTime": 2.9332999999999974,
+      "animationTime": 1.9573000000089404,
       "animations": [
         "idle",
         "walk",
@@ -386,29 +386,29 @@
       "pose": "seated",
       "heading": 3.141592653589793,
       "position": [
-        -0.6099999990760099,
-        0.6320993711204042,
-        2.861028221453062
+        -0.6099999990862063,
+        0.6321050860057235,
+        2.8614287281954223
       ]
     },
     "footCamera": "first",
     "simulation": {
-      "steps": 189,
-      "lastFrameSteps": 3,
-      "droppedSeconds": 7.549500000000003,
+      "steps": 150,
+      "lastFrameSteps": 30,
+      "droppedSeconds": 5.999600000000001,
       "fixedStep": 0.016666666666666666
     },
     "instruments": {
-      "speed": 1.9969634071359543e-10,
+      "speed": 5.134463791633959e-11,
       "rpm": 0,
       "fuel": 4,
-      "temperature": 25.861529812883422,
+      "temperature": 25.8895697060148,
       "gear": "N",
       "needleAngles": {
-        "speed": 2.3561944272075075,
+        "speed": 2.35619435476138,
         "rpm": 2.356194490192345,
-        "fuel": 2.2514747350726854,
-        "temperature": 1.5436865332094394
+        "fuel": 2.251474735072817,
+        "temperature": 1.5428283831775076
       },
       "signals": {
         "engine": false,
@@ -447,19 +447,19 @@
     },
     "truckVisual": {
       "steeringWheelAngle": 0,
-      "cabPitch": 5.028129927439186e-7,
+      "cabPitch": 6.751661870395795e-7,
       "cabRoll": 0
     },
     "cameraPose": {
       "position": [
-        -0.5999999984091478,
-        2.2530629161817246,
-        2.903184900270291
+        -0.5999999984601542,
+        2.25306862882674,
+        2.9035854931640084
       ],
       "target": [
-        -0.5999999795973328,
-        -2.4234853147321203,
-        -36.82249818566213
+        -0.5999999799596787,
+        -2.4234774907343786,
+        -36.82209784131896
       ],
       "mode": 1,
       "distance": 14,
@@ -487,11 +487,11 @@
       "pausedGain": 1
     },
     "worldTime": {
-      "hour": 9.02625,
+      "hour": 9.020833333333334,
       "period": "Manhã",
       "label": "09:01",
       "night": 0,
-      "sunIntensity": 2.7778785534910373,
+      "sunIntensity": 2.7760177499261673,
       "ambientIntensity": 2.05,
       "days": 0
     },
@@ -526,7 +526,7 @@
         "oficina-cotovelo": {
           "loaded": true,
           "state": "idle",
-          "animationTime": 1.3500999999999985,
+          "animationTime": 1,
           "animations": [
             "idle",
             "walk",
@@ -549,9 +549,9 @@
     },
     "ready": true,
     "position": [
-      1.1171932823295094e-10,
-      1.3184268474578857,
-      4.969547748565674
+      1.0689434060129344e-10,
+      1.3184324502944946,
+      4.9699482917785645
     ],
     "playerYaw": 0,
     "playerPosition": [
@@ -559,11 +559,11 @@
       1.143437147140503,
       5
     ],
-    "speedKmh": 1.9969634071359543e-10,
-    "fps": 0.5128205128205128,
-    "averageFps": 0.7832664263680273,
+    "speedKmh": 5.134463791633959e-11,
+    "fps": 0.5000250012500621,
+    "averageFps": 0.9075994875518371,
     "drawCalls": 120,
-    "triangles": 166787,
+    "triangles": 166879,
     "sectors": 9,
     "sectorKeys": [
       "0,0",
@@ -577,9 +577,9 @@
       "1,1"
     ],
     "quaternion": [
-      -0.008590997196733952,
-      -2.5995275376722304e-10,
-      -2.1474881595207052e-10,
+      -0.008591056801378727,
+      -2.546451938201244e-10,
+      -2.019737432856772e-10,
       0.999963104724884
     ],
     "wheelContacts": [
@@ -591,12 +591,12 @@
       true
     ],
     "suspension": [
-      0.44982314109802246,
-      0.44982314109802246,
-      0.47676193714141846,
-      0.47676193714141846,
-      0.4866582155227661,
-      0.4866582155227661
+      0.4498242139816284,
+      0.4498242139816284,
+      0.4767637252807617,
+      0.4767637252807617,
+      0.4866598844528198,
+      0.4866598844528198
     ],
     "input": {
       "throttle": 0,
@@ -699,7 +699,7 @@
       "completedMissions": [],
       "decisions": [],
       "collected": [],
-      "rngState": 1649219320,
+      "rngState": 3152171551,
       "travelSeconds": 0,
       "checkpoint": 0,
       "expedition": {
@@ -718,7 +718,7 @@
         "transactions": 0
       },
       "network": {
-        "clock": 3.1499999999999937,
+        "clock": 2.499999999999996,
         "cargo": null,
         "seeds": {
           "core-1": {
@@ -840,7 +840,7 @@
       },
       "world": {
         "version": 1,
-        "daySeconds": 32494.5,
+        "daySeconds": 32475,
         "days": 0,
         "visited": [],
         "claimed": [],
@@ -851,7 +851,7 @@
         "status": "skipped",
         "completed": [],
         "facts": [],
-        "walked": 0.0008055256729237871,
+        "walked": 0.0004658848554315374,
         "reversed": 0
       }
     },
@@ -886,11 +886,11 @@
     "mode": "driving",
     "resumeMode": "driving",
     "overlay": null,
-    "fuel": 3.9891538707673635,
-    "temperature": 40.07566782309819,
+    "fuel": 3.9895222043701604,
+    "temperature": 38.903570777680315,
     "engineOn": true,
-    "speed": 0.001755828822349508,
-    "signedSpeed": 0.001755837540564875,
+    "speed": 0.001755832378856831,
+    "signedSpeed": 0.0017558344276701204,
     "surface": "asfalto",
     "camera": 1,
     "headlights": true,
@@ -899,12 +899,12 @@
     "saving": false,
     "massKg": 8805.740234375,
     "cargoMassKg": 5.74,
-    "rpm": 650.0000007565685,
+    "rpm": 650.0000176173139,
     "gear": 1,
     "gearLabel": "D1",
     "shifting": false,
     "shiftCount": 0,
-    "throttle": 2.284013566307707e-14,
+    "throttle": 1.785571272198278e-12,
     "brake": 0,
     "torqueNm": 0,
     "enginePowerKw": 0,
@@ -912,11 +912,11 @@
     "engineBraking": false,
     "parkingBrake": true,
     "tractionForceN": 0,
-    "resistanceForceN": 1036.6117526646813,
+    "resistanceForceN": 1036.6117526646378,
     "steeringAngle": 0,
-    "longitudinalAcceleration": -5.392338513158889e-8,
+    "longitudinalAcceleration": -0.0000018588498619100825,
     "lateralAcceleration": 0,
-    "lateralSpeed": -6.594376447521831e-9,
+    "lateralSpeed": -2.549392060650958e-9,
     "worldNight": 0,
     "storm": false,
     "restored": false,
@@ -924,10 +924,10 @@
     "interference": 0.08,
     "radioActive": false,
     "indoors": false,
-    "x": 6.794713680591258e-9,
-    "z": 1.1188675165176392,
+    "x": 5.656968227185644e-9,
+    "z": 1.1196733713150024,
     "front": false,
-    "weatherClock": 9.083333333333364,
+    "weatherClock": 7.866666666666644,
     "localRestored": false,
     "powerMultiplier": 1,
     "gripMultiplier": 1,
@@ -942,7 +942,7 @@
       "status": "skipped",
       "completed": [],
       "facts": [],
-      "walked": 0.0008055256729237871,
+      "walked": 0.0004658848554315374,
       "reversed": 0,
       "step": {
         "id": "walk",
@@ -980,13 +980,13 @@
         }
       },
       "applied": {
-        "asphalt": "road_damaged_2",
-        "shoulder": "gravel_road",
-        "weatheredMetal": "rust_coarse_01",
-        "rust": "rusty_metal_05",
-        "roof": "corrugated_iron",
         "ground": "dirt",
-        "rock": "rocky_terrain_03"
+        "shoulder": "gravel_road",
+        "asphalt": "road_damaged_2",
+        "rock": "rocky_terrain_03",
+        "rust": "rusty_metal_05",
+        "weatheredMetal": "rust_coarse_01",
+        "roof": "corrugated_iron"
       },
       "unavailable": [
         "brick",
@@ -1152,63 +1152,63 @@
       ],
       "wheels": [
         {
-          "y": -0.5498379230499267,
+          "y": -0.5498378038406372,
           "steering": 0,
-          "rotation": 6.419060230255127,
+          "rotation": 6.419162273406982,
           "center": [
             -1.200000047683716,
-            -0.549594532204092,
-            -2.4999354415139967
+            -0.5495944195838207,
+            -2.499935416677965
           ]
         },
         {
-          "y": -0.5498379230499267,
+          "y": -0.5498378038406372,
           "steering": 0,
-          "rotation": 6.419060230255127,
+          "rotation": 6.419162750244141,
           "center": [
             1.2000000476837156,
-            -0.549594532204092,
-            -2.4999354415139967
+            -0.5495944196146166,
+            -2.49993541656191
           ]
         },
         {
-          "y": -0.5767618179321289,
+          "y": -0.5767616987228393,
           "steering": 0,
-          "rotation": 6.416540622711182,
+          "rotation": 6.416736125946045,
           "center": [
             -1.2000000476837158,
-            -0.5768452305377327,
-            1.4496826621050043
+            -0.5768450492769421,
+            1.4496826458036365
           ]
         },
         {
-          "y": -0.5767618179321289,
+          "y": -0.5767616987228393,
           "steering": 0,
-          "rotation": 6.416540622711182,
+          "rotation": 6.416736125946045,
           "center": [
             1.2000000476837158,
-            -0.5768452305377327,
-            1.4496826621050043
+            -0.5768450492769422,
+            1.4496826458036365
           ]
         },
         {
-          "y": -0.5866458177566528,
+          "y": -0.5866456985473633,
           "steering": 0,
-          "rotation": 6.414679050445557,
+          "rotation": 6.414909362792969,
           "center": [
-            -1.200000047683716,
-            -0.5867298171460397,
-            2.899682836072122
+            -1.2000000476837158,
+            -0.5867296248657898,
+            2.899682816734442
           ]
         },
         {
-          "y": -0.5866458177566528,
+          "y": -0.5866456985473633,
           "steering": 0,
-          "rotation": 6.414679050445557,
+          "rotation": 6.414909362792969,
           "center": [
-            1.2000000476837156,
-            -0.5867298171460396,
-            2.899682836072123
+            1.2000000476837158,
+            -0.5867296248657898,
+            2.899682816734442
           ]
         }
       ]
@@ -1226,7 +1226,7 @@
     "importedNpc": {
       "loaded": true,
       "state": "idle",
-      "animationTime": 6.049899999999999,
+      "animationTime": 4.740600000008939,
       "animations": [
         "idle",
         "walk",
@@ -1248,7 +1248,7 @@
     "dante": {
       "loaded": true,
       "state": "idle",
-      "animationTime": 6.049899999999999,
+      "animationTime": 4.740600000008939,
       "animations": [
         "idle",
         "walk",
@@ -1269,29 +1269,29 @@
       "pose": "seated",
       "heading": 3.141592653589793,
       "position": [
-        -0.6099999915889985,
-        0.5918170046401464,
-        -0.9896425795445136
+        -0.6099999902988247,
+        0.5917213107339874,
+        -0.9888468522710494
       ]
     },
     "footCamera": "first",
     "simulation": {
-      "steps": 545,
+      "steps": 472,
       "lastFrameSteps": 30,
-      "droppedSeconds": 14.832299999999996,
+      "droppedSeconds": 12.2659,
       "fixedStep": 0.016666666666666666
     },
     "instruments": {
-      "speed": 0.006320983760458229,
-      "rpm": 650.0000007565685,
-      "fuel": 3.9891538707673635,
-      "temperature": 40.07566782309819,
+      "speed": 0.0063209965638845915,
+      "rpm": 650.0000176173139,
+      "fuel": 3.9895222043701604,
+      "temperature": 38.903570777680315,
       "gear": "D1",
       "needleAngles": {
-        "speed": 2.3559462657291825,
-        "rpm": 1.178097242559549,
-        "fuel": 2.2517584211306976,
-        "temperature": 1.098210877972305
+        "speed": 2.355946265184309,
+        "rpm": 1.1780971855516702,
+        "fuel": 2.2517487781865273,
+        "temperature": 1.135055959416377
       },
       "signals": {
         "engine": true,
@@ -1330,19 +1330,19 @@
     },
     "truckVisual": {
       "steeringWheelAngle": 0,
-      "cabPitch": 6.417177760660002e-9,
+      "cabPitch": 9.899272034736544e-8,
       "cabRoll": 0
     },
     "cameraPose": {
       "position": [
-        -0.5999999923940158,
-        2.212780747952569,
-        -0.9474935240073052
+        -0.5999999930663704,
+        2.212685049920816,
+        -0.946697637606889
       ],
       "target": [
-        22.555519645563642,
-        -30.319703495135418,
-        -3.2840249852527017
+        22.55551968544887,
+        -30.319798936243238,
+        -3.2832322741731352
       ],
       "mode": 1,
       "distance": 14,
@@ -1355,7 +1355,7 @@
     "audio": {
       "state": "running",
       "firingHz": 32.5,
-      "expectedFiringHz": 32.50000003782843,
+      "expectedFiringHz": 32.5000008808657,
       "shiftsObserved": 0,
       "engineGain": 0.07000410556793213
     },
@@ -1370,11 +1370,11 @@
       "pausedGain": 1
     },
     "worldTime": {
-      "hour": 9.075694444444444,
+      "hour": 9.065555555555555,
       "period": "Manhã",
-      "label": "09:04",
+      "label": "09:03",
       "night": 0,
-      "sunIntensity": 2.7946812890365558,
+      "sunIntensity": 2.791262594333134,
       "ambientIntensity": 2.05,
       "days": 0
     },
@@ -1409,7 +1409,7 @@
         "oficina-cotovelo": {
           "loaded": true,
           "state": "idle",
-          "animationTime": 4.516599999999999,
+          "animationTime": 3.783299999999999,
           "animations": [
             "idle",
             "walk",
@@ -1432,9 +1432,9 @@
     },
     "ready": true,
     "position": [
-      6.684021780500871e-9,
-      1.2785179615020752,
-      1.118855595588684
+      5.611878073352727e-9,
+      1.2785263061523438,
+      1.1196614503860474
     ],
     "playerYaw": 0,
     "playerPosition": [
@@ -1442,11 +1442,11 @@
       1.143437147140503,
       5
     ],
-    "speedKmh": 0.006320983760458229,
-    "fps": 1.13211819313936,
-    "averageFps": 1.0402675708934108,
+    "speedKmh": 0.0063209965638845915,
+    "fps": 1.1111111111111112,
+    "averageFps": 1.0851268987669167,
     "drawCalls": 48,
-    "triangles": 120849,
+    "triangles": 120941,
     "sectors": 9,
     "sectorKeys": [
       "0,0",
@@ -1460,9 +1460,9 @@
       "1,1"
     ],
     "quaternion": [
-      -0.008593101054430008,
-      -3.2088362522664227e-10,
-      2.413231836584373e-10,
+      -0.008593098260462284,
+      -7.046564998169913e-10,
+      8.296342501878939e-10,
       0.9999631643295288
     ],
     "wheelContacts": [
@@ -1474,12 +1474,12 @@
       true
     ],
     "suspension": [
-      0.44983792304992676,
-      0.44983792304992676,
-      0.4767618179321289,
-      0.4767618179321289,
-      0.48664581775665283,
-      0.48664581775665283
+      0.4498378038406372,
+      0.4498378038406372,
+      0.47676169872283936,
+      0.47676169872283936,
+      0.4866456985473633,
+      0.4866456985473633
     ],
     "input": {
       "throttle": 0,
@@ -1582,7 +1582,7 @@
       "completedMissions": [],
       "decisions": [],
       "collected": [],
-      "rngState": 1649219320,
+      "rngState": 3152171551,
       "travelSeconds": 1.4333333333333331,
       "checkpoint": 0,
       "expedition": {
@@ -1601,7 +1601,7 @@
         "transactions": 0
       },
       "network": {
-        "clock": 9.083333333333364,
+        "clock": 7.866666666666644,
         "cargo": null,
         "seeds": {
           "core-1": {
@@ -1723,7 +1723,7 @@
       },
       "world": {
         "version": 1,
-        "daySeconds": 32672.5,
+        "daySeconds": 32636,
         "days": 0,
         "visited": [],
         "claimed": [],
@@ -1734,7 +1734,7 @@
         "status": "skipped",
         "completed": [],
         "facts": [],
-        "walked": 0.0008055256729237871,
+        "walked": 0.0004658848554315374,
         "reversed": 0
       }
     },
@@ -1769,11 +1769,11 @@
     "mode": "walking",
     "resumeMode": "walking",
     "overlay": null,
-    "fuel": 3.987485537434002,
-    "temperature": 45.168794146505896,
+    "fuel": 3.9875505377034606,
+    "temperature": 44.99996563012974,
     "engineOn": true,
-    "speed": 0.0017557719775597841,
-    "signedSpeed": 0.001755732335111225,
+    "speed": 0.001755798855489394,
+    "signedSpeed": 0.0017557870437777691,
     "surface": "asfalto",
     "camera": 1,
     "headlights": true,
@@ -1782,12 +1782,12 @@
     "saving": false,
     "massKg": 8805.740234375,
     "cargoMassKg": 5.74,
-    "rpm": 650.0000000000006,
+    "rpm": 650.0000000000008,
     "gear": 1,
     "gearLabel": "D1",
     "shifting": false,
     "shiftCount": 0,
-    "throttle": 6.08368333877988e-23,
+    "throttle": 1.3129230680210813e-22,
     "brake": 0,
     "torqueNm": 0,
     "enginePowerKw": 0,
@@ -1795,11 +1795,11 @@
     "engineBraking": false,
     "parkingBrake": true,
     "tractionForceN": 0,
-    "resistanceForceN": 1036.6117526632106,
+    "resistanceForceN": 1036.6117526639753,
     "steeringAngle": 0,
-    "longitudinalAcceleration": -0.000011731991236431742,
+    "longitudinalAcceleration": -0.000009630711590405792,
     "lateralAcceleration": 0,
-    "lateralSpeed": 1.2050877742559644e-10,
+    "lateralSpeed": 5.467394205161846e-9,
     "worldNight": 0,
     "storm": false,
     "restored": false,
@@ -1807,10 +1807,10 @@
     "interference": 0.08,
     "radioActive": false,
     "indoors": false,
-    "x": 6.693421372716557e-9,
-    "z": 1.1170316934585571,
+    "x": 7.342755292683023e-9,
+    "z": 1.1175037622451782,
     "front": false,
-    "weatherClock": 11.650000000000158,
+    "weatherClock": 10.900000000000121,
     "localRestored": false,
     "powerMultiplier": 1,
     "gripMultiplier": 1,
@@ -1825,7 +1825,7 @@
       "status": "skipped",
       "completed": [],
       "facts": [],
-      "walked": 0.0008055256729237871,
+      "walked": 0.0004658848554315374,
       "reversed": 0,
       "step": {
         "id": "walk",
@@ -1863,13 +1863,13 @@
         }
       },
       "applied": {
-        "asphalt": "road_damaged_2",
-        "shoulder": "gravel_road",
-        "weatheredMetal": "rust_coarse_01",
-        "rust": "rusty_metal_05",
-        "roof": "corrugated_iron",
         "ground": "dirt",
-        "rock": "rocky_terrain_03"
+        "shoulder": "gravel_road",
+        "asphalt": "road_damaged_2",
+        "rock": "rocky_terrain_03",
+        "rust": "rusty_metal_05",
+        "weatheredMetal": "rust_coarse_01",
+        "roof": "corrugated_iron"
       },
       "unavailable": [
         "brick",
@@ -2035,63 +2035,63 @@
       ],
       "wheels": [
         {
-          "y": -0.5498370885848999,
+          "y": -0.5498372077941894,
           "steering": 0,
-          "rotation": 6.4175920486450195,
+          "rotation": 6.417427062988281,
           "center": [
-            -1.2000000476837158,
-            -0.5495936032178386,
-            -2.4999357989254127
+            -1.2000000476837156,
+            -0.5495937118381856,
+            -2.49993583909788
           ]
         },
         {
-          "y": -0.5498370885848999,
+          "y": -0.5498372077941894,
           "steering": 0,
-          "rotation": 6.4175920486450195,
+          "rotation": 6.4174275398254395,
           "center": [
-            1.2000000476837158,
-            -0.5495936032178386,
-            -2.4999357989254127
-          ]
-        },
-        {
-          "y": -0.576760983467102,
-          "steering": 0,
-          "rotation": 6.415072441101074,
-          "center": [
-            -1.2000000476837158,
-            -0.576844861962308,
-            1.4496827849118858
+            1.200000047683716,
+            -0.5495937118687799,
+            -2.499935838981772
           ]
         },
         {
           "y": -0.576760983467102,
           "steering": 0,
-          "rotation": 6.415072441101074,
+          "rotation": 6.4150004386901855,
           "center": [
-            1.2000000476837158,
-            -0.576844861962308,
-            1.4496827849118854
+            -1.2000000476837156,
+            -0.5768448848057752,
+            1.4496827909521617
           ]
         },
         {
-          "y": -0.5866448640823364,
+          "y": -0.576760983467102,
           "steering": 0,
-          "rotation": 6.413218021392822,
+          "rotation": 6.4150004386901855,
+          "center": [
+            1.200000047683716,
+            -0.5768448848057752,
+            1.4496827909521617
+          ]
+        },
+        {
+          "y": -0.5866451025009155,
+          "steering": 0,
+          "rotation": 6.413181304931641,
           "center": [
             -1.200000047683716,
-            -0.586729326906953,
-            2.899682959136238
+            -0.5867295769695956,
+            2.899682962237629
           ]
         },
         {
-          "y": -0.5866448640823364,
+          "y": -0.5866451025009155,
           "steering": 0,
-          "rotation": 6.413218021392822,
+          "rotation": 6.413181304931641,
           "center": [
             1.2000000476837156,
-            -0.5867293269069531,
-            2.8996829591362396
+            -0.5867295769695955,
+            2.899682962237628
           ]
         }
       ]
@@ -2109,7 +2109,7 @@
     "importedNpc": {
       "loaded": true,
       "state": "idle",
-      "animationTime": 7.383100000000003,
+      "animationTime": 6.257300000008937,
       "animations": [
         "idle",
         "walk",
@@ -2131,7 +2131,7 @@
     "dante": {
       "loaded": true,
       "state": "idle",
-      "animationTime": 7.383100000000003,
+      "animationTime": 6.257300000008937,
       "animations": [
         "idle",
         "walk",
@@ -2152,29 +2152,29 @@
       "pose": "walking",
       "heading": 3.141592653589793,
       "position": [
-        -2.8000004291534424,
-        0.10575896978378296,
-        -1.3819570541381836
+        -2.8000006675720215,
+        0.10575169801712037,
+        -1.381463646888733
       ]
     },
     "footCamera": "first",
     "simulation": {
-      "steps": 699,
-      "lastFrameSteps": 30,
-      "droppedSeconds": 19.832199999999993,
+      "steps": 654,
+      "lastFrameSteps": 2,
+      "droppedSeconds": 15.8489,
       "fixedStep": 0.016666666666666666
     },
     "instruments": {
-      "speed": 0.006320779119215223,
-      "rpm": 650.0000000000006,
-      "fuel": 3.987485537434002,
-      "temperature": 45.168794146505896,
+      "speed": 0.006320875879761818,
+      "rpm": 650.0000000000008,
+      "fuel": 3.9875505377034606,
+      "temperature": 44.99996563012974,
       "gear": "D1",
       "needleAngles": {
-        "speed": 2.355946244424758,
-        "rpm": 1.178097245096171,
-        "fuel": 2.2518020978434246,
-        "temperature": 0.9381079550805271
+        "speed": 2.355946251155829,
+        "rpm": 1.1780972450961693,
+        "fuel": 2.251800002557205,
+        "temperature": 0.94479072734093
       },
       "signals": {
         "engine": true,
@@ -2213,19 +2213,19 @@
     },
     "truckVisual": {
       "steeringWheelAngle": 0,
-      "cabPitch": 8.2821823752458e-8,
+      "cabPitch": 7.669660025835837e-8,
       "cabRoll": 0
     },
     "cameraPose": {
       "position": [
-        -2.8000004291534424,
-        1.5957582143498479,
-        -1.3819568404801008
+        -2.8000006675720215,
+        1.5957716837716944,
+        -1.3814620410481306
       ],
       "target": [
-        22.497777038116688,
-        -30.365865551336817,
-        -3.19285614706223
+        22.49777474228842,
+        -30.366884571303295,
+        -3.1923392182999755
       ],
       "mode": 1,
       "distance": 14,
@@ -2238,7 +2238,7 @@
     "audio": {
       "state": "running",
       "firingHz": 32.5,
-      "expectedFiringHz": 32.50000000000003,
+      "expectedFiringHz": 32.50000000000004,
       "shiftsObserved": 0,
       "engineGain": 0.07000000029802322
     },
@@ -2253,11 +2253,11 @@
       "pausedGain": 1
     },
     "worldTime": {
-      "hour": 9.097083333333334,
+      "hour": 9.090833333333334,
       "period": "Manhã",
       "label": "09:05",
       "night": 0,
-      "sunIntensity": 2.8018481845959897,
+      "sunIntensity": 2.799760285369023,
       "ambientIntensity": 2.05,
       "days": 0
     },
@@ -2292,7 +2292,7 @@
         "oficina-cotovelo": {
           "loaded": true,
           "state": "idle",
-          "animationTime": 5.849800000000003,
+          "animationTime": 5.283299999999999,
           "animations": [
             "idle",
             "walk",
@@ -2315,19 +2315,19 @@
     },
     "ready": true,
     "position": [
-      6.694696796927246e-9,
-      1.2784980535507202,
-      1.117019772529602
+      7.433279769486489e-9,
+      1.2785030603408813,
+      1.1174918413162231
     ],
     "playerYaw": 0,
     "playerPosition": [
-      -2.8000004291534424,
-      0.975758969783783,
-      -1.3819570541381836
+      -2.8000006675720215,
+      0.9757516980171204,
+      -1.381463646888733
     ],
-    "speedKmh": 0.006320779119215223,
-    "fps": 0.4511413877109089,
-    "averageFps": 1.0387072004198978,
+    "speedKmh": 0.006320875879761818,
+    "fps": 0.7692899453804131,
+    "averageFps": 1.0423737281596994,
     "drawCalls": 89,
     "triangles": 147504,
     "sectors": 9,
@@ -2343,9 +2343,9 @@
       "1,1"
     ],
     "quaternion": [
-      -0.008593112230300903,
-      -3.287902172743884e-10,
-      2.1421021900724924e-10,
+      -0.008593101985752583,
+      -6.700881516330526e-10,
+      1.5622383942037743e-10,
       0.9999631643295288
     ],
     "wheelContacts": [
@@ -2357,12 +2357,12 @@
       true
     ],
     "suspension": [
-      0.4498370885848999,
-      0.4498370885848999,
+      0.44983720779418945,
+      0.44983720779418945,
       0.47676098346710205,
       0.47676098346710205,
-      0.4866448640823364,
-      0.4866448640823364
+      0.4866451025009155,
+      0.4866451025009155
     ],
     "input": {
       "throttle": 0,
@@ -2469,7 +2469,7 @@
       "completedMissions": [],
       "decisions": [],
       "collected": [],
-      "rngState": 1649219320,
+      "rngState": 3152171551,
       "travelSeconds": 1.4333333333333331,
       "checkpoint": 0,
       "expedition": {
@@ -2488,7 +2488,7 @@
         "transactions": 0
       },
       "network": {
-        "clock": 11.650000000000158,
+        "clock": 10.900000000000121,
         "cargo": null,
         "seeds": {
           "core-1": {
@@ -2610,7 +2610,7 @@
       },
       "world": {
         "version": 1,
-        "daySeconds": 32749.5,
+        "daySeconds": 32727,
         "days": 0,
         "visited": [],
         "claimed": [],
@@ -2621,7 +2621,7 @@
         "status": "skipped",
         "completed": [],
         "facts": [],
-        "walked": 0.0008055256729237871,
+        "walked": 0.0004658848554315374,
         "reversed": 0
       }
     },
@@ -2648,9 +2648,9 @@
       "key": "truck:titan",
       "type": "truck",
       "position": {
-        "x": -2.0999999919692747,
-        "y": 1.9854233117862479,
-        "z": -1.3955002145003976
+        "x": -2.099999989407153,
+        "y": 1.9854285713093107,
+        "z": -1.3950043013636688
       },
       "range": 3.5,
       "priority": 5,

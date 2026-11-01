@@ -45,3 +45,11 @@ Refinamentos discretos do HUD e tipografia; transição de acesso respeita redu�
 F: versão, comparações finais, regressão completa, build e documentação de custos/limitações. Nenhum resultado final é presumido a partir das rodadas focadas.
 
 Nenhum resultado em SwiftShader comprova desempenho ou sessão humana de 30 minutos em Windows/GPU real.
+
+## F — Verificação e polimento
+
+Vinte pares reais e sete ângulos adicionais no Baixo; três amostras no Alto e uma no Médio. Cabine fechada sob o painel após inspeção lateral; vidro da loja recortado fora da porta, com verificação física e visual por raio. Contador singular do diário corrigido. Fonte física, GLB e narrativa protegidos.
+
+175 unitários e build novamente aprovados. Recuperação por API depois de parar/reiniciar o servidor: dados idênticos, com estado da exploração, inventário, posições e horário. Capturas/recursos/limites no relatório.
+
+Primeira integral da aplicação foi 26/28 em 29 minutos: dois testes antigos usavam 800/1000 ms de parede após teleporte e pressionavam F antes de acomodar a física. Foram preservadas as regras da aplicação e corrigida a sincronização dos testes: freio, 120 passos, motor desligado e modo a pé confirmado. Pausa/retorno ao volante também recebem confirmação. Ambas as rechecagens passaram (2/2, 3,5 minutos), incluindo a primeira entrega e toda a sequência dos Núcleos. Não equivalem a uma integral verde. Nova integral de 28 cenários será executada com esses testes.
