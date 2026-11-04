@@ -1,6 +1,7 @@
 import { COMPONENTS,ITEMS } from '../../data/campaign.js';
 import { CONFIG } from '../../data/config.js';
-import { AMBUSHES,GAS_OFFERS,GENERATOR,LITERS_PER_SCRAP,ROAD_POINTS,WORKSHOP_OFFERS,WORKSHOP_SELL,WORKSHOP_SERVICES } from '../../data/road.js';
+import { AMBUSHES,GAS_OFFERS,GENERATOR,LITERS_PER_SCRAP,WORKSHOP_OFFERS,WORKSHOP_SELL,WORKSHOP_SERVICES } from '../../data/road.js';
+import {ROAD_POINTS} from '../../data/roadSites.js';
 import { bagWeight } from './campaign.js';
 
 // Regras puras da estrada viva: sem Three.js, sem Rapier. Tudo aqui é testável em Node.

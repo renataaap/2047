@@ -6,13 +6,14 @@ import { bagWeight,activateCore } from './campaign.js';
 import { migrateCampaign } from '../survival/expedition.js';
 import { activationChance } from '../cargo/integrity.js';
 import { upgradeRoad } from './road.js';
+import {upgradeTravel} from '../persistence/travelState.js';
 
 export function upgradeCampaign(source){
 const c=migrateCampaign(source),old=c.network;
 c.cores={...Object.fromEntries(CORES.map(k=>[k.id,{state:'inactive',attempts:0}])),...c.cores};
 c.network={clock:0,cargo:null,seeds:Object.fromEntries(CORES.map(k=>[k.id,{obtained:false,integrity:100}])),quests:Object.fromEntries(SIDE_MISSIONS.map(q=>[q.id,'available'])),looted:[],visited:[],routes:{},stocks:Object.fromEntries(SHELTERS.map(s=>[s.id,{diesel:40,water:16,food:12,parts:16}])),...old};
 if(!old){for(const core of Object.values(c.cores))if(core.state!=='inactive'&&core.attempts===0)core.attempts=1;c.network.seeds['core-1']={obtained:c.seed.received,integrity:c.seed.integrity};if(c.seed.received&&c.stage!=='activated')c.network.cargo='core-1';}
-syncFirst(c);syncRestoration(c);upgradeRoad(c);upgradeWorld(c);return c;
+syncFirst(c);syncRestoration(c);upgradeRoad(c);upgradeWorld(c);upgradeTravel(c);return c;
 }
 export function syncFirst(c){if(!c.network)return;c.network.seeds['core-1'].obtained=c.seed.received;if(c.stage!=='activated'&&c.seed.received){c.network.cargo='core-1';c.network.seeds['core-1'].integrity=c.seed.integrity;}else if(c.network.cargo==='core-1'){c.network.seeds['core-1'].integrity=c.seed.integrity;c.network.cargo=null;}}
 export function syncRestoration(c){for(const r of BIOMES)c.restoration[r.id]=r.cores.every(id=>c.cores[id].state==='active');}

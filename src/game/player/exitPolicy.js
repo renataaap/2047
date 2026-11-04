@@ -1,9 +1,10 @@
 import { inFootZone,near } from '../missions/campaign.js';
 import {DISCOVERY_SITES} from '../../data/ambience.js';
+import {PILOT_CITY} from '../../data/roadNetwork.js';
 export const EXIT_SPEED_LIMIT=.6; // m/s: não deixa saltar de um caminhão em movimento.
 export const TRUCK_WALK_RADIUS=24;
 export function canExit(speed){return Number.isFinite(speed)&&Math.abs(speed)<=EXIT_SPEED_LIMIT;}
-export function canWalkAt(position,truck){return inFootZone(position)||near(position,truck,TRUCK_WALK_RADIUS)||DISCOVERY_SITES.some(p=>near(position,p,p.radius+10));}
+export function canWalkAt(position,truck){const b=PILOT_CITY.bounds,city=position.x>=b.minX-12&&position.x<=b.maxX+12&&position.z>=b.minZ-12&&position.z<=b.maxZ+12;return city||inFootZone(position)||near(position,truck,TRUCK_WALK_RADIUS)||DISCOVERY_SITES.some(p=>near(position,p,p.radius+10));}
 export function canTakeFootStep(from,to,truck){
  if(canWalkAt(to,truck))return true;
  // Saves antigos podiam deixar Dante fora do limite; permita voltar ao Titã.

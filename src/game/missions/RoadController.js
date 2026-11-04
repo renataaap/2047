@@ -1,4 +1,5 @@
-import { GENERATOR,PUMP_RANGE,ROAD_POINTS,WORKSHOP_RANGE } from '../../data/road.js';
+import { GENERATOR,PUMP_RANGE,WORKSHOP_RANGE } from '../../data/road.js';
+import {ROAD_POINTS} from '../../data/roadSites.js';
 import { near } from './campaign.js';
 import { claimTechReward,gasBuy,roadPoint,shopBuy,shopSell,shopService,startGenerator } from './road.js';
 

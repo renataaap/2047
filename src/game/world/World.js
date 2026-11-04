@@ -12,6 +12,8 @@ import { restoredAt } from '../missions/network.js';
 import { mergeStatic } from '../render/mergeStatic.js';
 import {landscapeGeometry} from './landscapeGeometry.js';
 import {finishIndustry} from './finishCompositions.js';
+import {networkRoadGeometry} from './networkRoadGeometry.js';
+import {roadReserved} from '../navigation/roadIndex.js';
 export class World {
 constructor(scene,physics,materials) {
 this.scene=scene;this.physics=physics;this.m=materials;this.sectors=new Map();this.queue=[];this.disposed=false;
@@ -57,6 +59,9 @@ const rs=Math.max(-route.end,low),re=Math.min(-route.start,high);if(rs>=re)conti
 const roadG=roadRibbon({start:rs,end:re,center:networkDetourX,width:5,shoulder:0,sectorX:cx,sectorSize:size});
 if(roadG){const mesh=new THREE.Mesh(roadG,this.m.asphalt);mesh.receiveShadow=true;group.add(mesh);owned.push(roadG);this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(roadG.attributes.position.array),new Uint32Array(roadG.index.array)).setFriction(1),bodies);}
 }
+const network=networkRoadGeometry(cx,cz,size),roadSurfaces=[];
+for(const {kind,geometry} of network.surfaces){const mesh=new THREE.Mesh(geometry,kind==='paved'?this.m.asphalt:kind==='dirt'?this.m.shoulder:this.m.ground);if(mesh.material.vertexColors&&!geometry.hasAttribute('color')){const c=new Float32Array(geometry.attributes.position.count*3);c.fill(1);geometry.setAttribute('color',new THREE.BufferAttribute(c,3));}mesh.receiveShadow=true;group.add(mesh);owned.push(geometry);roadSurfaces.push(geometry);this.collider(RAPIER.ColliderDesc.trimesh(new Float32Array(geometry.attributes.position.array),new Uint32Array(geometry.index.array)).setFriction(1),bodies);}
+if(network.stripes.length){const stripes=new THREE.InstancedMesh(this.stripeGeometry,this.m.stripe,network.stripes.length),d=new THREE.Object3D();network.stripes.forEach((p,i)=>{d.position.set(p.x,p.y,p.z);d.rotation.y=p.angle;d.updateMatrix();stripes.setMatrixAt(i,d.matrix);});group.add(stripes);}
 const r=randomSeed(CONFIG.seed+cx*7387+cz*19349),count=32;
 const rocks=new THREE.InstancedMesh(this.rockGeometry,this.rockMaterial,count);rocks.castShadow=true;rocks.receiveShadow=true;
 const farRocks=new THREE.InstancedMesh(this.farRockGeometry,this.rockMaterial,count);
@@ -65,17 +70,17 @@ for(let i=0;i<count;i++) {
 let x=cx*size+(r()-.5)*size,z=cz*size+(r()-.5)*size;
 if(Math.abs(x-roadX(z))<14)x=roadX(z)+(i%2?1:-1)*(17+r()*24);
 if(z < -650 && z > -1750 && Math.abs(x-detourX(z))<14)x=detourX(z)+20;
-const scale=1+r()*4;if(reserved(x,z,scale+2))x=cx*size+(i%2?1:-1)*(320+r()*150);dummy.position.set(x-cx*size,heightAt(x,z)+scale*.2,z-cz*size);dummy.scale.set(scale,scale*.65,scale*.8);dummy.rotation.set(r(),r()*6,r());dummy.updateMatrix();rocks.setMatrixAt(i,dummy.matrix);farRocks.setMatrixAt(i,dummy.matrix);
-this.collider(RAPIER.ColliderDesc.ball(scale*.7).setTranslation(x,heightAt(x,z)+scale*.2,z),bodies);
+const scale=1+r()*4;for(let tries=0;tries<12&&reserved(x,z,scale+2);tries++){x=cx*size+(r()-.5)*size;z=cz*size+(r()-.5)*size;}const clear=!reserved(x,z,scale+2);dummy.position.set(x-cx*size,heightAt(x,z)+scale*.2,z-cz*size);dummy.scale.set(clear?scale:.001,clear?scale*.65:.001,clear?scale*.8:.001);dummy.rotation.set(r(),r()*6,r());dummy.updateMatrix();rocks.setMatrixAt(i,dummy.matrix);farRocks.setMatrixAt(i,dummy.matrix);
+if(clear)this.collider(RAPIER.ColliderDesc.ball(scale*.7).setTranslation(x,heightAt(x,z)+scale*.2,z),bodies);
 }
 const rocksLod=new THREE.LOD();rocksLod.position.set(cx*size,0,cz*size);rocksLod.addLevel(rocks,0);rocksLod.addLevel(farRocks,240);group.add(rocksLod);
 // Plus gros éléments au loin, sans multiplier les appels de rendu.
 const hills=new THREE.InstancedMesh(this.hillGeometry,this.rockMaterial,14);
-for(let i=0;i<14;i++){const z=cz*size+(r()-.5)*size,x=cx*size+(i%2?1:-1)*(180+r()*320);dummy.position.set(x,heightAt(x,z)-8,z);dummy.scale.set(50+r()*70,(18+r()*45)*(regionAt(z)==='glass'?2.8:1),45+r()*40);dummy.updateMatrix();hills.setMatrixAt(i,dummy.matrix);}const region=regionAt(cz*size);hills.visible=region!=='salt'&&region!=='cities';group.add(hills);
+for(let i=0;i<14;i++){const z=cz*size+(r()-.5)*size,x=cx*size+(i%2?1:-1)*(180+r()*320);dummy.position.set(x,heightAt(x,z)-8,z);dummy.scale.set(50+r()*70,(18+r()*45)*(regionAt(z)==='glass'?2.8:1),45+r()*40);if(roadReserved(x,z,90))dummy.scale.setScalar(.001);dummy.updateMatrix();hills.setMatrixAt(i,dummy.matrix);}const region=regionAt(cz*size);hills.visible=region!=='salt'&&region!=='cities';group.add(hills);
 if(region==='cities'||region==='storm'){const buildings=new THREE.InstancedMesh(this.ruinGeometry,this.m.dark,18);buildings.castShadow=buildings.receiveShadow=true;for(let i=0;i<18;i++){const x=cx*size+(i%2?1:-1)*(220+r()*180),z=cz*size+(r()-.5)*size,h=region==='cities'?18+r()*45:12+r()*18,w=region==='cities'?12+r()*15:2;dummy.position.set(x,heightAt(x,z)+h/2,z);dummy.scale.set(w,h,region==='cities'?12:2);dummy.rotation.set(0,r()*.2,region==='storm'?.15:0);dummy.updateMatrix();buildings.setMatrixAt(i,dummy.matrix);this.collider(RAPIER.ColliderDesc.cuboid(w/2,h/2,6).setTranslation(x,heightAt(x,z)+h/2,z),bodies);}group.add(buildings);}
-return {x:cx,z:cz,group,bodies,owned,terrain};
+return {x:cx,z:cz,group,bodies,owned,terrain,roadSurfaces};
 }
-groundHeight(x,z){const size=CONFIG.world.sectorSize;for(const sector of this.sectors.values()){if(Math.abs(x-sector.x*size)>size/2+.001||Math.abs(z-sector.z*size)>size/2+.001)continue;const y=meshHeightAt(sector.terrain.geometry,x,z);if(y!==null)return y;}return heightAt(x,z);}
+groundHeight(x,z){const size=CONFIG.world.sectorSize;for(const sector of this.sectors.values()){if(Math.abs(x-sector.x*size)>size/2+.001||Math.abs(z-sector.z*size)>size/2+.001)continue;let y=meshHeightAt(sector.terrain.geometry,x,z);for(const g of sector.roadSurfaces||[]){const b=g.boundingBox;if(x<b.min.x||x>b.max.x||z<b.min.z||z>b.max.z)continue;const r=meshHeightAt(g,x,z);if(r!==null)y=Math.max(y??-Infinity,r);}if(y!==null)return y;}return heightAt(x,z);}
 prime(position,distance){for(let i=0;i<9;i++)this.update(position,distance);}
 setCampaign(c){this.campaign=c;const key=Object.values(c.cores).map(k=>k.state).join(',');if(this.restorationKey===key)return;this.restorationKey=key;for(const sector of this.sectors.values())this.terrainGroups(sector.terrain.geometry);}
 terrainGroups(g){g.clearGroups();const a=g.attributes.position,indices=g.index.array;let start=0,previous=null;

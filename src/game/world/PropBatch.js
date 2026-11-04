@@ -14,6 +14,7 @@ export class PropBatch {
  cable(points,r=.025,mat=this.m.rubber){const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));this.part(new THREE.TubeGeometry(curve,14,r,5,false),mat,0,0,0);}
  solid(x,y,z,w,h,d,ry=0){const c=Math.cos(this.yaw),s=Math.sin(this.yaw),o=this.origin,b=this.physics.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(o.x+x*c+z*s,o.y+y,o.z-x*s+z*c).setRotation({x:0,y:Math.sin((this.yaw+ry)/2),z:0,w:Math.cos((this.yaw+ry)/2)}));b.userData={entityType:'ambient'};this.physics.createCollider(RAPIER.ColliderDesc.cuboid(w/2,h/2,d/2).setFriction(.8),b);this.bodies.push(b);return b;}
  label(text,w,h,x,y,z,cache,ry=0){
+  if(typeof document==='undefined')return; // Physics-only validation has no canvas.
   if(!cache.has(text)){const c=document.createElement('canvas');c.width=512;c.height=128;const a=c.getContext('2d');a.fillStyle='#323a36';a.fillRect(0,0,512,128);a.strokeStyle='#aa946b';a.lineWidth=5;a.strokeRect(9,9,494,110);a.fillStyle='#e6ddbf';a.font='bold 28px sans-serif';a.textAlign='center';a.fillText(text,256,75,470);for(let i=0;i<55;i++){a.fillStyle='#25292140';a.fillRect(i*37%512,i*19%128,12,2);}const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;cache.set(text,new THREE.MeshStandardMaterial({map:t,roughness:.95,metalness:0,side:THREE.DoubleSide}));}
   const g=new THREE.PlaneGeometry(w,h);g.rotateY(ry);g.translate(x,y,z);if(!this.parts.has(cache.get(text)))this.parts.set(cache.get(text),[]);this.parts.get(cache.get(text)).push(g.toNonIndexed());g.dispose();
  }

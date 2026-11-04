@@ -1,0 +1,12 @@
+import RAPIER from '@dimforge/rapier3d-compat';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {initializePhysics} from '../src/game/physics/initialize.js';
+import {NETWORK_EDGES} from '../src/game/navigation/roadIndex.js';
+import {networkRoadGeometry} from '../src/game/world/networkRoadGeometry.js';
+import {terrainGeometry} from '../src/game/world/terrainGeometry.js';
+await initializePhysics();
+const sectors=new Map(),failures=[],results=[];
+for(const e of NETWORK_EDGES.filter(e=>!e.legacy))for(let i=2;i<e.samples.length-2;i+=5){const p=e.samples[i],a=e.samples[i-1],b=e.samples[i+1],len=Math.hypot(b.x-a.x,b.z-a.z),nx=-(b.z-a.z)/len,nz=(b.x-a.x)/len;for(const side of [-.28,0,.28]){const x=p.x+nx*e.width*side,z=p.z+nz*e.width*side,cx=Math.round(x/1024),cz=Math.round(z/1024);if(Math.abs(Math.abs(z-cz*1024)-512)<5)continue;const key=`${cx},${cz}`;if(!sectors.has(key))sectors.set(key,[]);sectors.get(key).push({edge:e.id,x,z});}}
+for(const [key,samples]of sectors){const [cx,cz]=key.split(',').map(Number),world=new RAPIER.World({x:0,y:-9.81,z:0}),ground=terrainGeometry(cx,cz),roads=networkRoadGeometry(cx,cz),roadHandles=new Set();world.createCollider(RAPIER.ColliderDesc.trimesh(new Float32Array(ground.attributes.position.array),new Uint32Array(ground.index.array)));for(const {geometry:g}of roads.surfaces)roadHandles.add(world.createCollider(RAPIER.ColliderDesc.trimesh(new Float32Array(g.attributes.position.array),new Uint32Array(g.index.array))).handle);world.step();let bad=0;for(const p of samples){const hit=world.castRay(new RAPIER.Ray({x:p.x,y:1000,z:p.z},{x:0,y:-1,z:0}),2000,true);if(!hit||!roadHandles.has(hit.collider.handle)){bad++;failures.push({...p,sector:key,hit:hit?1000-hit.timeOfImpact:null});}}results.push({sector:key,samples:samples.length,terrainAbovePavement:bad});world.free();ground.dispose();roads.surfaces.forEach(s=>s.geometry.dispose());}
+await mkdir('evidence/roads-0.9.0',{recursive:true});await writeFile('evidence/roads-0.9.0/road-surface-audit.json',JSON.stringify({method:'Rapier rays against actual terrain and new road triangles, centre and wheel corridors; sector seams separately tested.',samples:results.reduce((n,r)=>n+r.samples,0),results,failures},null,2)+'\n');
+console.log(JSON.stringify({samples:results.reduce((n,r)=>n+r.samples,0),failures:failures.length,examples:failures.slice(0,12)},null,2));if(failures.length)process.exitCode=1;
