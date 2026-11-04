@@ -1,6 +1,8 @@
 # Estado do projeto — 2047: Rede Aurora
 
-**Revisão da 0.9.0:** [PR #2](https://github.com/renataaap/2047/pull/2), em rascunho para avaliação Windows/GPU.
+**Etapa atual: hotfix 0.9.1 — chão**, priorizado pelo usuário antes da garagem 0.10.0. Base main `c223f9e`, PR #2 já integrado. Branch `fix/chao-inicial-0.9.1`. Shader adaptado à capacidade de texturas e uniforms atualizados nos programas em cache; mapas locais, terreno físico e saves preservados. [Relatório](RELATORIO_CORRECAO_CHAO_0.9.1.md) · [teste Windows](docs/TESTE_MANUAL_CHAO_0.9.1.md). Código da correção em `dee7c2d`; validação final registrada no relatório e em `evidence/floor-0.9.1`. Windows/GPU real continua pendente. A 0.10.0 ainda não foi implementada.
+
+**Histórico 0.9.0:** [PR #2](https://github.com/renataaap/2047/pull/2) integrado à main em `c223f9e`. Os resultados a seguir pertencem àquela versão.
 
 **0.9.0 — rede rodoviária validada automaticamente, em revisão Windows**, branch `feat/rede-rodoviaria-0.9.0`, derivada da 0.8.2 `55a5df3`. O PR #1 da base foi integrado à main durante esta validação (`5cb4323`); seus arquivos são idênticos à base utilizada. A 0.9.0 continua na branch própria para revisão. Grafo conectado, cidade piloto Cinza Nova, posto finito, ruas/pátios/garagem física, alternativas de piso, GPS no HUD e planejador M. [Arquitetura](docs/ARQUITETURA_RODOVIARIA_0.9.0.md) · [acessibilidade](docs/ACESSIBILIDADE_NUCLEOS_0.9.0.md) · [teste Windows](docs/TESTE_MANUAL_0.9.0.md).
 

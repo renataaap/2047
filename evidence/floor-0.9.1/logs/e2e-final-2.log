@@ -1,0 +1,13 @@
+
+> 2047-rede-aurora@0.9.1 test:e2e
+> playwright test tests/e2e/terrain-visibility.spec.js
+
+
+Running 2 tests using 1 worker
+
+(node:15368) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/terrain-visibility.spec.js:6:1 › chão do barracão e terreno renderizam em Baixo/Médio/Alto com limite de 16 texturas (3.0m)
+  ✓  2 tests/e2e/terrain-visibility.spec.js:38:1 › Alta conserva todos os mapas em hardware com pelo menos 17 unidades de textura (1.3m)
+
+  2 passed (4.4m)
