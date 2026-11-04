@@ -3,7 +3,7 @@ export const GARAGE={id:'garagem-cinza-nova',x:-320,z:-814,halfWidth:6,halfLengt
 export const TITAN_WHEELS=[-2.5,1.45,2.9].flatMap(z=>[-1,1].map(s=>({x:s*1.2,y:-.1,z})));
 export const VEHICLES={
  'titan-old':{id:'titan-old',name:'Titã Rocha Clara',description:'O companheiro de Dante. Chassi rodoviário, oito marchas e berço de restauração.',mass:8800,torque:1600,cargoCapacity:6000,fuelCapacity:180,wheelRadius:.61,wheelPoints:TITAN_WHEELS,front:-4.05,cockpitOffset:[0,0,0],cost:{},colliders:[[1.12,.45,3.9,0,0,0],[1.18,1.1,1.08,0,1.15,-2.65]]},
- 'dump-truck':{id:'dump-truck',name:'Basculante Municipal',description:'Recuperado do serviço de obras. Mais leve, seis marchas curtas e pneus de trabalho. Tanque entregue vazio.',mass:6500,torque:1050,cargoCapacity:3200,fuelCapacity:180,wheelRadius:.547,wheelPoints:[-2.409,.817,2.329].flatMap(z=>[-1,1].map(s=>({x:s*.906,y:-.033,z}))),front:-3.76,cockpitOffset:[0,0,.35],cost:{parts:8,scrap:6},colliders:[[1.06,.35,3.5,0,-.02,0],[1.1,.82,1.0,0,.65,-2.4]]},
+ 'dump-truck':{id:'dump-truck',name:'Basculante Municipal',description:'Recuperado do serviço de obras. Mais leve, seis marchas curtas e pneus de trabalho. Tanque entregue vazio.',mass:6500,torque:1050,cargoCapacity:3200,fuelCapacity:180,wheelRadius:.547,wheelPoints:[-2.409,.817,2.329].flatMap(z=>[-1,1].map(s=>({x:s*.906,y:-.033,z}))),front:-3.76,cockpitOffset:[0,0,.35],cost:{parts:8,scrap:4},colliders:[[1.06,.35,3.5,0,-.02,0],[1.1,.82,1.0,0,.65,-2.4]]},
 };
 export const SKINS={
  original:{id:'original',name:'Titã Original',main:'#b9af87',secondary:'#414840',finish:'original',wear:.65,cost:{}},
