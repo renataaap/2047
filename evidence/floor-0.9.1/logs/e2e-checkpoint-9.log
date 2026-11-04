@@ -1,0 +1,20 @@
+
+> 2047-rede-aurora@0.9.1 test:e2e
+> playwright test tests/e2e/terrain-visibility.spec.js tests/e2e/assets.spec.js tests/e2e/truck-opacity.spec.js tests/e2e/tutorial-assets.spec.js
+
+
+Running 9 tests using 1 worker
+
+(node:13617) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/assets.spec.js:9:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais (48.4s)
+  ✓  2 tests/e2e/assets.spec.js:17:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer (37.5s)
+  ✓  3 tests/e2e/assets.spec.js:27:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade (1.0m)
+  ✓  4 tests/e2e/terrain-visibility.spec.js:6:1 › chão do barracão e terreno renderizam em Baixo/Médio/Alto com limite de 16 texturas (3.1m)
+  ✓  5 tests/e2e/terrain-visibility.spec.js:38:1 › Alta conserva todos os mapas em hardware com pelo menos 17 unidades de textura (1.3m)
+  ✓  6 tests/e2e/truck-opacity.spec.js:4:1 › Titã: sólidos opacos, vidros próprios, seis rodas e retorno correto da cabine (2.5m)
+  ✓  7 tests/e2e/tutorial-assets.spec.js:10:1 › arquivos reais: oito PBR, garagem com interior e Titã com seis rodas (43.0s)
+  ✓  8 tests/e2e/tutorial-assets.spec.js:16:1 › progresso parcial retoma; pular e repetir preservam recursos e campanha (40.7s)
+  ✓  9 tests/e2e/tutorial-assets.spec.js:29:1 › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga (2.7m)
+
+  9 passed (13.4m)

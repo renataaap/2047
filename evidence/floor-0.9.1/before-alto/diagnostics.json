@@ -1,0 +1,2555 @@
+{
+  "stage": "before-alto",
+  "state": {
+    "mode": "walking",
+    "resumeMode": "walking",
+    "overlay": null,
+    "fuel": 4,
+    "temperature": 25.615211907373574,
+    "engineOn": false,
+    "speed": 0.0020407950421742664,
+    "signedSpeed": 0.002040741621259423,
+    "surface": "asfalto",
+    "camera": 0,
+    "headlights": false,
+    "arrived": false,
+    "notice": "",
+    "saving": false,
+    "massKg": 8805.740234375,
+    "cargoMassKg": 5.74,
+    "rpm": 0,
+    "gear": 0,
+    "gearLabel": "N",
+    "shifting": false,
+    "shiftCount": 0,
+    "throttle": 0,
+    "brake": 0,
+    "torqueNm": 0,
+    "enginePowerKw": 0,
+    "fuelRateLps": 0,
+    "engineBraking": false,
+    "parkingBrake": true,
+    "tractionForceN": 0,
+    "resistanceForceN": 1036.6117569710439,
+    "steeringAngle": 0,
+    "longitudinalAcceleration": -1.1353939661831862e-7,
+    "lateralAcceleration": 0,
+    "lateralSpeed": 2.1549668274608804e-11,
+    "worldNight": 0,
+    "storm": false,
+    "restored": false,
+    "region": "ashes",
+    "interference": 0.08,
+    "radioActive": false,
+    "indoors": false,
+    "x": -1.8318340178069548e-9,
+    "z": 4.97190523147583,
+    "front": false,
+    "weatherClock": 9.150000000000034,
+    "localRestored": false,
+    "powerMultiplier": 1,
+    "gripMultiplier": 1,
+    "loaded": false,
+    "inventoryMass": 2.4,
+    "suspensionCondition": 38,
+    "steeringSensitivity": 1,
+    "navigation": {
+      "status": "arrived",
+      "destination": {
+        "id": "shelter",
+        "name": "Abrigo 07",
+        "kind": "shelter",
+        "x": 0,
+        "z": 5,
+        "nodeId": "rodovia:0",
+        "terminal": {
+          "x": -19,
+          "z": 5
+        }
+      },
+      "profile": "safe",
+      "remainingMetres": 4.971888065338135,
+      "remainingSeconds": 0.2556971005031041,
+      "estimatedLitres": 0.003346385372117956,
+      "offRouteMetres": 1.8317731775852053e-9,
+      "progressMetres": 0.028111934661865234,
+      "totalMetres": 5,
+      "instruction": {
+        "text": "Área de estacionamento à frente",
+        "distance": 4.971888065338135,
+        "kind": "parking"
+      },
+      "path": [
+        {
+          "x": 0,
+          "z": 5
+        },
+        {
+          "x": 0,
+          "z": 0
+        }
+      ],
+      "segments": [
+        {
+          "id": "eixo:80:0",
+          "from": "rodovia:80",
+          "to": "rodovia:0",
+          "type": "highway",
+          "surface": "asfalto",
+          "speedKmh": 70,
+          "risk": 0.2,
+          "fraction": 0.0625
+        }
+      ],
+      "surfaces": [
+        "asfalto"
+      ],
+      "roadTypes": [
+        "highway"
+      ],
+      "reroutes": 0,
+      "positionEstimated": true
+    },
+    "city": {
+      "id": "cinza-nova",
+      "loaded": false,
+      "batches": 0,
+      "buildings": 0,
+      "garageReady": false,
+      "physicalBodies": 0
+    },
+    "wayfinding": {
+      "loaded": 1,
+      "ids": [
+        "access:vault-1"
+      ],
+      "cachedLabels": 1
+    },
+    "tutorial": {
+      "version": 1,
+      "status": "skipped",
+      "completed": [],
+      "facts": [],
+      "walked": 0.0007668121060659182,
+      "reversed": 0,
+      "step": {
+        "id": "walk",
+        "section": "O abrigo",
+        "title": "Caminhe pelo barracão",
+        "key": "W A S D",
+        "detail": "Percorra 3 m. Clique no cenário para olhar com o mouse. Saída pelas portas laterais abertas."
+      },
+      "total": 21,
+      "celebration": false,
+      "chapter": "CAPÍTULO 01 — O ÚLTIMO MOTOR"
+    },
+    "assets": {
+      "textures": 24,
+      "estimatedTextureBytes": 268435456.0000001,
+      "modelSources": 7,
+      "modelURLs": [
+        "/assets/models/aurora-workers/worker.glb",
+        "/assets/models/environments/gas-station/model.glb",
+        "/assets/models/trucks/titan-old/model.glb",
+        "/assets/models/environments/renafox-cars/wreck-sedan.glb",
+        "/assets/models/environments/renafox-cars/wreck-hatchback.glb",
+        "/assets/models/environments/old-garage/model.glb",
+        "/assets/models/environments/rusty-barrel/model.glb"
+      ],
+      "modelInstances": 12,
+      "errors": []
+    },
+    "pbr": {
+      "quality": "alto",
+      "inheritedDataMaps": {
+        "concrete": {
+          "source": "rock",
+          "normalMatches": true,
+          "roughnessMatches": true
+        }
+      },
+      "applied": {
+        "shoulder": "gravel_road",
+        "rust": "rusty_metal_05",
+        "ground": "dirt",
+        "weatheredMetal": "rust_coarse_01",
+        "asphalt": "road_damaged_2",
+        "rock": "rocky_terrain_03",
+        "roof": "corrugated_iron"
+      },
+      "unavailable": [
+        "brick",
+        "concrete",
+        "container",
+        "garage",
+        "leather",
+        "shutter",
+        "wood"
+      ],
+      "terrainBlend": true,
+      "installed": 8
+    },
+    "ambience": {
+      "compositions": 4,
+      "parts": 505,
+      "drawBatches": 48,
+      "colliders": 40,
+      "sites": [
+        "home"
+      ],
+      "cells": [
+        "cell:-2",
+        "cell:-1",
+        "cell:0"
+      ],
+      "lights": 0
+    },
+    "discoveries": {
+      "loaded": [],
+      "sites": []
+    },
+    "importedTruck": {
+      "status": "imported",
+      "id": "titan-old",
+      "triangles": 47500,
+      "wheelBindings": 6,
+      "provisionalCockpit": true,
+      "visible": true,
+      "legacyCabVisible": false,
+      "cabShellVisible": true,
+      "materials": [
+        {
+          "name": "Titan_Paint",
+          "role": "paint",
+          "transparent": false,
+          "opacity": 1,
+          "alphaTest": 0,
+          "alphaMap": false,
+          "depthWrite": true,
+          "depthTest": true,
+          "side": 2,
+          "blending": 1,
+          "transmission": 0,
+          "roughness": 0.95,
+          "metalness": 0.3
+        },
+        {
+          "name": "Titan_Metal",
+          "role": "metal",
+          "transparent": false,
+          "opacity": 1,
+          "alphaTest": 0,
+          "alphaMap": false,
+          "depthWrite": true,
+          "depthTest": true,
+          "side": 2,
+          "blending": 1,
+          "transmission": 0,
+          "roughness": 1,
+          "metalness": 1
+        },
+        {
+          "name": "Titan_Rubber",
+          "role": "rubber",
+          "transparent": false,
+          "opacity": 1,
+          "alphaTest": 0,
+          "alphaMap": false,
+          "depthWrite": true,
+          "depthTest": true,
+          "side": 2,
+          "blending": 1,
+          "transmission": 0,
+          "roughness": 1,
+          "metalness": 0
+        },
+        {
+          "name": "Titan_Glass",
+          "role": "glass",
+          "transparent": true,
+          "opacity": 0.55,
+          "alphaTest": 0,
+          "alphaMap": false,
+          "depthWrite": false,
+          "depthTest": true,
+          "side": 2,
+          "blending": 1,
+          "transmission": 0,
+          "roughness": 0.28,
+          "metalness": 0
+        },
+        {
+          "name": "Titan_Lens",
+          "role": "lens",
+          "transparent": true,
+          "opacity": 0.85,
+          "alphaTest": 0,
+          "alphaMap": false,
+          "depthWrite": false,
+          "depthTest": true,
+          "side": 2,
+          "blending": 1,
+          "transmission": 0,
+          "roughness": 0.38,
+          "metalness": 0
+        },
+        {
+          "name": "Titan_CabPaint",
+          "role": "paint",
+          "transparent": false,
+          "opacity": 1,
+          "alphaTest": 0,
+          "alphaMap": false,
+          "depthWrite": true,
+          "depthTest": true,
+          "side": 2,
+          "blending": 1,
+          "transmission": 0,
+          "roughness": 0.95,
+          "metalness": 0.3
+        },
+        {
+          "name": "Titan_CabMetal",
+          "role": "metal",
+          "transparent": false,
+          "opacity": 1,
+          "alphaTest": 0,
+          "alphaMap": false,
+          "depthWrite": true,
+          "depthTest": true,
+          "side": 2,
+          "blending": 1,
+          "transmission": 0,
+          "roughness": 1,
+          "metalness": 1
+        },
+        {
+          "name": "Titan_CabTrim",
+          "role": "rubber",
+          "transparent": false,
+          "opacity": 1,
+          "alphaTest": 0,
+          "alphaMap": false,
+          "depthWrite": true,
+          "depthTest": true,
+          "side": 2,
+          "blending": 1,
+          "transmission": 0,
+          "roughness": 1,
+          "metalness": 0
+        }
+      ],
+      "wheels": [
+        {
+          "y": -0.5498904943466186,
+          "steering": 0,
+          "rotation": 0.054604869335889816,
+          "center": [
+            -1.2000000476837158,
+            -0.5496426659370645,
+            -2.49995541321531
+          ]
+        },
+        {
+          "y": -0.5498904943466186,
+          "steering": 0,
+          "rotation": 0.05460484325885773,
+          "center": [
+            1.2000000476837158,
+            -0.5496426659359018,
+            -2.4999554132217723
+          ]
+        },
+        {
+          "y": -0.5767447710037231,
+          "steering": 0,
+          "rotation": 0.059162627905607224,
+          "center": [
+            -1.200000047683716,
+            -0.5768514802317687,
+            1.4496897181669146
+          ]
+        },
+        {
+          "y": -0.5767447710037231,
+          "steering": 0,
+          "rotation": 0.05916264280676842,
+          "center": [
+            1.2000000476837156,
+            -0.5768514802271443,
+            1.4496897181653257
+          ]
+        },
+        {
+          "y": -0.5866098165512085,
+          "steering": 0,
+          "rotation": 0.05809175223112106,
+          "center": [
+            -1.2000000476837158,
+            -0.5867168563120398,
+            2.899689850548815
+          ]
+        },
+        {
+          "y": -0.5866098165512085,
+          "steering": 0,
+          "rotation": 0.05809173732995987,
+          "center": [
+            1.2000000476837158,
+            -0.5867168563166629,
+            2.89968985055041
+          ]
+        }
+      ]
+    },
+    "environmentModels": {
+      "loaded": 5,
+      "loading": 0,
+      "ids": [
+        "abandoned-sedan",
+        "evacuated-hatch",
+        "dantes-garage",
+        "shelter-barrel",
+        "shelter-barrel-2"
+      ]
+    },
+    "importedNpc": {
+      "loaded": true,
+      "state": "idle",
+      "animationTime": 5.324742000001115,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "interact",
+        "repair",
+        "enter",
+        "exit"
+      ],
+      "visible": true,
+      "wardrobe": "survivor",
+      "features": [
+        "hood",
+        "scarf",
+        "patched-coat",
+        "canvas-pack"
+      ]
+    },
+    "dante": {
+      "loaded": true,
+      "state": "idle",
+      "animationTime": 5.324742000001115,
+      "animations": [
+        "idle",
+        "walk",
+        "run",
+        "interact",
+        "repair",
+        "enter",
+        "exit"
+      ],
+      "visible": false,
+      "wardrobe": "dante",
+      "features": [
+        "work-jacket",
+        "stitched-pack",
+        "beard",
+        "boots"
+      ],
+      "pose": "walking",
+      "heading": 3.141592653589793,
+      "position": [
+        -5.000001430511475,
+        0.5067575025558472,
+        38
+      ]
+    },
+    "footCamera": "first",
+    "simulation": {
+      "steps": 549,
+      "lastFrameSteps": 30,
+      "droppedSeconds": 61.830600000000004,
+      "fixedStep": 0.016666666666666666
+    },
+    "instruments": {
+      "speed": 0.00734686215182736,
+      "rpm": 0,
+      "fuel": 4,
+      "temperature": 25.615211907373574,
+      "gear": "N",
+      "needleAngles": {
+        "speed": 2.3559059798724613,
+        "rpm": 2.356194490192345,
+        "fuel": 2.2514747350726854,
+        "temperature": 1.5514496087705067
+      },
+      "signals": {
+        "engine": false,
+        "parking": true,
+        "temperature": false,
+        "lights": false
+      }
+    },
+    "cockpit": {
+      "inside": false,
+      "eye": [
+        -0.6,
+        0.97,
+        -2.05
+      ],
+      "drawBatches": 11,
+      "detailMaterials": [
+        "vinyl",
+        "cloth",
+        "paint",
+        "metal",
+        "rubber",
+        "stitch",
+        "paper",
+        "lining",
+        "glass",
+        "glow",
+        "labels"
+      ],
+      "dome": false
+    },
+    "renderResources": {
+      "geometries": 223,
+      "textures": 128,
+      "programs": 46
+    },
+    "truckVisual": {
+      "steeringWheelAngle": 0,
+      "cabPitch": 4.3518226726919687e-10,
+      "cabRoll": 0
+    },
+    "cameraPose": {
+      "position": [
+        -5.000001430511475,
+        1.996757502555995,
+        38
+      ],
+      "target": [
+        -4.60000000602763,
+        2.7786575078964235,
+        6.177635860443115
+      ],
+      "mode": 0,
+      "distance": 14,
+      "fov": 64,
+      "angle": 0.27,
+      "elevation": 0.3,
+      "cabYaw": 0,
+      "cabPitch": 0.1
+    },
+    "audio": {
+      "state": "running",
+      "firingHz": 14,
+      "expectedFiringHz": 14,
+      "shiftsObserved": 0,
+      "engineGain": 0
+    },
+    "ambientAudio": {
+      "originalSynthesis": true,
+      "spatialSources": 3,
+      "steps": 0,
+      "cues": 0,
+      "indoors": false,
+      "surface": "cascalho",
+      "region": "ashes",
+      "pausedGain": 1
+    },
+    "worldTime": {
+      "hour": 9.063194444444445,
+      "period": "Manhã",
+      "label": "09:03",
+      "night": 0,
+      "sunIntensity": 2.790464479495986,
+      "ambientIntensity": 2.05,
+      "days": 0
+    },
+    "objective": null,
+    "weather": {
+      "region": "ashes",
+      "restored": false,
+      "event": "calm",
+      "front": false,
+      "interference": 0.08,
+      "fog": 1,
+      "grip": 1
+    },
+    "radioMessages": [],
+    "networkVisual": {
+      "entities": 1,
+      "rain": false,
+      "cores": {},
+      "barriers": {},
+      "floods": {},
+      "vaults": {
+        "core-1": true
+      },
+      "liaVisible": false
+    },
+    "roadVisual": {
+      "entities": 2,
+      "ids": [
+        "oficina-cotovelo",
+        "posto-cinza-nova"
+      ],
+      "actors": {
+        "oficina-cotovelo": {
+          "loaded": true,
+          "state": "idle",
+          "animationTime": 4.416599999999995,
+          "animations": [
+            "idle",
+            "walk",
+            "run",
+            "interact",
+            "repair",
+            "enter",
+            "exit"
+          ],
+          "visible": true,
+          "wardrobe": "marta",
+          "features": [
+            "coverall",
+            "tied-hair",
+            "tool-belt",
+            "rolled-sleeves"
+          ]
+        },
+        "posto-cinza-nova": {
+          "loaded": true,
+          "state": "idle",
+          "animationTime": 4.416599999999995,
+          "animations": [
+            "idle",
+            "walk",
+            "run",
+            "interact",
+            "repair",
+            "enter",
+            "exit"
+          ],
+          "visible": true,
+          "wardrobe": "trader",
+          "features": [
+            "work-coat",
+            "boots"
+          ]
+        }
+      }
+    },
+    "ready": true,
+    "position": [
+      -1.8317731775852053e-9,
+      1.318465232849121,
+      4.971888065338135
+    ],
+    "playerYaw": 0,
+    "playerPosition": [
+      -5.000001430511475,
+      1.3767575025558472,
+      38
+    ],
+    "speedKmh": 0.00734686215182736,
+    "fps": 0.34287673581347505,
+    "averageFps": 0.38986067706771815,
+    "drawCalls": 334,
+    "triangles": 471476,
+    "sectors": 9,
+    "sectorKeys": [
+      "0,0",
+      "-1,0",
+      "0,-1",
+      "0,1",
+      "1,0",
+      "-1,-1",
+      "-1,1",
+      "1,-1",
+      "1,1"
+    ],
+    "quaternion": [
+      -0.008580266498029232,
+      -5.578576489639886e-10,
+      8.75838984670807e-11,
+      0.9999632239341736
+    ],
+    "wheelContacts": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "suspension": [
+      0.44989049434661865,
+      0.44989049434661865,
+      0.47674477100372314,
+      0.47674477100372314,
+      0.4866098165512085,
+      0.4866098165512085
+    ],
+    "input": {
+      "throttle": 0,
+      "steer": 0,
+      "handbrake": true,
+      "x": 0,
+      "z": 0,
+      "run": false,
+      "jump": false
+    },
+    "footBoundary": false,
+    "expeditionVisual": {
+      "lootVisible": {
+        "depot": true,
+        "station": true
+      }
+    },
+    "worldVisual": {
+      "rain": false,
+      "plants": false,
+      "growth": 0,
+      "barrierOpen": false,
+      "plantCount": 220
+    },
+    "campaign": {
+      "stage": "shelter",
+      "seed": {
+        "received": false,
+        "integrity": 100
+      },
+      "components": {
+        "engine": 70,
+        "radiator": 35,
+        "tires": 64,
+        "suspension": 38,
+        "transmission": 65,
+        "tank": 55,
+        "filters": 55,
+        "frame": 70
+      },
+      "inventory": {
+        "player": {
+          "diesel": 8,
+          "water": 4,
+          "food": 3,
+          "parts": 10,
+          "scrap": 8
+        },
+        "truck": {
+          "diesel": 0,
+          "water": 0,
+          "food": 0,
+          "parts": 2,
+          "scrap": 0
+        }
+      },
+      "flags": {
+        "metSurvivor": false,
+        "renataContact": false,
+        "plannedRoute": null,
+        "chosenRoute": null,
+        "stormEncountered": false,
+        "voiceFragments": [],
+        "finalChoice": null,
+        "titanForced": false
+      },
+      "cores": {
+        "core-1": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-2": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-3": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-4": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-5": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-6": {
+          "state": "inactive",
+          "attempts": 0
+        },
+        "core-7": {
+          "state": "inactive",
+          "attempts": 0
+        }
+      },
+      "restoration": {
+        "ashes": false,
+        "cities": false,
+        "salt": false,
+        "glass": false,
+        "storm": false
+      },
+      "completedMissions": [],
+      "decisions": [],
+      "collected": [],
+      "rngState": 1360518624,
+      "travelSeconds": 0,
+      "checkpoint": 0,
+      "expedition": {
+        "hydration": 100,
+        "satiety": 100,
+        "fatigue": 0,
+        "deprivationSeconds": 0,
+        "visited": [],
+        "looted": [],
+        "stock": {
+          "diesel": 12,
+          "water": 10,
+          "food": 8,
+          "parts": 8
+        },
+        "transactions": 0
+      },
+      "network": {
+        "clock": 9.150000000000034,
+        "cargo": null,
+        "seeds": {
+          "core-1": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-2": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-3": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-4": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-5": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-6": {
+            "obtained": false,
+            "integrity": 100
+          },
+          "core-7": {
+            "obtained": false,
+            "integrity": 100
+          }
+        },
+        "quests": {
+          "supply": "available",
+          "pump": "available",
+          "relay": "available"
+        },
+        "looted": [],
+        "visited": [],
+        "routes": {},
+        "stocks": {
+          "lia": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          },
+          "afonso": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          },
+          "noemia": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          },
+          "joel": {
+            "diesel": 40,
+            "water": 16,
+            "food": 12,
+            "parts": 16
+          }
+        }
+      },
+      "road": {
+        "generator": false,
+        "techReward": false,
+        "robbed": 0,
+        "rammed": 0,
+        "visited": [],
+        "ambushes": {
+          "amb-1": "pending",
+          "amb-2": "pending",
+          "amb-3": "pending",
+          "amb-4": "pending",
+          "amb-5": "pending",
+          "amb-6": "pending",
+          "amb-7": "pending"
+        },
+        "stocks": {
+          "oficina-cotovelo": {
+            "parts": 10
+          },
+          "posto-boa-viagem": {
+            "diesel": 90,
+            "water": 12
+          },
+          "posto-mare-seca": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-sal": {
+            "parts": 10
+          },
+          "posto-viaduto-velho": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-janelas": {
+            "parts": 10
+          },
+          "posto-fronteira-do-sal": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-passo": {
+            "parts": 10
+          },
+          "posto-ultima-gota": {
+            "diesel": 90,
+            "water": 12
+          },
+          "oficina-horizonte": {
+            "parts": 10
+          },
+          "posto-cinza-nova": {
+            "diesel": 90,
+            "water": 12
+          }
+        }
+      },
+      "world": {
+        "version": 1,
+        "daySeconds": 32627.5,
+        "days": 0,
+        "visited": [],
+        "claimed": [],
+        "read": []
+      },
+      "navigation": {
+        "version": 1,
+        "destination": null,
+        "preference": "safe",
+        "via": null,
+        "viaCompleted": false
+      },
+      "geography": {
+        "version": 1,
+        "migrations": []
+      },
+      "tutorial": {
+        "version": 1,
+        "status": "skipped",
+        "completed": [],
+        "facts": [],
+        "walked": 0.0007668121060659182,
+        "reversed": 0
+      }
+    },
+    "integrity": null,
+    "chance": 1,
+    "calibration": {
+      "core": "core-1",
+      "code": "missing",
+      "canCalibrate": false,
+      "message": "A Semente deste Núcleo ainda não está disponível para calibração.",
+      "integrity": null,
+      "parts": 12,
+      "playerParts": 10,
+      "truckParts": 2,
+      "requiredParts": 2,
+      "access": {
+        "usePlayer": true,
+        "useTruck": true
+      }
+    },
+    "networkCalibration": null,
+    "interaction": null,
+    "canWork": false,
+    "parked": false
+  },
+  "gpu": {
+    "renderer": "WebKit WebGL",
+    "textureUnits": 32,
+    "varyings": 31
+  },
+  "programs": [
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": []
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "aoMap",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": true
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": true
+        }
+      ],
+      "samplers": [
+        {
+          "name": "aurora_rockColor",
+          "size": 1
+        },
+        {
+          "name": "aurora_rockNormal",
+          "size": 1
+        },
+        {
+          "name": "aurora_rockRough",
+          "size": 1
+        },
+        {
+          "name": "aurora_gravelColor",
+          "size": 1
+        },
+        {
+          "name": "aurora_gravelNormal",
+          "size": 1
+        },
+        {
+          "name": "aurora_gravelRough",
+          "size": 1
+        },
+        {
+          "name": "aurora_crackedColor",
+          "size": 1
+        },
+        {
+          "name": "aurora_crackedNormal",
+          "size": 1
+        },
+        {
+          "name": "aurora_crackedRough",
+          "size": 1
+        },
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "aoMap",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "aoMap",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "aoMap",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "aoMap",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": []
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "boneTexture",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "boneTexture",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "boneTexture",
+          "size": 1
+        },
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "boneTexture",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "bumpMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "aoMap",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": true
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": true
+        }
+      ],
+      "samplers": [
+        {
+          "name": "aurora_rockColor",
+          "size": 1
+        },
+        {
+          "name": "aurora_rockNormal",
+          "size": 1
+        },
+        {
+          "name": "aurora_rockRough",
+          "size": 1
+        },
+        {
+          "name": "aurora_gravelColor",
+          "size": 1
+        },
+        {
+          "name": "aurora_gravelNormal",
+          "size": 1
+        },
+        {
+          "name": "aurora_gravelRough",
+          "size": 1
+        },
+        {
+          "name": "aurora_crackedColor",
+          "size": 1
+        },
+        {
+          "name": "aurora_crackedNormal",
+          "size": 1
+        },
+        {
+          "name": "aurora_crackedRough",
+          "size": 1
+        },
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "aoMap",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "aoMap",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "aoMap",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "boneTexture",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "boneTexture",
+          "size": 1
+        },
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "boneTexture",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "bumpMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        },
+        {
+          "name": "aoMap",
+          "size": 1
+        },
+        {
+          "name": "envMap",
+          "size": 1
+        },
+        {
+          "name": "dfgLUT",
+          "size": 1
+        },
+        {
+          "name": "normalMap",
+          "size": 1
+        },
+        {
+          "name": "roughnessMap",
+          "size": 1
+        },
+        {
+          "name": "metalnessMap",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "map",
+          "size": 1
+        }
+      ]
+    },
+    {
+      "linked": true,
+      "log": "",
+      "shaders": [
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        },
+        {
+          "compiled": true,
+          "log": "",
+          "terrain": false
+        }
+      ],
+      "samplers": [
+        {
+          "name": "boneTexture",
+          "size": 1
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

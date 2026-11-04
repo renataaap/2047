@@ -51,7 +51,7 @@ export class PBRLibrary {
  if (this.applied.ground && this.applied.rock && this.applied.shoulder && validMaterial(definitions.mud_cracked_dry_03)) {
  try {
  const cracked = await this.maps(definitions.mud_cracked_dry_03);
- applyTerrainBlend(this.materials.ground, { rock: await this.maps(definitions[this.applied.rock]), gravel: await this.maps(definitions[this.applied.shoulder]), cracked }); this.blended = true;
+ this.blended = applyTerrainBlend(this.materials.ground, { rock: await this.maps(definitions[this.applied.rock]), gravel: await this.maps(definitions[this.applied.shoulder]), cracked }, this.assets.renderer?.capabilities.maxTextures);
  } catch (error) { this.assets.errors.push(`terrain blend: ${error.message}`); }
  }
  // Borrowed data maps must move with the source before setQuality prunes old variants.
@@ -65,5 +65,5 @@ export class PBRLibrary {
  this.queue=this.queue.then(async()=>{if(this.assets.disposed||this.quality===quality)return;this.quality=quality;this.loaded.clear();this.unavailable=[];await this.load();const keep=new Set();for(const job of this.loaded.values())for(const value of Object.values(await job.catch(()=>({}))))if(value?.isTexture)keep.add(value);this.assets.pruneTextures(keep);});
  return this.queue;
  }
- snapshot() { return { quality:this.loadedQuality, inheritedDataMaps:Object.fromEntries(Object.entries(this.materials).filter(([,m])=>m.userData.dataMapsFrom&&!m.userData.polyhaven).map(([role,m])=>{const source=this.materials[m.userData.dataMapsFrom];return [role,{source:m.userData.dataMapsFrom,normalMatches:!!source&&m.normalMap===source.normalMap,roughnessMatches:!!source&&m.roughnessMap===source.roughnessMap}];})), applied: { ...this.applied }, unavailable: [...this.unavailable].sort(), terrainBlend: !!this.blended, installed: Object.keys(this.manifest?.assets || {}).length }; }
+ snapshot() { return { quality:this.loadedQuality, inheritedDataMaps:Object.fromEntries(Object.entries(this.materials).filter(([,m])=>m.userData.dataMapsFrom&&!m.userData.polyhaven).map(([role,m])=>{const source=this.materials[m.userData.dataMapsFrom];return [role,{source:m.userData.dataMapsFrom,normalMatches:!!source&&m.normalMap===source.normalMap,roughnessMatches:!!source&&m.roughnessMap===source.roughnessMap}];})), applied: { ...this.applied }, unavailable: [...this.unavailable].sort(), terrainBlend: !!this.blended, terrainTextureBudget:this.materials.ground?.userData?.terrainBlendBudget??null, installed: Object.keys(this.manifest?.assets || {}).length }; }
 }
