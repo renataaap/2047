@@ -5,6 +5,7 @@ export function installDiagnosticSteps(game,debug){
  const frame=()=>{const p=game.vehicle.body.translation(),q=game.vehicle.body.rotation();return {position:[p.x,p.y,p.z],quaternion:[q.x,q.y,q.z,q.w],playerPosition:Object.values(game.player.body.translation()),playerYaw:game.player.yaw,speed:game.vehicle.signedSpeed(),mode:game.state.mode,engineOn:game.state.engineOn,steps:game.loop.totalSteps,surface:game.state.surface,fuel:game.state.fuel,integrity:game.campaign.seed.integrity,massKg:game.vehicle.body.mass(),loaded:game.state.loaded,wheelContacts:Array.from({length:6},(_,i)=>game.vehicle.controller.wheelIsInContact(i))};};
  debug.controlledStepping=enabled=>{game.diagnosticStepping=!!enabled;game.last=performance.now();game.loop.reset();};
  debug.frame=frame;
+ debug.wheelDiagnostics=()=>Array.from({length:6},(_,i)=>({brake:game.vehicle.controller.wheelBrake(i),impulse:game.vehicle.controller.wheelForwardImpulse(i),force:game.vehicle.controller.wheelSuspensionForce(i),normal:game.vehicle.controller.wheelContactNormal(i),point:game.vehicle.controller.wheelContactPoint(i)}));
  debug.route=()=>game.navigation.route?{path:game.navigation.route.path,segments:game.navigation.route.segments,destination:game.navigation.route.destination}:null;
  debug.publish=()=>game.emit();
  debug.step=(input,count=1)=>{

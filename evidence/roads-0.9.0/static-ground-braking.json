@@ -1,0 +1,41 @@
+{
+  "method": "Same real road/terrain triangles at the downhill approach to Core 6; original truck model, mass and controls; speed initialised to 5 m/s only as a physics test precondition.",
+  "source": "https://github.com/dimforge/rapier/blob/master/src/control/ray_cast_vehicle_controller.rs",
+  "localApi": "@dimforge/rapier3d-compat/dist/control/ray_cast_vehicle_controller.d.ts:148 (braking impulse)",
+  "results": [
+    {
+      "groundDensity": 1,
+      "start": {
+        "x": -40.03375244140625,
+        "y": 25.690711975097656,
+        "z": -16761.07421875
+      },
+      "finish": {
+        "x": -40.012149810791016,
+        "y": 25.234703063964844,
+        "z": -16775.888671875
+      },
+      "speedAfter3Seconds": 4.736783888454233,
+      "brakingDistanceMetres": 14.814468875611837,
+      "massKg": 11083.5,
+      "wheelCount": 6
+    },
+    {
+      "groundDensity": 0,
+      "start": {
+        "x": -40.03612518310547,
+        "y": 25.732791900634766,
+        "z": -16760.01171875
+      },
+      "finish": {
+        "x": -40.031654357910156,
+        "y": 25.67153549194336,
+        "z": -16761.51171875
+      },
+      "speedAfter3Seconds": 0.007409054510856316,
+      "brakingDistanceMetres": 1.5000066627445114,
+      "massKg": 11083.5,
+      "wheelCount": 6
+    }
+  ]
+}

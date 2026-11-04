@@ -1,110 +1,174 @@
 {
-  "method": "Rapier rays against actual terrain and new road triangles, centre and wheel corridors; sector seams separately tested.",
-  "samples": 3536,
+  "method": "Rapier rays against actual terrain and new road triangles, centre and wheel corridors. Sector seams include all adjacent colliders simultaneously.",
+  "samples": 3558,
+  "seamSamples": 22,
   "results": [
     {
-      "sector": "0,-6",
+      "sectors": "0,-6",
+      "seam": false,
       "samples": 177,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-7",
+      "sectors": "0,-7|0,-6",
+      "seam": true,
+      "samples": 3,
+      "terrainAbovePavement": 0
+    },
+    {
+      "sectors": "0,-7",
+      "seam": false,
       "samples": 192,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-8",
+      "sectors": "0,-8",
+      "seam": false,
       "samples": 150,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-9",
+      "sectors": "0,-9|0,-8",
+      "seam": true,
+      "samples": 3,
+      "terrainAbovePavement": 0
+    },
+    {
+      "sectors": "0,-9",
+      "seam": false,
       "samples": 165,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-11",
+      "sectors": "0,-11",
+      "seam": false,
       "samples": 216,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-13",
+      "sectors": "0,-13",
+      "seam": false,
       "samples": 165,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-14",
+      "sectors": "0,-14|0,-13",
+      "seam": true,
+      "samples": 6,
+      "terrainAbovePavement": 0
+    },
+    {
+      "sectors": "0,-14",
+      "seam": false,
       "samples": 207,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-16",
+      "sectors": "0,-16",
+      "seam": false,
       "samples": 269,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-18",
+      "sectors": "0,-18",
+      "seam": false,
       "samples": 171,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-19",
+      "sectors": "0,-19|0,-18",
+      "seam": true,
+      "samples": 3,
+      "terrainAbovePavement": 0
+    },
+    {
+      "sectors": "0,-19",
+      "seam": false,
       "samples": 198,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-1",
+      "sectors": "0,-1",
+      "seam": false,
       "samples": 600,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-2",
+      "sectors": "0,-2",
+      "seam": false,
       "samples": 333,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-3",
+      "sectors": "0,-3",
+      "seam": false,
       "samples": 105,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-12",
+      "sectors": "0,-12",
+      "seam": false,
       "samples": 102,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-10",
+      "sectors": "0,-10",
+      "seam": false,
       "samples": 117,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-17",
+      "sectors": "0,-17|0,-16",
+      "seam": true,
+      "samples": 1,
+      "terrainAbovePavement": 0
+    },
+    {
+      "sectors": "0,-17",
+      "seam": false,
       "samples": 39,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-15",
+      "sectors": "0,-15",
+      "seam": false,
       "samples": 81,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-20",
+      "sectors": "0,-20|0,-19",
+      "seam": true,
+      "samples": 3,
+      "terrainAbovePavement": 0
+    },
+    {
+      "sectors": "0,-20",
+      "seam": false,
       "samples": 93,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,0",
+      "sectors": "0,0",
+      "seam": false,
       "samples": 36,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-4",
+      "sectors": "0,-4",
+      "seam": false,
       "samples": 36,
       "terrainAbovePavement": 0
     },
     {
-      "sector": "0,-5",
+      "sectors": "0,-5",
+      "seam": false,
       "samples": 84,
+      "terrainAbovePavement": 0
+    },
+    {
+      "sectors": "0,-6|0,-5",
+      "seam": true,
+      "samples": 3,
       "terrainAbovePavement": 0
     }
   ],

@@ -1,9 +1,10 @@
+import {evidencePath} from '../helpers/evidence-path.js';
 import {enterFromNewTutorial} from '../helpers/start-driving.js';
 import {parkedExit} from '../helpers/parked-exit.js';
 import { test,expect,request } from '@playwright/test';
 import { createCampaign } from '../../src/game/missions/campaign.js';
 import { mkdir,writeFile } from 'node:fs/promises';
-const dir='evidence/phase2';
+const dir=evidencePath('phase2');
 const payload=()=>({schemaVersion:1,truck:{position:[0,2,5],rotation:[0,0,0,1]},player:{position:[-3,1,5]},context:'driving',fuel:4,temperature:26,engineOn:true,campaign:createCampaign()});
 test('API: cookies, isolamento, CRUD, validação e conflito',async({request:api})=>{
  const list=await api.get('/api/saves');expect(list.status()).toBe(200);const cookie=list.headers()['set-cookie'];expect(cookie).toContain('HttpOnly');expect(cookie).toContain('SameSite=Strict');

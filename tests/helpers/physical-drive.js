@@ -52,19 +52,19 @@ export async function drivePhysical(page,{cruise=9,maxSeconds=700,label='route'}
      if(!best||distance<best.distance)best={distance,index:i,s:a.s+(b.s-a.s)*t};
     }
     driver.cursor=best.index;driver.maxOffRoute=Math.max(driver.maxOffRoute,best.distance);const end=points.at(-1),remaining=Math.max(0,end.s-best.s),atEnd=Math.hypot(p.x-end.x,p.z-end.z)<3.2||remaining<1.5;
-    if(atEnd){let previous=f;for(let j=0;j<60;j++){const next=d.step({handbrake:true}),moved=Math.hypot(next.position[0]-previous.position[0],next.position[2]-previous.position[2]);driver.travelled+=moved;driver.maxStep=Math.max(driver.maxStep,moved);previous=next;driver.steps++;}driver.frame=previous;driver.done=Math.abs(driver.frame.speed)<.3;if(driver.done)break;continue;}
+    if(atEnd){let previous=f;for(let j=0;j<60;j++){const next=d.step({handbrake:true,brake:1}),moved=Math.hypot(next.position[0]-previous.position[0],next.position[2]-previous.position[2]);driver.travelled+=moved;driver.maxStep=Math.max(driver.maxStep,moved);previous=next;driver.steps++;}driver.frame=previous;driver.done=Math.abs(driver.frame.speed)<.3&&Math.hypot(driver.frame.position[0]-end.x,driver.frame.position[2]-end.z)<4;if(driver.done)break;if(Math.hypot(driver.frame.position[0]-end.x,driver.frame.position[2]-end.z)>7)throw Error(`Physical parking overshot the bay at ${driver.frame.position}`);continue;}
     const speed=Math.abs(f.speed),look=Math.max(7,4+speed*1.5),aim=pointAt(Math.min(end.s,best.s+look)),q=f.quaternion,yaw=Math.atan2(2*(q[3]*q[1]+q[0]*q[2]),1-2*(q[1]*q[1]+q[0]*q[0])),error=angle(Math.atan2(-(aim.x-p.x),-(aim.z-p.z))-yaw);
     const a=pointAt(best.s+4),b=pointAt(best.s+12),c=pointAt(best.s+26),v=pointAt(best.s+34),bend=Math.abs(angle(Math.atan2(v.x-c.x,v.z-c.z)-Math.atan2(b.x-a.x,b.z-a.z)))/22;
-    let target=Math.min(driver.cruise,Math.sqrt(1.05/Math.max(.001,bend)),Math.sqrt(2*1.1*Math.max(0,remaining-3)));
+    let target=Math.min(driver.cruise,Math.sqrt(1.05/Math.max(.001,bend)),Math.sqrt(2*.65*Math.max(0,remaining-2)));
     if(p.x<-60&&p.x>-440&&p.z<-540&&p.z>-1000)target=Math.min(target,4.8);
     if(f.surface==='terra')target=Math.min(target,6.8);
     if(Math.abs(error)>1)target=Math.min(target,2.4);
     const maxSteer=Math.min(.62,Math.atan(2.5*4.675/(speed*speed+5))),desired=Math.atan(2*4.675*Math.sin(error)/look),steer=Math.max(-1,Math.min(1,(Math.abs(error)>2?Math.sign(error)*.62:desired)/maxSteer));
-    const throttle=speed>target+.35?-.7:speed<target-.25?.85:0;
-    const next=d.step({throttle,steer}),moved=Math.hypot(next.position[0]-f.position[0],next.position[2]-f.position[2]);driver.travelled+=moved;driver.maxStep=Math.max(driver.maxStep,moved);driver.frame=next;driver.steps++;
+    const braking=speed>target+.35,throttle=braking?-1:speed<target-.25?.85:0,handbrake=braking&&remaining<45;
+    const next=d.step({throttle,steer,handbrake}),moved=Math.hypot(next.position[0]-f.position[0],next.position[2]-f.position[2]);driver.travelled+=moved;driver.maxStep=Math.max(driver.maxStep,moved);driver.frame=next;driver.steps++;
     if(moved>1)throw Error('Vehicle position jumped instead of integration');
     if(best.s-driver.lastProgress>.2){driver.lastProgress=best.s;driver.stallSteps=0;}else driver.stallSteps++;
-    if(driver.steps%120===0)driver.samples.push({position:next.position,speed:next.speed,fuel:next.fuel,surface:next.surface,offRoute:best.distance,progress:best.s,steps:next.steps});
+    if(driver.steps%120===0)driver.samples.push({position:next.position,speed:next.speed,fuel:next.fuel,surface:next.surface,target,throttle,handbrake,remaining,offRoute:best.distance,progress:best.s,steps:next.steps});
     if(driver.stallSteps>60*24)throw Error(`Physical route stalled at ${next.position}, progress ${best.s}, speed ${next.speed}`);
     if(best.distance>22)throw Error(`Physical driver left the built corridor by ${best.distance} m at ${next.position}`);
    }
@@ -77,6 +77,6 @@ export async function drivePhysical(page,{cruise=9,maxSeconds=700,label='route'}
   result=await page.evaluate(()=>window.__AURORA_PHYSICAL_DRIVER__.run(180));
   if(result.done)break;
  }
- const proof=await page.evaluate(()=>{const d=window.__AURORA_PHYSICAL_DRIVER__;return {label:d.label,start:d.start,finish:d.frame,travelledMetres:d.travelled,maxStepMetres:d.maxStep,maxOffRouteMetres:d.maxOffRoute,simulatedSeconds:d.steps/60,samples:d.samples,done:d.done,teleportsDuringDrive:0,method:'Actual Game.fixedUpdate at 60 Hz, original controls, drivetrain, resources, collisions and Rapier. Accelerated diagnostic time; not human real-time gameplay.'};});
- expect(proof.done,JSON.stringify(result)).toBe(true);expect(proof.maxStepMetres).toBeLessThan(1);return proof;
+ const proof=await page.evaluate(()=>{const d=window.__AURORA_PHYSICAL_DRIVER__;return {label:d.label,start:d.start,finish:d.frame,travelledMetres:d.travelled,maxStepMetres:d.maxStep,maxOffRouteMetres:d.maxOffRoute,simulatedSeconds:d.steps/60,samples:d.samples,done:d.done,parkingDistanceMetres:Math.hypot(d.frame.position[0]-d.points.at(-1).x,d.frame.position[2]-d.points.at(-1).z),teleportsDuringDrive:0,method:'Actual Game.fixedUpdate at 60 Hz, original controls, drivetrain, resources, collisions and Rapier. Accelerated diagnostic time; not human real-time gameplay.'};});
+ expect(proof.done,JSON.stringify(result)).toBe(true);expect(proof.maxStepMetres).toBeLessThan(1);expect(proof.parkingDistanceMetres).toBeLessThan(4);return proof;
 }

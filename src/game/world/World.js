@@ -22,7 +22,9 @@ this.stripeGeometry=new THREE.PlaneGeometry(.14,3.5);this.stripeGeometry.rotateX
 this.rockMaterial=materials.rock;this.ruinGeometry=bevelGeometry(1,1,1);this.terrainMaterials=[materials.ground,materials.ground,materials.cityGround,materials.cityRestored,materials.salt,materials.saltRestored,materials.glassGround,materials.glassRestored,materials.stormGround,materials.stormRestored];
 this.landmarks=new THREE.Group();scene.add(this.landmarks);this.landmarkBodies=[];this.buildLandmarks();mergeStatic(this.landmarks);
 }
-collider(desc,bodyList) {const body=this.physics.createRigidBody(RAPIER.RigidBodyDesc.fixed());this.physics.createCollider(desc,body);bodyList.push(body);return body;}
+// Fixed terrain has no finite mass. Rapier's raycast wheel friction also reads
+// local mass properties; an open trimesh's inferred volume weakens the brakes.
+collider(desc,bodyList) {const body=this.physics.createRigidBody(RAPIER.RigidBodyDesc.fixed());this.physics.createCollider(desc.setDensity(0),body);bodyList.push(body);return body;}
 update(position,distance) {
 const size=CONFIG.world.sectorSize,cx=Math.round(position.x/size),cz=Math.round(position.z/size);
 const desired=new Set();for(let x=cx-1;x<=cx+1;x++)for(let z=cz-1;z<=cz+1;z++){const k=`${x},${z}`;desired.add(k);if(!this.sectors.has(k)&&!this.queue.some(s=>s.key===k))this.queue.push({key:k,x,z});}

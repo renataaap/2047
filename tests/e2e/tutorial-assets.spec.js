@@ -1,6 +1,7 @@
+import {evidencePath} from '../helpers/evidence-path.js';
 import {test,expect} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
-const dir='evidence/tutorial-assets';
+const dir=evidencePath('tutorial-assets');
 const state=p=>p.evaluate(()=>window.__GAME_DEBUG__.getState());
 async function newGame(page){
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));

@@ -15,7 +15,7 @@ function link(id,from,to,options={}){
  const a=point(from),b=point(to),controls=options.controls||[{x:a.x,y:a.y,z:a.z},{x:a.x+(b.x-a.x)/3,y:a.y+(b.y-a.y)/3,z:a.z+(b.z-a.z)/3},{x:a.x+(b.x-a.x)*2/3,y:a.y+(b.y-a.y)*2/3,z:a.z+(b.z-a.z)*2/3},{x:b.x,y:b.y,z:b.z}];
  edges.push({id,from,to,start:a,end:b,controlPoints:controls,type:'secondary',width:10,surface:'asfalto',condition:.7,speedKmh:40,risk:.15,region:biomeAt((a.z+b.z)/2),access:'truck',unlocked:true,connections:[],...options});
 }
-const junctionZ=[-620,-2100,-650,-1750,...ROUTES.flatMap(r=>[-r.start,-r.end,-r.at-30,-r.at+30]),-1070,-1130,...CORES.flatMap(k=>[k.z+140,k.z-140,k.vault.z+100,k.vault.z-100]),...ROAD_POINTS.filter(p=>p.kind!=='tech').flatMap(p=>[p.z+65,p.z-65]),...DISCOVERY_SITES.flatMap(p=>[p.z+55,p.z-55]),...POIS.flatMap(p=>[p.z+55,p.z-55])];
+const junctionZ=[-20,-620,-2100,-650,-1750,...ROUTES.flatMap(r=>[-r.start,-r.end,-r.at-30,-r.at+30]),-1070,-1130,...CORES.flatMap(k=>[k.z+140,k.z-140,k.vault.z+100,k.vault.z-100]),...ROAD_POINTS.filter(p=>p.kind!=='tech').flatMap(p=>[p.z+65,p.z-65]),...DISCOVERY_SITES.flatMap(p=>[p.z+55,p.z-55]),...POIS.flatMap(p=>[p.z+55,p.z-55])];
 const zs=[...new Set([80,0,-21000,...Array.from({length:105},(_,i)=>-i*200),...junctionZ])].filter(z=>z>=-21000&&z<=80).sort((a,b)=>b-a);
 zs.forEach(main);
 for(let i=1;i<zs.length;i++){
@@ -51,10 +51,8 @@ for(const p of ROAD_POINTS.filter(p=>p.kind!=='tech'))access(p.id,p.name,p.kind,
 for(const p of DISCOVERY_SITES)access(p.id,p.name,'poi',p.x,p.z,{x:p.x+15,z:p.z+16},55);
 for(const p of POIS)access(`explore:${p.id}`,p.name,'poi',p.x,p.z,{x:p.x+14,z:p.z+15},55);
 // The first vault belongs to the inhabited shelter and is approached on foot.
-const firstVault=node('estacionamento:vault-1',-3,-20);
-link('acesso:vault-1',main(0),firstVault,{legacy:true,type:'access',width:6,speedKmh:18});
-link('saida:vault-1',firstVault,main(-200),{legacy:true,type:'access',width:6,speedKmh:18});
-destination('vault-1','Cofre 1 · acesso pelo Abrigo 07','vault',-3,-20,firstVault,{terminal:{x:-36,z:-20},accessEntry:main(0),accessExit:main(-200)});
+const firstVault=main(-20);
+destination('vault-1','Cofre 1 · acesso pelo Abrigo 07','vault',0,-20,firstVault,{terminal:{x:-36,z:-20},accessEntry:main(0),accessExit:main(-200)});
 destination('retorno:vault-1','Retorno à rodovia · Cofre 1','waypoint',roadX(-200),-200,main(-200));
 destination('shelter','Abrigo 07','shelter',0,5,main(0),{terminal:{x:-19,z:5}});
 destination('home','Barracão de Dante','home',0,5,main(0),{terminal:{x:-13,z:22}});
