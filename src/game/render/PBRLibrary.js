@@ -51,7 +51,7 @@ export class PBRLibrary {
  if (this.applied.ground && this.applied.rock && this.applied.shoulder && validMaterial(definitions.mud_cracked_dry_03)) {
  try {
  const cracked = await this.maps(definitions.mud_cracked_dry_03);
- applyTerrainBlend(this.materials.ground, { rock: await this.maps(definitions[this.applied.rock]), gravel: await this.maps(definitions[this.applied.shoulder]), cracked }); this.blended = true;
+ this.blended = applyTerrainBlend(this.materials.ground, { rock: await this.maps(definitions[this.applied.rock]), gravel: await this.maps(definitions[this.applied.shoulder]), cracked }, this.assets.renderer?.capabilities.maxTextures);
  } catch (error) { this.assets.errors.push(`terrain blend: ${error.message}`); }
  }
  // Borrowed data maps must move with the source before setQuality prunes old variants.
