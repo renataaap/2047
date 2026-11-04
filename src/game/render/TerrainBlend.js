@@ -5,6 +5,7 @@ const names = ['rock','gravel','cracked'];
 // Three's DFG LUT, sunlight shadow and the High profile's environment map.
 // Counting only the nine layer textures misses these eight engine samplers.
 const baseSamplers = 8;
+const materialUniforms = new WeakMap();
 export function terrainTextureBudget(maxTextures) {
  const limit = Number.isFinite(maxTextures) && maxTextures > 0 ? Math.floor(maxTextures) : 16;
  let available = Math.max(0, limit - baseSamplers);
@@ -25,14 +26,28 @@ export function applyTerrainBlend(material, layers, maxTextures) {
  material.userData.terrainBlend = false; material.needsUpdate = true;
  return false;
  }
+ // Three reuses programs without calling onBeforeCompile again. All cached
+ // programs must share live uniform slots before PBRLibrary prunes old variants.
+ const bindings = materialUniforms.get(material) || {};
+ materialUniforms.set(material, bindings);
+ const bind = (name,value) => {
+ if (bindings[name]) bindings[name].value = value;
+ else bindings[name] = {value};
+ };
+ for (const name of names) {
+ const maps=layers[name],prefix=`aurora_${name}`;
+ bind(`${prefix}Color`,maps.color); bind(`${prefix}Normal`,maps.normal);
+ bind(`${prefix}Rough`,maps.arm || maps.roughness);
+ bind(`${prefix}Scale`,{x:1/maps.tileMeters[0],y:1/maps.tileMeters[1]});
+ }
  material.onBeforeCompile = shader => {
  const declarations = ['varying vec3 auroraPosition;', 'varying vec3 auroraNormal;'];
  for (const name of names) {
  const maps = layers[name], prefix = `aurora_${name}`;
- shader.uniforms[`${prefix}Color`] = { value: maps.color };
- if (budget.normals.includes(name)) shader.uniforms[`${prefix}Normal`] = { value: maps.normal };
- if (budget.roughness.includes(name)) shader.uniforms[`${prefix}Rough`] = { value: maps.arm || maps.roughness };
- shader.uniforms[`${prefix}Scale`] = { value: { x: 1 / maps.tileMeters[0], y: 1 / maps.tileMeters[1] } };
+ shader.uniforms[`${prefix}Color`] = bindings[`${prefix}Color`];
+ if (budget.normals.includes(name)) shader.uniforms[`${prefix}Normal`] = bindings[`${prefix}Normal`];
+ if (budget.roughness.includes(name)) shader.uniforms[`${prefix}Rough`] = bindings[`${prefix}Rough`];
+ shader.uniforms[`${prefix}Scale`] = bindings[`${prefix}Scale`];
  declarations.push(`uniform sampler2D ${prefix}Color; uniform vec2 ${prefix}Scale;`);
  if (budget.normals.includes(name)) declarations.push(`uniform sampler2D ${prefix}Normal;`);
  if (budget.roughness.includes(name)) declarations.push(`uniform sampler2D ${prefix}Rough;`);

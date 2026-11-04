@@ -40,6 +40,22 @@ it('limite desconhecido usa o mínimo WebGL2 e orçamento reduz sem exceder capa
  for(const limit of [11,12,13,14,15,16,17,32])expect(terrainTextureBudget(limit).totalSamplers).toBeLessThanOrEqual(limit);
 });
 
+it('programas em cache recebem os mapas novos antes de descartar a qualidade anterior',()=>{
+ const {material,shader}=compile(16),key=material.customProgramCacheKey();
+ const next=Object.fromEntries(Object.entries(layers).map(([name,maps])=>[name,{...maps,color:new THREE.Texture(),normal:new THREE.Texture(),arm:new THREE.Texture(),tileMeters:[4,4]}]));
+ const cachedColorSlot=shader.uniforms.aurora_rockColor;
+ try{
+  applyTerrainBlend(material,next,16);
+  // No new compile: this is the uniform dictionary held by the cached program.
+  expect(material.customProgramCacheKey()).toBe(key);
+  expect(shader.uniforms.aurora_rockColor).toBe(cachedColorSlot);
+  expect(cachedColorSlot.value).toBe(next.rock.color);
+  expect(shader.uniforms.aurora_crackedNormal.value).toBe(next.cracked.normal);
+  expect(shader.uniforms.aurora_gravelRough.value).toBe(next.gravel.arm);
+  expect(shader.uniforms.aurora_rockScale.value).toEqual({x:.25,y:.25});
+ }finally{for(const maps of Object.values(next))for(const value of Object.values(maps))if(value?.isTexture)value.dispose();material.dispose();}
+});
+
 it('o carregador usa a capacidade real e mantém o orçamento ao trocar a qualidade',async()=>{
  for(const limit of [16,32]){
   const textures=[],materials=Object.fromEntries(['ground','rock','shoulder'].map(role=>[role,new THREE.MeshStandardMaterial()]));
