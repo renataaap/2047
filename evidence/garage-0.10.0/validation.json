@@ -1,0 +1,86 @@
+{
+  "version": "0.10.0",
+  "baseCommit": "affb786ea63578b00721b2b188877335127a06bf",
+  "branch": "feat/garagem-frota-0.10.0",
+  "pullRequest": "https://github.com/renataaap/2047/pull/4",
+  "applicationSourceCommit": "d2d52a1180baa8bedb787886f96f506652732e10",
+  "harnessCommit": "b341a65dfb16d4600c448a70a25a5357ac71010c",
+  "applicationUnchangedAfterIntegral": true,
+  "changedSinceIntegral": [
+    "tests/e2e/garage.spec.js"
+  ],
+  "baseline": {
+    "unitPassed": 201,
+    "buildPassed": true,
+    "focusedE2EPassed": 1
+  },
+  "unit": {
+    "passed": 225,
+    "files": 31,
+    "codeCommit": "d2d52a1180baa8bedb787886f96f506652732e10",
+    "log": "logs/final-unit.log"
+  },
+  "build": {
+    "passed": true,
+    "codeCommit": "d2d52a1180baa8bedb787886f96f506652732e10",
+    "log": "logs/final-build.log"
+  },
+  "integralE2E": {
+    "passed": 39,
+    "failed": 0,
+    "durationMinutes": 50.8,
+    "workers": 1,
+    "codeCommit": "d2d52a1180baa8bedb787886f96f506652732e10",
+    "frozenSourceAndTestFiles": 208,
+    "hashMismatches": [],
+    "log": "logs/full-e2e-d2d52a1.log"
+  },
+  "postIntegralRecheck": {
+    "passed": 2,
+    "failed": 0,
+    "durationMinutes": 6.1,
+    "harnessCommit": "b341a65dfb16d4600c448a70a25a5357ac71010c",
+    "applicationChanged": false,
+    "reason": "Wait for the actual save PUT; assert saved and loaded position/fuel. The previous notice was stale.",
+    "log": "logs/recheck-e2e-b341a65.log"
+  },
+  "serverRestart": {
+    "passed": true,
+    "backend": "local libSQL/SQLite",
+    "rawDataAndVersionEqual": true,
+    "saveVersion": 7,
+    "evidence": "final-recheck/garage/restart.json",
+    "processEvidence": "final-recheck/garage/server-restart-process.json",
+    "log": "logs/restart.log"
+  },
+  "physicalJourney": {
+    "source": "final-recheck/garage/journey.json",
+    "actualRapier": true,
+    "fixedHz": 60,
+    "acceleratedDiagnosticTime": true,
+    "diagnosticTeleport": false,
+    "resourceInjection": false,
+    "humanSession": false,
+    "outwardMetres": 1105.5876260944676,
+    "secondVehicleMetres": 163.64740732834733,
+    "maxStepMetres": 0.14669254761109876,
+    "consoleErrors": []
+  },
+  "drivable": [
+    "titan-old",
+    "dump-truck"
+  ],
+  "preparedNotDrivable": [
+    "semi-1960",
+    "semi-baked",
+    "tatra-815"
+  ],
+  "renderer": "Chromium ANGLE SwiftShader (software)",
+  "windowsRealGPUValidated": false,
+  "humanAudioValidated": false,
+  "productionTursoPersistenceValidated": false,
+  "protectedSource": "protected-source.json",
+  "physicsBenchmark": "physics-benchmark.json",
+  "earlierCaptureRace": "persistence-capture-race.json",
+  "verifiedAt": "2026-11-04T18:09:19.153386+00:00"
+}

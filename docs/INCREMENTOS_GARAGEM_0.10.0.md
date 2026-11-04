@@ -14,4 +14,12 @@ Primeiras tentativas preservadas: comparação exata de float 1792 versus 1792.0
 
 F: semi-1960, semi-baked e tatra-815 seguem preparados, sem compra/ativação. A auditoria encontrou orientação/largura incompatíveis, cabines ainda não adaptadas e necessidade de otimizar o Tatra. Não são anunciados como dirigíveis.
 
-G: build, suíte integral, reinício real da aplicação, comparação de custos gráficos e fechamento do relatório são registrados após a execução. Windows/GPU real e audição humana permanecem pendentes.
+G: 225 unitários, build, 39/39 E2Es integrais e reinício real aprovados; comparação de custos gráficos e relatório final registrados. Windows/GPU real e audição humana permanecem pendentes.
+
+## Escopo mantido
+
+Os quatro módulos narrativos, o GLB original do Titã, TRUCK_TUNING, CabinInterior, SeatedPose, TerrainBlend e PBRLibrary têm hashes idênticos à base affb786; registro em `evidence/garage-0.10.0/protected-source.json`. A parametrização de física e montagem é intencional para o segundo veículo. A integração das três opções restantes não faz parte da lista de veículos homologados.
+
+A integral terminou com 39/39 E2Es em 50,8 minutos sobre d2d52a1; os 208 hashes ficaram iguais durante a execução. b341a65 é um ajuste posterior apenas do harness: esperar o PUT, pois o aviso de sucesso anterior não garantia que a nova leitura já receberia a versão atual. A aplicação não mudou. Dois casos passaram separadamente em 6,1 minutos; o reinício real passou com dados e versão idênticos. A aplicação permaneceu igual; a rodada integral não será renomeada como uma execução desse harness posterior.
+
+Fechamento: logs em evidence/garage-0.10.0/logs, resultados em validation.json, capturas da integral em final e rechecagem/reinício em final-recheck. Nenhuma evidência histórica foi sobrescrita para esconder uma falha. O teste de reinício confirmou a gravação na cidade, combustível, inventários, pinturas, equipamentos e campanha; Windows/GPU física e Turso de produção não foram afirmados como validados.

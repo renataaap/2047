@@ -1,0 +1,17 @@
+
+> 2047-rede-aurora@0.9.1 test:e2e
+> playwright test tests/e2e/garage.spec.js
+
+
+Running 4 tests using 1 worker
+
+(node:20395) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/garage.spec.js:16:1 › garagem: prévia, cancelamento, compra, equipamentos, segundo caminhão e persistência (3.5m)
+  ✓  2 tests/e2e/garage.spec.js:37:1 › garagem: skins distintas, interior, prévia de peças e bloqueio por recursos (1.6m)
+  ✓  3 tests/e2e/garage.spec.js:46:1 › garagem: falta de recursos não cobra, equipa nem grava uma compra (30.5s)
+  ✓  4 tests/e2e/garage.spec.js:56:1 › viagem real: barracão, GPS, garagem, personalização, retorno e basculante na cidade (2.7m)
+
+  Slow test file: tests/e2e/garage.spec.js (8.4m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  4 passed (8.4m)
