@@ -1,0 +1,14 @@
+
+> 2047-rede-aurora@0.8.2 test:e2e
+> playwright test tests/e2e/road-navigation.spec.js
+
+
+Running 3 tests using 1 worker
+
+(node:5109) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/road-navigation.spec.js:14:1 › GPS no HUD, destinos e perfis reais, minimapa a pé e recálculo (56.4s)
+  ✓  2 tests/e2e/road-navigation.spec.js:26:1 › save legado recebe recuperação próxima, sem duplicação, e persiste a rota (39.9s)
+  ✓  3 tests/e2e/road-navigation.spec.js:33:1 › cidade em Baixo/Médio/Alto, cabine noturna e descarregamento (2.3m)
+
+  3 passed (4.0m)

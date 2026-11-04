@@ -7,7 +7,7 @@ const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless
 const page=await browser.newPage({viewport:{width:1280,height:720}}),errors=[],legs=[],checks=[];const state=()=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
 page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
 await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
-async function capture(name){await page.waitForTimeout(500);await page.screenshot({path:`${dir}/${name}.png`});}
+async function capture(name){const panel=page.locator('.field-interface:not(.panel-closing)');if(await panel.count()){await panel.first().evaluate(async e=>{await Promise.all(e.getAnimations().map(a=>a.finished.catch(()=>{})));});await expect(panel.first()).toHaveCSS('opacity','1');}await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));await page.screenshot({path:`${dir}/${name}.png`});}
 async function exit(){if((await state()).engineOn)await page.keyboard.press('KeyE');await page.keyboard.press('KeyF');await expect.poll(async()=>(await state()).mode).toBe('walking');}
 async function enter(){const target=await page.evaluate(()=>{const s=window.__GAME_DEBUG__.frame(),q=s.quaternion,v=[-2.8,0,-2.5],tx=2*(q[1]*v[2]-q[2]*v[1]),ty=2*(q[2]*v[0]-q[0]*v[2]),tz=2*(q[0]*v[1]-q[1]*v[0]);return {x:s.position[0]+v[0]+q[3]*tx+(q[1]*tz-q[2]*ty),z:s.position[2]+v[2]+q[3]*tz+(q[0]*ty-q[1]*tx)};});await walkPhysical(page,[target]);await page.keyboard.press('KeyF');await expect.poll(async()=>(await state()).mode).toBe('driving');await page.keyboard.press('KeyE');}
 try{

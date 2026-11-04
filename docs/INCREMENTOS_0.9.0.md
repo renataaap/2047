@@ -19,3 +19,7 @@ Prova física parcial: 920,55 m do barracão ao posto urbano usando controles e 
 Validar fisicamente os sete Núcleos e Cofres, entrada/saída e caminhada até os terminais. Completar viagem piloto, persistência e recálculo no navegador. Executar build e suíte E2E integral, gerar comparações equivalentes, métricas e matriz de acessibilidade. Não há aprovação final da 0.9.0 neste checkpoint. Windows/GPU e avaliação humana continuam necessários.
 
 Nenhum asset externo novo: reutilização dos modelos e materiais locais com créditos existentes. Sem alterações nos quatro módulos de narrativa protegidos.
+
+## Validação posterior dos incrementos B–E
+
+196 unitários/27 arquivos aprovados; três E2Es novos focados aprovados. Viagem piloto de 3.181,69 m desde Novo jogo concluída com oficina, cidade/posto, diesel, Vale, gerador, ativação e salvamento/recarregamento. Alternativa pavimentada de 2.506,72 m desde a bifurcação. Repetição final 14/14 acessos locais aprovada, incluindo seis contatos no estacionamento e saída segura. Ver matriz de acessibilidade e comparação visual (11 pares). A massa inferida dos pisos fixos causava a frenagem insuficiente encontrada no Núcleo 6; cenário agora tem densidade zero, controlador e parâmetros do Titã preservados. Pacote preparado como 0.9.0, com regressão integral/build ainda registrados separadamente na fase final.

@@ -1,5 +1,11 @@
 # 2047: Rede Aurora
 
+**0.9.0 — rede rodoviária em validação**, branch `feat/rede-rodoviaria-0.9.0`, derivada da 0.8.2 `55a5df3`. O PR #1 da base não foi sobrescrito e a main permanece protegida. Grafo conectado, cidade piloto Cinza Nova, posto finito, ruas/pátios/garagem física, alternativas de piso, GPS no HUD e planejador M. [Arquitetura](docs/ARQUITETURA_RODOVIARIA_0.9.0.md) · [acessibilidade](docs/ACESSIBILIDADE_NUCLEOS_0.9.0.md) · [teste Windows](docs/TESTE_MANUAL_0.9.0.md).
+
+Nesta atualização: 196 testes unitários e três novos E2Es focados aprovados. Viagem desde Novo jogo de 3,18 km com oficina, cidade, combustível, terra, gerador, ativação e recarga; alternativa pavimentada de 2,51 km desde a bifurcação; 14/14 acessos físicos locais aprovados. Simulação original com tempo de diagnóstico acelerado, sem teleporte de diagnóstico nos percursos. Build e E2E integral ainda pendentes neste checkpoint; os resultados abaixo da 0.8.2 são históricos. Garagem sem compra/customização; Windows/GPU, sessão humana e finais continuam pendentes.
+
+Os registros seguintes preservam o histórico da base.
+
 **0.8.2 — Polimento e exploração, em revisão.** Cabine detalhada, instrumentos reais, acabamento do Titã, roupas/equipamentos individuais, barracão/oficina/POIs refinados, loja fisicamente acessível, terreno PBR corrigido e diário no caderno J. [Relatório](RELATORIO_POLIMENTO_0.8.2.md) · [comparação real](docs/COMPARACAO_VISUAL_0.8.2.md) · [avaliação Windows](docs/TESTE_MANUAL_0.8.2.md).
 
 **Validação nova (01/11/2026):** 175 unitários/25 arquivos, build de produção e **28/28 E2Es numa única execução integral (30,8 min)** aprovados; recuperação exata após reinício real também aprovada. Logs e tentativas anteriores estão no relatório e em [validation.json](evidence/polish-0.8.2/validation.json). Referência 0.8.1 executada novamente: 167 unitários, build e 25/25 E2Es integrais. SwiftShader por software; Windows/GPU física e sessão humana de 30 minutos pendentes. Base humana/rostos finais, escalada com contato e retrovisores dinâmicos continuam pendentes.

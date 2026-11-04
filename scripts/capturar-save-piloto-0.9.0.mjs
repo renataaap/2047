@@ -1,0 +1,12 @@
+import {chromium,expect} from '@playwright/test';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+const journey=JSON.parse(await readFile('evidence/roads-0.9.0/pilot/journey.json','utf8')),s=journey.checks.find(c=>c.step==='saved-and-reloaded').state,dir='evidence/roads-0.9.0/pilot-review';await mkdir(dir,{recursive:true});
+const data={schemaVersion:3,truck:{position:s.position,rotation:s.quaternion},player:{position:s.playerPosition},context:'walking',fuel:s.fuel,temperature:s.temperature,engineOn:false,campaign:s.campaign};
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+try{
+ await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
+ await page.request.get('http://127.0.0.1:3000/api/saves');expect((await page.request.post('http://127.0.0.1:3000/api/saves',{data:{slot:'1',data}})).status()).toBe(201);await page.goto('http://127.0.0.1:3000');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:90000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('walking');
+ await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:'Núcleo 1 · ressonador atmosférico',exact:true})).toBeVisible();await page.locator('.field-interface').evaluate(async e=>{await Promise.all(e.getAnimations().map(a=>a.finished.catch(()=>{})));});await expect(page.locator('.field-interface')).toHaveCSS('opacity','1');await page.screenshot({path:`${dir}/saved-core-terminal.png`});
+ const loaded=await page.evaluate(()=>window.__GAME_DEBUG__.getState());expect(loaded.campaign.cores['core-1'].state).toBe('active');expect(loaded.campaign.inventory).toEqual(data.campaign.inventory);expect(errors).toEqual([]);await writeFile(`${dir}/review.json`,JSON.stringify({source:'pilot/journey.json — saved-and-reloaded',method:'Reload of the actual saved pilot state. Supplementary screenshot after the UI animation ends; not an additional journey. No arbitrary diagnostic positioning.',loaded,errors},null,2)+'\n');
+}finally{await browser.close();}

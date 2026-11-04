@@ -2,7 +2,7 @@ import {ROAD_DESTINATIONS} from '../../data/roadNetwork.js';
 import {ADJACENCY,NODE_BY_ID,nearestRoad} from './roadIndex.js';
 import {distance,roundJunctions} from './curves.js';
 export const ROUTE_PROFILES=['fast','safe','economy'];
-export function edgeAllowed(e,c){return e.access==='truck'&&e.unlocked!==false&&(!e.blockedUntil||c?.cores?.[e.blockedUntil]?.state==='active');}
+export function edgeAllowed(e,c){const calm=e.weatherClosure==='plasma-front'&&(c?.network?.clock||0)%120>=65;return e.access==='truck'&&e.unlocked!==false&&(!e.blockedUntil||c?.cores?.[e.blockedUntil]?.state==='active'||calm);}
 export function estimates(e,mass=9000){const speed=e.speedKmh*(e.type==='dirt'?.82:1),seconds=e.length/Math.max(2,speed/3.6),rolling=e.surface==='terra'?1.4:e.surface==='vidro'?1.16:e.surface==='sal'?1.2:1;return {distance:e.length,seconds,litres:e.length/1000*.66*(mass/9000)**.5*rolling*(1+e.incline*3),risk:e.risk*e.length};}
 export function edgeCost(e,profile,mass){const v=estimates(e,mass);return profile==='fast'?v.seconds:profile==='economy'?v.litres*1000:v.seconds*(1+e.risk*6)+(e.type==='dirt'?v.distance*.25:0);}
 function planLeg(position,destinationId,profile='safe',campaign={},mass=9000){

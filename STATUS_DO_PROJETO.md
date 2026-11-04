@@ -1,5 +1,11 @@
 # Estado do projeto — 2047: Rede Aurora
 
+**0.9.0 — rede rodoviária em validação**, branch `feat/rede-rodoviaria-0.9.0`, derivada da 0.8.2 `55a5df3`. O PR #1 da base não foi sobrescrito e a main permanece protegida. Grafo conectado, cidade piloto Cinza Nova, posto finito, ruas/pátios/garagem física, alternativas de piso, GPS no HUD e planejador M. [Arquitetura](docs/ARQUITETURA_RODOVIARIA_0.9.0.md) · [acessibilidade](docs/ACESSIBILIDADE_NUCLEOS_0.9.0.md) · [teste Windows](docs/TESTE_MANUAL_0.9.0.md).
+
+Nesta atualização: 196 testes unitários e três novos E2Es focados aprovados. Viagem desde Novo jogo de 3,18 km com oficina, cidade, combustível, terra, gerador, ativação e recarga; alternativa pavimentada de 2,51 km desde a bifurcação; 14/14 acessos físicos locais aprovados. Simulação original com tempo de diagnóstico acelerado, sem teleporte de diagnóstico nos percursos. Build e E2E integral ainda pendentes neste checkpoint; os resultados abaixo da 0.8.2 são históricos. Garagem sem compra/customização; Windows/GPU, sessão humana e finais continuam pendentes.
+
+Os registros seguintes preservam o histórico da base.
+
 **Estado atual: 0.8.2 — polimento em revisão**, branch feat/polimento-0.8.2, derivada da main d8a3b2a (0.8.1). Ler [RELATORIO_POLIMENTO_0.8.2.md](RELATORIO_POLIMENTO_0.8.2.md), docs/INCREMENTOS_0.8.2.md e docs/TESTE_MANUAL_0.8.2.md. Cabine modular e âncora dos olhos; instrumentos reais; seis identidades de roupas/equipamentos; pose sentada e transições; terreno PBR recuperado sem trocar malha física; oficina/barracão/POIs/fábricas refinados; loja acessível; diário único derivado dos saves existentes.
 
 **Validação nova 0.8.2 (01/11/2026):** 175 unitários/25 arquivos, build e **28/28 E2Es numa única integral (30,8 min)** aprovados. Reinício real recuperou dados idênticos. Checkpoint de código/testes 37ac96d; nenhum código foi alterado durante a integral. Base executada novamente: 167 unitários, build e 25/25 E2Es numa integral. Falhas anteriores e rechecagens estão documentadas; não são somadas como cenários extras. Provas em [validation.json](evidence/polish-0.8.2/validation.json). Revisão no [PR #1](https://github.com/renataaap/2047/pull/1); main e histórico preservados, sem force push. Windows/GPU, sessão humana e arte final continuam pendentes.
