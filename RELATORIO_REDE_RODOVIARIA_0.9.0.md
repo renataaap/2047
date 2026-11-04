@@ -1,5 +1,7 @@
 # 2047: Rede Aurora — rede rodoviária 0.9.0
 
+[PR #2 — revisão da 0.9.0](https://github.com/renataaap/2047/pull/2). Branch `feat/rede-rodoviaria-0.9.0`; código da aplicação `14bd88a`, integral `2dd3c0d`, fechamento de validação `cd055b9`.
+
 Estado: implementação e validação automática concluídas, preparadas para revisão Windows/GPU. Integral 31/31 e polimento posterior 2/2 focado, com build aprovado após o último ajuste. Branch de implementação e PR separados da main. Branch `feat/rede-rodoviaria-0.9.0`, base `55a5df3` (0.8.2). O PR #1 da base foi integrado à main durante o trabalho (`5cb4323`, 04/11 às 11:03 UTC); a comparação confirmou árvore idêntica à base 55a5df3. Não foi necessário merge/rebase local. O PR da 0.9.0 terá main como destino.
 
 ## Resultado em relação à 0.8.2

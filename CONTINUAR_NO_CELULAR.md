@@ -7,6 +7,8 @@
 
 ## Projeto no GitHub
 
+Revisão atual: [PR #2 — rede rodoviária 0.9.0](https://github.com/renataaap/2047/pull/2).
+
 Revisão da base preservada: [PR #1 — polimento 0.8.2](https://github.com/renataaap/2047/pull/1). As [comparações reais](https://github.com/renataaap/2047/blob/feat/rede-rodoviaria-0.9.0/docs/COMPARACAO_VISUAL_0.9.0.md) abrem diretamente no GitHub, inclusive pelo celular. O PR #1 já foi integrado à main na 0.8.2. A rede 0.9.0 está na branch própria para revisão Windows/GPU; consulte o relatório e os testes antes de continuar.
 
 1. Abra https://github.com/renataaap/2047/tree/feat/rede-rodoviaria-0.9.0 e entre como **renataaap**. O repositório é privado; sem a conta correta pode aparecer 404. A rede 0.9.0 validada automaticamente está na branch **feat/rede-rodoviaria-0.9.0**.
