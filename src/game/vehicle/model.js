@@ -4,7 +4,7 @@ import { mergeStatic } from '../render/mergeStatic.js';
 import {createCabin} from './CabinInterior.js';
 import {createTruckFinish} from './TruckFinish.js';
 import { TRUCK_TUNING } from '../../data/truck-tuning.js';
-export function createTruck(m) {
+export function createTruck(m,{profile}={}) {
   const root=new THREE.Group();root.name='Titã Rocha Clara';
   const cab=new THREE.Group();cab.name='Cabine suspensa';root.add(cab);
   const fallbackShell=new THREE.Group();fallbackShell.name='Exterior procedural de emergência';cab.add(fallbackShell);
@@ -58,16 +58,17 @@ export function createTruck(m) {
   const treadGeometry=new THREE.BoxGeometry(.43,.045,.19);
   const wheels=[], springs=[], axles=[];
   const wheelPoints=[];
-  for(const z of [-2.5,1.45,2.9])for(const s of [-1,1]) {
+  const layout=profile?.wheelPoints||[-2.5,1.45,2.9].flatMap(z=>[-1,1].map(s=>({x:s*1.2,y:-.1,z})));
+  for(const p of layout) {const z=p.z,s=Math.sign(p.x);
     const steering=new THREE.Group();steering.position.set(s*1.2,-.68,z);root.add(steering);
     const spin=new THREE.Group();steering.add(spin);add(wheelGeometry,m.rubber,0,0,0,spin);add(hubGeometry,m.steel,0,0,0,spin);
     const tread=new THREE.InstancedMesh(treadGeometry,m.dark,16);
     const dummy=new THREE.Object3D();for(let i=0;i<16;i++){const a=i/16*Math.PI*2;dummy.position.set(0,Math.cos(a)*.604,Math.sin(a)*.604);dummy.rotation.x=a;dummy.updateMatrix();tread.setMatrixAt(i,dummy.matrix);}spin.add(tread);
-    wheels.push({steering,spin});wheelPoints.push({x:s*1.2,y:-.1,z});
+    wheels.push({steering,spin});wheelPoints.push({...p});
     const spring=add(new THREE.CylinderGeometry(.11,.11,.45,7),m.steel,s*.85,-.35,z);springs.push(spring);
   }
-  for(const z of [-2.5,1.45,2.9]){const a=add(new THREE.CylinderGeometry(.095,.095,2.5,7),m.dark,0,-.68,z);a.rotation.z=Math.PI/2;axles.push(a);}
-  const cockpit=createCabin();cab.add(cockpit.group);const {steeringWheel,lever,instruments}=cockpit;
+  for(const z of [...new Set(layout.map(p=>p.z))]){const a=add(new THREE.CylinderGeometry(.095,.095,2.5,7),m.dark,0,-.68,z);a.rotation.z=Math.PI/2;axles.push(a);}
+  const cockpit=createCabin();cab.add(cockpit.group);if(profile?.cockpitOffset){cockpit.group.position.fromArray(profile.cockpitOffset);cockpit.eye=cockpit.eye.map((v,i)=>v+profile.cockpitOffset[i]);}const {steeringWheel,lever,instruments}=cockpit;
   root.add(createTruckFinish(m));
   const lights=[];
   for(const x of [-.89,.89]) {const spot=new THREE.SpotLight('#efd6a4',1400,100,.42,.6,2);spot.position.set(x,.4,-4);spot.target.position.set(x,-.6,-35);root.add(spot,spot.target);lights.push(spot);}

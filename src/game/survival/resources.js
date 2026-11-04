@@ -1,8 +1,8 @@
 import { CONFIG } from '../../data/config.js';
 import { TRUCK_TUNING } from '../../data/truck-tuning.js';
 export const FRICTION = Object.freeze(Object.fromEntries(Object.entries(TRUCK_TUNING.surfaces).map(([id,s])=>[id,s.grip])));
-export function terrainFriction(type, speed = 0) {
-  const base = FRICTION[type] ?? FRICTION.terra;
+export function terrainFriction(type, speed = 0, tuning=TRUCK_TUNING) {
+  const base = tuning.surfaces[type]?.grip ?? tuning.surfaces.terra.grip;
   return base * (1 - Math.min(Math.abs(speed) / 100, .12));
 }
 export function fuelConsumed({ engineOn, throttle = 0, speed = 0,fuelRateLps }, dt) {
