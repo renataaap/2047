@@ -6,7 +6,7 @@ import {roadX} from '../src/game/world/terrain.js';
 
 const state=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
 export async function captureTruck(page,stage){
- const dir=`evidence/truck-opacity/${stage}`,shots=[],errors=[];await mkdir(dir,{recursive:true});
+ const dir=resolve(process.env.AURORA_EVIDENCE_ROOT||'evidence/current-e2e','truck-opacity',stage),shots=[],errors=[];await mkdir(dir,{recursive:true});
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
  await page.goto('http://127.0.0.1:3000');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});
@@ -30,7 +30,7 @@ export async function captureTruck(page,stage){
 // Extra evidence: look back at the truck after a real cockpit exit, then inspect
 // shadows/environment lighting with the real High setting and return to Low.
 export async function captureTruckDetails(page){
- const dir='evidence/truck-opacity/details',shots=[],errors=[];await mkdir(dir,{recursive:true});
+ const dir=resolve(process.env.AURORA_EVIDENCE_ROOT||'evidence/current-e2e','truck-opacity','details'),shots=[],errors=[];await mkdir(dir,{recursive:true});
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
  await page.goto('http://127.0.0.1:3000');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});
