@@ -1,6 +1,13 @@
 # 2047: Rede Aurora
 
-**Hotfix 0.9.1 — chão:** o shader do terreno respeita o limite de texturas da GPU e atualiza os mapas ao trocar a qualidade. [Relatório](RELATORIO_CORRECAO_CHAO_0.9.1.md) · [conferir no Windows](docs/TESTE_MANUAL_CHAO_0.9.1.md). A garagem 0.10.0 permanece como próxima tarefa.
+**0.10.0 — garagem e frota:** garagem municipal de Cinza Nova funcional, três skins, prévias 3D, acessórios, interior, três upgrades reais e dois caminhões dirigíveis. Base 0.9.1 com a correção do chão preservada. [Relatório](RELATORIO_GARAGEM_0.10.0.md) · [incrementos](docs/INCREMENTOS_GARAGEM_0.10.0.md) · [teste Windows](docs/TESTE_MANUAL_GARAGEM_0.10.0.md) · [PR #4](https://github.com/renataaap/2047/pull/4).
+
+Validação desta atualização: **225 unitários, build, 39/39 E2Es numa integral de 50,8 minutos, 2/2 rechecagens posteriores do harness e reinício real aprovados**. As rechecagens não são contadas como cenários inéditos da integral; o código da aplicação permaneceu igual. [Registros](evidence/garage-0.10.0/validation.json). Windows/GPU física e audição humana continuam pendentes; três modelos adicionais ainda não são dirigíveis.
+
+Para usar: **M → Garagem municipal**, siga até Cinza Nova, estacione na faixa interna, desligue com **E** e abra com **G**. A bancada também atende a pé por **F**. Arraste para orbitar e use a roda para zoom; as confirmações cobram recursos existentes e salvam no slot atual. Não é necessário começar outra campanha nem apagar banco/cookies.
+
+
+**Hotfix 0.9.1 — chão:** o shader do terreno respeita o limite de texturas da GPU e atualiza os mapas ao trocar a qualidade. [Relatório](RELATORIO_CORRECAO_CHAO_0.9.1.md) · [conferir no Windows](docs/TESTE_MANUAL_CHAO_0.9.1.md). À época, a garagem 0.10.0 era a próxima tarefa; a implementação atual está descrita acima.
 
 **Histórico 0.9.0:** [PR #2](https://github.com/renataaap/2047/pull/2) integrado à main em `c223f9e`. Os números da seção seguinte pertencem à validação da 0.9.0, não à correção 0.9.1.
 

@@ -1,3 +1,4 @@
+import {GARAGE} from '../garage/catalog.js';
 import {INHABITED_SITES,DISCOVERY_SITES} from '../../data/ambience.js';
 import {GENERATOR} from '../../data/road.js';
 import {surfaceAt,randomSeed,regionAt,heightAt} from '../world/terrain.js';
@@ -5,8 +6,9 @@ import {surfaceAt,randomSeed,regionAt,heightAt} from '../world/terrain.js';
 // Original synthesis, no external recordings or uncertain sample licenses.
 export function environmentalMix(p,c){
  const home=Math.abs(p.x+13)<3.85&&Math.abs(p.z-22)<6.1,motel=DISCOVERY_SITES[0],inMotel=Math.abs(p.x-motel.x)<8&&Math.abs(p.z-motel.z)<4;
- const workshop=INHABITED_SITES.filter(s=>s.kind==='workshop').sort((a,b)=>Math.hypot(p.x-a.x,p.z-a.z)-Math.hypot(p.x-b.x,p.z-b.z))[0];
- return {indoors:home||inMotel,surface:home||inMotel?'interior':surfaceAt(p.x,p.z),region:regionAt(p.z),generator:!!c.road?.generator,workshop,distanceToGenerator:Math.hypot(p.x-GENERATOR.x,p.z-GENERATOR.z)};
+ const inGarage=Math.abs(p.x-GARAGE.x)<19&&Math.abs(p.z+822)<22;
+ const workshop=[{x:GARAGE.x,z:GARAGE.z,kind:'workshop'},...INHABITED_SITES].filter(s=>s.kind==='workshop').sort((a,b)=>Math.hypot(p.x-a.x,p.z-a.z)-Math.hypot(p.x-b.x,p.z-b.z))[0];
+ return {indoors:home||inMotel||inGarage,surface:home||inMotel||inGarage?'interior':surfaceAt(p.x,p.z),region:regionAt(p.z),generator:!!c.road?.generator,workshop,distanceToGenerator:Math.hypot(p.x-GENERATOR.x,p.z-GENERATOR.z)};
 }
 export class AmbientAudio {
  constructor(){this.steps=0;this.sources=[];this.nodes=[];this.cues=0;this.nextCreak=0;}

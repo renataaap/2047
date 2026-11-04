@@ -1,6 +1,13 @@
 # Estado do projeto — 2047: Rede Aurora
 
-**Etapa atual: hotfix 0.9.1 — chão**, priorizado pelo usuário antes da garagem 0.10.0. Base main `c223f9e`, PR #2 já integrado. Branch `fix/chao-inicial-0.9.1`. Shader adaptado à capacidade de texturas e uniforms atualizados nos programas em cache; mapas locais, terreno físico e saves preservados. [Relatório](RELATORIO_CORRECAO_CHAO_0.9.1.md) · [teste Windows](docs/TESTE_MANUAL_CHAO_0.9.1.md). Código da correção em `dee7c2d`; validação final registrada no relatório e em `evidence/floor-0.9.1`. Windows/GPU real continua pendente. A 0.10.0 ainda não foi implementada.
+**0.10.0 — garagem e frota:** garagem municipal de Cinza Nova funcional, três skins, prévias 3D, acessórios, interior, três upgrades reais e dois caminhões dirigíveis. Base 0.9.1 com a correção do chão preservada. [Relatório](RELATORIO_GARAGEM_0.10.0.md) · [incrementos](docs/INCREMENTOS_GARAGEM_0.10.0.md) · [teste Windows](docs/TESTE_MANUAL_GARAGEM_0.10.0.md) · [PR #4](https://github.com/renataaap/2047/pull/4).
+
+Validação desta atualização: **225 unitários, build, 39/39 E2Es numa integral de 50,8 minutos, 2/2 rechecagens posteriores do harness e reinício real aprovados**. As rechecagens não são contadas como cenários inéditos da integral; o código da aplicação permaneceu igual. [Registros](evidence/garage-0.10.0/validation.json). Windows/GPU física e audição humana continuam pendentes; três modelos adicionais ainda não são dirigíveis.
+
+Para usar: **M → Garagem municipal**, siga até Cinza Nova, estacione na faixa interna, desligue com **E** e abra com **G**. A bancada também atende a pé por **F**. Arraste para orbitar e use a roda para zoom; as confirmações cobram recursos existentes e salvam no slot atual. Não é necessário começar outra campanha nem apagar banco/cookies.
+
+
+**Histórico: hotfix 0.9.1 — chão**, priorizado pelo usuário antes da garagem 0.10.0. Base main `c223f9e`, PR #2 já integrado. Branch `fix/chao-inicial-0.9.1`. Shader adaptado à capacidade de texturas e uniforms atualizados nos programas em cache; mapas locais, terreno físico e saves preservados. [Relatório](RELATORIO_CORRECAO_CHAO_0.9.1.md) · [teste Windows](docs/TESTE_MANUAL_CHAO_0.9.1.md). Código da correção em `dee7c2d`; validação final registrada no relatório e em `evidence/floor-0.9.1`. Windows/GPU real continua pendente. À época, a garagem 0.10.0 ainda não havia sido implementada.
 
 **Histórico 0.9.0:** [PR #2](https://github.com/renataaap/2047/pull/2) integrado à main em `c223f9e`. Os resultados a seguir pertencem àquela versão.
 

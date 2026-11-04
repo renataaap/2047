@@ -37,10 +37,10 @@ export async function selectDestination(page,id,preference='safe',via=null){
 
 // Pure pursuit controls the original Rapier truck. The test never assigns a
 // position/velocity or changes fuel, load, damage or gear state.
-export async function drivePhysical(page,{cruise=9,maxSeconds=700,label='route'}={}){
- await page.evaluate(({cruise,label})=>{
+export async function drivePhysical(page,{cruise=9,maxSeconds=700,label='route',path=null,wheelbase=4.675}={}){
+ await page.evaluate(({cruise,label,path,wheelbase})=>{
   const d=window.__GAME_DEBUG__,r=d.route();if(!r?.path?.length)throw Error('No active graph route');
-  const points=r.path,frame=d.frame();
+  const points=path||r.path,frame=d.frame();
   const angle=v=>Math.atan2(Math.sin(v),Math.cos(v));
   const pointAt=s=>{let lo=0,hi=points.length-1;while(hi-lo>1){const mid=(lo+hi)>>1;if(points[mid].s<s)lo=mid;else hi=mid;}const a=points[lo],b=points[hi],t=Math.max(0,Math.min(1,(s-a.s)/Math.max(.001,b.s-a.s)));return {x:a.x+(b.x-a.x)*t,z:a.z+(b.z-a.z)*t};};
   const driver={label,cruise,points,cursor:1,start:frame,frame,travelled:0,maxStep:0,maxOffRoute:0,steps:0,samples:[],done:false,lastProgress:0,stallSteps:0};
@@ -59,7 +59,7 @@ export async function drivePhysical(page,{cruise=9,maxSeconds=700,label='route'}
     if(p.x<-60&&p.x>-440&&p.z<-540&&p.z>-1000)target=Math.min(target,4.8);
     if(f.surface==='terra')target=Math.min(target,6.8);
     if(Math.abs(error)>1)target=Math.min(target,2.4);
-    const maxSteer=Math.min(.62,Math.atan(2.5*4.675/(speed*speed+5))),desired=Math.atan(2*4.675*Math.sin(error)/look),steer=Math.max(-1,Math.min(1,(Math.abs(error)>2?Math.sign(error)*.62:desired)/maxSteer));
+    const maxSteer=Math.min(.62,Math.atan(2.5*wheelbase/(speed*speed+5))),desired=Math.atan(2*wheelbase*Math.sin(error)/look),steer=Math.max(-1,Math.min(1,(Math.abs(error)>2?Math.sign(error)*.62:desired)/maxSteer));
     const braking=speed>target+.35,throttle=braking?-1:speed<target-.25?.85:0,handbrake=braking&&remaining<45;
     const next=d.step({throttle,steer,handbrake}),moved=Math.hypot(next.position[0]-f.position[0],next.position[2]-f.position[2]);driver.travelled+=moved;driver.maxStep=Math.max(driver.maxStep,moved);driver.frame=next;driver.steps++;
     if(moved>1)throw Error('Vehicle position jumped instead of integration');
@@ -71,7 +71,7 @@ export async function drivePhysical(page,{cruise=9,maxSeconds=700,label='route'}
    d.publish();return {done:driver.done,position:driver.frame.position,speed:driver.frame.speed,steps:driver.steps,travelled:driver.travelled,maxStep:driver.maxStep,maxOffRoute:driver.maxOffRoute};
   };
   window.__AURORA_PHYSICAL_DRIVER__=driver;
- },{cruise,label});
+ },{cruise,label,path,wheelbase});
  let result;
  for(let batch=0;batch<Math.ceil(maxSeconds/3)+5;batch++){
   result=await page.evaluate(()=>window.__AURORA_PHYSICAL_DRIVER__.run(180));

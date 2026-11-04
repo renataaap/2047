@@ -15,6 +15,7 @@ function facade(b,p){
   b.box(20,1.2,.35,m.concrete,0,h-.6,d/2,true);
   b.box(w-.4,.14,d-.4,m.garage,0,.02,0,true);
   b.box(.25,5,.25,m.steel,-7,2.5,9,true);b.box(.25,5,.25,m.steel,7,2.5,9,true);b.box(14,.3,.25,m.steel,0,5,9);
+  for(const x of [-4.5,4.5])b.box(.13,.025,20,m.stripe,x,.13,8);for(const z of [-2,18])b.box(9,.025,.13,m.stripe,0,.13,z);b.box(3,.25,1.2,m.steel,-6,.9,16);b.box(.2,1,.8,m.rust,-7,.5,16);b.lamp(-4,5.7,8,true);b.lamp(4,5.7,8,true);
   b.bench(-13,.1,-14,4);b.shelf(14,.1,-15);b.tire(-15,.1,-11);b.tire(-15,.45,-11);b.lamp(0,5.5,1,true);
   return;
  }

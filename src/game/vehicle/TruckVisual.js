@@ -36,6 +36,7 @@ export class TruckVisual {
       for(const name of definition.removeNodes||[]){const node=lease.scene.getObjectByName(name);if(!node)throw new Error(`Malha de carga não encontrada: ${name}`);if(definition.wheels.some(w=>node.getObjectByName(w.node)||node.name===w.node))throw new Error('Remoção atingiria roda/chassi');node.removeFromParent();}
       const rig=inspectTruckRig(visual,definition,this.truck.wheelPoints);
       this.materialState=prepareTruckMaterials(lease.scene,definition);
+      for(const name of definition.cockpitHiddenNodes||[]){const node=lease.scene.getObjectByName(name);if(node)this.materialState.cabMeshes.push(node);}
       this.legacy=[...this.truck.root.children].filter(o=>(o.isMesh||o.isGroup)&&!o.userData.keepWithImportedTruck);
       // Cab/old exterior are hidden outside. The existing cockpit remains provisional inside.
       this.truck.root.add(visual);this.visual=visual;

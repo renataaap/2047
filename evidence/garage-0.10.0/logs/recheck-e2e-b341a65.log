@@ -1,0 +1,15 @@
+
+> 2047-rede-aurora@0.10.0 test:e2e
+> playwright test tests/e2e/garage.spec.js --grep garagem: prévia|viagem real
+
+
+Running 2 tests using 1 worker
+
+(node:26486) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/garage.spec.js:21:1 › garagem: prévia, cancelamento, compra, equipamentos, segundo caminhão e persistência (3.1m)
+  ✓  2 tests/e2e/garage.spec.js:61:1 › viagem real: barracão, GPS, garagem, personalização, retorno e basculante na cidade (3.0m)
+
+  Slow test file: tests/e2e/garage.spec.js (6.1m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  2 passed (6.1m)

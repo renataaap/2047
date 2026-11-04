@@ -1,0 +1,9 @@
+import {it,expect} from 'vitest';
+import {GarageController} from '../../src/game/garage/GarageController.js';
+import {ensureFleet} from '../../src/game/garage/fleet.js';
+import {createCampaign} from '../../src/game/missions/campaign.js';
+import {upgradeCampaign} from '../../src/game/missions/network.js';
+function fixture(save){const game={campaign:upgradeCampaign(createCampaign()),state:{fuel:12,temperature:26,speed:0,engineOn:false},current:{x:-320,z:-814},saves:{slot:'1'},appearance:{apply(){}},configureActiveVehicle(){},emit(){},save,truck:{root:{visible:true}},activeVehicleId:'titan-old'};ensureFleet(game.campaign,game.state);const g=new GarageController(game);g.active=true;g.resetDraft();g.chooseSkin('aurora');return {game,g};}
+it('falha de persistência desfaz recursos/configuração e preserva a referência da campanha',async()=>{const {game,g}=fixture(async()=>false),reference=game.campaign,before=structuredClone(game.campaign);expect(await g.transact('paint')).toBe(false);expect(game.campaign).toBe(reference);expect(game.campaign).toEqual(before);expect(g.message).toContain('desfeito');});
+it('impede uma segunda confirmação durante a gravação',async()=>{let finish;const pending=new Promise(resolve=>finish=resolve),{game,g}=fixture(()=>pending),scrap=game.campaign.inventory.player.scrap;const first=g.transact('paint');expect(await g.transact('paint')).toBe(false);finish(true);expect(await first).toBe(true);expect(game.campaign.inventory.player.scrap).toBe(scrap-2);expect(game.campaign.fleet.transactions).toBe(1);});
+it('não cobra serviços sem slot de save disponível',async()=>{const {game,g}=fixture(async()=>true);game.saves.slot=null;const old=structuredClone(game.campaign);expect(await g.transact('paint')).toBe(false);expect(game.campaign).toEqual(old);expect(g.message).toContain('slot');});
