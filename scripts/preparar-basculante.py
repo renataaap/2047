@@ -13,6 +13,9 @@ def material(original,role):
  m=bpy.data.materials.get(name)
  if not m:
   m=original.copy();m.name=name;m['role']=role
+  if role=='glass':
+   bsdf=m.node_tree.nodes.get('Principled BSDF')
+   if bsdf:bsdf.inputs['Base Color'].default_value=(.14,.2,.2,.35)
   if role not in ['glass','lens']:
    m.surface_render_method='DITHERED'
    bsdf=m.node_tree.nodes.get('Principled BSDF')
@@ -48,7 +51,7 @@ for o in objects:
   bmesh.ops.delete(part,geom=[v for v in part.verts if not v.link_faces],context='VERTS')
   mesh=bpy.data.meshes.new('derived');part.to_mesh(mesh);part.free()
   for original in o.data.materials:
-   role='rubber' if 1<=group<=6 else 'lens' if 'glass' in original.name.lower() else 'paint' if ('_A_'in original.name or '_B_'in original.name) else 'metal'
+   role='rubber' if 1<=group<=6 else ('glass' if group==7 else 'lens') if 'glass' in original.name.lower() else 'paint' if ('_A_'in original.name or '_B_'in original.name or group==7 and '_E_'in original.name) else 'metal'
    mesh.materials.append(material(original,role))
   obj=bpy.data.objects.new('part',mesh);bpy.context.collection.objects.link(obj);groups.setdefault(group,[]).append(obj)
  bm.free()
