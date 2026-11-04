@@ -1,0 +1,43 @@
+
+> 2047-rede-aurora@0.9.1 test:e2e
+> playwright test tests/e2e/garage.spec.js
+
+
+Running 1 test using 1 worker
+
+(node:18828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/garage.spec.js:14:1 › garagem: prévia, cancelamento, compra, equipamentos, segundo caminhão e persistência (1.3m)
+
+
+  1) tests/e2e/garage.spec.js:14:1 › garagem: prévia, cancelamento, compra, equipamentos, segundo caminhão e persistência 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1792
+    Received: 1792.0000000000002
+
+    Call Log:
+    - Timeout 15000ms exceeded while waiting on the predicate
+
+      19 |  await page.getByRole('button',{name:/Aurora Azul/}).click();await page.getByRole('button',{name:/Confirmar pintura/}).click();await expect.poll(async()=>(await state(page)).garage.busy,{timeout:30000}).toBe(false);expect((await state(page)).campaign.fleet.vehicles['titan-old'].paint.skin).toBe('aurora');
+      20 |  await page.getByRole('button',{name:'Acessórios',exact:true}).click();await page.getByRole('button',{name:/Comprar e instalar Proteção tubular/}).click();await expect.poll(async()=>(await state(page)).garage.record.accessories).toContain('guard');
+    > 21 |  await page.getByRole('button',{name:'Mecânica',exact:true}).click();await page.getByRole('button',{name:/Comprar e instalar Ajuste da bomba/}).click();await expect.poll(async()=>(await state(page)).garage.stats.torque).toBe(1792);
+         |                                                                                                                                                                                                                             ^
+      22 |  await page.getByRole('button',{name:'Frota',exact:true}).click();await page.getByRole('button',{name:/^Basculante Municipal/}).click();await expect.poll(async()=>(await state(page)).garage.busy,{timeout:60000}).toBe(false);await page.screenshot({path:`${dir}/basculante-preview.png`});
+      23 |  await page.getByRole('button',{name:/^Recuperar Basculante/}).click();await expect.poll(async()=>(await state(page)).garage.vehicles).toContain('dump-truck');await page.getByRole('button',{name:/^Basculante Municipal/}).click();await expect.poll(async()=>(await state(page)).garage.busy).toBe(false);await page.getByRole('button',{name:/^Ativar Basculante/}).click();
+      24 |  await expect.poll(async()=>(await state(page)).garage.activeId,{timeout:60000}).toBe('dump-truck');const selected=await state(page);expect(selected.importedTruck.id).toBe('dump-truck');expect(selected.importedTruck.wheelBindings).toBe(6);expect(selected.fuel).toBe(0);expect(selected.campaign.network.cargo).toBe(before.campaign.network.cargo);expect(selected.integrity).toBe(before.integrity);
+        at /workspace/work/2047-rede-aurora/tests/e2e/garage.spec.js:21:221
+
+    Error Context: test-results/garage-garagem-prévia-canc-d5444-ndo-caminhão-e-persistência/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/garage-garagem-prévia-canc-d5444-ndo-caminhão-e-persistência/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/garage-garagem-prévia-canc-d5444-ndo-caminhão-e-persistência/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/garage.spec.js:14:1 › garagem: prévia, cancelamento, compra, equipamentos, segundo caminhão e persistência 

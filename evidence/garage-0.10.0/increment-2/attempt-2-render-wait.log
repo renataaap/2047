@@ -1,0 +1,40 @@
+
+> 2047-rede-aurora@0.9.1 test:e2e
+> playwright test tests/e2e/garage.spec.js
+
+
+Running 1 test using 1 worker
+
+(node:19096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/garage.spec.js:15:1 › garagem: prévia, cancelamento, compra, equipamentos, segundo caminhão e persistência (2.9m)
+
+
+  1) tests/e2e/garage.spec.js:15:1 › garagem: prévia, cancelamento, compra, equipamentos, segundo caminhão e persistência 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      27 |  await page.getByRole('button',{name:/Sair da garagem/}).click();await expect.poll(async()=>(await state(page)).mode).toBe('driving');await page.keyboard.press('KeyE');
+      28 |  const driven=await page.evaluate(()=>{const d=window.__GAME_DEBUG__;for(let i=0;i<8;i++)d.step({throttle:-.65},120);d.step({handbrake:true},240);d.publish();return d.getState();});
+    > 29 |  expect(driven.position[2]).toBeGreaterThan(-800);expect(driven.importedTruck.wheels.some(w=>Math.abs(w.rotation)>.1)).toBe(true);expect(driven.navigation).toBeTruthy();await settle(page);await page.screenshot({path:`${dir}/basculante-driving.png`});
+         |                                                                                                                        ^
+      30 |  await page.keyboard.press('Escape');await page.getByRole('button',{name:'Salvar / carregar partida'}).click();await page.getByRole('button',{name:'Salvar neste slot'}).first().click();await expect(page.getByRole('dialog').getByRole('status')).toContainText('Partida salva',{timeout:30000});
+      31 |  await page.reload();await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>(await state(page)).importedTruck.id,{timeout:60000}).toBe('dump-truck');const loaded=await state(page);expect(loaded.campaign.fleet.vehicles['titan-old'].paint.skin).toBe('aurora');expect(loaded.campaign.network.cargo).toBe(before.campaign.network.cargo);expect(errors).toEqual([]);
+      32 |  await writeFile(`${dir}/flow.json`,JSON.stringify({notice:'Local garage fixture, not a journey from the barracão. Exit driven with actual Rapier at accelerated diagnostic time; no position assignments during driving.',before,selected,driven,loaded,errors},null,2)+'\n');
+        at /workspace/work/2047-rede-aurora/tests/e2e/garage.spec.js:29:120
+
+    Error Context: test-results/garage-garagem-prévia-canc-d5444-ndo-caminhão-e-persistência/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/garage-garagem-prévia-canc-d5444-ndo-caminhão-e-persistência/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/garage-garagem-prévia-canc-d5444-ndo-caminhão-e-persistência/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/garage.spec.js:15:1 › garagem: prévia, cancelamento, compra, equipamentos, segundo caminhão e persistência 

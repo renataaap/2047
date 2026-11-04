@@ -1,5 +1,8 @@
 # Estado do projeto — 2047: Rede Aurora
 
+**0.10.0 — garagem e frota, em validação:** serviços na garagem de Cinza Nova, três skins, prévias, acessórios, interior, upgrades e dois caminhões dirigíveis. Base main affb786/0.9.1, desenvolvimento em `feat/garagem-frota-0.10.0`. [Relatório](RELATORIO_GARAGEM_0.10.0.md) · [incrementos](docs/INCREMENTOS_GARAGEM_0.10.0.md) · [teste Windows](docs/TESTE_MANUAL_GARAGEM_0.10.0.md). 225 unitários e build aprovados; resultado da integral ainda será registrado. A main mantém a correção do chão durante esta validação.
+
+
 **Etapa atual: hotfix 0.9.1 — chão**, priorizado pelo usuário antes da garagem 0.10.0. Base main `c223f9e`, PR #2 já integrado. Branch `fix/chao-inicial-0.9.1`. Shader adaptado à capacidade de texturas e uniforms atualizados nos programas em cache; mapas locais, terreno físico e saves preservados. [Relatório](RELATORIO_CORRECAO_CHAO_0.9.1.md) · [teste Windows](docs/TESTE_MANUAL_CHAO_0.9.1.md). Código da correção em `dee7c2d`; validação final registrada no relatório e em `evidence/floor-0.9.1`. Windows/GPU real continua pendente. A 0.10.0 ainda não foi implementada.
 
 **Histórico 0.9.0:** [PR #2](https://github.com/renataaap/2047/pull/2) integrado à main em `c223f9e`. Os resultados a seguir pertencem àquela versão.
