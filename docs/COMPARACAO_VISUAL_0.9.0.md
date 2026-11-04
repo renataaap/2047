@@ -44,3 +44,10 @@ Draw calls e triângulos são contadores do renderizador, não FPS em GPU físic
 - [Matriz dos 14 acessos](ACESSIBILIDADE_NUCLEOS_0.9.0.md): entradas e saídas dirigidas, com painéis e screenshots próprios.
 
 As capturas de perfil/noturna mais recentes ficam na execução E2E final. A inspeção visual automática e SwiftShader não substituem avaliação artística, audição, Windows ou GPU real.
+
+## HUD e noite na fonte final
+
+- [Noite real da execução integral](../evidence/roads-0.9.0/final-e2e/roads-navigation/city-night-cab.png): relógio 21h, faróis e cabine com instrumentos visíveis.
+- [Aviso separado, minimapa compacto](../evidence/roads-0.9.0/hud-polish/navigation-layout/compact-720.png).
+- [Aviso separado, minimapa ampliado](../evidence/roads-0.9.0/hud-polish/navigation-layout/expanded-720.png).
+- [Prova geométrica de não sobreposição](../evidence/roads-0.9.0/hud-polish/navigation-layout/layout.json): duas alturas de tela, quatro situações, zero área sobreposta. A reprodução anterior fica em hud-before.

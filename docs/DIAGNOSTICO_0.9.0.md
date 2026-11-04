@@ -46,3 +46,7 @@ Manter schema 1–3 legível, inventários, Sementes, decisões, descobertas, ho
 ## Validação seguinte
 
 Testes de continuidade, rotas e custos, curvas/altura/colisão, ruas, navegação/recálculo e migração. Regressão dos 21 objetivos, primeira entrega e campanha. Capturas equivalentes e percurso automatizado com controles e física reais; posicionamento de diagnóstico nunca será contado como trajeto dirigido. Build e suítes WebGL sequenciais. SwiftShader não comprova desempenho em GPU ou sessão humana Windows.
+
+## Atualização do remoto durante a validação
+
+Em 04/11/2026 às 11:03 UTC, o PR #1 foi integrado à main por merge commit `5cb4323`. A conferência posterior confirmou `git diff 55a5df3 origin/main` vazio e ancestralidade da base. A implementação 0.9.0 continua sobre os mesmos arquivos 0.8.2; não foi necessário merge/rebase nem alteração do código durante os testes. O PR da 0.9.0 terá main como destino, preservando o merge existente.

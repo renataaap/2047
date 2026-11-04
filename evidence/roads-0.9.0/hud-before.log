@@ -1,0 +1,42 @@
+
+> 2047-rede-aurora@0.9.0 test:e2e
+> playwright test tests/e2e/navigation-layout.spec.js
+
+
+Running 1 test using 1 worker
+
+(node:10696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/navigation-layout.spec.js:5:1 › cabine: aviso de salvamento não cobre minimapa compacto ou ampliado (29.2s)
+
+
+  1) tests/e2e/navigation-layout.spec.js:5:1 › cabine: aviso de salvamento não cobre minimapa compacto ou ampliado
+
+    Error: O aviso de salvamento cobre a navegação
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 5264.40625
+
+      17 |    const overlap=Math.max(0,Math.min(map.x+map.width,toast.x+toast.width)-Math.max(map.x,toast.x))*Math.max(0,Math.min(map.y+map.height,toast.y+toast.height)-Math.max(map.y,toast.y));
+      18 |    await page.screenshot({path:`${dir}/${expanded?'expanded':'compact'}-${height}.png`});checks.push({height,expanded,map,toast,overlapSquarePixels:overlap});await writeFile(`${dir}/layout.json`,JSON.stringify({checks,errors,method:'Actual automatic save notification in the cockpit, two viewport heights and both minimap sizes. No notice or position edited during the test.'},null,2)+'\n');
+    > 19 |    expect(overlap,'O aviso de salvamento cobre a navegação').toBe(0);expect(toast.y).toBeGreaterThanOrEqual(0);expect(toast.x+toast.width).toBeLessThanOrEqual(1280);
+         |                                                              ^
+      20 |    if(expanded)await page.getByRole('button',{name:'Reduzir minimapa'}).click();
+      21 |   }
+      22 |  }
+        at /workspace/work/2047-rede-aurora/tests/e2e/navigation-layout.spec.js:19:62
+
+    Error Context: test-results/navigation-layout-cabine-a-28996-nimapa-compacto-ou-ampliado/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/navigation-layout-cabine-a-28996-nimapa-compacto-ou-ampliado/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/navigation-layout-cabine-a-28996-nimapa-compacto-ou-ampliado/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/navigation-layout.spec.js:5:1 › cabine: aviso de salvamento não cobre minimapa compacto ou ampliado

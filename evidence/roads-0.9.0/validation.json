@@ -1,0 +1,175 @@
+{
+  "version": "0.9.0",
+  "completedAt": "2026-11-04T12:29:39.981098+00:00",
+  "branch": "feat/rede-rodoviaria-0.9.0",
+  "sourceCommit": "2dd3c0d",
+  "baseCommit": "55a5df3c50d7a5527d5299fad419379f53f20c8f",
+  "remoteBase": {
+    "pullRequest": 1,
+    "merged": true,
+    "mergedAt": "2026-11-04T11:03:00Z",
+    "remoteMain": "5cb4323df03590e0f2b15d426c1ad26edd54a588",
+    "implementationBase": "55a5df3c50d7a5527d5299fad419379f53f20c8f",
+    "treesIdentical": true,
+    "baseIsAncestorOfMain": true,
+    "mergeOrRebaseRequired": false
+  },
+  "sourceFrozen": {
+    "files": 193,
+    "allUnchanged": true,
+    "manifest": "final-source-hashes.json",
+    "scope": "No source/tests changed during the 31-case integral. This certificate precedes the separately recorded CSS/output-path polish."
+  },
+  "unit": {
+    "passed": 196,
+    "total": 196,
+    "files": 27,
+    "log": "final-unit.log"
+  },
+  "build": {
+    "passed": true,
+    "log": "build.log",
+    "devStoppedDuringBuild": true
+  },
+  "browserIntegral": {
+    "passed": 31,
+    "duration": "37.6m",
+    "workers": 1,
+    "retries": 0,
+    "log": "final-e2e.log",
+    "evidenceRoot": "final-e2e",
+    "historicalFilesPreserved": true,
+    "capturePathRecovery": "capture-path-recovery.json"
+  },
+  "focusedBrowser": {
+    "passed": 3,
+    "log": "focused-browser.log",
+    "notAddedToIntegralCount": true
+  },
+  "surface": {
+    "samples": 3558,
+    "seamSamples": 22,
+    "failures": 0
+  },
+  "physical": {
+    "pilotMetres": 3181.6871709805314,
+    "pilotLegs": 3,
+    "pilotErrors": [],
+    "pilotSaveReloadPassed": true,
+    "pavedAlternativeMetres": 2506.723134071788,
+    "accessPassed": 14,
+    "accessTotal": 14,
+    "localAccessFixtures": true,
+    "originalRapier": true,
+    "fixedHz": 60,
+    "acceleratedDiagnosticTime": true,
+    "diagnosticTeleportsDuringDrives": 0,
+    "humanJourneyClaimed": false
+  },
+  "restart": {
+    "exactlyRestored": true,
+    "proof": "restart.json"
+  },
+  "protectedHashes": {
+    "passed": 10,
+    "total": 10,
+    "manifest": "protected-hashes.json"
+  },
+  "network": {
+    "nodes": 243,
+    "segments": 291,
+    "newPhysicalSegments": 92,
+    "destinations": 68,
+    "massKg": 11100,
+    "from": {
+      "x": 0,
+      "z": 5
+    },
+    "destination": "core-1",
+    "routes": {
+      "paved": {
+        "metres": 3139.91197031508,
+        "estimatedLitres": 2.3431337453344203,
+        "seconds": 195.0563200336097,
+        "terrain": [
+          "asfalto"
+        ]
+      },
+      "cityAndValley": {
+        "metres": 3206.5467272000246,
+        "estimatedLitres": 2.7642076135706812,
+        "seconds": 316.6281626421526,
+        "terrain": [
+          "asfalto",
+          "terra"
+        ]
+      }
+    },
+    "note": "Calculated estimates for the same mass. The physical pilot includes stops at workshop and gas station; actual driven distance is separately recorded."
+  },
+  "visual": {
+    "beforeAfterPairs": 11,
+    "gallery": "comparison.html",
+    "renderCounters": "render-comparison.json",
+    "renderer": "Chromium / ANGLE SwiftShader (software)",
+    "realGpuFpsValidated": false,
+    "nightCab": "final-e2e/roads-navigation/city-night-cab.png",
+    "finalCabMap": "hud-polish/navigation-layout/compact-720.png"
+  },
+  "historicalReferenceOnly": {
+    "version": "0.8.2",
+    "unit": 175,
+    "e2e": 28,
+    "notCurrentRun": true
+  },
+  "preservedAttempts": [
+    "resume-unit.log",
+    "road-surface-attempt-1.json",
+    "road-surface-attempt-2.json",
+    "road-surface-attempt-3.json",
+    "pilot-attempt-1",
+    "pilot-attempt-2",
+    "access-attempt-1",
+    "access-attempt-2",
+    "access-recheck",
+    "access-recheck-2",
+    "access-recheck-3"
+  ],
+  "remaining": [
+    "Windows and real GPU evaluation",
+    "Human driving/audio/art assessment",
+    "Additional cities beyond the pilot",
+    "Garage services/customization/additional drivable trucks in 0.10.0",
+    "Existing final narrative endings and final character art"
+  ],
+  "postIntegralPolish": {
+    "codeCommit": "14bd88a",
+    "applicationChange": "src/app/navigation.css \u2014 cabin notice positioning only",
+    "harnessChanges": [
+      "tests/helpers/evidence-path.js \u2014 safe default output root",
+      "scripts/capturar-tita.mjs \u2014 honour output root"
+    ],
+    "newTest": "tests/e2e/navigation-layout.spec.js",
+    "browserPassed": 2,
+    "browserDuration": "3.4m",
+    "browserLog": "hud-polish.log",
+    "evidenceRoot": "hud-polish",
+    "reproductionBeforeFix": "hud-before.log (one new layout test failed on the pre-fix CSS)",
+    "historicalCapturesVerified": 13,
+    "historicalRecovery": "capture-path-recovery.json",
+    "notA32CaseIntegral": true,
+    "build": {
+      "passed": true,
+      "log": "hud-polish-build.log",
+      "devStoppedDuringBuild": true
+    },
+    "applicationJavaScriptUnchangedSinceIntegral": true,
+    "existingE2EAssertionsUnchanged": true,
+    "historicalEvidenceUnchangedAfterRecheck": true,
+    "changedFrozenFiles": [
+      "src/app/navigation.css",
+      "tests/helpers/evidence-path.js"
+    ],
+    "deliveredSourceManifest": "delivered-source-hashes.json"
+  }
+}

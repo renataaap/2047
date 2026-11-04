@@ -23,3 +23,11 @@ Nenhum asset externo novo: reutilização dos modelos e materiais locais com cr�
 ## Validação posterior dos incrementos B–E
 
 196 unitários/27 arquivos aprovados; três E2Es novos focados aprovados. Viagem piloto de 3.181,69 m desde Novo jogo concluída com oficina, cidade/posto, diesel, Vale, gerador, ativação e salvamento/recarregamento. Alternativa pavimentada de 2.506,72 m desde a bifurcação. Repetição final 14/14 acessos locais aprovada, incluindo seis contatos no estacionamento e saída segura. Ver matriz de acessibilidade e comparação visual (11 pares). A massa inferida dos pisos fixos causava a frenagem insuficiente encontrada no Núcleo 6; cenário agora tem densidade zero, controlador e parâmetros do Titã preservados. Pacote preparado como 0.9.0, com regressão integral/build ainda registrados separadamente na fase final.
+
+## Atualização do remoto durante a validação
+
+Em 04/11/2026 às 11:03 UTC, o PR #1 foi integrado à main por merge commit `5cb4323`. A conferência posterior confirmou `git diff 55a5df3 origin/main` vazio e ancestralidade da base. A implementação 0.9.0 continua sobre os mesmos arquivos 0.8.2; não foi necessário merge/rebase nem alteração do código durante os testes. O PR da 0.9.0 terá main como destino, preservando o merge existente.
+
+## F — fechamento da validação automática
+
+196/196 unitários, build e reinício real aprovados. A integral terminou 31/31 em 37,6 min, sem retries e com fonte/testes congelados em 2dd3c0d. A revisão das imagens reproduziu uma sobreposição do aviso na cabine; 14bd88a corrige apenas CSS de posicionamento e caminhos do harness, acrescentando teste de layout. Rechecagem posterior 2/2 (layout/opacidade) aprovada; build posterior registrado separadamente. Não se trata de integral de 32 casos. As novas imagens do script legado foram separadas e as capturas históricas verificadas por hash. Matriz 14/14, piloto e alternativa A, 11 pares antes/depois e roteiro Windows estão disponíveis. Avaliação humana/GPU, outras cidades e garagem funcional continuam pendentes, conforme o escopo.

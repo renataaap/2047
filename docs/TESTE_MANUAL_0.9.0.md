@@ -33,3 +33,7 @@ Use o destino de cada Cofre/Núcleo em M. Confirme sinalização, entrada, piso,
 - Afastando-se de Cinza Nova, confirme descarregamento e retorno sem crescimento contínuo de memória ou objetos duplicados.
 - Abra o console do navegador e registre erros de WebGL, carregamento, materiais e API. Compare os saves antes/depois de reiniciar.
 - Não interpretar FPS de SwiftShader como medição de hardware real. Sensação dos controles, duração da campanha, áudio e aprovação artística continuam exigindo avaliação humana.
+
+Depois da primeira ativação, M → **Seguir o objetivo da campanha** passa a indicar o Cofre 2. A escolha manual de um destino permanece no GPS até escolher outro ou voltar ao objetivo. O Cofre 2 exige o Núcleo 1 ativo e uma peça no compartimento do Titã; após retirar a Semente, siga para o Núcleo 2 e use a alça do viaduto indicada no mapa.
+
+As execuções E2E sem variável gravam agora em evidence/current-e2e. Para arquivar uma versão, defina AURORA_EVIDENCE_ROOT para uma pasta própria antes de npm run test:e2e, preservando resultados históricos.
