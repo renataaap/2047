@@ -1,5 +1,7 @@
 # 2047: Rede Aurora
 
+[Prompt mestre completo de continuidade — base 0.10.0](PROMPT_MESTRE_COMPLETO_0.10.0.md): lore, histórico, sistemas atuais, arquitetura, controles, assets/licenças, testes, limitações, melhorias e roadmap. Preparado para retomada em Codex/Claude, sem reiniciar o jogo.
+
 **0.10.0 — garagem e frota:** garagem municipal de Cinza Nova funcional, três skins, prévias 3D, acessórios, interior, três upgrades reais e dois caminhões dirigíveis. Base 0.9.1 com a correção do chão preservada. [Relatório](RELATORIO_GARAGEM_0.10.0.md) · [incrementos](docs/INCREMENTOS_GARAGEM_0.10.0.md) · [teste Windows](docs/TESTE_MANUAL_GARAGEM_0.10.0.md) · [PR #4](https://github.com/renataaap/2047/pull/4).
 
 Validação desta atualização: **225 unitários, build, 39/39 E2Es numa integral de 50,8 minutos, 2/2 rechecagens posteriores do harness e reinício real aprovados**. As rechecagens não são contadas como cenários inéditos da integral; o código da aplicação permaneceu igual. [Registros](evidence/garage-0.10.0/validation.json). Windows/GPU física e audição humana continuam pendentes; três modelos adicionais ainda não são dirigíveis.
