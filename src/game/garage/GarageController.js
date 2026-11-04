@@ -10,11 +10,12 @@ export class GarageController{
  open(){
   const g=this.game,gate=this.access();if(!gate.ok){g.state.notice=gate.message;g.emit();return false;}
   if(g.context()==='walking'&&Math.hypot(g.player.body.translation().x-GARAGE.desk.x,g.player.body.translation().z-GARAGE.desk.z)>6){g.state.notice='Procure a bancada de serviços dentro da garagem.';g.emit();return false;}
-  captureFleet(g.campaign,g.state);this.active=true;this.camera.first=true;this.camera.setView('front');this.message='Arraste no cenário para girar · roda do mouse para aproximar';this.category='garage';this.resetDraft();g.openPanel('garage');g.input.setContext('garage');g.emit();return true;
+  captureFleet(g.campaign,g.state);this.active=true;this.camera.first=true;this.camera.setView('front');if(g.campaign.fleet.garage)Object.assign(this.camera,g.campaign.fleet.garage);this.message='Arraste no cenário para girar · roda do mouse para aproximar';this.category='garage';this.resetDraft();g.openPanel('garage');g.input.setContext('garage');g.emit();return true;
  }
  resetDraft(){this.paintDraft=clone(this.record.paint);this.interiorDraft=clone(this.record.interior);this.accessoryPreview=null;}
  clearPreview(){this.generation++;if(this.preview){disposeAssembly(this.preview,this.game);this.preview=null;}if(this.game.truck)this.game.truck.root.visible=true;this.previewId=null;}
- close(){if(this.busy)return false;this.clearPreview();this.active=false;this.game.appearance.apply(this.record);this.resetDraft();this.camera.first=true;return true;}
+ savePreferences(){if(this.active){const {distance,angle,elevation,view}=this.camera;this.game.campaign.fleet.garage={distance,angle,elevation,view};}}
+ close(){if(this.busy)return false;this.savePreferences();this.clearPreview();this.active=false;this.game.appearance.apply(this.record);this.resetDraft();this.camera.first=true;return true;}
  setCategory(id){if(this.busy)return;this.clearPreview();this.game.appearance.apply(this.record);this.resetDraft();this.category=id;this.message='';this.camera.setView(id==='interior'?'interior':'front');this.game.emit();}
  previewPaint(patch){if(this.busy)return;const next={...this.paintDraft,...patch};if(!validPaint(next))return;this.paintDraft=next;this.game.appearance.apply({...this.record,paint:next});this.game.emit();}
  chooseSkin(id){if(!Object.hasOwn(SKINS,id))return;const s=SKINS[id];this.previewPaint({skin:id,main:s.main,secondary:s.secondary,finish:s.finish,wear:s.wear});}

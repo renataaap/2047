@@ -56,6 +56,7 @@ function ids(value,allowed){return Array.isArray(value)&&value.length<=Object.ke
 export function validFleet(c,state){
  const f=c.fleet;if(f===undefined)return true;
  if(!plain(f)||f.version!==1||!Object.hasOwn(VEHICLES,f.active)||!plain(f.vehicles)||!Object.hasOwn(f.vehicles,'titan-old')||!Object.hasOwn(f.vehicles,f.active)||Object.keys(f.vehicles).length>2||!Number.isInteger(f.transactions)||!bounded(f.transactions,0,1e7))return false;
+ if(f.garage!==undefined&&(!plain(f.garage)||!bounded(f.garage.distance,5.5,16)||!bounded(f.garage.angle,-10000,10000)||!bounded(f.garage.elevation,.08,.7)||!['orbit','front','rear','side','interior'].includes(f.garage.view)))return false;
  for(const [id,v]of Object.entries(f.vehicles)){
   if(!Object.hasOwn(VEHICLES,id)||!plain(v)||v.id!==id||!validPaint(v.paint)||!validInterior(v.interior)||!ids(v.ownedSkins,SKINS)||!v.ownedSkins.includes('original')||!v.ownedSkins.includes(v.paint.skin))return false;
   for(const [owned,equipped,allowed]of [['ownedAccessories','accessories',ACCESSORIES],['ownedUpgrades','upgrades',UPGRADES]])if(!ids(v[owned],allowed)||!ids(v[equipped],allowed)||v[equipped].some(k=>!v[owned].includes(k)))return false;

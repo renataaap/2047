@@ -71,3 +71,9 @@ test('viagem real: barracão, GPS, garagem, personalização, retorno e basculan
  await page.context().storageState({path:'/tmp/aurora-garage-storage.json'});const saved=await page.request.get('/api/saves/1');await writeFile(`${dir}/before-restart.json`,JSON.stringify(await saved.json(),null,2)+'\n');
  await writeFile(`${dir}/journey.json`,JSON.stringify({notice:'Actual Rapier at fixed 60 Hz, accelerated diagnostic time, physical walking and two trucks. No diagnostic teleport or resource injection. The last 34 m are a parking manoeuvre over the existing garage floor after the mapped apron.',outward,paintedDrive,second,finished,errors},null,2)+'\n');
 });
+
+
+test('bancada: acesso a pé com colisões reais e retorno ao controle',async({page})=>{
+ test.setTimeout(180000);await boot(page);await page.getByRole('button',{name:/Sair da garagem/}).click();await page.keyboard.press('KeyF');await expect.poll(async()=>(await state(page)).mode).toBe('walking');
+ await walkPhysical(page,[{x:-324,z:-810},{x:-326,z:-804.5}]);await expect.poll(async()=>(await state(page)).interaction?.key).toBe('garage:services');await page.keyboard.press('KeyF');await expect(page.getByRole('dialog',{name:'Garagem municipal'})).toBeVisible();await page.getByRole('button',{name:/Sair da garagem/}).click();expect((await state(page)).mode).toBe('walking');
+});

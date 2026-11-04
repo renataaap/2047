@@ -23,7 +23,11 @@ export class VehicleAppearance{
       if(auMode>1.5)auBand=(1.-smoothstep(.16,.21,abs(auTruckPos.y-.75+auTruckPos.z*.21)))*.95;
       vec3 auPaint=mix(auMain,auSecondary,auBand)*(.45+sqrt(max(auLight,0.))*1.05);
       float auScuff=smoothstep(.91,.99,sin(auTruckPos.z*21.+sin(auTruckPos.y*39.))*sin(auTruckPos.y*67.))*auAge*.38;
-      diffuseColor.rgb=mix(diffuseColor.rgb,auPaint,auStrength*auMask*(1.-auScuff));`);
+      diffuseColor.rgb=mix(diffuseColor.rgb,auPaint,auStrength*auMask*(1.-auScuff));
+      float auWearDelta=auAge-.65;
+      diffuseColor.rgb=mix(diffuseColor.rgb,auMain*(.45+sqrt(max(auLight,0.))*1.05),(1.-auStrength)*max(0.,-auWearDelta)*auRust*.8);
+      float auExtraWear=smoothstep(.8,.99,sin(auTruckPos.z*17.+auTruckPos.y*9.)*sin(auTruckPos.y*41.));
+      diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.15,.07,.035),max(0.,auWearDelta)*auExtraWear*.3);`);
    };
    m.customProgramCacheKey=()=> 'aurora-vehicle-palette-r186-v1';m.needsUpdate=true;
   }

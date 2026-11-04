@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import {cameraPosition} from '../render/cameraCollision.js';
 export class GarageCamera{
  constructor(game){this.game=game;this.angle=.65;this.elevation=.23;this.distance=11;this.view='orbit';this.first=true;this.target=new THREE.Vector3();}
- orbit(dx,dy){this.view='orbit';this.angle-=dx*.005;this.elevation=THREE.MathUtils.clamp(this.elevation+dy*.004,.08,.7);}
+ orbit(dx,dy){this.view='orbit';this.angle=Math.atan2(Math.sin(this.angle-dx*.005),Math.cos(this.angle-dx*.005));this.elevation=THREE.MathUtils.clamp(this.elevation+dy*.004,.08,.7);}
  zoom(d){this.distance=THREE.MathUtils.clamp(this.distance+d*.008,5.5,16);}
  setView(view){this.view=view;if(view==='front')this.angle=Math.PI+.4;if(view==='rear')this.angle=.4;if(view==='side')this.angle=Math.PI/2;this.first=true;}
  update(dt,truck){const g=this.game,root=truck.root,camera=g.rendering.camera;root.updateWorldMatrix(true,false);
