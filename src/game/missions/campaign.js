@@ -1,7 +1,7 @@
 import {calibrateSeed} from './seedService.js';
 import { COMPONENTS,ITEMS,POINTS } from '../../data/campaign.js';
 import { NETWORK_POINTS } from '../../data/network.js';
-import { ROAD_POINTS } from '../../data/road.js';
+import {ROAD_POINTS} from '../../data/roadSites.js';
 import { POIS } from '../../data/expedition.js';
 import { activationChance } from '../cargo/integrity.js';
 export const clone=value=>JSON.parse(JSON.stringify(value));

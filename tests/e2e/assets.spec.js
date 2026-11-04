@@ -1,8 +1,9 @@
+import {evidencePath} from '../helpers/evidence-path.js';
 import {enterFromNewTutorial} from '../helpers/start-driving.js';
 import { test,expect } from '@playwright/test';
 import { mkdir,writeFile } from 'node:fs/promises';
 import { fixtures } from '../helpers/asset-fixtures.mjs';
-const dir='evidence/assets-integration';
+const dir=evidencePath('assets-integration');
 const snapshot=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
 
 test('Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais',async({page})=>{

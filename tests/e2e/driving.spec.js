@@ -1,7 +1,8 @@
+import {evidencePath} from '../helpers/evidence-path.js';
 import {enterFromNewTutorial} from '../helpers/start-driving.js';
 import { test,expect } from '@playwright/test';
 import { mkdir,writeFile } from 'node:fs/promises';
-const dir='evidence/reformulation-1';
+const dir=evidencePath('reformulation-1');
 const state=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
 async function start(page){await page.setViewportSize({width:1280,height:720});await page.addInitScript(()=>{if(!localStorage.getItem('aurora-settings'))localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:.2,subtitles:true}));});await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await enterFromNewTutorial(page);await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');}
 test('condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura',async({page})=>{

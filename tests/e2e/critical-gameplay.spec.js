@@ -1,8 +1,9 @@
+import {evidencePath} from '../helpers/evidence-path.js';
 import {test,expect} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {createCampaign,receiveSeed} from '../../src/game/missions/campaign.js';
 import {upgradeCampaign,syncFirst} from '../../src/game/missions/network.js';
-const dir='evidence/critical-gameplay';
+const dir=evidencePath('critical-gameplay');
 const state=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
 async function boot(page,data){
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0,footCamera:'first'})));

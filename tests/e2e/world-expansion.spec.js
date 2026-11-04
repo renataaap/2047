@@ -1,3 +1,4 @@
+import {evidencePath} from '../helpers/evidence-path.js';
 import {test,expect} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {DISCOVERY_SITES} from '../../src/data/ambience.js';
@@ -6,7 +7,7 @@ import {upgradeCampaign} from '../../src/game/missions/network.js';
 import {terrainGeometry} from '../../src/game/world/terrainGeometry.js';
 import {meshHeightAt} from '../../src/game/world/surfaceHeight.js';
 import {roadX} from '../../src/game/world/terrain.js';
-const dir='evidence/world-0.8.0',state=p=>p.evaluate(()=>window.__GAME_DEBUG__.getState());
+const dir=evidencePath('world-0.8.0'),state=p=>p.evaluate(()=>window.__GAME_DEBUG__.getState());
 test.afterEach(async({page},info)=>{if(info.status!==info.expectedStatus){try{await writeFile(`${dir}/failure.json`,JSON.stringify(await state(page),null,2));}catch{}}});
 async function boot(page){
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));

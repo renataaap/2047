@@ -1,7 +1,9 @@
+import {evidencePath} from '../helpers/evidence-path.js';
+import {pathToFileURL} from 'node:url';
 import {enterFromNewTutorial} from '../helpers/start-driving.js';
 import { test,expect } from '@playwright/test';
 import { mkdir,writeFile } from 'node:fs/promises';
-const evidence=new URL('../../evidence/',import.meta.url);
+const evidence=pathToFileURL(evidencePath('')+'/');
 test.describe.configure({timeout:180000});
 test('aceite: mundo real, W por 8 s simulados, diesel, console e orçamento',async({page},info)=>{
   test.setTimeout(180000);const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});

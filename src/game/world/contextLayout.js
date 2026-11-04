@@ -1,8 +1,9 @@
 import {RESERVATIONS,DECOR_SEED} from '../../data/ambience.js';
+import {roadReserved,addedClearance} from '../navigation/roadIndex.js';
 import {randomSeed,roadX,detourX,networkDetourX,routeAt,regionAt,heightAt} from './terrain.js';
 export const DECOR_CELL=160;
-export function reserved(x,z,r=0){return RESERVATIONS.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+r);}
-export function roadClearance(x,z){return Math.min(Math.abs(x-roadX(z)),z<-650&&z>-1750?Math.abs(x-detourX(z)):1e6,routeAt(z)?Math.abs(x-networkDetourX(z)):1e6);}
+export function reserved(x,z,r=0){return roadReserved(x,z,r)||RESERVATIONS.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+r);}
+export function roadClearance(x,z){return Math.min(addedClearance(x,z)+5,Math.abs(x-roadX(z)),z<-650&&z>-1750?Math.abs(x-detourX(z)):1e6,routeAt(z)?Math.abs(x-networkDetourX(z)):1e6);}
 export function placementAllowed(x,z,r=1,sample=heightAt){
  if(z>65||z<-21000||roadClearance(x,z)<9+r||reserved(x,z,r))return false;
  const values=[sample(x-r,z),sample(x+r,z),sample(x,z-r),sample(x,z+r)];

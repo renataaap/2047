@@ -1,3 +1,4 @@
+import {evidencePath} from '../helpers/evidence-path.js';
 import { test,expect } from '@playwright/test';
 import {parkedExit} from '../helpers/parked-exit.js';
 import { createCampaign,receiveSeed,activateCore } from '../../src/game/missions/campaign.js';
@@ -7,7 +8,7 @@ import { CORES,SHELTERS,ROUTES,SUPPLY_CACHES } from '../../src/data/network.js';
 import { interactionPoint } from '../../src/game/missions/NetworkController.js';
 import { roadX,roadHeight,networkDetourX } from '../../src/game/world/terrain.js';
 import { mkdir,writeFile } from 'node:fs/promises';
-const dir='evidence/phase4';
+const dir=evidencePath('phase4');
 function legacy(){const c=createCampaign();receiveSeed(c);activateCore(c);const campaign=migrateCampaign(c);Object.assign(campaign.components,{radiator:75,filters:75,transmission:75});Object.assign(campaign.inventory.truck,{parts:60,water:18,scrap:30,diesel:15,food:8});Object.assign(campaign.inventory.player,{parts:2,water:4,scrap:8,diesel:0,food:3});return {schemaVersion:2,truck:{position:[0,2,5],rotation:[0,0,0,1]},player:{position:[-3,1,5]},context:'driving',fuel:140,temperature:30,engineOn:false,campaign};}
 test.afterEach(async({page},info)=>{if(info.status!==info.expectedStatus){await mkdir(dir,{recursive:true});try{await writeFile(`${dir}/failure-current.json`,JSON.stringify(await state(page),null,2));}catch{}}});
 const state=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());

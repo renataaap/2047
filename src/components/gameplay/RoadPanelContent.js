@@ -1,5 +1,6 @@
 import {useState} from 'react';
-import { GAS_OFFERS,GENERATOR,LITERS_PER_SCRAP,ROAD_COPY as R,ROAD_POINTS,WORKSHOP_OFFERS,WORKSHOP_SERVICES } from '../../data/road.js';
+import { GAS_OFFERS,GENERATOR,LITERS_PER_SCRAP,ROAD_COPY as R,WORKSHOP_OFFERS,WORKSHOP_SERVICES } from '../../data/road.js';
+import {ROAD_POINTS} from '../../data/roadSites.js';
 import { COMPONENTS,ITEMS } from '../../data/campaign.js';
 import { CONFIG } from '../../data/config.js';
 import DialogueText from './DialogueText.js';

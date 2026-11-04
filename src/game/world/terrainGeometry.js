@@ -1,13 +1,14 @@
 import * as THREE from 'three';
 import { CONFIG } from '../../data/config.js';
-import { heightAt,roadX,detourX,routeAt,networkDetourX } from './terrain.js';
+import { heightAt,roadX,roadHalfWidth,detourX,routeAt,networkDetourX } from './terrain.js';
+import {networkRoadbed} from '../navigation/roadIndex.js';
 import { groundUV } from '../render/metricUV.js';
 import {roadbedCarve} from './roadDamage.js';
 import {applyGroundColors} from '../render/groundColors.js';
 
 // Concentrate vertices around the actual main/alternative roads. A uniform 21 m
 // grid interpolated hills across the 10 m pavement, hiding it and lifting wheels.
-export function terrainGeometry(cx,cz){
+export function terrainGeometry(cx,cz,sampleHeight=heightAt){
  const size=CONFIG.world.sectorSize,base=CONFIG.world.terrainSegments,dense=cx===0,rows=dense?size/8:base,low=cz*size-size/2,positions=[],indices=[];let columns;
  for(let row=0;row<=rows;row++){
   const z=low+row*size/rows;let xs=[];
@@ -18,8 +19,9 @@ export function terrainGeometry(cx,cz){
   }else xs=Array.from({length:base+1},(_,i)=>cx*size-size/2+i*size/base);
   columns=xs.length;
   for(const x of xs){
-   let y=heightAt(x,z)-roadbedCarve(x,z,roadX(z));
-   if(dense&&Math.abs(x)>500){const step=size/base,z0=low+Math.floor((z-low)/step)*step,f=(z-z0)/step,edge=heightAt(x,z0)*(1-f)+heightAt(x,z0+step)*f,t=Math.min(1,(Math.abs(x)-500)/12);y=y*(1-t)+edge*t;}
+   let y=sampleHeight(x,z)-roadbedCarve(x,z,roadX(z));
+   if(sampleHeight===heightAt&&Math.abs(x-roadX(z))>roadHalfWidth(z)+1&&!(z<-650&&z>-1750&&Math.abs(x-detourX(z))<6)&&!(routeAt(z)&&Math.abs(x-networkDetourX(z))<6))y-=networkRoadbed(x,z);
+   if(dense&&Math.abs(x)>500){const step=size/base,z0=low+Math.floor((z-low)/step)*step,f=(z-z0)/step,edge=sampleHeight(x,z0)*(1-f)+sampleHeight(x,z0+step)*f,t=Math.min(1,(Math.abs(x)-500)/12);y=y*(1-t)+edge*t;}
    positions.push(x,y,z);
   }
   if(row)for(let col=0;col<columns-1;col++){const a=(row-1)*columns+col,b=row*columns+col;indices.push(a,b,a+1,a+1,b,b+1);}

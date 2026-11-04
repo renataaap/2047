@@ -1,7 +1,7 @@
 import {DISCOVERY_SITES} from '../../data/ambience.js';
 import {POIS} from '../../data/expedition.js';
 import {CORES} from '../../data/network.js';
-import {ROAD_POINTS} from '../../data/road.js';
+import {ROAD_POINTS} from '../../data/roadSites.js';
 import {visitSite} from './worldProgress.js';
 
 export function recordFootDiscoveries(c,position,loaded){

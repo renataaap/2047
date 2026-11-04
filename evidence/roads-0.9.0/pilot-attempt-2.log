@@ -1,0 +1,9 @@
+file:///workspace/work/2047-rede-aurora/tests/helpers/physical-drive.js:24
+   if(batch>25&&result.distance<.01)throw Error(`Physical walking blocked near ${result.frame.playerPosition} on the way to ${target.x},${target.z}`);
+                                          ^
+
+Error: Physical walking blocked near 5.461887359619141,1.1662726402282715,-2878.655517578125 on the way to 23,-2878.5
+    at walkPhysical (file:///workspace/work/2047-rede-aurora/tests/helpers/physical-drive.js:24:43)
+    at async file:///workspace/work/2047-rede-aurora/scripts/percorrer-piloto-0.9.0.mjs:22:2
+
+Node.js v24.19.0

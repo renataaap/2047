@@ -1,0 +1,28 @@
+
+> 2047-rede-aurora@0.8.2 test
+> vitest run
+
+
+ RUN  v5.0.5 /workspace/work/2047-rede-aurora
+
+ ❯ tests/unit/road-network.test.js (8 tests | 1 failed) 561ms
+   ❯ rede rodoviária física e conectada (8)
+     × oferece trajetos físicos diferentes e evita o bloqueio central 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/road-network.test.js > rede rodoviária física e conectada > oferece trajetos físicos diferentes e evita o bloqueio central
+AssertionError: expected [ 'asfalto' ] to include 'terra'
+ ❯ tests/unit/road-network.test.js:18:352
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 26 passed (27)
+      Tests  1 failed | 190 passed (191)
+   Start at  10:53:33
+   Duration  12.00s (tests 72%, import 24%, transform 3%, worker 1%)
+
+    Isolate  27 workers spawned · ~82ms startup each (spawn + environment, per file)
+             at least ~2.13s faster with isolate: false — reuses workers across files instead of one per file

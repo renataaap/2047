@@ -1,5 +1,13 @@
 # 2047: Rede Aurora
 
+**Revisão da 0.9.0:** [PR #2](https://github.com/renataaap/2047/pull/2), em rascunho para avaliação Windows/GPU.
+
+**0.9.0 — rede rodoviária validada automaticamente, em revisão Windows**, branch `feat/rede-rodoviaria-0.9.0`, derivada da 0.8.2 `55a5df3`. O PR #1 da base foi integrado à main durante esta validação (`5cb4323`); seus arquivos são idênticos à base utilizada. A 0.9.0 continua na branch própria para revisão. Grafo conectado, cidade piloto Cinza Nova, posto finito, ruas/pátios/garagem física, alternativas de piso, GPS no HUD e planejador M. [Arquitetura](docs/ARQUITETURA_RODOVIARIA_0.9.0.md) · [acessibilidade](docs/ACESSIBILIDADE_NUCLEOS_0.9.0.md) · [teste Windows](docs/TESTE_MANUAL_0.9.0.md).
+
+Nesta atualização: 196 unitários/27 arquivos, build, reinício real e **31/31 E2Es numa integral de 37,6 min** aprovados. Depois, um ajuste apenas de CSS do HUD e de caminhos das evidências passou em **2/2 verificações focadas**, incluindo o novo teste de não sobreposição; não é apresentado como uma integral de 32 testes. Viagem desde Novo jogo de 3,18 km com oficina, cidade, combustível, terra, gerador, ativação e recarga; alternativa pavimentada de 2,51 km desde a bifurcação; 14/14 acessos físicos locais aprovados. Simulação original com tempo de diagnóstico acelerado, sem teleporte de diagnóstico nos percursos. Código da integral: 2dd3c0d; polimento posterior: 14bd88a. [Relatório 0.9.0](RELATORIO_REDE_RODOVIARIA_0.9.0.md) e [validação](evidence/roads-0.9.0/validation.json). Os resultados abaixo da 0.8.2 são históricos. Garagem sem compra/customização; Windows/GPU, sessão humana e finais continuam pendentes.
+
+Os registros seguintes preservam o histórico da base.
+
 **0.8.2 — Polimento e exploração, em revisão.** Cabine detalhada, instrumentos reais, acabamento do Titã, roupas/equipamentos individuais, barracão/oficina/POIs refinados, loja fisicamente acessível, terreno PBR corrigido e diário no caderno J. [Relatório](RELATORIO_POLIMENTO_0.8.2.md) · [comparação real](docs/COMPARACAO_VISUAL_0.8.2.md) · [avaliação Windows](docs/TESTE_MANUAL_0.8.2.md).
 
 **Validação nova (01/11/2026):** 175 unitários/25 arquivos, build de produção e **28/28 E2Es numa única execução integral (30,8 min)** aprovados; recuperação exata após reinício real também aprovada. Logs e tentativas anteriores estão no relatório e em [validation.json](evidence/polish-0.8.2/validation.json). Referência 0.8.1 executada novamente: 167 unitários, build e 25/25 E2Es integrais. SwiftShader por software; Windows/GPU física e sessão humana de 30 minutos pendentes. Base humana/rostos finais, escalada com contato e retrovisores dinâmicos continuam pendentes.
