@@ -1,0 +1,8 @@
+{
+  "symptom": "Expected Tom\u00e1s dialogue, but DOM snapshot still showed driving/exit button.",
+  "testBefore": "Fixed 800 ms after diagnostic teleport, followed by F with no walking confirmation.",
+  "testAfter": "Hold parking brake, await 120 physics steps and speed < 0.3 m/s, switch engine off, press F, confirm walking, then require NPC target before interaction.",
+  "applicationChanged": false,
+  "trace": "Retained outside Git because it may contain test identity headers. Error context has no authentication headers.",
+  "status": "Passed in focused two-case rerun, 3.5 minutes; real UI actions and unchanged physics."
+}

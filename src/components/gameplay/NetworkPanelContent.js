@@ -3,7 +3,8 @@ import { ITEMS,COPY } from '../../data/campaign.js';
 import { OFFERS } from '../../data/expedition.js';
 import { nextCore } from '../../game/missions/network.js';
 import DialogueText from './DialogueText.js';
-export function MissionJournal({campaign:c}){return <><p className="panel-note">{W.noCargo}</p><div className="network-journal">{CORES.map(k=><section key={k.id}><h3>{k.name}</h3><p>{W.states[c.cores[k.id].state]} · km {(-k.z/1000).toFixed(1)}</p><small>{k.vault.task}</small></section>)}</div><h3>{W.sideMissions}</h3>{SIDE_MISSIONS.map(q=><section className="side-mission" key={q.id}><b>{q.name} · {W.quests[c.network.quests[q.id]]}</b><p>{q.detail}</p><small>{SHELTERS.find(s=>s.id===q.shelter).name}</small></section>)}</>;}
+import DiscoveryJournal from './DiscoveryJournal.js';
+export function MissionJournal({campaign:c}){return <><p className="panel-note">{W.noCargo}</p><DiscoveryJournal campaign={c}/><div className="network-journal">{CORES.map(k=><section key={k.id}><h3>{k.name}</h3><p>{W.states[c.cores[k.id].state]} · km {(-k.z/1000).toFixed(1)}</p><small>{k.vault.task}</small></section>)}</div><h3>{W.sideMissions}</h3>{SIDE_MISSIONS.map(q=><section className="side-mission" key={q.id}><b>{q.name} · {W.quests[c.network.quests[q.id]]}</b><p>{q.detail}</p><small>{SHELTERS.find(s=>s.id===q.shelter).name}</small></section>)}</>;}
 export default function NetworkPanelContent({state,game,act,onClose}){
  const p=NETWORK_POINTS.find(p=>p.id===state.networkPoint),c=state.campaign;if(!p)return null;const parked=game.networkController.parked(p),core=CORES.find(k=>k.id===p.core),carried=c.network.cargo===p.core;
  if(p.kind==='vault'&&core.number===1)return <DialogueText text={W.firstVault}/>;

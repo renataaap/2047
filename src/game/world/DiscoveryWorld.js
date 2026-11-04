@@ -5,6 +5,8 @@ import {PropBatch} from './PropBatch.js';
 import {roadX} from './terrain.js';
 import {meshHeightAt} from './surfaceHeight.js';
 import {groundStaticModel} from './staticModelPlacement.js';
+import {finishDiscovery} from './finishCompositions.js';
+import {recordFootDiscoveries} from './discoveryJournal.js';
 
 export class DiscoveryWorld {
  constructor(scene,physics,m,world,assets,manifest){Object.assign(this,{scene,physics,m,world,assets,manifest});this.live=new Map();this.labels=new Map();
@@ -19,6 +21,7 @@ export class DiscoveryWorld {
   const ramp=new THREE.BufferGeometry();ramp.setAttribute('position',new THREE.Float32BufferAttribute([-2,0,edge,2,0,edge,-2,left,far,2,right,far],3));ramp.setIndex([0,2,1,1,2,3]);ramp.setAttribute('uv',new THREE.Float32BufferAttribute([0,0,4,0,0,8,4,8],2));ramp.computeVertexNormals();b.ramp=ramp.clone();b.owned.push(b.ramp);
   const body=this.physics.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(p.x,y,p.z));this.physics.createCollider(RAPIER.ColliderDesc.trimesh(new Float32Array(ramp.attributes.position.array),new Uint32Array(ramp.index.array)),body);b.bodies.push(body);b.part(ramp,m.shoulder,0,0,0);
   if(p.kind==='motel')this.motel(b);else if(p.kind==='yard')this.yard(b);else this.weighbridge(b);
+  finishDiscovery(b,p,this.labels);
   // The inspection point is in front of the board, on the walkable side of the desk.
   const tx=p.terminal.x-p.x,tz=p.terminal.z-p.z;
   b.box(1.4,1,.6,m.wood,tx,.5,tz-1,true);b.box(1.6,.12,.8,m.steel,tx,1.05,tz-1);b.label('INSPECAO / RESERVA',1.3,.35,tx,1.3,tz-.66,this.labels);
@@ -55,7 +58,8 @@ export class DiscoveryWorld {
  addParkedTruck(b){const definition=this.manifest?.candidates?.['dump-truck'];if(!definition?.rightsCleared)return;
   this.assets.model(definition.url).then(lease=>{if(this.disposed||b.removed){lease.release();return;}b.leases.push(lease);const size=groundStaticModel(lease.scene,-7,-1);b.group.add(lease.scene);b.group.updateMatrixWorld(true);b.solid(-7,size.y/2,-1,size.x,size.y,size.z);const shadowGeometry=new THREE.PlaneGeometry(size.x*1.15,size.z*1.05);shadowGeometry.rotateX(-Math.PI/2);const shadow=new THREE.Mesh(shadowGeometry,this.contactMaterial);shadow.position.set(-7,.012,-1);b.group.add(shadow);b.owned.push(shadowGeometry);b.parkedFloorGap=new THREE.Box3().setFromObject(lease.scene).min.y-b.floor;b.parkedModel=definition.url;}).catch(error=>{if(!this.disposed&&!b.removed)this.assets.errors.push(`parked truck: ${error.message}`);});
  }
- update(position,campaign){for(const p of DISCOVERY_SITES){const close=Math.hypot(position.x-p.x,position.z-p.z)<180;if(close&&!this.live.has(p.id)){const b=this.build(p);this.live.set(p.id,b);if(p.kind==='yard')this.addParkedTruck(b);}else if(!close&&this.live.has(p.id)){this.remove(this.live.get(p.id));this.live.delete(p.id);}}
+ update(position,campaign,walking=false){for(const p of DISCOVERY_SITES){const close=Math.hypot(position.x-p.x,position.z-p.z)<180;if(close&&!this.live.has(p.id)){const b=this.build(p);this.live.set(p.id,b);if(p.kind==='yard')this.addParkedTruck(b);}else if(!close&&this.live.has(p.id)){this.remove(this.live.get(p.id));this.live.delete(p.id);}}
+  if(walking)recordFootDiscoveries(campaign,position,this.live.values());
  }
  target(p){return {...p.terminal,y:(this.live.get(p.id)?.floor??this.world.groundHeight(p.terminal.x,p.terminal.z))+1};}
  surfaceHeight(x,z){for(const b of this.live.values()){const p=b.site;if(Math.abs(x-p.x)<=p.width/2&&Math.abs(z-p.z)<=p.depth/2)return b.floor;const h=meshHeightAt(b.ramp,x-p.x,z-p.z);if(h!==null)return b.floor+h;}return null;}

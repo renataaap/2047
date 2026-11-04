@@ -1,0 +1,14 @@
+
+> 2047-rede-aurora@0.8.1 test:e2e
+> playwright test tests/e2e/truck-opacity.spec.js tests/e2e/driving.spec.js
+
+
+Running 3 tests using 1 worker
+
+(node:26436) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/driving.spec.js:7:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura (50.0s)
+  ✓  2 tests/e2e/driving.spec.js:15:1 › câmera externa respeita paredes e ajustes de condução persistem (1.2m)
+  ✓  3 tests/e2e/truck-opacity.spec.js:4:1 › Titã: sólidos opacos, vidros próprios, seis rodas e retorno correto da cabine (2.0m)
+
+  3 passed (4.1m)

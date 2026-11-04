@@ -3,6 +3,7 @@ import { CONFIG } from '../../data/config.js';
 import { heightAt,roadX,detourX,routeAt,networkDetourX } from './terrain.js';
 import { groundUV } from '../render/metricUV.js';
 import {roadbedCarve} from './roadDamage.js';
+import {applyGroundColors} from '../render/groundColors.js';
 
 // Concentrate vertices around the actual main/alternative roads. A uniform 21 m
 // grid interpolated hills across the 10 m pavement, hiding it and lifting wheels.
@@ -23,5 +24,5 @@ export function terrainGeometry(cx,cz){
   }
   if(row)for(let col=0;col<columns-1;col++){const a=(row-1)*columns+col,b=row*columns+col;indices.push(a,b,a+1,a+1,b,b+1);}
  }
- const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setIndex(indices);groundUV(g);g.computeVertexNormals();g.computeBoundingSphere();return g;
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setIndex(indices);groundUV(g);g.computeVertexNormals();applyGroundColors(g);g.computeBoundingSphere();return g;
 }

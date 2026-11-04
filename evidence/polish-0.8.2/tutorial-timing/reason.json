@@ -1,0 +1,16 @@
+{
+  "applicationCommit": "a912d608daeec151865e180f53d51e5e220f3e35",
+  "test": "tutorial-assets.spec.js:28",
+  "failedAssertion": "position[2] < -49 before 40000 ms wall timeout",
+  "position": [
+    0.009069503284990788,
+    0.7781792879104614,
+    -48.48802185058594
+  ],
+  "speedKmh": 8.57388809502729,
+  "remainingMetres": 0.5119781494140625,
+  "stateEvidence": "state.json",
+  "diagnosis": "Vehicle was still advancing on asphalt, near x=0 and aligned with the road. Wall-time budget expired before the unchanged arrival criterion; SwiftShader drops wall time via the existing fixed-step cap.",
+  "plannedFix": "Allow more wall time with a finite simulated-time limit; preserve inputs, route, arrival coordinate, parking and all tutorial objectives. Recheck full tutorial before another integral run.",
+  "rawTrace": "Not published: may include HTTP headers. Own local archive in /tmp only."
+}

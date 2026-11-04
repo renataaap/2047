@@ -1,0 +1,39 @@
+
+> 2047-rede-aurora@0.8.1 test:e2e
+> playwright test
+
+
+Running 25 tests using 1 worker
+
+(node:23550) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/e2e/assets.spec.js:8:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais (42.4s)
+  ✓   2 tests/e2e/assets.spec.js:16:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer (27.3s)
+  ✓   3 tests/e2e/assets.spec.js:26:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade (49.5s)
+  ✓   4 tests/e2e/critical-gameplay.spec.js:15:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas (56.5s)
+  ✓   5 tests/e2e/critical-gameplay.spec.js:30:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga (50.9s)
+  ✓   6 tests/e2e/driving.spec.js:7:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura (49.1s)
+  ✓   7 tests/e2e/driving.spec.js:15:1 › câmera externa respeita paredes e ajustes de condução persistem (1.1m)
+  ✓   8 tests/e2e/exit.spec.js:5:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos (30.6s)
+ACEITE {"speedKmh":46.17985983756784,"fuelBefore":4,"fuelAfter":3.926510903492036,"averageFps":0.6387452730631361,"drawCalls":142,"triangles":218894,"consoleErrors":[]}
+  ✓   9 tests/e2e/game.spec.js:6:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento (1.7m)
+  ✓  10 tests/e2e/game.spec.js:20:1 › câmeras, motor, pausa, configurações e API (1.7m)
+  ✓  11 tests/e2e/game.spec.js:32:1 › setores se renovam até as cidades e o objetivo mantém a primeira Semente (46.2s)
+  ✓  12 tests/e2e/interface.spec.js:4:1 › diálogo por falas, teclado, escala de legendas e retorno ao controle (42.1s)
+  ✓  13 tests/e2e/phase2.spec.js:7:1 › API: cookies, isolamento, CRUD, validação e conflito (678ms)
+  ✓  14 tests/e2e/phase2.spec.js:17:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga (1.3m)
+  ✓  15 tests/e2e/phase3.spec.js:12:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência (1.1m)
+  ✓  16 tests/e2e/phase4.spec.js:18:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral (1.5m)
+  ✓  17 tests/e2e/phase4.spec.js:37:1 › Fase 4: bloqueio físico, desvio transitável e frente climática persistida (35.1s)
+  ✓  18 tests/e2e/truck-opacity.spec.js:4:1 › Titã: sólidos opacos, vidros próprios, seis rodas e retorno correto da cabine (2.0m)
+  ✓  19 tests/e2e/tutorial-assets.spec.js:9:1 › arquivos reais: oito PBR, garagem com interior e Titã com seis rodas (38.6s)
+  ✓  20 tests/e2e/tutorial-assets.spec.js:15:1 › progresso parcial retoma; pular e repetir preservam recursos e campanha (44.6s)
+  ✓  21 tests/e2e/tutorial-assets.spec.js:28:1 › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga (2.2m)
+  ✓  22 tests/e2e/world-expansion.spec.js:20:1 › 0.8: três locais alcançáveis a pé, reservas finitas, boletim e persistência (1.8m)
+  ✓  23 tests/e2e/world-expansion.spec.js:36:1 › 0.8: dia e noite, luzes locais, pausa, áudio e relógio salvo (1.3m)
+  ✓  24 tests/e2e/world-expansion.spec.js:49:1 › 0.8: ambientação por região, equipamentos e descarregamento dos novos modelos (45.8s)
+  ✓  25 tests/e2e/world-expansion.spec.js:59:1 › 0.8: perfis reais trocam texturas, preservam dados herdados e liberam variantes antigas (1.2m)
+
+  Slow test file: tests/e2e/world-expansion.spec.js (5.0m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  25 passed (26.3m)

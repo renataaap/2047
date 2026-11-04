@@ -1,0 +1,7 @@
+{
+  "symptom": "First diagnostic visit expected walking, received driving. Stable state was later observed with six wheel contacts, but F had already been pressed during the unsettled interval.",
+  "testBefore": "Wait 1000 wall ms after teleport; speed initially reset to zero; single F attempt.",
+  "testAfter": "Use parkedExit, which waits 120 real physics steps under parking brake before verifying speed, engine and walking mode.",
+  "applicationChanged": false,
+  "status": "Passed in focused two-case rerun, 3.5 minutes; real UI actions and unchanged physics."
+}

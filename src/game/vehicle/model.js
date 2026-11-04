@@ -1,14 +1,16 @@
 import * as THREE from 'three';
 import { bevelGeometry } from '../render/materials.js';
 import { mergeStatic } from '../render/mergeStatic.js';
-import { createInstruments } from './Instruments.js';
+import {createCabin} from './CabinInterior.js';
+import {createTruckFinish} from './TruckFinish.js';
 import { TRUCK_TUNING } from '../../data/truck-tuning.js';
 export function createTruck(m) {
   const root=new THREE.Group();root.name='Titã Rocha Clara';
   const cab=new THREE.Group();cab.name='Cabine suspensa';root.add(cab);
+  const fallbackShell=new THREE.Group();fallbackShell.name='Exterior procedural de emergência';cab.add(fallbackShell);
   const add=(g,mat,x,y,z,parent=root)=>{const mesh=new THREE.Mesh(g,mat);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;};
   const box=(w,h,d,mat,x,y,z)=>add(bevelGeometry(w,h,d),mat,x,y,z);
-  const cabBox=(w,h,d,mat,x,y,z)=>add(bevelGeometry(w,h,d),mat,x,y,z,cab);
+  const cabBox=(w,h,d,mat,x,y,z)=>add(bevelGeometry(w,h,d),mat,x,y,z,fallbackShell);
   box(2.1,.32,8,m.dark,0,-.05,.15);
   // A cabine tem piso e paredes: não existe um bloco sólido escondendo o painel.
   cabBox(2.3,.12,2.05,m.dark,0,.21,-2.65);
@@ -65,27 +67,20 @@ export function createTruck(m) {
     const spring=add(new THREE.CylinderGeometry(.11,.11,.45,7),m.steel,s*.85,-.35,z);springs.push(spring);
   }
   for(const z of [-2.5,1.45,2.9]){const a=add(new THREE.CylinderGeometry(.095,.095,2.5,7),m.dark,0,-.68,z);a.rotation.z=Math.PI/2;axles.push(a);}
-  // Dashboard visible depuis la caméra de cabine.
-  cabBox(2,.27,.55,m.dark,0,1.25,-3.27);
-  const steeringWheel=new THREE.Group();steeringWheel.position.set(-.62,1.51,-2.6);steeringWheel.rotation.x=-.6;cab.add(steeringWheel);
-  add(new THREE.TorusGeometry(.26,.025,8,32),m.dark,0,0,0,steeringWheel);add(new THREE.CylinderGeometry(.055,.055,.045,12).rotateX(Math.PI/2),m.steel,0,0,.015,steeringWheel);
-  for(let i=0;i<3;i++){const a=i/3*Math.PI*2,spoke=add(bevelGeometry(.23,.025,.025),m.steel,Math.cos(a)*.12,Math.sin(a)*.12,.008,steeringWheel);spoke.rotation.z=a;}
-  cabBox(.65,.2,.7,m.dark,-.62,.75,-1.94);cabBox(.65,.8,.15,m.dark,-.62,1.2,-1.65);
-  const lever=add(new THREE.CylinderGeometry(.018,.018,.45,8),m.steel,.08,.92,-2.22,cab);add(new THREE.SphereGeometry(.055,12,8),m.dark,.08,1.16,-2.22,cab);
-  cabBox(1.5,.49,.06,m.dark,-.35,1.43,-3.005);
-  const instruments=createInstruments();cab.add(instruments.group);
+  const cockpit=createCabin();cab.add(cockpit.group);const {steeringWheel,lever,instruments}=cockpit;
+  root.add(createTruckFinish(m));
   const lights=[];
   for(const x of [-.89,.89]) {const spot=new THREE.SpotLight('#efd6a4',1400,100,.42,.6,2);spot.position.set(x,.4,-4);spot.target.position.set(x,-.6,-35);root.add(spot,spot.target);lights.push(spot);}
   const smokeGeo=new THREE.BufferGeometry();const smokePos=new Float32Array(24*3);smokeGeo.setAttribute('position',new THREE.BufferAttribute(smokePos,3));
-  const smoke=new THREE.Points(smokeGeo,new THREE.PointsMaterial({color:'#4a4d52',size:.24,transparent:true,opacity:.35,depthWrite:false}));root.add(smoke);
-  mergeStatic(cab,new Set([lever]));mergeStatic(root,new Set([...springs,...axles]));
-  return {root,cab,steeringWheel,instruments,wheelPoints,animate(controller,dt,time,engine,headlights,state={},settings={}) {
+  const smoke=new THREE.Points(smokeGeo,new THREE.PointsMaterial({color:'#4a4d52',size:.24,transparent:true,opacity:.35,depthWrite:false}));smoke.userData.keepWithImportedTruck=true;root.add(smoke);
+  mergeStatic(fallbackShell);mergeStatic(root,new Set([...springs,...axles]));
+  return {root,cab,fallbackShell,cockpit,steeringWheel,instruments,wheelPoints,animate(controller,dt,time,engine,headlights,state={},settings={}) {
     for(let i=0;i<wheels.length;i++){const p=wheelPoints[i]; const len=controller.wheelSuspensionLength(i)??.52;wheels[i].steering.position.y=p.y-len;wheels[i].steering.rotation.y=controller.wheelSteering(i)||0;wheels[i].spin.rotation.x=-(controller.wheelRotation(i)||0);springs[i].position.y=p.y-len/2; springs[i].scale.y=len/.45;}
     axles.forEach((a,i)=>a.position.y=(wheels[i*2].steering.position.y+wheels[i*2+1].steering.position.y)/2);
     steeringWheel.rotation.z=(state.steeringAngle||0)*TRUCK_TUNING.steering.steeringWheelRatio;
     const motion=settings.cabMotion!==false,a=1-Math.exp(-Math.min(dt,.25)*9);cab.rotation.z+=((motion?Math.max(-.025,Math.min(.025,-(state.lateralAcceleration||0)*.004)):0)-cab.rotation.z)*a;cab.rotation.x+=((motion?Math.max(-.018,Math.min(.018,-(state.longitudinalAcceleration||0)*.004)):0)-cab.rotation.x)*a;
-    cab.position.y=motion&&engine?Math.sin(time*(state.rpm||650)/60*Math.PI*2)*.001:0;lever.rotation.x=state.gear<0?-.18:state.gear>0?.12:0;instruments.update(state,dt);
+    cab.position.y=motion&&engine?Math.sin(time*(state.rpm||650)/60*Math.PI*2)*.001:0;lever.rotation.x=state.gear<0?-.18:state.gear>0?.12:0;instruments.update(state,dt);cockpit.update(state);
     lights.forEach(l=>l.visible=headlights);smoke.visible=engine;
-    for(let i=0;i<24;i++){const t=(time*.65+i/24)%1;smokePos[i*3]=1.07+t*.9+Math.sin(i*4)*t*.14;smokePos[i*3+1]=3.3+t*2;smokePos[i*3+2]=-1.25+t*.4;}smokeGeo.attributes.position.needsUpdate=true;
+    for(let i=0;i<24;i++){const t=(time*.65+i/24)%1;smokePos[i*3]=1.02+t*.9+Math.sin(i*4)*t*.14;smokePos[i*3+1]=1.38+t*1.3;smokePos[i*3+2]=-1.3+t*.4;}smokeGeo.attributes.position.needsUpdate=true;
   }};
 }

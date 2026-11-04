@@ -10,10 +10,12 @@ import { roadRibbon } from './roadGeometry.js';
 import { BIOMES,ROUTES } from '../../data/network.js';
 import { restoredAt } from '../missions/network.js';
 import { mergeStatic } from '../render/mergeStatic.js';
+import {landscapeGeometry} from './landscapeGeometry.js';
+import {finishIndustry} from './finishCompositions.js';
 export class World {
 constructor(scene,physics,materials) {
 this.scene=scene;this.physics=physics;this.m=materials;this.sectors=new Map();this.queue=[];this.disposed=false;
-this.rockGeometry=new THREE.DodecahedronGeometry(1,0);this.farRockGeometry=new THREE.OctahedronGeometry(1,0);
+this.rockGeometry=new THREE.DodecahedronGeometry(1,1);this.farRockGeometry=new THREE.OctahedronGeometry(1,0);this.hillGeometry=landscapeGeometry();
 this.stripeGeometry=new THREE.PlaneGeometry(.14,3.5);this.stripeGeometry.rotateX(-Math.PI/2);
 this.rockMaterial=materials.rock;this.ruinGeometry=bevelGeometry(1,1,1);this.terrainMaterials=[materials.ground,materials.ground,materials.cityGround,materials.cityRestored,materials.salt,materials.saltRestored,materials.glassGround,materials.glassRestored,materials.stormGround,materials.stormRestored];
 this.landmarks=new THREE.Group();scene.add(this.landmarks);this.landmarkBodies=[];this.buildLandmarks();mergeStatic(this.landmarks);
@@ -68,7 +70,7 @@ this.collider(RAPIER.ColliderDesc.ball(scale*.7).setTranslation(x,heightAt(x,z)+
 }
 const rocksLod=new THREE.LOD();rocksLod.position.set(cx*size,0,cz*size);rocksLod.addLevel(rocks,0);rocksLod.addLevel(farRocks,240);group.add(rocksLod);
 // Plus gros éléments au loin, sans multiplier les appels de rendu.
-const hills=new THREE.InstancedMesh(this.rockGeometry,this.rockMaterial,14);
+const hills=new THREE.InstancedMesh(this.hillGeometry,this.rockMaterial,14);
 for(let i=0;i<14;i++){const z=cz*size+(r()-.5)*size,x=cx*size+(i%2?1:-1)*(180+r()*320);dummy.position.set(x,heightAt(x,z)-8,z);dummy.scale.set(50+r()*70,(18+r()*45)*(regionAt(z)==='glass'?2.8:1),45+r()*40);dummy.updateMatrix();hills.setMatrixAt(i,dummy.matrix);}const region=regionAt(cz*size);hills.visible=region!=='salt'&&region!=='cities';group.add(hills);
 if(region==='cities'||region==='storm'){const buildings=new THREE.InstancedMesh(this.ruinGeometry,this.m.dark,18);buildings.castShadow=buildings.receiveShadow=true;for(let i=0;i<18;i++){const x=cx*size+(i%2?1:-1)*(220+r()*180),z=cz*size+(r()-.5)*size,h=region==='cities'?18+r()*45:12+r()*18,w=region==='cities'?12+r()*15:2;dummy.position.set(x,heightAt(x,z)+h/2,z);dummy.scale.set(w,h,region==='cities'?12:2);dummy.rotation.set(0,r()*.2,region==='storm'?.15:0);dummy.updateMatrix();buildings.setMatrixAt(i,dummy.matrix);this.collider(RAPIER.ColliderDesc.cuboid(w/2,h/2,6).setTranslation(x,heightAt(x,z)+h/2,z),bodies);}group.add(buildings);}
 return {x:cx,z:cz,group,bodies,owned,terrain};
@@ -97,11 +99,12 @@ add(new THREE.ConeGeometry(12.5,4,20),this.m.dark,tx,ty+29,tz);
 for(let i=0;i<6;i++){const a=i/6*Math.PI*2;block(.8,12,.8,this.m.dark,tx+Math.cos(a)*9,ty+6,tz+Math.sin(a)*9,true);}
 for(const y of [6,23]){const ring=add(new THREE.TorusGeometry(12.1,.25,5,20),this.m.steel,tx,ty+y,tz);ring.rotation.x=Math.PI/2;}
 for(const z of [-400,-450]){const x=100,y=heightAt(x,z);block(12,19,16,this.m.dark,x,y+9,z,true);block(1.9,47,1.9,this.m.rust,x+8,y+22,z,true);}
+finishIndustry(add,block,this.m,heightAt);
 // Poteaux cassés et garde-corps ponctuels, jalons du trajet.
 for(let i=0;i<20;i++){const z=-i*140-50,x=roadX(z)+10,y=heightAt(x,z);const pole=block(.22,7,.22,this.m.steel,x,y+3.5,z,true);pole.rotation.z=i%5===0?.22:0;block(3,.14,.14,this.m.dark,x,y+6.5,z);}
 // Rocher repérable utilisé pour les essais de collision.
 const rock=add(new THREE.DodecahedronGeometry(2,0),this.m.rock,11,heightAt(11,-32)+1,-32);this.collider(RAPIER.ColliderDesc.ball(1.7).setTranslation(rock.position.x,rock.position.y,rock.position.z),this.landmarkBodies);
 }
 remove(s) {this.scene.remove(s.group);s.group.traverse(o=>{if(o.isInstancedMesh)o.dispose();});s.bodies.forEach(b=>this.physics.removeRigidBody(b));s.owned.forEach(g=>g.dispose());}
-dispose() {this.disposed=true;for(const s of this.sectors.values())this.remove(s);this.sectors.clear();this.landmarkBodies.forEach(b=>this.physics.removeRigidBody(b));this.scene.remove(this.landmarks);this.landmarks.traverse(o=>o.geometry?.dispose());this.rockGeometry.dispose();this.farRockGeometry.dispose();this.stripeGeometry.dispose();this.ruinGeometry.dispose();}
+dispose() {this.disposed=true;for(const s of this.sectors.values())this.remove(s);this.sectors.clear();this.landmarkBodies.forEach(b=>this.physics.removeRigidBody(b));this.scene.remove(this.landmarks);this.landmarks.traverse(o=>o.geometry?.dispose());this.rockGeometry.dispose();this.farRockGeometry.dispose();this.hillGeometry.dispose();this.stripeGeometry.dispose();this.ruinGeometry.dispose();}
 }
