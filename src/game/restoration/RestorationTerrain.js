@@ -47,7 +47,7 @@ export function applyRecoveryTerrain(material){
    diffuseColor.rgb*=mix(vec3(1.),vec3(.55,.63,.58),recoveryWet*.72);
    diffuseColor.rgb=mix(diffuseColor.rgb,recoveryOrganic,recoveryCover*mix(.32,.62,rh));
   `);
-  shader.fragmentShader=shader.fragmentShader.replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\nroughnessFactor=max(.52,roughnessFactor-recoveryWet*.24);');
+  shader.fragmentShader=shader.fragmentShader.replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\nroughnessFactor=max(min(.52,roughnessFactor),roughnessFactor-recoveryWet*.24);');
  };
  compile.recoveryBase=previous;material.onBeforeCompile=compile;
  const key=function(){return previousKey.call(material)+'|aurora-recovery-terrain-v2';};key.recoveryBase=previousKey;material.customProgramCacheKey=key;

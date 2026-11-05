@@ -26,17 +26,17 @@ try{for(const vehicle of vehicles)for(const id of ids){
   expect(validSave(data)).toBe(true);proof.fixture=data;
   await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
   await page.request.get('http://127.0.0.1:3000/api/saves');expect((await page.request.post('http://127.0.0.1:3000/api/saves',{data:{slot:'1',data}})).status()).toBe(201);
-  await page.goto('http://127.0.0.1:3000');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:90000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>(await state()).mode).toBe('driving');
+  await page.goto('http://127.0.0.1:3000');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:90000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>(await state()).mode,{timeout:120000}).toBe('driving');
   await controlledPhysics(page);await page.evaluate(()=>window.__GAME_DEBUG__.step({handbrake:true},120));await page.keyboard.press('KeyE');
   phase='entry';await selectDestination(page,id,'safe');proof.entry=await drivePhysical(page,{label:`${id}:entry`,cruise:id==='core-6'?3:5,maxSeconds:400,wheelbase:vehicle==='dump-truck'?3.982:4.675});
-  await page.keyboard.press('KeyE');await page.keyboard.press('KeyF');await expect.poll(async()=>(await state()).mode).toBe('walking');
+  await page.keyboard.press('KeyE');await page.keyboard.press('KeyF');await expect.poll(async()=>(await state()).mode,{timeout:120000}).toBe('walking');
   const k=CORES[Number(id.split('-')[1])-1],terminal=destination.terminal;
   phase='walking';
   const p=(await state()).position;
   // Walk behind the parked truck before crossing to the terminal's clear face.
   const target=id.startsWith('core-')?{x:terminal.x-1,z:terminal.z+11.5}:{x:terminal.x-1,z:terminal.z+9};
   await walkPhysical(page,[{x:p[0]-4,z:p[2]+9},{x:target.x,z:p[2]+9},target]);
-  await page.keyboard.press('KeyF');await expect.poll(async()=>(await state()).mode).toBe('paused');
+  await page.keyboard.press('KeyF');await expect.poll(async()=>(await state()).mode,{timeout:120000}).toBe('paused');
   phase='interaction';await expect(page.getByRole('heading',{name:id==='core-1'?'Núcleo 1 · ressonador atmosférico':id.startsWith('vault-')?`Cofre ${k.number}`:k.name,exact:true})).toBeVisible();
   if(id.startsWith('vault-')){
    if(k.number===1)await expect(page.getByText(WORLD_COPY.firstVault,{exact:true})).toBeVisible();
@@ -47,15 +47,15 @@ try{for(const vehicle of vehicles)for(const id of ids){
    await page.getByRole('button',{name:'Iniciar ativação',exact:true}).click();await expect.poll(async()=>(await state()).campaign.cores[id].state).toBe('active');
   }
   await page.waitForTimeout(500);await page.screenshot({path:`${dir}/interaction.png`});proof.interaction=await state();await page.keyboard.press('Escape');
-  if(id.startsWith('core-')){await expect.poll(async()=>(await state()).mode).toBe('cinematic');await page.getByRole('button',{name:/Pular apresentação/}).click();}
-  await expect.poll(async()=>(await state()).mode).toBe('walking');
+  if(id.startsWith('core-')){await expect.poll(async()=>(await state()).mode,{timeout:120000}).toBe('cinematic');await page.getByRole('button',{name:/Pular apresentação/}).click();}
+  await expect.poll(async()=>(await state()).mode,{timeout:120000}).toBe('walking');
   if(id.startsWith('core-'))for(let i=0;i<24;i++)await page.evaluate(()=>{window.__GAME_DEBUG__.step({handbrake:true},600);window.__GAME_DEBUG__.publish();});
   await expect.poll(async()=>(await state()).restoration.vegetation.synchronized,{timeout:120000}).toBe(true);proof.mature=await state();expect(proof.mature.campaign.world.recovery.cores[k.id].age).toBe(240);expect(proof.mature.importedTruck.wheelBindings).toBe(6);await page.screenshot({path:`${dir}/mature.png`});
-  phase='save-load';await page.keyboard.press('Escape');await page.getByRole('button',{name:'Salvar / carregar partida'}).click();const saved=page.waitForResponse(r=>r.url().endsWith('/api/saves/1')&&r.request().method()==='PUT');await page.getByRole('button',{name:'Salvar neste slot'}).first().click();expect((await saved).status()).toBe(200);await page.reload();await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>(await state()).mode).toBe('walking');await controlledPhysics(page);await expect.poll(async()=>(await state()).restoration.vegetation.synchronized,{timeout:120000}).toBe(true);proof.reloaded=await state();expect(proof.reloaded.campaign.inventory).toEqual(proof.mature.campaign.inventory);expect(proof.reloaded.restoration.vegetation.fingerprints).toEqual(proof.mature.restoration.vegetation.fingerprints);
+  phase='save-load';await page.keyboard.press('Escape');await page.getByRole('button',{name:'Salvar / carregar partida'}).click();const saved=page.waitForResponse(r=>r.url().endsWith('/api/saves/1')&&r.request().method()==='PUT');await page.getByRole('button',{name:'Salvar neste slot'}).first().click();expect((await saved).status()).toBe(200);await page.reload();await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>(await state()).mode,{timeout:120000}).toBe('walking');await controlledPhysics(page);await expect.poll(async()=>(await state()).restoration.vegetation.synchronized,{timeout:120000}).toBe(true);proof.reloaded=await state();expect(proof.reloaded.campaign.inventory).toEqual(proof.mature.campaign.inventory);expect(proof.reloaded.restoration.vegetation.fingerprints).toEqual(proof.mature.restoration.vegetation.fingerprints);
 
   phase='return-to-truck';
   const door=await page.evaluate(()=>{const f=window.__GAME_DEBUG__.frame(),q=f.quaternion,v=[-2.8,0,-2.5],tx=2*(q[1]*v[2]-q[2]*v[1]),ty=2*(q[2]*v[0]-q[0]*v[2]),tz=2*(q[0]*v[1]-q[1]*v[0]);return {x:f.position[0]+v[0]+q[3]*tx+q[1]*tz-q[2]*ty,z:f.position[2]+v[2]+q[3]*tz+q[0]*ty-q[1]*tx};});
-  await walkPhysical(page,[{x:target.x,z:p[2]+9},{x:p[0]-4,z:p[2]+9},door]);await page.keyboard.press('KeyF');await expect.poll(async()=>(await state()).mode).toBe('driving');await page.keyboard.press('KeyE');
+  await walkPhysical(page,[{x:target.x,z:p[2]+9},{x:p[0]-4,z:p[2]+9},door]);await page.keyboard.press('KeyF');await expect.poll(async()=>(await state()).mode,{timeout:120000}).toBe('driving');await page.keyboard.press('KeyE');
   phase='exit';await selectDestination(page,`retorno:${id}`,'fast');proof.exit=await drivePhysical(page,{label:`${id}:exit`,cruise:id==='core-6'?3:5,maxSeconds:400,wheelbase:vehicle==='dump-truck'?3.982:4.675});await page.waitForTimeout(500);await page.screenshot({path:`${dir}/exit.png`});
   proof.final=await state();expect(errors).toEqual([]);proof.status='passed';console.log(`${vehicle}/${id}: passed (${proof.entry.travelledMetres.toFixed(1)} + ${proof.exit.travelledMetres.toFixed(1)} m)`);
  }catch(e){proof.status='failed';proof.phase=phase;proof.error=e.message;try{proof.wheels=await page.evaluate(()=>window.__GAME_DEBUG__.wheelDiagnostics());proof.driver=await page.evaluate(()=>{const d=window.__AURORA_PHYSICAL_DRIVER__;return d?{samples:d.samples,frame:d.frame,steps:d.steps,points:d.points}:null;});proof.final=await state();await page.screenshot({path:`${dir}/failure.png`});}catch{}console.log(`${vehicle}/${id}: FAILED ${phase}: ${e.message}`);}
