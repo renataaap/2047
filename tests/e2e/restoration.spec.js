@@ -42,3 +42,16 @@ test('sete campos legados migram e os cinco biomas mantêm vegetação e identid
  for(const id of ['core-2','core-3','core-4','core-5','core-6','core-7']){const data=fixture(id,true,true),core=CORES.find(k=>k.id===id);data.truck.position=[core.x+60,heightAt(core.x+60,core.z+42)+1.7,core.z+42];data.player.position=[core.x+57,heightAt(core.x+57,core.z+42)+1.1,core.z+42];await boot(page,data);await waitPlants(page);const s=await state(page),k=CORES.find(k=>k.id===id);expect(s.restoration.progress[k.number-1].stage).toBe(3);expect(s.campaign.world.recovery.cores[id]).toMatchObject({migrated:true,cinematicSeen:true,age:240});expect(s.restoration.local.region).toBe(k.region);expect(s.restoration.vegetation.grass).toBeGreaterThan(0);expect(s.restoration.local.rainVisible).toBe(true);expect(s.assets.errors).toEqual([]);await page.screenshot({path:`${dir}/${id}-${k.region}.png`});proof.push({id,state:s});}
  expect(errors).toEqual([]);await writeFile(`${dir}/proof.json`,JSON.stringify({method:'Local fixtures after legacy migration; real renders at identical 09h/Baixo. Not evidence of a driven continent journey.',proof,errors},null,2)+'\n');
 });
+
+test('streaming de vegetação pelos cinco biomas regenera posições sem acumular instâncias',async({page})=>{
+ test.setTimeout(600000);const dir=evidencePath('restoration/streaming');await mkdir(dir,{recursive:true});const errors=collectErrors(page);await boot(page,fixture('core-7',true));const places=[['ashes',110,-2890],['cities',110,-7200],['salt',115,-12000],['glass',90,-14400],['storm',100,-20100]],cycles=[];
+ for(let cycle=0;cycle<2;cycle++){
+  const samples=[];
+  for(const [region,x,z]of places){
+   await page.evaluate(async({x,z})=>{const d=window.__GAME_DEBUG__;d.teleport({x:x+3,z});d.teleportPlayer({x,z});d.step({handbrake:true},60);d.setTime(9);await d.primeRestoration();d.publish();},{x,z});await waitPlants(page);await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));const s=await state(page);expect(s.restoration.local.region).toBe(region);expect(s.restoration.vegetation.ownedTextures).toBeLessThanOrEqual(10);expect(s.restoration.vegetation.sharedGeometrySets).toBeLessThanOrEqual(30);expect(s.restoration.vegetation.treeColliders).toBeLessThanOrEqual(12);expect(s.sectors).toBe(9);expect(s.assets.errors).toEqual([]);samples.push({region,state:s});if(!cycle)await page.screenshot({path:`${dir}/${region}.png`});
+  }
+  cycles.push(samples);
+ }
+ for(let i=0;i<places.length;i++){const a=cycles[0][i].state.restoration.vegetation,b=cycles[1][i].state.restoration.vegetation;expect(b.fingerprints).toEqual(a.fingerprints);expect([b.grass,b.shrubs,b.trees,b.sectors]).toEqual([a.grass,a.shrubs,a.trees,a.sectors]);}
+ const before=(await state(page)).restoration.vegetation.matrixUpdates;await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));expect((await state(page)).restoration.vegetation.matrixUpdates).toBe(before);expect(errors).toEqual([]);await writeFile(`${dir}/proof.json`,JSON.stringify({method:'Two diagnostic relocations through all biomes, real shared renderer/physics and deterministic asset preparation; not driven journeys. Ecology remains mature and fixed while checking resource ownership and regenerated roots.',cycles,errors},null,2)+'\n');
+});
