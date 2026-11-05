@@ -1,0 +1,60 @@
+
+> 2047-rede-aurora@0.11.0 test:e2e
+> playwright test --reporter=list,json --output=/tmp/aurora-restoration-final-2-traces
+
+
+Running 44 tests using 1 worker
+
+(node:2327) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/e2e/assets.spec.js:9:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais (45.9s)
+  ✓   2 tests/e2e/assets.spec.js:17:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer (35.5s)
+  ✓   3 tests/e2e/assets.spec.js:27:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade (55.8s)
+  ✓   4 tests/e2e/critical-gameplay.spec.js:17:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas (1.2m)
+  ✓   5 tests/e2e/critical-gameplay.spec.js:36:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga (59.1s)
+  ✓   6 tests/e2e/driving.spec.js:8:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura (53.8s)
+  ✓   7 tests/e2e/driving.spec.js:16:1 › câmera externa respeita paredes e ajustes de condução persistem (1.0m)
+  ✓   8 tests/e2e/exit.spec.js:6:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos (32.8s)
+ACEITE {"speedKmh":46.72093111696737,"fuelBefore":4,"fuelAfter":3.9248189209380913,"averageFps":0.3607738566221598,"drawCalls":263,"triangles":440346,"consoleErrors":[]}
+  ✓   9 tests/e2e/game.spec.js:8:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento (2.0m)
+  ✓  10 tests/e2e/game.spec.js:22:1 › câmeras, motor, pausa, configurações e API (2.0m)
+  ✓  11 tests/e2e/game.spec.js:34:1 › setores se renovam até as cidades e o objetivo mantém a primeira Semente (50.9s)
+  ✓  12 tests/e2e/garage.spec.js:21:1 › garagem: prévia, cancelamento, compra, equipamentos, segundo caminhão e persistência (3.2m)
+  ✓  13 tests/e2e/garage.spec.js:42:1 › garagem: skins distintas, interior, prévia de peças e bloqueio por recursos (1.6m)
+  ✓  14 tests/e2e/garage.spec.js:51:1 › garagem: falta de recursos não cobra, equipa nem grava uma compra (29.3s)
+  ✓  15 tests/e2e/garage.spec.js:61:1 › viagem real: barracão, GPS, garagem, personalização, retorno e basculante na cidade (2.9m)
+  ✓  16 tests/e2e/garage.spec.js:81:1 › bancada: acesso a pé com colisões reais e retorno ao controle (24.7s)
+  ✓  17 tests/e2e/interface.spec.js:5:1 › diálogo por falas, teclado, escala de legendas e retorno ao controle (49.9s)
+  ✓  18 tests/e2e/navigation-layout.spec.js:5:1 › cabine: aviso de salvamento não cobre minimapa compacto ou ampliado (59.2s)
+  ✓  19 tests/e2e/phase2.spec.js:10:1 › API: cookies, isolamento, CRUD, validação e conflito (1.1s)
+  ✓  20 tests/e2e/phase2.spec.js:20:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga (1.8m)
+  ✓  21 tests/e2e/phase3.spec.js:13:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência (1.4m)
+  ✓  22 tests/e2e/phase4.spec.js:21:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral (2.8m)
+  ✓  23 tests/e2e/phase4.spec.js:40:1 › Fase 4: bloqueio físico, desvio transitável e frente climática persistida (40.4s)
+  ✓  24 tests/e2e/polish.spec.js:15:1 › 0.8.2: cabine, instrumentos reais, limites de olhar e exterior após F (45.3s)
+  ✓  25 tests/e2e/polish.spec.js:25:1 › 0.8.2: entrada física da loja e serviços individuais de Zeca preservados (42.5s)
+  ✓  26 tests/e2e/polish.spec.js:32:1 › 0.8.2: diário registra visita por entrada real, sem pagar reserva, e persiste (59.7s)
+  ✓  27 tests/e2e/restoration.spec.js:18:1 › primeiro Núcleo: ativação, pular, estágios, diário e recarga sem duplicação (1.9m)
+  ✓  28 tests/e2e/restoration.spec.js:25:1 › solo restaurado sobrevive a Baixo/Médio/Alto/Baixo com 16 samplers e sem duplicar setores (2.6m)
+  ✓  29 tests/e2e/restoration.spec.js:34:1 › cinemática completa e redução de movimento devolvem o controle sem cobrar de novo (56.4s)
+  ✓  30 tests/e2e/restoration.spec.js:40:1 › sete campos legados migram e os cinco biomas mantêm vegetação e identidade próprias (2.1m)
+  ✓  31 tests/e2e/restoration.spec.js:46:1 › streaming de vegetação pelos cinco biomas regenera posições sem acumular instâncias (1.2m)
+  ✓  32 tests/e2e/road-navigation.spec.js:14:1 › GPS no HUD, destinos e perfis reais, minimapa a pé e recálculo (50.1s)
+  ✓  33 tests/e2e/road-navigation.spec.js:26:1 › save legado recebe recuperação próxima, sem duplicação, e persiste a rota (44.4s)
+  ✓  34 tests/e2e/road-navigation.spec.js:33:1 › cidade em Baixo/Médio/Alto, cabine noturna e descarregamento (2.9m)
+  ✓  35 tests/e2e/terrain-visibility.spec.js:6:1 › chão do barracão e terreno renderizam em Baixo/Médio/Alto com limite de 16 texturas (3.1m)
+  ✓  36 tests/e2e/terrain-visibility.spec.js:38:1 › Alta conserva todos os mapas em hardware com pelo menos 17 unidades de textura (1.2m)
+  ✓  37 tests/e2e/truck-opacity.spec.js:4:1 › Titã: sólidos opacos, vidros próprios, seis rodas e retorno correto da cabine (2.5m)
+  ✓  38 tests/e2e/tutorial-assets.spec.js:11:1 › arquivos reais: oito PBR, garagem com interior e Titã com seis rodas (47.1s)
+  ✓  39 tests/e2e/tutorial-assets.spec.js:17:1 › progresso parcial retoma; pular e repetir preservam recursos e campanha (49.4s)
+  ✓  40 tests/e2e/tutorial-assets.spec.js:30:1 › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga (2.7m)
+  ✓  41 tests/e2e/world-expansion.spec.js:21:1 › 0.8: três locais alcançáveis a pé, reservas finitas, boletim e persistência (2.1m)
+  ✓  42 tests/e2e/world-expansion.spec.js:37:1 › 0.8: dia e noite, luzes locais, pausa, áudio e relógio salvo (1.5m)
+  ✓  43 tests/e2e/world-expansion.spec.js:50:1 › 0.8: ambientação por região, equipamentos e descarregamento dos novos modelos (57.6s)
+  ✓  44 tests/e2e/world-expansion.spec.js:60:1 › 0.8: perfis reais trocam texturas, preservam dados herdados e liberam variantes antigas (1.5m)
+
+  Slow test file: tests/e2e/restoration.spec.js (8.8m)
+  Slow test file: tests/e2e/garage.spec.js (8.6m)
+  Slow test file: tests/e2e/world-expansion.spec.js (6.1m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  44 passed (1.0h)

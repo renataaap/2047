@@ -52,10 +52,20 @@ Foi reproduzida uma segunda diferença: Rapier ainda não inclui colisores recé
 
 ## Interrupção do ambiente e preparação do teste de posto
 
-A primeira tentativa da integral parou quando o ambiente foi reiniciado durante a pausa: oito aprovações, uma falha e 35 casos não executados. Build, unitários, freeze, log e capturas parciais foram preservados em `integral-1-interrupted`, sem declarar integral aprovada. Os traces privados de /tmp não sobreviveram ao reinício. A fonte foi verificada idêntica antes da investigação.
+A primeira tentativa da integral parou quando o ambiente foi reiniciado durante a pausa: oito aprovações, uma falha e 35 casos sem resultado registrado. Build, unitários, freeze, log e capturas parciais foram preservados em `integral-1-interrupted`, sem declarar integral aprovada. Os traces privados de /tmp não sobreviveram ao reinício. A fonte foi verificada idêntica antes da investigação.
 
 A falha ocorreu ao esperar a compra de tanque habilitada após relocar o caminhão em diagnóstico. A regra exige parada, motor desligado e proximidade; o teste não assentava a suspensão antes de abrir um painel que pausa a física. Uma reprodução instrumentada passou (1/1, 1,2 min), com velocidade de 0,0012 m/s e distância de 21,9 m. A velocidade da tentativa interrompida não foi registrada; não se afirma uma alteração na regra do jogo. A preparação agora executa três segundos da física original com freio e verifica velocidade, contatos das rodas e distância antes dos mesmos diálogos/compra/abastecimento. Nenhum arquivo da aplicação foi modificado para esse ajuste. Duas repetições e nova integral seguem em validação.
 
 A preparação intermediária do harness também teve duas tentativas inválidas, preservadas: a primeira não ativava o modo de passos controlados (2 falhas); a segunda mantinha Dante longe, fazendo o streaming remover a superfície do caminhão (1 falha, 1 não executado; interrompida para corrigir). A preparação final reloca ambos na mesma operação antes de assentar, mantém a superfície carregada e não modifica a aplicação. Não contar essas tentativas como regressões do jogo nem como casos aprovados.
 
 A preparação final passou em **2/2 repetições, 2,3 min**, com seis rodas em contato, velocidade abaixo de 0,1 m/s, motor desligado, distância menor que 26 m e as mesmas verificações de diálogo/compra/abastecimento. Resultados em focused-zeca-settled-3. A aplicação continua idêntica a 8479b9a; somente um teste mudou, como registra harness-parking-change.json. Nova integral completa será executada sobre novo freeze, sem somar essas rechecagens como cenários inéditos.
+
+Precisão do registro de interrupção: os 35 casos restantes ficaram sem resultado no log, incluindo um possível caso em andamento. O arquivo original interruption.json usa notExecuted para esse total; ele permanece preservado, sem inferir quais chegaram a começar.
+
+## Fechamento automatizado
+
+Checkpoint **7668207**, aplicação igual a 8479b9a. **257 unitários/34 arquivos e build aprovados novamente**, seguidos de **44/44 E2Es numa única integral de 61,9 min**, um worker, zero falhas/skips/retries. Os 277 arquivos congelados permaneceram iguais; onze hashes protegidos iguais. Resultado em final/browser-results.json, final/e2e.log e validation.json. Nenhum build ou outro browser WebGL pesado foi executado simultaneamente.
+
+Reinício real: porta do processo 2262 encerrada, novo processo 5769 observado; **2/2 saves ambientais recuperados com dados/versões iguais**, além do save da garagem/frota. Backend local libSQL/SQLite, sem alegar Turso de produção. As 48 capturas comparativas e custos reais permanecem ligados à fonte 8479b9a. Capturas E2E de biomas que pegaram o fade são preservadas e terão complemento visível, sem reescrever os resultados da integral. Windows/GPU física, audição, arte botânica mais detalhada e frestas/muros urbanos continuam pendentes.
+
+A coleta visual complementar terminou em seis campos, após fade inativo/opacidade zero, mesma condição 09h/Baixo/75%/1280×720. Originais escuros preservados. Índice e fonte da captura em final/restoration/biomes-visible. Verificação de integridade final mantém os 277 arquivos/11 protegidos iguais; nenhum código do jogo/testes/scripts foi alterado para corrigir as imagens.

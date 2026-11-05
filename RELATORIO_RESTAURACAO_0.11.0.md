@@ -1,18 +1,36 @@
 # Restauração ambiental 2.0 — 2047: Rede Aurora
 
-**Em validação. Não é anúncio de entrega final.** Branch `feat/restauracao-ambiental-0.11.0`, derivada da main `4771193`, que já contém a 0.10.0/PR #4. A main permanece preservada durante os testes. Este relatório será fechado com a integral, matriz de acessos e comparações finais.
+**0.11.0 — implementação integrada e validada automaticamente em 05/11/2026.** Branch `feat/restauracao-ambiental-0.11.0`, derivada da main `4771193`/0.10.0/PR #4. Fonte e harness congelados em `7668207`; aplicação idêntica a `8479b9a`. A main permanece preservada durante a revisão no [PR #5](https://github.com/renataaap/2047/pull/5). Windows/GPU física, audição humana e acabamento botânico/urbano continuam pendentes; não se declara arte final de todo o continente.
 
 ## Resultado implementado
 
 A ativação dos Núcleos mantém as regras reais de Sementes, calibração, sequência e recompensas. Uma camada ambiental integrada passa a representar a recuperação: gramíneas curvadas, arbustos ramificados, árvores jovens com troncos e folhas, solo com umidade/cobertura heterogêneas, chuva e redução de poeira. O Mar de Cinzas tem cinco refúgios de composição adicionais; as outras faixas usam espécies, proporções e densidades próprias.
 
-O primeiro campo foi inspecionado em capturas reais e teve ativação, três estágios, diário, save e recarga aprovados num teste de navegador. Testes dos demais biomas e das apresentações também passaram em rodadas focadas. A auditoria física completa passou. A primeira regressão integral foi interrompida quando o ambiente reiniciou; logs, freeze, oito aprovações e uma falha de preparação do teste de posto foram preservados, com 35 casos não executados. Uma nova integral seguirá após corrigir essa preparação, sem mudar a aplicação.
+O primeiro campo foi comparado em oito poses reais e quatro estágios, com chuva, solo e vegetação novos. A integral atual aprovou ativação, apresentação/pulo/redução de movimento, crescimento, diário, perfis de 16 samplers, migração dos sete campos e streaming dos cinco biomas, junto às regressões da campanha/garagem. Acesso local com os dois caminhões e recuperação após reinício também passaram. Isso comprova a implementação descrita; não substitui avaliação humana de arte, áudio ou direção.
 
 ## Base e preservação
 
 Os onze hashes de `evidence/restoration-0.11.0/protected-base.json` continuam iguais à base: quatro módulos narrativos, tuning, VehiclePhysics, CabinInterior, SeatedPose, TerrainBlend e os dois GLBs dirigíveis. Não foram trocados pivôs, rodas, massa ou controladores. Garagem/frota, skins, GPS, grafo, tutorial, missões e três slots foram mantidos.
 
 Os 225 unitários/build foram executados novamente antes das mudanças. Os 39 E2Es da 0.10.0 são históricos; não houve nova integral da base nesta tarefa. As capturas anteriores pertencem a `4771193`.
+
+## Commits e revisão
+
+Branch `feat/restauracao-ambiental-0.11.0`; [PR #5](https://github.com/renataaap/2047/pull/5). A main permanece preservada. Checkpoints:
+
+| Commit | Resultado |
+|---|---|
+| b79f732 | Diagnóstico, 225 unitários/build da base e capturas anteriores |
+| 489c7fa | Ecologia, vegetação, solo, atmosfera, apresentação e integração |
+| 373498b | Preparo assíncrono e consultas físicas determinísticas no load |
+| 2bda066 | Refúgios do Mar de Cinzas, geometria/materiais e superfície |
+| 9624b51 | Verificação de streaming e regeneração dos cinco biomas |
+| c9b3fcb | Roughness seca preservada e esperas de carregamento |
+| 1713d38 | Instrumentos de evidência e verificação após reinício |
+| 8479b9a | 28 acessos, garagem, normais, candidata e fonte das capturas finais |
+| 7668207 | Preparação determinística do teste de posto, documentação e evidências |
+
+A aplicação da rodada atual é idêntica a 8479b9a; só o teste crítico mudou em 7668207. O manifesto da nova validação congela ambos e registra o commit usado. Datas/commits das capturas permanecem nos arquivos originais, sem renomeá-los como uma nova coleta.
 
 ## Componentes e arquivos
 
@@ -30,7 +48,7 @@ Os 225 unitários/build foram executados novamente antes das mudanças. Os 39 E2
 | Diário/mapa/API | discoveryJournal, NetworkMap/NavigationMap e extensão de `/api/world/regions` |
 | Evidências | scripts de captura, comparação e auditorias; novos testes unitários/E2E |
 
-A lista exata pode ser obtida por `git diff --name-only 4771193...HEAD`. Documentação e evidências não são consideradas, sozinhas, comprovação de implementação visual.
+Os 55 caminhos de código/testes/scripts/pacotes/créditos alterados estão em [changed-source-files.txt](evidence/restoration-0.11.0/changed-source-files.txt); a lista completa, incluindo evidências, pode ser obtida por `git diff --name-only 4771193...HEAD`. Documentação e evidências não são consideradas, sozinhas, comprovação de implementação visual.
 
 ## Vegetação e assets
 
@@ -101,22 +119,33 @@ Planejamento durante a viagem é fatiado. Load/troca de qualidade preparam os se
 
 Os protótipos e seus custos foram preservados. A comparação final registra instâncias, calls, triângulos, geometrias, texturas, tempo e heap JavaScript. Na vista do Núcleo, 153 → 182 calls, 207.636 → 640.172 triângulos, 151 → 194 geometrias e 94 → 98 texturas. São 17.460 tufos, 475 arbustos e 197 árvores carregadas em treze células, com dois colisores próximos. O custo adicional está exposto, sem prometer desempenho gratuito. O carregamento desta coleta ficou entre 14,6–17,6 s (inclui menu/navegação), preparo de vegetação aproximadamente 2,0 s; o campo loadMs antigo não é usado por incluir capturas. [Método e tabelas](docs/COMPARACAO_RESTAURACAO_0.11.0.md). Contagens de recursos e heap do Chromium não são bytes de VRAM. Nenhum resultado representa 60 FPS numa GPU Windows.
 
-## Testes e evidências — situação deste checkpoint
+## Testes e evidências — resultado da 0.11.0
 
-- Baseline executada: 225 unitários e build; dezesseis imagens anteriores reais.
-- Incrementos: 255, 256 e depois 257 unitários aprovados, com logs separados; não somar rodadas como testes diferentes.
-- Rodada focada 3: dois casos aprovados; falha de preparação de slot no terceiro; quarto não executado.
-- Rodada focada 4: falha do init script em about:blank, corrigida na preparação; não apresentada como aprovada.
-- Rodada focada 5: dois casos aprovados em 3,1 min, incluindo apresentações e migração dos campos posteriores.
-- Acessos: 28/28 casos completos aprovados na segunda execução, sete Núcleos e sete Cofres com os dois veículos; garagem restaurada aprovada em 2/2. A primeira tentativa interrompida e a rodada inicial de dois casos permanecem separadas.
-- Streaming: 1/1 caso aprovado em 1,1 min, com duas passagens de diagnóstico pelos cinco biomas, no mesmo renderer; posições e contagens repetidas sem acumular recursos próprios.
-- Candidata 8479b9a: 257/257 unitários e 34/34 arquivos aprovados novamente; 277 arquivos de fonte/testes/scripts congelados e onze hashes protegidos iguais.
-- Build final aprovado em 05/11/2026, servidor dev encerrado durante a execução.
-- Comparação final: 32 capturas novas e 16 anteriores, mesmas oito poses, quatro estágios, sem erros de console/página. [Comparação e custos](docs/COMPARACAO_RESTAURACAO_0.11.0.md).
-- Primeira integral: interrompida pelo reinício do ambiente, 8 aprovações/1 falha/35 não executados. Fonte preservada em integral-1-interrupted. Ajuste apenas do harness de estacionamento de Zeca, sem tocar na aplicação; duas repetições passaram em 2,3 min.
-- Nova integral de 44 cenários e reinício real: **ainda em validação neste documento**.
+| Verificação atual | Resultado e evidência |
+|---|---|
+| `npm test` | **257/257 testes, 34/34 arquivos**, [log](evidence/restoration-0.11.0/final/unit.log) |
+| `npm run build` | **Aprovado**, servidor dev encerrado durante a execução; [prova](evidence/restoration-0.11.0/final/build-result.json) |
+| `npm run test:e2e` | **44/44 numa única integral de 61,9 min**, um worker, zero falhas/skips/retries; [JSON](evidence/restoration-0.11.0/final/browser-results.json) e [log](evidence/restoration-0.11.0/final/e2e.log) |
+| Integridade da fonte | **277 arquivos congelados iguais** e **onze hashes protegidos iguais**; [manifesto](evidence/restoration-0.11.0/final/source-freeze.json) |
+| Acessos em ambiente restaurado | **28/28 percursos locais**: sete Núcleos e sete Cofres, Titã e Basculante, Rapier original a 60 Hz; [matriz](docs/ACESSIBILIDADE_RESTAURACAO_0.11.0.md) |
+| Garagem restaurada | **2/2 acessos físicos** aprovados, com parada, interface e saída; [prova](evidence/restoration-0.11.0/garage-access/matrix.json) |
+| Reinício real — restauração | **2/2 saves** recuperados com dados e versões iguais, um com o primeiro campo e outro com os sete; [prova](evidence/restoration-0.11.0/final/restoration/restart-summary.json) |
+| Reinício real — garagem/frota | **Aprovado**, Basculante ativo, pinturas/equipamentos/inventários preservados; [prova](evidence/restoration-0.11.0/final/garage/restart.json) |
+| Comparação visual | **16 PNGs anteriores + 32 novos**, oito poses, quatro estágios; [comparação e métricas](docs/COMPARACAO_RESTAURACAO_0.11.0.md) |
 
-Capturas e logs estão em `evidence/restoration-0.11.0`. Os originais não são imagens promocionais nem renders externos. O comparador usa PNGs do jogo e mesmas poses/horário. Posicionamento/idades de diagnóstico são declarados; não comprovam viagem humana. Traces que podem conter cookies ficam exclusivamente em `/tmp`, fora do Git.
+A integral inclui o tutorial de 21 objetivos, primeira entrega, sete Núcleos, sobrevivência/comércio/manutenção, entrada/saída, cabine/opacidade/seis rodas, garagem/frota, GPS/mapa, relógio/pausas, API/slots/legados, modelos e perfis gráficos. Os cinco cenários novos da restauração passaram nesta mesma integral, sem depender da soma de rodadas focadas.
+
+O ramo de 16 texturas foi selecionado e os programas reais compilados/consultados em SwiftShader: terreno visível em Baixo/Médio/Alto, uniforms atualizados, samplers dentro do orçamento. Também passou o ramo Alto para capacidade maior. Não se afirma emulação de driver Windows ou FPS de GPU física. A persistência validada é libSQL/SQLite local, não Turso de produção.
+
+[Resumo verificável](evidence/restoration-0.11.0/validation.json). O servidor antigo foi encerrado e a porta fechou; um novo PID foi observado antes das recuperações, conforme [server-restart.json](evidence/restoration-0.11.0/final/server-restart.json). Cookies e traces completos ficam somente em `/tmp`, fora do Git.
+
+### Tentativas preservadas
+
+Os 225 unitários/build da baseline foram realmente executados; os 39 E2Es da 0.10.0 são históricos. Incrementos de 255/256/257 unitários são rodadas sucessivas, não testes inéditos somados. As primeiras tentativas focadas revelaram carregamento limitado por RAF, consultas físicas ainda fora da broad phase e problemas de preparação de slot/about:blank. Foram corrigidos e os logs permanecem em focused-1–5/logs.
+
+A primeira tentativa de integral foi interrompida pelo reinício do ambiente: **8 aprovações, 1 falha e 35 casos sem resultado registrado**, incluindo possível caso em andamento. Freeze/log/capturas foram preservados em integral-1-interrupted; os traces privados de /tmp não sobreviveram. A falha foi no teste de compras de Zeca, que relocava só o caminhão antes do painel pausado. A preparação final reloca Dante junto e assenta usando três segundos da física original; verifica motor, velocidade, contatos e distância, mantendo as mesmas compras. A aplicação não mudou. Duas tentativas intermediárias inválidas do harness e uma reprodução instrumentada foram preservadas, seguidas de **2/2 repetições aprovadas em 2,3 min**. A integral verde é exclusivamente a de final/, sobre 7668207.
+
+Algumas screenshots do cenário E2E de biomas foram feitas durante o fade de carregamento: a aprovação funcional desse teste não é usada como aprovação visual dessas imagens. Os originais são preservados e a coleta complementar **concluída em seis campos** aguardou opacity=0 antes de fotografar, sem alterar a fonte congelada; [índice e método](evidence/restoration-0.11.0/final/restoration/biomes-visible/index.json). Poses/idades de diagnóstico não são prova de viagem humana. Os 28 percursos locais e a viagem da garagem usam a física real; não são sessões humanas de avaliação.
 
 ## Problemas resolvidos e limites
 

@@ -49,3 +49,18 @@ O teste de streaming visita os cinco biomas duas vezes no mesmo renderer. As pos
 ## Limites da validação visual
 
 Não houve medição de FPS em GPU Windows. SwiftShader serve para erros de shader, links, screenshots e regressões automatizadas; não substitui driver/hardware real, qualidade percebida pelo jogador, audição ou uma sessão humana. Perfis Médio/Alto, ramo de 16 samplers, persistência e acesso físico têm provas separadas no relatório e na matriz de acessos.
+
+## Capturas complementares dos biomas
+
+A integral passou nas verificações de estado/migração dos campos posteriores, mas algumas screenshots desse cenário foram capturadas durante o fade de carregamento e não são usadas para aprovar a arte. Os originais permanecem em final/restoration/biomes. A coleta complementar terminou nos seis campos posteriores, esperando classe inativa e opacidade zero do fade, sem alterar a fonte congelada ou substituir as imagens anteriores. 09h, Baixo, 75%, 1280 × 720; [método e índice](../evidence/restoration-0.11.0/final/restoration/biomes-visible/index.json), com fonte de captura preservada ao lado.
+
+| Campo | Coleta visível | Estado completo |
+|---|---|---|
+| core-2 — cities | [PNG](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-2-cities.png) | [JSON](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-2.json) |
+| core-3 — cities | [PNG](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-3-cities.png) | [JSON](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-3.json) |
+| core-4 — salt | [PNG](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-4-salt.png) | [JSON](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-4.json) |
+| core-5 — glass | [PNG](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-5-glass.png) | [JSON](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-5.json) |
+| core-6 — glass | [PNG](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-6-glass.png) | [JSON](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-6.json) |
+| core-7 — storm | [PNG](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-7-storm.png) | [JSON](../evidence/restoration-0.11.0/final/restoration/biomes-visible/core-7.json) |
+
+Essas poses são de diagnóstico, fora das baias homologadas; não são testes de aproximação/estacionamento nem uma viagem entre os biomas. As rotas e manobras são comprovadas separadamente pela auditoria física. Acabamento urbano em frestas/muros e composições botânicas adicionais nos biomas posteriores continuam pendentes.
