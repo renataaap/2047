@@ -29,7 +29,8 @@ export async function installTerrainProbe(page,textureUnits=16){
      hardwareLimit,selectedLimit:gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS),
      programs:[...terrain].filter(p=>gl.isProgram(p)).map(program=>{
       const samplers=Array.from({length:gl.getProgramParameter(program,gl.ACTIVE_UNIFORMS)},(_,i)=>gl.getActiveUniform(program,i)).filter(u=>samplerTypes.includes(u.type)).map(u=>({name:u.name,size:u.size}));
-      return {linked:gl.getProgramParameter(program,gl.LINK_STATUS),log:gl.getProgramInfoLog(program),samplers,samplerCount:samplers.reduce((sum,s)=>sum+s.size,0)};
+      const recoveryLocation=gl.getUniformLocation(program,'auroraRecovery[0]');
+      return {recoveryCore:recoveryLocation?Array.from(gl.getUniform(program,recoveryLocation)):null,linked:gl.getProgramParameter(program,gl.LINK_STATUS),log:gl.getProgramInfoLog(program),samplers,samplerCount:samplers.reduce((sum,s)=>sum+s.size,0)};
      }),
      completedQueries:queries.filter(q=>gl.getQueryParameter(q,gl.QUERY_RESULT_AVAILABLE)).length,
      visibleTerrainDraws:queries.filter(q=>gl.getQueryParameter(q,gl.QUERY_RESULT_AVAILABLE)&&gl.getQueryParameter(q,gl.QUERY_RESULT)).length,

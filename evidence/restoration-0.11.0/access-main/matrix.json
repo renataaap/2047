@@ -1,0 +1,40 @@
+[
+  {
+    "id": "vault-1",
+    "vehicle": "titan-old",
+    "status": "passed",
+    "entryMetres": 16.84922319127447,
+    "exitMetres": 179.98005105892707
+  },
+  {
+    "id": "core-1",
+    "vehicle": "titan-old",
+    "status": "failed",
+    "phase": "save-load",
+    "error": "expect(received).toBe(expected) // Object.is equality\n\nExpected: \"walking\"\nReceived: \"loading\"\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+    "entryMetres": 126.90606158093902
+  },
+  {
+    "id": "vault-2",
+    "vehicle": "titan-old",
+    "status": "passed",
+    "entryMetres": 103.33854018226877,
+    "exitMetres": 122.40712227487874
+  },
+  {
+    "id": "core-2",
+    "vehicle": "titan-old",
+    "status": "failed",
+    "phase": "save-load",
+    "error": "expect(received).toBe(expected) // Object.is equality\n\nExpected: \"walking\"\nReceived: \"loading\"\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+    "entryMetres": 133.01750622607807
+  },
+  {
+    "id": "vault-3",
+    "vehicle": "titan-old",
+    "status": "failed",
+    "phase": "save-load",
+    "error": "locator.click: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Salvar / carregar partida' })\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"wide-link\">Salvar / carregar partida</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+    "entryMetres": 84.91057947436522
+  }
+]

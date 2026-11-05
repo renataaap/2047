@@ -1,0 +1,38 @@
+import {createRequire} from 'node:module';
+import {pathToFileURL} from 'node:url';
+import {mkdir,readFile,writeFile} from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+const require=createRequire(`${process.cwd()}/package.json`);
+const {chromium,expect}=require('@playwright/test');
+const {roadAccessFixture}=await import(pathToFileURL(`${process.cwd()}/tests/helpers/road-access-fixture.js`));
+const {CORES}=await import(pathToFileURL(`${process.cwd()}/src/data/network.js`));
+const {anchor}=await import(pathToFileURL(`${process.cwd()}/src/game/missions/network.js`));
+const {heightAt}=await import(pathToFileURL(`${process.cwd()}/src/game/world/terrain.js`));
+const root='evidence/restoration-0.11.0/final/restoration/biomes-visible';
+await mkdir(root,{recursive:true});
+await writeFile(`${root}/capture-source.txt`,await readFile(new URL(import.meta.url),'utf8'));
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const results=[],sourceCommit=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+try{for(const core of CORES.filter(k=>k.number>1)){
+ const context=await browser.newContext({viewport:{width:1280,height:720}}),page=await context.newPage(),errors=[];
+ page.setDefaultTimeout(120000);
+ page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+ await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0,footCamera:'first'})));
+ const {data}=roadAccessFixture(core.id);expect(anchor(data.campaign,core.id).success).toBe(true);
+ delete data.campaign.world.recovery;data.context='walking';data.campaign.world.daySeconds=9*3600;
+ data.truck.position=[core.x+60,heightAt(core.x+60,core.z+42)+1.7,core.z+42];
+ data.player.position=[core.x+57,heightAt(core.x+57,core.z+42)+1.1,core.z+42];
+ expect((await page.request.post('http://127.0.0.1:3000/api/saves',{data:{slot:'1',data}})).status()).toBe(201);
+ await page.goto('http://127.0.0.1:3000');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'Continuar',exact:true}).click();
+ await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='walking',null,{timeout:120000});
+ await page.evaluate(async()=>{const d=window.__GAME_DEBUG__;d.controlledStepping(true);d.step({handbrake:true},120);d.setTime(9);await d.primeRestoration();d.publish();});
+ await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().restoration.vegetation.synchronized),{timeout:120000}).toBe(true);
+ await expect(page.locator('.travel-transition')).not.toHaveClass(/active/,{timeout:120000});
+ await expect(page.locator('.travel-transition')).toHaveCSS('opacity','0',{timeout:120000});
+ await page.evaluate(()=>new Promise(resolve=>{let n=0;const tick=()=>++n===3?resolve():requestAnimationFrame(tick);requestAnimationFrame(tick);}));
+ const state=await page.evaluate(()=>window.__GAME_DEBUG__.getState()),fade=await page.locator('.travel-transition').evaluate(e=>({className:e.className,opacity:getComputedStyle(e).opacity}));
+ expect(state.restoration.local.region).toBe(core.region);expect(state.restoration.progress[core.number-1].stage).toBe(3);expect(state.restoration.vegetation.total).toBeGreaterThan(0);expect(fade.opacity).toBe('0');expect(errors).toEqual([]);
+ const file=`${core.id}-${core.region}.png`;await page.screenshot({path:`${root}/${file}`});
+ const result={id:core.id,region:core.region,file,fade,state,errors};await writeFile(`${root}/${core.id}.json`,JSON.stringify(result,null,2)+'\n');results.push({id:core.id,region:core.region,file,fade,errors});console.log(`${core.id}: visible capture, fade opacity ${fade.opacity}`);await context.close();
+}}finally{await browser.close();}
+await writeFile(`${root}/index.json`,JSON.stringify({sourceCommit,method:'Supplementary diagnostic poses after the loading fade is fully transparent. 09h, Low, 75%, 1280x720. Legacy active cores migrated. Original darker E2E images are retained. Not driven journeys or Windows GPU evidence.',results},null,2)+'\n');

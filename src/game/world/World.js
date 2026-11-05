@@ -1,4 +1,5 @@
 import {meshHeightAt} from './surfaceHeight.js';
+import {indexedSurfaceHeight} from '../restoration/surfaceSampler.js';
 import {reserved} from './contextLayout.js';
 import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat';
@@ -19,7 +20,7 @@ constructor(scene,physics,materials) {
 this.scene=scene;this.physics=physics;this.m=materials;this.sectors=new Map();this.queue=[];this.disposed=false;
 this.rockGeometry=new THREE.DodecahedronGeometry(1,1);this.farRockGeometry=new THREE.OctahedronGeometry(1,0);this.hillGeometry=landscapeGeometry();
 this.stripeGeometry=new THREE.PlaneGeometry(.14,3.5);this.stripeGeometry.rotateX(-Math.PI/2);
-this.rockMaterial=materials.rock;this.ruinGeometry=bevelGeometry(1,1,1);this.terrainMaterials=[materials.ground,materials.ground,materials.cityGround,materials.cityRestored,materials.salt,materials.saltRestored,materials.glassGround,materials.glassRestored,materials.stormGround,materials.stormRestored];
+this.rockMaterial=materials.rock;this.ruinGeometry=bevelGeometry(1,1,1);this.terrainMaterials=[materials.ground,materials.ground,materials.cityGround,materials.cityGround,materials.salt,materials.salt,materials.glassGround,materials.glassGround,materials.stormGround,materials.stormGround];
 this.landmarks=new THREE.Group();scene.add(this.landmarks);this.landmarkBodies=[];this.buildLandmarks();mergeStatic(this.landmarks);
 }
 // Fixed terrain has no finite mass. Rapier's raycast wheel friction also reads
@@ -83,6 +84,7 @@ if(region==='cities'||region==='storm'){const buildings=new THREE.InstancedMesh(
 return {x:cx,z:cz,group,bodies,owned,terrain,roadSurfaces};
 }
 groundHeight(x,z){const size=CONFIG.world.sectorSize;for(const sector of this.sectors.values()){if(Math.abs(x-sector.x*size)>size/2+.001||Math.abs(z-sector.z*size)>size/2+.001)continue;let y=meshHeightAt(sector.terrain.geometry,x,z);for(const g of sector.roadSurfaces||[]){const b=g.boundingBox;if(x<b.min.x||x>b.max.x||z<b.min.z||z>b.max.z)continue;const r=meshHeightAt(g,x,z);if(r!==null)y=Math.max(y??-Infinity,r);}if(y!==null)return y;}return heightAt(x,z);}
+recoveryHeight(x,z){const size=CONFIG.world.sectorSize;for(const s of this.sectors.values()){if(Math.abs(x-s.x*size)>size/2+.001||Math.abs(z-s.z*size)>size/2+.001)continue;let y=indexedSurfaceHeight(s.terrain.geometry,x,z);for(const g of s.roadSurfaces||[]){const b=g.boundingBox;if(x<b.min.x||x>b.max.x||z<b.min.z||z>b.max.z)continue;const h=indexedSurfaceHeight(g,x,z);if(h!==null)y=Math.max(y??-Infinity,h);}if(y!==null)return y;}return heightAt(x,z);}
 prime(position,distance){for(let i=0;i<9;i++)this.update(position,distance);}
 setCampaign(c){this.campaign=c;const key=Object.values(c.cores).map(k=>k.state).join(',');if(this.restorationKey===key)return;this.restorationKey=key;for(const sector of this.sectors.values())this.terrainGroups(sector.terrain.geometry);}
 terrainGroups(g){g.clearGroups();const a=g.attributes.position,indices=g.index.array;let start=0,previous=null;

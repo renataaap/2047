@@ -1,0 +1,75 @@
+
+> 2047-rede-aurora@0.10.0 test:e2e
+> playwright test tests/e2e/restoration.spec.js
+
+
+Running 4 tests using 1 worker
+
+(node:31594) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/restoration.spec.js:18:1 › primeiro Núcleo: ativação, pular, estágios, diário e recarga sem duplicação (5.1m)
+(node:31942) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 tests/e2e/restoration.spec.js:25:1 › solo restaurado sobrevive a Baixo/Médio/Alto/Baixo com 16 samplers e sem duplicar setores (2.1m)
+
+
+  1) tests/e2e/restoration.spec.js:18:1 › primeiro Núcleo: ativação, pular, estágios, diário e recarga sem duplicação 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 5
+
+    Call Log:
+    - Timeout 120000ms exceeded while waiting on the predicate
+
+       8 | import {CORES} from '../../src/data/network.js';
+       9 | const state=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
+    > 10 | const waitPlants=page=>expect.poll(async()=>(await state(page)).restoration.vegetation.pendingCells,{timeout:120000,intervals:[500]}).toBe(0);
+         |                                                                                                                                       ^
+      11 | function fixture(id='core-1',active=false,legacy=false){const {data}=roadAccessFixture(id),k=CORES.find(k=>k.id===id);data.context='walking';data.truck.position=[k.number===1?7:k.x-14,heightAt(k.x-14,k.z+10)+1.7,k.z+10];data.player.position=[k.x-1,heightAt(k.x-1,k.z+10)+1.1,k.z+10];data.campaign.world.daySeconds=9*3600;if(active){expect(anchor(data.campaign,id)?.success).toBe(true);for(const r of Object.values(data.campaign.world.recovery.cores)){r.age=240;r.cinematicSeen=true;}if(legacy)delete data.campaign.world.recovery;}return data;}
+      12 | async function boot(page,data){await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0,footCamera:'first'})));expect((await page.request.post('/api/saves',{data:{slot:'1',data}})).status()).toBe(201);await page.goto('/');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>(await state(page)).mode).toBe('walking');await page.evaluate(()=>{window.__GAME_DEBUG__.controlledStepping(true);window.__GAME_DEBUG__.step({handbrake:true},120);window.__GAME_DEBUG__.publish();});}
+      13 | function collectErrors(page){const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});return errors;}
+        at waitPlants (/workspace/work/2047-rede-aurora/tests/e2e/restoration.spec.js:10:135)
+        at /workspace/work/2047-rede-aurora/tests/e2e/restoration.spec.js:22:454
+
+    Error Context: test-results/restoration-primeiro-Núcle-b12aa-io-e-recarga-sem-duplicação/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/restoration-primeiro-Núcle-b12aa-io-e-recarga-sem-duplicação/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/restoration-primeiro-Núcle-b12aa-io-e-recarga-sem-duplicação/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/e2e/restoration.spec.js:25:1 › solo restaurado sobrevive a Baixo/Médio/Alto/Baixo com 16 samplers e sem duplicar setores 
+
+    Test was interrupted.
+
+    Error: page.evaluate: Target page, context or browser has been closed
+
+       7 | import {heightAt} from '../../src/game/world/terrain.js';
+       8 | import {CORES} from '../../src/data/network.js';
+    >  9 | const state=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
+         |                        ^
+      10 | const waitPlants=page=>expect.poll(async()=>(await state(page)).restoration.vegetation.pendingCells,{timeout:120000,intervals:[500]}).toBe(0);
+      11 | function fixture(id='core-1',active=false,legacy=false){const {data}=roadAccessFixture(id),k=CORES.find(k=>k.id===id);data.context='walking';data.truck.position=[k.number===1?7:k.x-14,heightAt(k.x-14,k.z+10)+1.7,k.z+10];data.player.position=[k.x-1,heightAt(k.x-1,k.z+10)+1.1,k.z+10];data.campaign.world.daySeconds=9*3600;if(active){expect(anchor(data.campaign,id)?.success).toBe(true);for(const r of Object.values(data.campaign.world.recovery.cores)){r.age=240;r.cinematicSeen=true;}if(legacy)delete data.campaign.world.recovery;}return data;}
+      12 | async function boot(page,data){await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0,footCamera:'first'})));expect((await page.request.post('/api/saves',{data:{slot:'1',data}})).status()).toBe(201);await page.goto('/');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>(await state(page)).mode).toBe('walking');await page.evaluate(()=>{window.__GAME_DEBUG__.controlledStepping(true);window.__GAME_DEBUG__.step({handbrake:true},120);window.__GAME_DEBUG__.publish();});}
+        at state (/workspace/work/2047-rede-aurora/tests/e2e/restoration.spec.js:9:24)
+        at expect.poll.timeout (/workspace/work/2047-rede-aurora/tests/e2e/restoration.spec.js:10:52)
+        at /workspace/work/2047-rede-aurora/tests/e2e/restoration.spec.js:29:93
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/restoration-solo-restaurad-b1a74-lers-e-sem-duplicar-setores/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/restoration-solo-restaurad-b1a74-lers-e-sem-duplicar-setores/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/restoration.spec.js:18:1 › primeiro Núcleo: ativação, pular, estágios, diário e recarga sem duplicação 
+  1 interrupted
+    tests/e2e/restoration.spec.js:25:1 › solo restaurado sobrevive a Baixo/Médio/Alto/Baixo com 16 samplers e sem duplicar setores 
+  2 did not run
