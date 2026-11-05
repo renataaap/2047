@@ -25,7 +25,7 @@ Abra um save antigo, confira frota, inventário, Sementes, missão, horário e N
 
 Volte ao barracão e visite os pontos de apoio dentro da influência. Hortas aparecem com recuperação inicial; NPCs apresentam um comentário contextual separado das falas principais. Esse comentário não é missão nem recompensa repetível.
 
-Avalie todos os campos na ordem da campanha. Cidades devem recuperar áreas abertas e frestas sem bloquear estabelecimentos; sal mantém manchas esparsas resistentes; montanhas usam vegetação baixa e protegida; tempestades conservam condições próprias. Não esperar floresta tropical no Leito Seco ou árvores enormes na Cordilheira.
+Avalie todos os campos na ordem da campanha. Cidades recuperam áreas abertas sem bloquear estabelecimentos; plantas em frestas e vegetação vertical continuam pendentes de arte/distribuição; sal mantém manchas esparsas resistentes; montanhas usam vegetação baixa e protegida; tempestades conservam condições próprias. Não esperar floresta tropical no Leito Seco ou árvores enormes na Cordilheira.
 
 Nos sete Núcleos e sete Cofres, teste entrada, estacionamento, caminhada, interação, retorno e saída com o Titã e o Basculante. Observe especialmente curvas, entradas estreitas, árvores novas e a garagem de Cinza Nova. Plantas não devem bloquear pistas, baias, cruzamentos ou caminhos de NPCs.
 

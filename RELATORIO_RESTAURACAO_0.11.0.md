@@ -6,7 +6,7 @@
 
 A ativação dos Núcleos mantém as regras reais de Sementes, calibração, sequência e recompensas. Uma camada ambiental integrada passa a representar a recuperação: gramíneas curvadas, arbustos ramificados, árvores jovens com troncos e folhas, solo com umidade/cobertura heterogêneas, chuva e redução de poeira. O Mar de Cinzas tem cinco refúgios de composição adicionais; as outras faixas usam espécies, proporções e densidades próprias.
 
-O primeiro campo foi inspecionado em capturas reais e teve ativação, três estágios, diário, save e recarga aprovados num teste de navegador. Testes dos demais biomas e das apresentações também passaram em rodadas focadas. A regressão integral e a auditoria física completa ainda estão em andamento neste documento.
+O primeiro campo foi inspecionado em capturas reais e teve ativação, três estágios, diário, save e recarga aprovados num teste de navegador. Testes dos demais biomas e das apresentações também passaram em rodadas focadas. A auditoria física completa passou. A primeira regressão integral foi interrompida quando o ambiente reiniciou; logs, freeze, oito aprovações e uma falha de preparação do teste de posto foram preservados, com 35 casos não executados. Uma nova integral seguirá após corrigir essa preparação, sem mudar a aplicação.
 
 ## Base e preservação
 
@@ -77,7 +77,7 @@ Campos antigos já ativos migram uma única vez para maturidade, sem reiniciar m
 
 As exclusões usam o grafo completo, ruas de Cinza Nova, pátios, edifícios, reservas de terminais/NPCs e composições de cenário. Há margem para os dois caminhões. Pequenas plantas não recebem colisores; até doze árvores próximas e maiores têm cilindros fixos de densidade zero.
 
-A auditoria física usa fixtures locais na entrada viária, controles e timestep real do Rapier, caminhada até o terminal, interação, maturidade, save/load, retorno e saída. Cofres já ancorados são testados sem retirar outra Semente. Não é uma viagem pelo continente nem uma sessão humana. A matriz final ainda será anexada.
+A auditoria física usa fixtures locais na entrada viária, controles e timestep real do Rapier, caminhada até o terminal, interação, maturidade, save/load, retorno e saída. Cofres já ancorados são testados sem retirar outra Semente. Não é uma viagem pelo continente nem uma sessão humana. A matriz completa já passou em 28/28 casos, com mais 2/2 acessos à garagem restaurada. Consulte [acessibilidade da restauração](docs/ACESSIBILIDADE_RESTAURACAO_0.11.0.md); os estados e imagens originais estão em access-main-2 e garage-access.
 
 ## Apresentação, clima e áudio
 
@@ -99,7 +99,7 @@ Setores de vegetação de 256 m; raio/densidade por Baixo, Médio e Alto; dois L
 
 Planejamento durante a viagem é fatiado. Load/troca de qualidade preparam os setores em tarefas curtas antes de exibir a nova paisagem, evitando depender do ritmo muito lento da GPU por software. Há custo inicial de indexar triângulos/preparar geometrias, registrado nas métricas; não se promete ausência de todo hitch em hardware ainda não avaliado.
 
-Os protótipos e seus custos foram preservados. A comparação final registrará instâncias, calls, triângulos, geometrias, texturas, tempo e heap JavaScript quando disponível. Contagens de recursos e heap do Chromium não são bytes de VRAM. Nenhum resultado representa 60 FPS numa GPU Windows.
+Os protótipos e seus custos foram preservados. A comparação final registra instâncias, calls, triângulos, geometrias, texturas, tempo e heap JavaScript. Na vista do Núcleo, 153 → 182 calls, 207.636 → 640.172 triângulos, 151 → 194 geometrias e 94 → 98 texturas. São 17.460 tufos, 475 arbustos e 197 árvores carregadas em treze células, com dois colisores próximos. O custo adicional está exposto, sem prometer desempenho gratuito. O carregamento desta coleta ficou entre 14,6–17,6 s (inclui menu/navegação), preparo de vegetação aproximadamente 2,0 s; o campo loadMs antigo não é usado por incluir capturas. [Método e tabelas](docs/COMPARACAO_RESTAURACAO_0.11.0.md). Contagens de recursos e heap do Chromium não são bytes de VRAM. Nenhum resultado representa 60 FPS numa GPU Windows.
 
 ## Testes e evidências — situação deste checkpoint
 
@@ -108,8 +108,13 @@ Os protótipos e seus custos foram preservados. A comparação final registrará
 - Rodada focada 3: dois casos aprovados; falha de preparação de slot no terceiro; quarto não executado.
 - Rodada focada 4: falha do init script em about:blank, corrigida na preparação; não apresentada como aprovada.
 - Rodada focada 5: dois casos aprovados em 3,1 min, incluindo apresentações e migração dos campos posteriores.
-- Acessos iniciais do Núcleo 1 passaram com os dois veículos. A primeira matriz foi interrompida após um limite de espera curto para carregar; nova rodada em andamento, sem apagar os registros anteriores.
-- Integral da versão, reinício real, testes de streaming e comparações finais: **ainda pendentes neste documento**.
+- Acessos: 28/28 casos completos aprovados na segunda execução, sete Núcleos e sete Cofres com os dois veículos; garagem restaurada aprovada em 2/2. A primeira tentativa interrompida e a rodada inicial de dois casos permanecem separadas.
+- Streaming: 1/1 caso aprovado em 1,1 min, com duas passagens de diagnóstico pelos cinco biomas, no mesmo renderer; posições e contagens repetidas sem acumular recursos próprios.
+- Candidata 8479b9a: 257/257 unitários e 34/34 arquivos aprovados novamente; 277 arquivos de fonte/testes/scripts congelados e onze hashes protegidos iguais.
+- Build final aprovado em 05/11/2026, servidor dev encerrado durante a execução.
+- Comparação final: 32 capturas novas e 16 anteriores, mesmas oito poses, quatro estágios, sem erros de console/página. [Comparação e custos](docs/COMPARACAO_RESTAURACAO_0.11.0.md).
+- Primeira integral: interrompida pelo reinício do ambiente, 8 aprovações/1 falha/35 não executados. Fonte preservada em integral-1-interrupted. Ajuste apenas do harness de estacionamento de Zeca, sem tocar na aplicação; duas repetições passaram em 2,3 min.
+- Nova integral de 44 cenários e reinício real: **ainda em validação neste documento**.
 
 Capturas e logs estão em `evidence/restoration-0.11.0`. Os originais não são imagens promocionais nem renders externos. O comparador usa PNGs do jogo e mesmas poses/horário. Posicionamento/idades de diagnóstico são declarados; não comprovam viagem humana. Traces que podem conter cookies ficam exclusivamente em `/tmp`, fora do Git.
 
@@ -117,7 +122,7 @@ Capturas e logs estão em `evidence/restoration-0.11.0`. Os originais não são 
 
 Foram removidas as duas implementações antigas de cones/chuva, corrigida a ordem da composição úmida no PBR e evitada mudança de posições por consultas à broad phase ainda não atualizada durante o load. O carregamento deixou de depender exclusivamente de RAF. Testes passaram a esperar a carga assíncrona e a sincronização real das matrizes.
 
-Pendências de avaliação: Windows/GPU física, audição, sessão humana e escolha artística do usuário. A vegetação é procedural, sem botânica/árvores adultas finais, fauna 3D, simulação hídrica ampla ou novas rotinas/economia das comunidades. Esses sistemas não são marcados como entregues. Não foram concluídos os finais do jogo nesta atualização.
+Pendências de avaliação: Windows/GPU física, audição, sessão humana e escolha artística do usuário. A vegetação é procedural, sem botânica/árvores adultas finais, vegetação vertical/em rachaduras urbanas, fauna 3D, simulação hídrica ampla ou novas rotinas/economia das comunidades. Esses sistemas não são marcados como entregues. Não foram concluídos os finais do jogo nesta atualização.
 
 ## Próximas melhorias possíveis
 
