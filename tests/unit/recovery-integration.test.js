@@ -4,6 +4,8 @@ import RAPIER from '@dimforge/rapier3d-compat';
 import {roadAccessFixture} from '../helpers/road-access-fixture.js';
 import {anchor} from '../../src/game/missions/network.js';
 import {observeRecovery,stepRecovery} from '../../src/game/restoration/progress.js';
+import {staticObstacleSampler} from '../../src/game/restoration/StaticObstacles.js';
+import {planVegetationCell,vegetationFingerprint} from '../../src/game/restoration/placement.js';
 import {RestorationVegetation} from '../../src/game/restoration/RestorationVegetation.js';
 import {RestorationCinematic} from '../../src/game/restoration/RestorationCinematic.js';
 import {discoveryEntries} from '../../src/game/world/discoveryJournal.js';
@@ -28,4 +30,9 @@ test('diário deduplica observações e áudio acompanha estágio e horário sem
 test('setores mantêm matrizes maduras estáveis, regeneram sem duplicar e liberam corpos/meshes próprios',()=>{
  const physics=new RAPIER.World({x:0,y:-9.81,z:0}),scene=new THREE.Scene(),c=campaign(),v=new RestorationVegetation(scene,physics,{recoveryHeight:()=>0}),p={x:110,y:2,z:-2890};c.world.recovery.cores['core-1'].age=240;
  try{for(let i=0;i<500;i++){v.update(c,p,'baixo',.016);if(!v.pendingCells&&v.cells.size)break;}const full=v.snapshot(),keys={...full.fingerprints};expect(full.grass).toBeGreaterThan(100);expect(full.trees).toBeGreaterThan(0);for(let i=0;i<30;i++)v.update(c,p,'baixo',.016);expect(v.snapshot().matrixUpdates).toBe(full.matrixUpdates);expect(v.snapshot().total).toBe(full.total);expect(v.colliders.size).toBeLessThanOrEqual(12);v.reset();expect(scene.children).toHaveLength(0);expect(v.colliders.size).toBe(0);for(let i=0;i<500;i++){v.update(c,p,'baixo',0);if(!v.pendingCells&&v.cells.size)break;}expect(v.snapshot().fingerprints).toEqual(keys);expect(v.snapshot().total).toBe(full.total);v.update(c,{x:10000,y:2,z:-10000},'baixo',0);expect(v.cells.size).toBe(0);}finally{v.dispose();expect(scene.children).toHaveLength(0);expect(v.geometry.size).toBe(0);expect(v.materials.size).toBe(0);physics.free();}
+});
+
+test('posições não dependem de a broad phase do Rapier já ter sido atualizada',()=>{
+ const w=new RAPIER.World({x:0,y:-9.81,z:0}),clean=planVegetationCell(0,-12,()=>0),p=clean.find(p=>p.x>70&&p.x<180);expect(p).toBeTruthy();w.createCollider(RAPIER.ColliderDesc.cuboid(4,2,4).setTranslation(p.x,1,p.z));
+ try{const before=planVegetationCell(0,-12,()=>0,staticObstacleSampler(w,0,-12));expect(before.some(q=>Math.hypot(q.x-p.x,q.z-p.z)<3)).toBe(false);w.step();const after=planVegetationCell(0,-12,()=>0,staticObstacleSampler(w,0,-12));expect(vegetationFingerprint(before)).toBe(vegetationFingerprint(after));}finally{w.free();}
 });

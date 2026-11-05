@@ -24,3 +24,11 @@ Navegador do primeiro Núcleo; qualidades com orçamento de 16 samplers; cinco b
 ## Limites conhecidos
 
 Vegetação é arte procedural autoral, sem alegar bibliotecas profissionais instaladas. Fauna é som sintetizado, sem animais 3D. Validação em Windows/GPU física, audição e uma sessão humana continuam necessárias. Restrições CC BY-NC dos assets históricos permanecem nos créditos.
+
+## Correção intermediária de carregamento
+
+A primeira rodada de navegador falhou na espera de setores após recarga (cinco ainda pendentes em 120 s); o segundo cenário foi interrompido para investigação e dois não rodaram. A rodada seguinte foi interrompida durante o primeiro cenário após descobrir uma inconsistência adicional nas consultas físicas. Logs e imagens parciais estão preservados em focused-1/focused-2; traces completos ficam somente em /tmp, pois podem conter cookies de QA. Não somar essas tentativas como cenários aprovados.
+
+A distribuição estava fatiada por RAF e acabava limitada ao ritmo de aproximadamente um frame por segundo da renderização por software. Load e troca de qualidade agora preparam os setores em pequenas tarefas de carregamento, mantendo a simulação pausada e a última imagem durante a preparação. O streaming em viagem continua gradual e ignora células fora da influência atual.
+
+Foi reproduzida uma segunda diferença: Rapier ainda não inclui colisores recém-criados na broad phase antes do primeiro passo. Consultas da distribuição passaram a usar um índice local de obstáculos fixos e interseções diretas de shapes, sem avançar física ou campanha para preparar a vegetação. Um teste novo verifica posições idênticas antes/depois do passo físico. **256 unitários/34 arquivos passaram** após essas correções; navegador novamente em validação. A duração da apresentação usa tempo visual limitado a um segundo por atualização, separado do timestep fixo e do relógio ecológico.
