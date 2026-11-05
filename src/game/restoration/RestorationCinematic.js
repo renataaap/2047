@@ -23,9 +23,10 @@ export class RestorationCinematic{
    const safe=cameraPosition(g.physics,look,wanted,g.player.body,undefined,true);safe.y=Math.max(safe.y,g.world.recoveryHeight(safe.x,safe.z)+1.2);
    cam.position.copy(safe);cam.up.set(0,1,0);cam.lookAt(look);cam.fov=54;const back=smooth(.83,1,t);cam.position.lerp(this.saved.position,back);cam.quaternion.slerp(this.saved.quaternion,back);cam.fov=THREE.MathUtils.lerp(54,this.saved.fov,back);cam.updateProjectionMatrix();
   }
+  const actor=g.playerVisual?.actor;if(actor&&!this.reduced){const p=g.player.body.translation();actor.anchor.visible=Math.hypot(cam.position.x-p.x,cam.position.y-p.y,cam.position.z-p.z)>2.5;}
   if(this.elapsed>=this.duration)this.finish(false);
  }
- finish(skipped=true){if(!this.active)return false;const g=this.g;this.active=false;this.skipped=skipped;const cam=g.rendering.camera;cam.position.copy(this.saved.position);cam.quaternion.copy(this.saved.quaternion);cam.fov=this.saved.fov;cam.updateProjectionMatrix();g.player.cameraInitial=true;g.cameras.initial=true;g.state.mode=this.returnMode;g.state.resumeMode=this.returnMode;g.state.overlay=null;g.input.setContext(this.returnMode);g.ambientAudio?.setPaused(false);g.loop.reset();g.last=performance.now();return true;}
+ finish(skipped=true){if(!this.active)return false;const g=this.g;this.active=false;this.skipped=skipped;const cam=g.rendering.camera;cam.position.copy(this.saved.position);cam.quaternion.copy(this.saved.quaternion);cam.fov=this.saved.fov;cam.updateProjectionMatrix();g.player.cameraInitial=true;g.cameras.initial=true;if(g.playerVisual?.actor)g.playerVisual.actor.anchor.visible=this.returnMode==='walking'&&g.player.view==='third';g.state.mode=this.returnMode;g.state.resumeMode=this.returnMode;g.state.overlay=null;g.input.setContext(this.returnMode);g.ambientAudio?.setPaused(false);g.loop.reset();g.last=performance.now();return true;}
  reset(){if(this.active)this.finish(true);this.pending=null;this.core=null;}
  snapshot(){return {active:this.active,pending:this.pending,core:this.core?.id||null,elapsed:this.elapsed,duration:this.duration||0,reducedMotion:!!this.reduced,skipped:!!this.skipped};}
 }

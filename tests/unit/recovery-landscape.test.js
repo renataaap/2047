@@ -28,6 +28,10 @@ test('raízes evitam encostas instáveis e objetos físicos, sem reservas aleat�
  const clean=planVegetationCell(0,-12,()=>0),blocked=planVegetationCell(0,-12,()=>0,()=>true);
  expect(clean.length).toBeGreaterThan(0);expect(blocked).toEqual([]);
 });
+test('base dos tufos acompanha o plano inclinado, sem deixar raízes flutuando',()=>{
+ const sample=(x,z)=>x*.2+z*.11,plants=planVegetationCell(0,-12,sample).filter(p=>p.kind==='grass'),g=grassGeometry('ashes'),up=new THREE.Vector3(0,1,0);
+ try{for(const p of plants.slice(0,40)){const q=new THREE.Quaternion().setFromUnitVectors(up,new THREE.Vector3(...p.normal)).multiply(new THREE.Quaternion().setFromAxisAngle(up,p.yaw)),a=g.attributes.position;for(let i=0;i<a.count;i++)if(Math.abs(a.getY(i))<1e-6){const root=new THREE.Vector3().fromBufferAttribute(a,i).multiplyScalar(p.scale).applyQuaternion(q).add(new THREE.Vector3(p.x,p.y,p.z));expect(root.y).toBeCloseTo(sample(root.x,root.z),5);}}}finally{g.dispose();}
+});
 test('biomas têm densidades e silhuetas próprias, incluindo sal e altitude',()=>{
  const counts=[-12,-47,-58].map(z=>planVegetationCell(1,z,()=>0).length);
  expect(counts[0]).toBeGreaterThan(counts[1]);expect(counts[0]).toBeGreaterThan(counts[2]);

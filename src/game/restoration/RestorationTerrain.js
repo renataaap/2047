@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {CORES} from '../../data/network.js';
-import {ECOLOGY} from './definitions.js';
+import {ECOLOGY,ASHES_REFUGIA} from './definitions.js';
 const slots=new WeakMap();
 export const RECOVERY_TERRAIN_ROLES=['ground','cityGround','cityRestored','salt','saltRestored','glassGround','glassRestored','stormGround','stormRestored','rock'];
 function binding(material){if(!slots.has(material))slots.set(material,{value:CORES.map(k=>new THREE.Vector4(k.x,k.z,-1,ECOLOGY[k.region].width))});return slots.get(material);}
@@ -12,6 +12,7 @@ uniform vec4 auroraRecovery[7];
 
 float recoveryNoise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);vec4 h=fract(sin(vec4(dot(i,vec2(127.1,311.7)),dot(i+vec2(1.,0.),vec2(127.1,311.7)),dot(i+vec2(0.,1.),vec2(127.1,311.7)),dot(i+vec2(1.),vec2(127.1,311.7))))*43758.5453);return mix(mix(h.x,h.y,f.x),mix(h.z,h.w,f.x),f.y);}
 int recoveryCore(float z){if(z>=-3200.)return 0;if(z>=-5800.)return 3;if(z>=-8350.)return 1;if(z>=-10000.)return 2;if(z>=-12600.)return 3;if(z>=-15600.)return 4;if(z>=-17600.)return 5;return 6;}
+float recoveryRefuge(vec2 p){float d=1e10;${ASHES_REFUGIA.map(([x,z])=>`d=min(d,dot(p-vec2(${x.toFixed(1)},${z.toFixed(1)}),p-vec2(${x.toFixed(1)},${z.toFixed(1)})));`).join('')}return 1.0-smoothstep(225.,1225.,d);}
 `;
 export function applyRecoveryTerrain(material){
  const previous=material.onBeforeCompile.recoveryBase||material.onBeforeCompile;
@@ -39,11 +40,12 @@ export function applyRecoveryTerrain(material){
    float rn=recoveryNoise(recoveryPosition.xz*.065),rb=recoveryNoise(recoveryPosition.xz*.018+21.0);
    float rs=1.0-smoothstep(.18,.62,1.0-abs(normalize(recoveryNormal).y));
    float rm=rc==3?.48:(rc==4||rc==5)?.66:rc==6?.7:rc==1||rc==2?.85:1.0;
+   float rh=rc==0?recoveryRefuge(recoveryPosition.xz):0.;
    float recoveryWet=(.38+.62*smoothstep(0.,50.,ra))*ri*rm*(.35+.65*smoothstep(.22,.8,rn))*rs;
-   float recoveryCover=smoothstep(.5,.79,rb)*(.18+.82*smoothstep(0.,180.,ra))*ri*rs;
+   float recoveryCover=mix(smoothstep(.5,.79,rb),.72+.28*rn,rh)*(.18+.82*smoothstep(0.,180.,ra))*ri*rs;
    vec3 recoveryOrganic=rc==3?vec3(.26,.29,.17):rc==4||rc==5?vec3(.13,.22,.16):vec3(.14,.23,.105);
    diffuseColor.rgb*=mix(vec3(1.),vec3(.55,.63,.58),recoveryWet*.72);
-   diffuseColor.rgb=mix(diffuseColor.rgb,recoveryOrganic,recoveryCover*.32);
+   diffuseColor.rgb=mix(diffuseColor.rgb,recoveryOrganic,recoveryCover*mix(.32,.62,rh));
   `);
   shader.fragmentShader=shader.fragmentShader.replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\nroughnessFactor=max(.52,roughnessFactor-recoveryWet*.24);');
  };

@@ -16,10 +16,14 @@ function lanceolate(width,length){
 function merged(parts){const g=mergeGeometries(parts,false);for(const p of parts)p.dispose();g.computeBoundingBox();g.computeBoundingSphere();return g;}
 export function grassGeometry(region,variant=0,far=false){
  const rng=randomSeed(8800+variant*23),parts=[],h=ECOLOGY[region].height;
- for(let i=0;i<(far?3:9);i++){
-  const length=h*(.55+rng()*.8),width=.03+rng()*.036,bend=.08+rng()*.24,a=rng()*Math.PI*2,positions=[],uv=[],indices=[];
-  for(let j=0;j<=3;j++){const t=j/3,w=width*(1-t)*.7,cx=Math.sin(a)*bend*t*t,cz=Math.cos(a)*bend*t*t;positions.push(cx-Math.cos(a)*w,length*t,cz+Math.sin(a)*w,cx+Math.cos(a)*w,length*t,cz-Math.sin(a)*w);uv.push(0,t,1,t);if(j<3){const k=j*2;indices.push(k,k+2,k+1,k+1,k+2,k+3);}}
-  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(indices);g.computeVertexNormals();g.translate((rng()-.5)*.55,0,(rng()-.5)*.55);parts.push(g);
+ for(let i=0;i<(far?3:7);i++){
+  const length=h*(.55+rng()*.8),width=.03+rng()*.036,bend=.08+rng()*.24,a=rng()*Math.PI*2,positions=[],uv=[],indices=[],colors=[],columns=far?2:3;
+  for(let j=0;j<=2;j++){
+   const t=j/2,w=width*(1-t)*.7,cx=Math.sin(a)*bend*t*t,cz=Math.cos(a)*bend*t*t,fold=Math.sin(t*Math.PI)*.016;
+   for(let side=0;side<columns;side++){const u=side/(columns-1),lateral=(u-.5)*2,center=columns===3&&side===1?fold:0;positions.push(cx+Math.cos(a)*w*lateral+Math.sin(a)*center,length*t,cz-Math.sin(a)*w*lateral+Math.cos(a)*center);uv.push(u,t);const light=(.62+.38*t)*(center?1:.92);colors.push(light,light,.82*light);}
+   if(j<2)for(let side=0;side<columns-1;side++){const k=j*columns+side;indices.push(k,k+columns,k+1,k+1,k+columns,k+columns+1);}
+  }
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));g.setIndex(indices);g.computeVertexNormals();g.translate((rng()-.5)*.55,0,(rng()-.5)*.55);parts.push(g);
  }
  return merged(parts);
 }
@@ -58,7 +62,7 @@ export function vegetationMaterials(region){
  const e=ECOLOGY[region],bark=originalTexture('bark'),leaf=originalTexture('leaf');
  const wood=new THREE.MeshStandardMaterial({color:e.bark,map:bark,roughness:.95,metalness:0});
  const foliage=new THREE.MeshStandardMaterial({color:e.leaf,map:leaf,roughness:.86,metalness:0,side:THREE.DoubleSide});
- const grass=new THREE.MeshStandardMaterial({color:'#ffffff',roughness:.94,metalness:0,side:THREE.DoubleSide});
+ const grass=new THREE.MeshStandardMaterial({color:'#ffffff',map:leaf,vertexColors:true,roughness:.94,metalness:0,side:THREE.DoubleSide});
  for(const m of [grass,foliage]){
   const time={value:0};m.userData.windTime=time;m.onBeforeCompile=s=>{s.uniforms.auroraWindTime=time;s.vertexShader='uniform float auroraWindTime;\n'+s.vertexShader;s.vertexShader=s.vertexShader.replace('#include <begin_vertex>',`#include <begin_vertex>
    vec4 awp=vec4(position,1.0);

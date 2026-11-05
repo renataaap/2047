@@ -9,6 +9,9 @@ export const ECOLOGY={
  storm:{name:'Zonas de Tempestade',grass:'#809470',dry:'#9d9782',leaf:'#74876b',bark:'#635e55',height:.48,shrub:.72,trees:.48,moisture:.7,width:1000,treeForm:'wind'},
 };
 export const VEGETATION_CELL=256;
+// Authored refuges in open ground around the first field. Roads, slopes and
+// obstacle exclusions still have final authority; these are not forced spawns.
+export const ASHES_REFUGIA=[[75,-2980],[110,-2910],[-60,-2860],[155,-2810],[60,-3045]];
 export const VEGETATION_PROFILES={
  baixo:{radius:340,density:.52,treeDetail:0,shadowDistance:0},
  medio:{radius:500,density:.76,treeDetail:1,shadowDistance:70},

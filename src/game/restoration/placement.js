@@ -3,8 +3,8 @@ import {CITY_BUILDINGS} from '../../data/cityLayout.js';
 import {CITY_GAS} from '../../data/roadNetwork.js';
 import {PAVED_AREAS,roadClearanceAt} from '../navigation/roadIndex.js';
 import {heightAt,randomSeed} from '../world/terrain.js';
-import {coreAt} from './progress.js';
-import {VEGETATION_CELL} from './definitions.js';
+import {coreAt,smooth} from './progress.js';
+import {VEGETATION_CELL,ASHES_REFUGIA} from './definitions.js';
 import {planCell,DECOR_CELL} from '../world/contextLayout.js';
 
 const structures=[...CITY_BUILDINGS,
@@ -26,13 +26,15 @@ export function* vegetationPatches(cx,cz,sample=heightAt,blocked=()=>false){
  // Authored habitat patches on a jittered 16 m lattice, never regular rows.
  for(let ix=0;ix<16;ix++)for(let iz=0;iz<16;iz++){
   const centerX=cx*size+(ix+.5)*16,centerZ=cz*size+(iz+.5)*16,core=coreAt(centerZ),r=randomSeed(hash(`${core.id}/${cx}/${cz}/${ix}/${iz}`));
-  const favor=.5+.22*Math.sin(centerX*.019+Math.sin(centerZ*.014))+.22*Math.cos(centerZ*.023);
+  const refuge=core.id==='core-1'?Math.max(...ASHES_REFUGIA.map(([x,z])=>1-smooth(225,1225,(centerX-x)**2+(centerZ-z)**2))):0;
+  const favor=.5+.22*Math.sin(centerX*.019+Math.sin(centerZ*.014))+.22*Math.cos(centerZ*.023)+refuge*.9;
   if(r()>(core.region==='salt'?.24:core.region==='glass'?.38:.75)*favor)continue;
   const plants=[],px=centerX+(r()-.5)*10,pz=centerZ+(r()-.5)*10;
   const add=(kind,x,z,index)=>{
    const id=`${core.id}:${cx}:${cz}:${ix}:${iz}:${kind}:${index}`,radius=kind==='tree'?2:kind==='shrub'?.8:.25;
    if(!vegetationAllowed(x,z,kind,sample)||decor.some(p=>Math.hypot(p.x-x,p.z-z)<p.radius+radius+3)||blocked(x,sample(x,z),z,radius))return;
-   plants.push({id,core:coreAt(z).id,region:coreAt(z).region,kind,x,y:sample(x,z),z,yaw:r()*Math.PI*2,scale:.65+r()*.7,height:.65+r()*.6,threshold:r(),density:r(),hue:r(),variant:hash(id)%3});
+   const dx=kind==='grass'?(sample(x+.3,z)-sample(x-.3,z))/.6:0,dz=kind==='grass'?(sample(x,z+.3)-sample(x,z-.3))/.6:0,n=Math.hypot(dx,1,dz);
+   plants.push({id,core:coreAt(z).id,region:coreAt(z).region,kind,x,y:sample(x,z),z,normal:[-dx/n,1/n,-dz/n],yaw:r()*Math.PI*2,scale:.65+r()*.7,height:.65+r()*.6,threshold:r(),density:r(),hue:r(),variant:hash(id)%3});
   };
   const count=24+Math.floor(r()*17);for(let i=0;i<count;i++){const a=r()*Math.PI*2,d=Math.sqrt(r())*5;add('grass',px+Math.sin(a)*d,pz+Math.cos(a)*d,i);}
   if(r()<.65){add('shrub',px+5+r()*3,pz-3,0);if(r()<.35)add('shrub',px+3,pz-5,1);}
