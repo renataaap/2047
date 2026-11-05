@@ -28,7 +28,7 @@ export function applyRecoveryTerrain(material){
    #ifdef USE_INSTANCING
    recoveryVertex=instanceMatrix*recoveryVertex;
    #endif
-   recoveryPosition=(modelMatrix*recoveryVertex).xyz;recoveryNormal=normalize(mat3(modelMatrix)*normal);`);
+   recoveryPosition=(modelMatrix*recoveryVertex).xyz;recoveryNormal=transformNormalByInverseViewMatrix(transformedNormal,viewMatrix);`);
   }
   const coordinates=blended?'#define recoveryPosition auroraPosition\n#define recoveryNormal auroraNormal\n':'varying vec3 recoveryPosition; varying vec3 recoveryNormal;\n';
   shader.fragmentShader=coordinates+recoveryTerrainGLSL+'\n'+shader.fragmentShader;

@@ -1,5 +1,11 @@
 # 2047: Rede Aurora
 
+**0.11.0 — Restauração ambiental 2.0, candidata em validação.** Recuperação independente por Núcleo, vegetação 3D autoral, solo úmido e cobertura heterogênea, chuva desde o primeiro campo, apresentação pulável e progressão persistente. A garagem, os dois caminhões e a campanha permanecem. [Relatório atual](RELATORIO_RESTAURACAO_0.11.0.md) · [acessos físicos](docs/ACESSIBILIDADE_RESTAURACAO_0.11.0.md) · [teste Windows](docs/TESTE_MANUAL_RESTAURACAO_0.11.0.md) · [PR #5](https://github.com/renataaap/2047/pull/5).
+
+Resultados atuais antes da regressão final: 257 unitários, 28/28 percursos locais nos sete Núcleos/sete Cofres com os dois veículos, 2/2 acessos à garagem restaurada e streaming repetido pelos cinco biomas aprovados. Build, integral de 44 E2Es, reinício e comparações finais ainda em validação; não confundir os números históricos abaixo com esta versão.
+
+Os registros seguintes preservam a evolução anterior. O prompt mestre 0.10.0 é um snapshot histórico; para continuar o trabalho, leia primeiro o relatório atual e AGENTS.md.
+
 [Prompt mestre completo de continuidade — base 0.10.0](PROMPT_MESTRE_COMPLETO_0.10.0.md): lore, histórico, sistemas atuais, arquitetura, controles, assets/licenças, testes, limitações, melhorias e roadmap. Preparado para retomada em Codex/Claude, sem reiniciar o jogo.
 
 **0.10.0 — garagem e frota:** garagem municipal de Cinza Nova funcional, três skins, prévias 3D, acessórios, interior, três upgrades reais e dois caminhões dirigíveis. Base 0.9.1 com a correção do chão preservada. [Relatório](RELATORIO_GARAGEM_0.10.0.md) · [incrementos](docs/INCREMENTOS_GARAGEM_0.10.0.md) · [teste Windows](docs/TESTE_MANUAL_GARAGEM_0.10.0.md) · [PR #4](https://github.com/renataaap/2047/pull/4).

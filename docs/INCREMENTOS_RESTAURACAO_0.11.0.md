@@ -41,3 +41,11 @@ Foi reproduzida uma segunda diferença: Rapier ainda não inclui colisores recé
 - Cinco refúgios de recuperação dirigem a composição do primeiro campo, com solo e cobertura heterogêneos. Exclusões de pista/pátios mantêm autoridade. Folhas de grama dobradas, nervuras e gradiente de luz melhoram o detalhe sem acrescentar mapas ao shader do terreno. As bases acompanham o plano triangular inclinado; árvores permanecem verticais.
 - Sombras próximas acompanham o jogador mesmo depois da maturidade, sem reescrever todas as matrizes. Snapshot informa sincronização entre progresso e instâncias, para não comparar um estágio novo com a malha do frame anterior. API de regiões expõe o estágio por Núcleo como extensão dos dados existentes.
 - **257 unitários/34 arquivos aprovados** após esse polimento. Acessos físicos, garagem restaurada, integral e capturas finais seguem pendentes neste checkpoint.
+
+## Candidata e auditoria de acessos
+
+- **28/28 casos locais aprovados** em `access-main-2`: sete Núcleos e sete Cofres com Titã e Basculante, física original a 60 Hz, interação, maturidade, save/load e saída. A primeira tentativa interrompida permanece preservada. [Matriz e método](ACESSIBILIDADE_RESTAURACAO_0.11.0.md).
+- **2/2 acessos à garagem restaurada aprovados**, com aproximação, estacionamento, abertura real e saída em ré.
+- **1/1 novo E2E de streaming aprovado em 1,1 min**: duas passagens de diagnóstico pelos cinco biomas no mesmo renderer, posições/contagens idênticas, recursos limitados, matrizes maduras estáveis. Não é uma viagem humana.
+- Normais mundiais dos materiais não blendados usam a transformação normal oficial do Three, preservando instanciamento e escala. Não desloca a vegetação nem modifica os colisores auditados.
+- Rótulos passam a **0.11.0 candidata em validação**, com pendências explicitamente registradas. A versão não está sendo anunciada como entrega final; a rodada completa seguirá sobre arquivos congelados.
