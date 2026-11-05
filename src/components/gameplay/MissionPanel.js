@@ -1,3 +1,4 @@
+import {contextualReaction} from '../../game/restoration/progress.js';
 import DiscoveryPanel from './DiscoveryPanel.js';
 import {DISCOVERY_SITES} from '../../data/ambience.js';
 import { TRAINING } from '../../game/tutorial/definitions.js';
@@ -23,8 +24,10 @@ export default function MissionPanel({type,state,game,onClose:requestClose,onLoa
  useEffect(()=>{if(type==='saves')game.saves.list().then(setSlots).catch(e=>setError(e.message));},[type,game]);
  const perform=async fn=>{setBusy(true);setError('');try{await fn();setSlots(await game.saves.list());}catch(e){setError(e.message);}finally{setBusy(false);}};
  const title={discovery:DISCOVERY_SITES.find(p=>p.id===state.discovery)?.name,inspection:TRAINING.objects.find(o=>o.id===state.inspection)?.title,dialogue:T.survivor,radio:T.radioTitle,map:T.map,inventory:T.inventory,maintenance:T.maintenance,core:T.mechanism,saves:T.saveTitle,expedition:E.title,poi:POIS.find(p=>p.id===state.poi)?.name,network:(()=>{const p=NETWORK_POINTS.find(p=>p.id===state.networkPoint);return p?.npc||p?.name;})(),road:(()=>{const k=ROAD_POINTS.find(p=>p.id===state.roadPoint);return state.roadEntity==='equipment'?'Gerador do Núcleo 1':state.roadEntity==='pump'?'Bomba de combustível':k?.kind==='tech'?RC.title.tech:k?.npc;})(),journal:W.missions}[type];
+ const reactionPoint=type==='dialogue'?POINTS.shelter:type==='road'&&state.roadEntity==='npc'?ROAD_POINTS.find(p=>p.id===state.roadPoint):type==='network'&&NETWORK_POINTS.find(p=>p.id===state.networkPoint)?.kind==='shelter'?NETWORK_POINTS.find(p=>p.id===state.networkPoint):type==='poi'&&POIS.find(p=>p.id===state.poi)?.kind==='trade'?POIS.find(p=>p.id===state.poi):null;const reaction=reactionPoint&&contextualReaction(c,reactionPoint);
  const act=(kind,p)=>{const ok=game.action(kind,p);if(!ok)setError(game.state.notice||T.actionError);else setError('');return ok;};
  return <div className={`panel-backdrop field-interface ${narrative?'narrative-backdrop':'technical-backdrop'} ${closing?'panel-closing':''}`} style={{'--subtitle-scale':game?.settings?.subtitleScale||1}}><section className={'panel mission-panel '+(type==='map'?'map-panel':'')+' panel-kind-'+type} ref={ref} role="dialog" aria-modal="true" aria-labelledby="mission-title"><div className="panel-heading"><Symbol/><span>{UI.brand}</span><button className="close" aria-label={T.back} onClick={onClose}>×</button></div><h2 id="mission-title">{title}</h2>{type==='road'&&<p className="place-subtitle">{ROAD_POINTS.find(p=>p.id===state.roadPoint)?.name}</p>}{type==='network'&&NETWORK_POINTS.find(p=>p.id===state.networkPoint)?.npc&&<p className="place-subtitle">{NETWORK_POINTS.find(p=>p.id===state.networkPoint)?.name}</p>}
+ {reaction&&<aside className="restoration-reaction" aria-label="Reação à restauração"><small>Sobre as mudanças na região</small><p>{reaction}</p></aside>}
  {type==='discovery'&&<DiscoveryPanel state={state} act={act}/>}
  {type==='inspection'&&<><span className="inspection-key">ABRIGO 07 · INSPEÇÃO</span><p>{TRAINING.objects.find(o=>o.id===state.inspection)?.detail}</p></>}
  {type==='dialogue'&&<NarrativeDialogue act={act} onClose={onClose}/>}

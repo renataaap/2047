@@ -14,8 +14,8 @@ export class EngineAudio {
     this.expectedFiringHz=firingHz;this.osc.forEach((o,i)=>o.frequency.setTargetAtTime(firingHz*[1,2,4][i],now,.07));
     this.filter.frequency.setTargetAtTime(180+(state.rpm||0)*.2+load*420,now,.12);
     this.gain.gain.setTargetAtTime(state.engineOn&&!paused?(.07+load*.055)*(state.shifting?.45:1):0,now,.1);
-    this.wind.gain.setTargetAtTime(paused?0:(.018+state.speed*.002+(state.storm?.14:0))*(state.indoors?.3:1),now,.2);
-    this.rain?.gain.setTargetAtTime(!paused&&state.restored?.13:0,now,.7);
+    this.wind.gain.setTargetAtTime(paused?0:(.018+state.speed*.002+(state.storm?.14:0))*(1-(state.recoveryEnvironment?.amount||0)*.38)*(state.indoors?.3:1),now,.2);
+    this.rain?.gain.setTargetAtTime(!paused?.13*(state.recoveryEnvironment?.rain??Number(!!state.restored)):0,now,.7);
     this.radio?.gain.setTargetAtTime(state.radioActive?(.018+(state.interference||0)*.085):0,now,.1);
     this.alertGain?.gain.setTargetAtTime(state.cargoRisk&&!paused&&Math.sin(now*10)>0?.045:0,now,.02);
     if(!paused&&(state.engineOn!==this.lastEngineOn||(state.shiftCount||0)!==this.lastShiftCount)){

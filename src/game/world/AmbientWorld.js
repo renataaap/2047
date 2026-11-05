@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {INHABITED_SITES} from '../../data/ambience.js';
-import {restoredAt} from '../missions/network.js';
+import {recoveryAt} from '../restoration/progress.js';
 import {detailSurface} from '../render/detailSurfaces.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {DECOR_CELL,planCell} from './contextLayout.js';
@@ -24,12 +24,12 @@ export class AmbientWorld {
   for(let i=center-2;i<=center+2;i++)if(i<=0&&i>=-131&&Math.abs(i*DECOR_CELL-position.z)<radius+80){const key=`cell:${i}`;wanted.add(key);if(!this.live.has(key))this.live.set(key,this.buildCell(i));}
   for(const p of INHABITED_SITES)if(Math.hypot(position.x-p.x,position.z-p.z)<Math.min(240,radius)){const key=`site:${p.id}`;wanted.add(key);if(!this.live.has(key))this.live.set(key,this.buildSite(p));}
   for(const [key,b] of this.live)if(!wanted.has(key)){b.dispose();this.live.delete(key);}
-  const lamps=[];for(const b of this.live.values()){b.group.visible=!menu;if(b.garden)b.garden.visible=restoredAt(campaign,b.site.z);lamps.push(...b.lamps);}
+  const lamps=[];for(const b of this.live.values()){b.group.visible=!menu;if(b.garden)b.garden.visible=recoveryAt(campaign,b.site.x,b.site.z).stage>=2&&recoveryAt(campaign,b.site.x,b.site.z).amount>.16;lamps.push(...b.lamps);}
   this.time+=dt;this.flakes.visible=!menu&&!(Math.abs(position.x+13)<5&&Math.abs(position.z-22)<8);const dummy=new THREE.Object3D();for(let i=0;i<12;i++){dummy.position.set(position.x+((i*3.7+this.time*.9)%28)-14,position.y+.8+(i%3)*.7,position.z-10+(i*7%24));dummy.rotation.set(this.time*.3+i,i*.7,this.time*.2);dummy.updateMatrix();this.flakes.setMatrixAt(i,dummy.matrix);}this.flakes.instanceMatrix.needsUpdate=true;
   const available=lamps.filter(p=>(this.night>.01||p.task)&&Math.hypot(p.x-position.x,p.z-position.z)<13);available.sort((a,b)=>Math.hypot(a.x-position.x,a.z-position.z)-Math.hypot(b.x-position.x,b.z-position.z));
   this.lights.forEach((l,i)=>{const p=available[i];l.intensity=!menu&&p?(p.task?2+this.night*10:this.night*16):0;l.visible=l.intensity>.016;if(p)l.position.set(p.x,p.y,p.z);});
  }
  setNight(value){this.night=value;this.m.lamp.emissiveIntensity=.15+value*2.5;}
- snapshot(){return {compositions:this.live.size,parts:[...this.live.values()].reduce((n,b)=>n+b.count,0),drawBatches:[...this.live.values()].reduce((n,b)=>n+b.group.children.length,0),colliders:[...this.live.values()].reduce((n,b)=>n+b.bodies.length,0),sites:[...this.live.values()].filter(b=>b.site).map(b=>b.site.id),cells:[...this.live.keys()].filter(k=>k.startsWith('cell:')),lights:this.lights.filter(l=>l.intensity>0).length};}
+ snapshot(){return {compositions:this.live.size,parts:[...this.live.values()].reduce((n,b)=>n+b.count,0),drawBatches:[...this.live.values()].reduce((n,b)=>n+b.group.children.length,0),colliders:[...this.live.values()].reduce((n,b)=>n+b.bodies.length,0),sites:[...this.live.values()].filter(b=>b.site).map(b=>b.site.id),gardens:[...this.live.values()].filter(b=>b.garden?.visible).map(b=>b.site.id),cells:[...this.live.keys()].filter(k=>k.startsWith('cell:')),lights:this.lights.filter(l=>l.intensity>0).length};}
  dispose(){for(const b of this.live.values())b.dispose();this.live.clear();for(const m of this.labels.values()){m.map.dispose();m.dispose();}this.plantGeometry.dispose();this.flakes.geometry.dispose();this.flakes.dispose();this.flakes.removeFromParent();for(const l of this.lights)l.removeFromParent();}
 }

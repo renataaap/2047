@@ -1,5 +1,7 @@
 # Estado do projeto — 2047: Rede Aurora
 
+**0.11.0 em desenvolvimento** na branch `feat/restauracao-ambiental-0.11.0`, base real main `4771193` com 0.10.0 integrada. Restauração por Núcleo, vegetação autoral instanciada, solo sem novos samplers, chuva unificada, apresentação pulável, diário/mapa e reações contextuais implementados; validação visual/regressões em andamento. Não é entrega final. [Diagnóstico](docs/DIAGNOSTICO_RESTAURACAO_0.11.0.md) · [incrementos](docs/INCREMENTOS_RESTAURACAO_0.11.0.md). Os números seguintes pertencem às versões históricas.
+
 **0.10.0 — garagem e frota:** garagem municipal de Cinza Nova funcional, três skins, prévias 3D, acessórios, interior, três upgrades reais e dois caminhões dirigíveis. Base 0.9.1 com a correção do chão preservada. [Relatório](RELATORIO_GARAGEM_0.10.0.md) · [incrementos](docs/INCREMENTOS_GARAGEM_0.10.0.md) · [teste Windows](docs/TESTE_MANUAL_GARAGEM_0.10.0.md) · [PR #4](https://github.com/renataaap/2047/pull/4).
 
 Validação desta atualização: **225 unitários, build, 39/39 E2Es numa integral de 50,8 minutos, 2/2 rechecagens posteriores do harness e reinício real aprovados**. As rechecagens não são contadas como cenários inéditos da integral; o código da aplicação permaneceu igual. [Registros](evidence/garage-0.10.0/validation.json). Windows/GPU física e audição humana continuam pendentes; três modelos adicionais ainda não são dirigíveis.
