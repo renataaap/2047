@@ -1,3 +1,4 @@
+import {provisionQuote,exchange,recordTrade,marketSite} from '../economy/market.js';
 import {calibrateSeed} from './seedService.js';
 import {upgradeWorld} from '../world/worldProgress.js';
 import { BIOMES,CORES,ROUTES,SHELTERS,SIDE_MISSIONS,SUPPLY_CACHES,biomeAt,WORLD_COPY as W } from '../../data/network.js';
@@ -46,7 +47,7 @@ if(action==='complete'&&state==='accepted'&&transact(c,q.bag,q.cost,q.reward)){c
 return false;
 }
 export function networkLoot(c,id){const cache=SUPPLY_CACHES.find(k=>k.id===id);if(!cache||c.network.looted.includes(id)||!transact(c,'player',{},cache.loot))return false;c.network.looted.push(id);return true;}
-export function networkBuy(c,shelter,id){if(!Object.prototype.hasOwnProperty.call(OFFERS,id))return false;const o=OFFERS[id],stock=c.network.stocks[shelter];if(!o||!stock||stock[id]<o.quantity||!transact(c,'player',{scrap:o.cost},{[id]:o.quantity}))return false;stock[id]-=o.quantity;c.expedition.transactions++;return true;}
+export function networkBuy(c,shelter,id){const q=provisionQuote(c,shelter,id);if(!q.ok||!exchange(c,'player',{scrap:q.cost},{[id]:q.quantity}))return false;c.network.stocks[shelter][id]-=q.quantity;c.expedition.transactions++;recordTrade(c,marketSite(shelter),q.cost);return true;}
 export function weatherAt(c,z){const region=biomeAt(z),restored=restoredAt(c,z),clock=c.network?.clock||0,front=region==='storm'&&clock%120<65&&!restored;
 return {region,restored,event:front?'front':region==='salt'&&!restored?'heat':region==='glass'&&!restored?'crosswind':'calm',front,interference:region==='storm'?(front?.95:restored?.12:.65):region==='glass'?.3:region==='cities'?.18:.08,fog:restored?.55:front?3.8:region==='glass'?1.2:1,grip:restored?1:front?.72:region==='glass'?.78:1};
 }

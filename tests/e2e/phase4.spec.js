@@ -22,7 +22,7 @@ test('Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga inte
  test.setTimeout(300000);await mkdir(dir,{recursive:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});await boot(page,legacy());
  expect((await state(page)).objective.title).toBe('Obtenha a Semente 2');
  await visit(page,{id:'vault-3',name:'Cofre 3',x:CORES[2].vault.x,z:CORES[2].vault.z,kind:'vault'});await expect(page.getByRole('button',{name:'Liberar e embarcar Semente'})).toBeDisabled();
- await side(page,'lia');await page.getByRole('button',{name:'Comprar Água',exact:true}).click();expect((await state(page)).campaign.network.stocks.lia.water).toBe(14);await page.getByRole('button',{name:'Descansar · 1 comida + 1 água',exact:true}).click();
+ await side(page,'lia');await page.getByRole('button',{name:'Comprar Água',exact:true}).click();await expect.poll(async()=>(await state(page)).marketBusy).toBe(false);expect((await state(page)).campaign.network.stocks.lia.water).toBe(14);await page.getByRole('button',{name:'Descansar · 1 comida + 1 água',exact:true}).click();
  const legs=[];
  for(const k of CORES.slice(1)){
   if(k.number===4)await side(page,'afonso');if(k.number===5)await side(page,'noemia');

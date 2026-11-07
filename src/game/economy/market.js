@@ -40,8 +40,8 @@ export function quotePrice(c,{site,item,quantity,baseQuantity=1,baseCost,stock=n
 }
 export function canExchange(c,bag,cost={},reward={}){
  if(!['player','truck'].includes(bag))return false;const next={...c.inventory[bag]};
- for(const [k,n]of Object.entries(cost)){if(!ITEMS[k]||!integer(n)||next[k]<n)return false;next[k]-=n;}
- for(const [k,n]of Object.entries(reward)){if(!ITEMS[k]||!integer(n))return false;next[k]+=n;}
+ for(const [k,n]of Object.entries(cost)){if(!Object.hasOwn(ITEMS,k)||!integer(n)||next[k]<n)return false;next[k]-=n;}
+ for(const [k,n]of Object.entries(reward)){if(!Object.hasOwn(ITEMS,k)||!integer(n))return false;next[k]+=n;}
  return Object.keys(ITEMS).every(k=>Number.isFinite(next[k])&&next[k]>=0&&next[k]<=500)&&Object.entries(ITEMS).reduce((sum,[k,v])=>sum+next[k]*v.weight,0)<=(bag==='player'?40:240)+1e-7;
 }
 export function exchange(c,bag,cost={},reward={}){if(!canExchange(c,bag,cost,reward))return false;for(const [k,n]of Object.entries(cost))c.inventory[bag][k]-=n;for(const [k,n]of Object.entries(reward))c.inventory[bag][k]+=n;return true;}
