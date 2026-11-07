@@ -90,7 +90,7 @@ export function deliveryQuote(c,siteId,gate){
  if(m.contract!==a.id||m.type!==t.cargo||m.quantity!==t.quantity)return {ok:false,message:'O lacre, a quantidade ou o manifesto não corresponde ao contrato.'};
  if(a.metres<Math.max(30,(a.route.minimumDistance??a.route.distance)*.55))return {ok:false,message:'O transporte físico entre origem e destino ainda não foi registrado.'};
  const failed=m.integrity<CARGO_TYPES[m.type].minimumIntegrity,late=a.deadlineAt!==null&&l.clock>a.deadlineAt,quality=.55+.45*m.integrity/100,factor=quality*(late?.8:1);
- const reward=failed?{scrap:0,parts:0}:Object.fromEntries(Object.entries(a.reward).map(([k,n])=>[k,Math.floor(n*factor)])),xp=failed?0:Math.floor(t.xp*(m.integrity>=90?1.2:1)*(late?.9:1));
+ const reward=failed?{scrap:0,parts:0}:Object.fromEntries(Object.entries(a.reward).map(([k,n])=>[k,Math.round(n*factor)])),xp=failed?0:Math.floor(t.xp*(m.integrity>=90?1.2:1)*(late?.9:1));
  return {ok:true,failed,late,reward,xp,message:failed?'Carga avariada: registrar perda, sem pagamento ou XP.':late?'Entrega atrasada: prêmio reduzido em 20%.':'Carga conferida; pagamento será confirmado após salvar.'};
 }
 function rewardPlan(c,reward){

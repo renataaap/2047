@@ -1,3 +1,4 @@
+import {awardCareer} from '../../src/game/logistics/career.js';
 import {CargoVisual} from '../../src/game/logistics/CargoVisual.js';
 import {CARGO_TYPES} from '../../src/data/contracts.js';
 import {beforeAll,it,expect,vi} from 'vitest';
@@ -10,7 +11,7 @@ import {EconomyController} from '../../src/game/economy/EconomyController.js';
 import {createCampaign} from '../../src/game/missions/campaign.js';
 import {upgradeCampaign} from '../../src/game/missions/network.js';
 import {ensureFleet,newVehicle,selectVehicle,captureFleet} from '../../src/game/garage/fleet.js';
-import {ensureLogistics,refreshOffers,acceptContract,loadContract,stepLogistics} from '../../src/game/logistics/contracts.js';
+import {ensureLogistics,refreshOffers,acceptContract,loadContract,stepLogistics,deliveryQuote,completeContract} from '../../src/game/logistics/contracts.js';
 import {Navigator} from '../../src/game/navigation/Navigator.js';
 import {validSave} from '../../src/game/persistence/schema.js';
 import {LOGISTICS_SITES} from '../../src/data/contracts.js';
@@ -54,3 +55,14 @@ it.each(Object.keys(CARGO_TYPES))('modelo %s cabe no manifesto e descarrega sem 
  c.logistics.cargo={contract:'geometry-test',type,quantity,vehicle:'titan-old',integrity:100};visual.update(.1);expect(visual.snapshot().visible).toBe(true);expect(visual.snapshot().mass).toBe(quantity*t.unitKg);const disposed=vi.fn();for(const mesh of visual.batch.group.children){mesh.geometry.computeBoundingBox();const b=mesh.geometry.boundingBox;expect(Math.max(Math.abs(b.min.x),Math.abs(b.max.x))).toBeLessThanOrEqual(t.width/2+.05);expect(Math.max(Math.abs(b.min.z),Math.abs(b.max.z))).toBeLessThanOrEqual(t.depth/2+.05);expect(b.min.y).toBeGreaterThanOrEqual(-.02);expect(b.max.y).toBeLessThanOrEqual(t.height+.06);mesh.geometry.addEventListener('dispose',disposed);}
  const count=visual.batch.owned.length;c.logistics.cargo=null;visual.update(0);expect(disposed).toHaveBeenCalledTimes(count);expect(visual.root.children).toHaveLength(0);expect(visual.snapshot().visible).toBe(false);expect(released).not.toHaveBeenCalled();visual.dispose();expect(g.truck.root.children).toHaveLength(0);Object.values(materials).forEach(m=>m.dispose());
 });
+
+function settlement(template='instrumentos-cinza'){
+ const g=game(),c=g.campaign,urgent=template==='agua-urgente',hub=urgent?'ivani':'cotovelo';
+ if(urgent){c.cores['core-1'].state='active';awardCareer(c,{xp:90,metres:500,integrity:100,special:false,region:'ashes',vehicle:'titan-old',skill:'regional',reward:{scrap:0,parts:0}});}
+ const o=refreshOffers(c,hub).find(o=>o.template===template);acceptContract(c,hub,o.id,'titan-old');loadContract(c,hub,'titan-old',{ok:true});
+ for(let i=0;i<Math.ceil(o.route.distance);i++)stepLogistics(c,.1,Math.min(1,o.route.distance-i));return {g,c,o};
+}
+it('avaria de 0,1% não retira a peça inteira nem um material do pagamento',()=>{const {c}=settlement();c.logistics.cargo.integrity=99.9;const q=deliveryQuote(c,'cinza',{ok:true});expect(q).toMatchObject({ok:true,failed:false,reward:{scrap:8,parts:1},xp:156});});
+it('perda moderada reduz o prêmio em unidades previsíveis, sem exceder a oferta',()=>{const {c,o}=settlement();c.logistics.cargo.integrity=65;expect(deliveryQuote(c,'cinza',{ok:true}).reward).toEqual({scrap:7,parts:1});for(const integrity of [100,99.9,90,75,60]){c.logistics.cargo.integrity=integrity;const q=deliveryQuote(c,'cinza',{ok:true});for(const [id,n]of Object.entries(q.reward)){expect(Number.isInteger(n)).toBe(true);expect(n).toBeGreaterThanOrEqual(0);expect(n).toBeLessThanOrEqual(o.reward[id]);}}});
+it('arredondamento não concede recursos ou XP para uma carga abaixo da condição mínima',()=>{const {c}=settlement();c.logistics.cargo.integrity=59.9;const before=structuredClone(c.inventory),q=completeContract(c,'cinza',{ok:true});expect(q.failed).toBe(true);expect(q.reward).toEqual({scrap:0,parts:0});expect(q.xp).toBe(0);expect(c.inventory).toEqual(before);expect(c.career.stats.completed).toBe(0);expect(()=>completeContract(c,'cinza',{ok:true})).toThrow();});
+it('urgência começa na coleta, pausa com dt zero e reduz prêmio ao atrasar sem eliminar uma peça',()=>{const {c,o}=settlement('agua-urgente'),deadline=c.logistics.active.deadlineAt;expect(deadline-c.logistics.active.loadedAt).toBe(1200);const clock=c.logistics.clock;stepLogistics(c,0,0);expect(c.logistics.clock).toBe(clock);expect(deliveryQuote(c,'cinza',{ok:true}).late).toBe(false);stepLogistics(c,deadline-clock+5,0);const q=deliveryQuote(c,'cinza',{ok:true});expect(q.late).toBe(true);expect(q.failed).toBe(false);expect(q.reward.scrap).toBeLessThan(o.reward.scrap);expect(q.reward.parts).toBe(1);expect(q.xp).toBe(183);});
