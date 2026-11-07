@@ -1,0 +1,10 @@
+import {execFileSync} from 'node:child_process';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const root='evidence/contracts-0.12.0',digest=async path=>createHash('sha256').update(await readFile(path)).digest('hex');
+const paths=()=>execFileSync('git',['ls-files','src','tests','scripts','package.json','package-lock.json','playwright.config.js','public/assets/models/manifest.json'],{encoding:'utf8'}).trim().split('\n').filter(Boolean).sort();
+const base=JSON.parse(await readFile(`${root}/protected-base.json`,'utf8'));
+const checkProtected=async()=>{const out={};for(const [path,hash]of Object.entries(base.files))out[path]={expected:hash,actual:await digest(path)};if(Object.values(out).some(v=>v.expected!==v.actual))throw Error('Protected file changed');return out;};
+await mkdir(root,{recursive:true});const protectedFiles=await checkProtected();
+if(process.argv.includes('--freeze')){const files={};for(const path of paths())files[path]=await digest(path);const record={time:new Date().toISOString(),commit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),files,protectedFiles};await writeFile(`${root}/source-freeze.json`,JSON.stringify(record,null,2)+'\n');console.log(`Frozen ${Object.keys(files).length} files; ${Object.keys(protectedFiles).length} protected hashes unchanged.`);}
+else{const frozen=JSON.parse(await readFile(`${root}/source-freeze.json`,'utf8')),current=paths(),mismatches=[];for(const path of current)if(await digest(path)!==frozen.files[path])mismatches.push(path);for(const path of Object.keys(frozen.files))if(!current.includes(path))mismatches.push(path);if(mismatches.length)throw Error(`Source changed after freeze: ${mismatches.join(', ')}`);const record={time:new Date().toISOString(),sourceCommit:frozen.commit,verifiedFiles:current.length,protectedHashes:Object.keys(protectedFiles).length,unchanged:true};await writeFile(`${root}/source-verified.json`,JSON.stringify(record,null,2)+'\n');console.log(JSON.stringify(record));}

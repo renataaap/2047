@@ -29,7 +29,7 @@ export function refreshOffers(c,hub){
  const l=ensureLogistics(c),site=LOGISTICS_SITES[hub];if(!site?.board||!siteUnlocked(c,site))return [];
  const epoch=Math.floor(l.clock/OFFER_PERIOD),old=l.offers[hub]||[],next=[];
  for(const t of CONTRACT_TEMPLATES.filter(t=>t.hub===hub)){
-  if(c.career.level<t.level||!siteUnlocked(c,LOGISTICS_SITES[t.origin])||!siteUnlocked(c,LOGISTICS_SITES[t.destination])||(l.closed[t.id]??-1)>=epoch||!compatibleVehicles(c,t).length)continue;
+  if(c.career.level<t.level||t.minSkill&&c.career.skills[t.minSkill.id]<t.minSkill.count||!siteUnlocked(c,LOGISTICS_SITES[t.origin])||!siteUnlocked(c,LOGISTICS_SITES[t.destination])||(l.closed[t.id]??-1)>=epoch||!compatibleVehicles(c,t).length)continue;
   const origin=LOGISTICS_SITES[t.origin],destination=LOGISTICS_SITES[t.destination],weight=CARGO_TYPES[t.cargo].unitKg*t.quantity;
   const route=planRoute(origin.bay,destination.destination,'safe',c,VEHICLES[c.fleet?.active||'titan-old'].mass+weight+(seedOnBoard(c)?2200:0)+suppliesMass(c.inventory.truck));if(!route)continue;
   const id=`frete:${t.id}:${epoch}`,previous=old.find(o=>o.id===id);
@@ -124,7 +124,7 @@ export function validLogistics(c){
  const l=c.logistics;if(!validCareer(c.career)||!validEconomy(c.economy))return false;if(l===undefined)return c.career===undefined&&c.economy===undefined||!c.career||c.career.stats.completed===0;
  if(!c.career||!c.economy||!plain(l)||l.version!==1||!Number.isFinite(l.clock)||l.clock<0||l.clock>1e8||!['campaign','contract'].includes(l.focus)||!ROUTE_PROFILES.includes(l.preference)||!plain(l.offers)||Object.keys(l.offers).some(id=>!LOGISTICS_SITES[id]?.board)||!plain(l.closed)||Object.entries(l.closed).some(([id,n])=>!template(id)||!integral(n,0,1e7))||!Array.isArray(l.history)||l.history.length>60)return false;
  if(Object.values(l.offers).some(list=>!Array.isArray(list)||list.length>2||list.some(o=>!validOffer(o))||new Set(list.map(o=>o.id)).size!==list.length))return false;
- const seen=new Set();for(const h of l.history){if(!h||!template(h.template)||!integral(h.epoch,0,1e7)||h.id!==`frete:${h.template}:${h.epoch}`||seen.has(h.id)||!['completed','failed','cancelled'].includes(h.outcome)||(l.closed[h.template]??-1)<h.epoch||!Number.isFinite(h.endedAt)||h.endedAt<0||h.endedAt>l.clock)return false;seen.add(h.id);}
+ const seen=new Set();for(const h of l.history){if(!h||!template(h.template)||!Number.isFinite(h.metres)||h.metres<0||h.metres>1e9||h.vehicle!==null&&!Object.hasOwn(VEHICLES,h.vehicle)||!plain(h.reward)||Object.keys(h.reward).some(k=>!['scrap','parts'].includes(k))||!integral(h.reward.scrap,0,500)||!integral(h.reward.parts,0,20)||!integral(h.xp,0,1000)||h.integrity!==null&&(!Number.isFinite(h.integrity)||h.integrity<0||h.integrity>100)||h.late!==undefined&&typeof h.late!=='boolean'||!integral(h.epoch,0,1e7)||h.id!==`frete:${h.template}:${h.epoch}`||seen.has(h.id)||!['completed','failed','cancelled'].includes(h.outcome)||(l.closed[h.template]??-1)<h.epoch||!Number.isFinite(h.endedAt)||h.endedAt<0||h.endedAt>l.clock)return false;seen.add(h.id);}
  if(l.active===null)return l.cargo===null;
  const a=l.active;if(!validOffer(a)||!CONTRACT_STATES.includes(a.state)||!Number.isFinite(a.acceptedAt)||a.acceptedAt<0||a.acceptedAt>l.clock||!Number.isFinite(a.metres)||a.metres<0||a.metres>1e9||(l.closed[a.template]??-1)>=a.epoch)return false;
  if(a.state==='awaiting_pickup')return l.cargo===null&&a.vehicle===null&&a.loadedAt===null&&a.deadlineAt===null;

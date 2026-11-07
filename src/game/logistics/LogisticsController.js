@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {LOGISTICS_SITES} from '../../data/contracts.js';
 import {ensureLogistics,refreshOffers,offerDetails,acceptContract,loadContract,completeContract,cancelContract,parkingGate,deliveryQuote,contractTarget,contractRoutes,stepLogistics,siteUnlocked} from './contracts.js';
-import {commercialPayload,capacity} from './manifest.js';
+import {commercialPayload,capacity,seedOnBoard,suppliesMass} from './manifest.js';
 import {cargoDamage} from '../cargo/integrity.js';
 export class LogisticsController {
  constructor(game){this.game=game;this.reset();ensureLogistics(game.campaign);}
@@ -10,7 +10,8 @@ export class LogisticsController {
  access(){const g=this.game,s=LOGISTICS_SITES[this.site],p=g.player.body.translation();return !!s&&g.context()==='walking'&&g.state.overlay==='contracts'&&siteUnlocked(g.campaign,s)&&Math.hypot(p.x-s.terminal.x,p.z-s.terminal.z)<3.8&&g.visibleTarget({key:`logistics:${s.id}`,position:{...s.terminal,y:g.world.groundHeight(s.terminal.x,s.terminal.z)+1.4}});}
  gate(){const g=this.game;return parkingGate(LOGISTICS_SITES[this.site],g.current,new THREE.Euler().setFromQuaternion(g.currentQ,'YXZ').y,g.state,g.activeVehicleId);}
  open(site){const g=this.game;this.site=site;if(LOGISTICS_SITES[site]?.board)refreshOffers(g.campaign,site);this.message=site?'Estacione na faixa, desligue o motor e confira o manifesto.':'Caderno profissional. Procure um quadro físico para contratar ou operar a carga.';this.refreshRoutes();g.openPanel('contracts');}
- refreshRoutes(){const g=this.game,a=g.campaign.logistics?.active;this.routes=contractRoutes(g.campaign,g.current,g.state.massKg||9000);this.routeKey=`${a?.id}/${a?.state}`;}
+ mass(){const g=this.game,t=g.vehicle.tuning,c=g.campaign;return t.chassisMass+(seedOnBoard(c)?t.seedMass:0)+suppliesMass(c.inventory.truck)+this.payload().mass+Math.max(0,g.state.fuel||0)*t.engine.dieselKgPerLiter;}
+ refreshRoutes(){const g=this.game,a=g.campaign.logistics?.active;this.routes=contractRoutes(g.campaign,g.current,this.mass());this.routeKey=`${a?.id}/${a?.state}`;}
  step(dt,accel,impact){const g=this.game,l=g.campaign.logistics,m=l?.cargo,target=contractTarget(g.campaign),yaw=new THREE.Euler().setFromQuaternion(g.currentQ,'YXZ').y;
   const damage=m&&g.cargoGrace<=0?cargoDamage(this.sample,accel,impact,dt,g.campaign.components.suspension*.7+g.campaign.components.frame*.3):0;
   const metres=Math.hypot(g.current.x-g.previous.x,g.current.z-g.previous.z);
