@@ -33,7 +33,7 @@ export class LogisticsController {
    else if(type==='contractCancel')cancelContract(c,this.site,this.gate());
    else throw Error('Operação de frete desconhecida.');
    if(!await g.save())throw Error('A gravação falhou. A operação foi desfeita; nenhum pagamento foi confirmado.');
-   this.message=result?result.failed?'Perda registrada e salva. Nenhum pagamento concedido.':`Entrega salva. Pagamento: ${Object.entries(result.reward).filter(([,n])=>n).map(([k,n])=>`${n} ${k==='scrap'?'materiais recuperados':'peças'}`).join(' + ')} · ${result.xp} XP.`:type==='contractLoad'?'Carga lacrada e salva no caminhão. Confira o peso e siga o GPS.':type==='contractCancel'?'Frete encerrado e salvo. Mercadoria devolvida, sem pagamento ou XP.':'Contrato aceito e salvo. Siga até a área de coleta.';
+   this.message=result?result.failed?'Perda registrada e salva. Nenhum pagamento concedido.':`Entrega salva. Pagamento: ${Object.entries(result.reward).filter(([,n])=>n).map(([k,n])=>`${n} ${k==='scrap'?(n===1?'material recuperado':'materiais recuperados'):(n===1?'peça':'peças')}`).join(' + ')} · ${result.xp} XP.`:type==='contractLoad'?'Carga lacrada e salva no caminhão. Confira o peso e siga o GPS.':type==='contractCancel'?'Frete encerrado e salvo. Mercadoria devolvida, sem pagamento ou XP.':'Contrato aceito e salvo. Siga até a área de coleta.';
    if(this.site)refreshOffers(c,this.site);g.ambientAudio?.cue('door',g.current);this.refreshRoutes();return true;
   }catch(e){Object.assign(c,backup);this.message=e.message;this.refreshRoutes();return false;}
   finally{this.busy=false;g.cargoVisual?.update(0);g.emit();}
