@@ -1,0 +1,100 @@
+{
+  "version": "0.11.0",
+  "completedAt": "2026-11-05T13:18:41.304Z",
+  "branch": "feat/restauracao-ambiental-0.11.0",
+  "sourceCommit": "7668207720aa04755e891b27b68620158f2fc189",
+  "baseCommit": "4771193",
+  "sourceFrozen": {
+    "files": 277,
+    "unchanged": true,
+    "manifest": "final/source-freeze.json"
+  },
+  "protectedBase": {
+    "files": 11,
+    "unchanged": true,
+    "manifest": "protected-base.json"
+  },
+  "unit": {
+    "passed": 257,
+    "files": 34,
+    "log": "final/unit.log"
+  },
+  "build": {
+    "passed": true,
+    "devStopped": true,
+    "log": "final/build.log",
+    "proof": "final/build-result.json"
+  },
+  "integralE2E": {
+    "passed": 44,
+    "failed": 0,
+    "skipped": 0,
+    "retries": 0,
+    "workers": 1,
+    "durationMinutes": 61.873666883333335,
+    "report": "final/browser-results.json",
+    "log": "final/e2e.log"
+  },
+  "physicalAccess": {
+    "passed": 28,
+    "total": 28,
+    "geographicSites": 14,
+    "vehicles": [
+      "titan-old",
+      "dump-truck"
+    ],
+    "fixedHz": 60,
+    "actualRapier": true,
+    "acceleratedDiagnosticTime": true,
+    "teleportsDuringDrives": 0,
+    "matrix": "access-main-2/matrix.json",
+    "humanContinentTrip": false
+  },
+  "restoredGarage": {
+    "passed": 2,
+    "matrix": "garage-access/matrix.json"
+  },
+  "serverRestart": {
+    "passed": 2,
+    "backend": "local libSQL/SQLite",
+    "proof": "final/restoration/restart-summary.json",
+    "productionTursoValidated": false
+  },
+  "visuals": {
+    "beforeFrames": 16,
+    "newFrames": 32,
+    "equivalentViews": 8,
+    "stages": 4,
+    "comparison": "comparacao.html",
+    "metrics": "visual-metrics.json",
+    "renderer": "Chromium ANGLE SwiftShader",
+    "realWindowsGpuFpsMeasured": false,
+    "diagnosticPoses": true
+  },
+  "historicalBaseOnly": {
+    "version": "0.10.0",
+    "unit": 225,
+    "e2e": 39,
+    "notCurrentResults": true
+  },
+  "baselineActuallyRerun": {
+    "unit": 225,
+    "buildPassed": true,
+    "fullE2ERerun": false
+  },
+  "attempts": [
+    "logs/focused-1.log",
+    "logs/focused-2-interrupted.log",
+    "logs/focused-3.log",
+    "logs/focused-4.log",
+    "logs/focused-5.log",
+    "logs/access-main-interrupted.log"
+  ],
+  "remaining": [
+    "Windows and physical GPU evaluation",
+    "Human audio/art/driving evaluation",
+    "Additional botanical art and urban wall/crack vegetation",
+    "Volumetric clouds, broad hydrology and fauna models are not implemented",
+    "No new economy/routine/final-story expansion claimed"
+  ]
+}

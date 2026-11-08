@@ -16,11 +16,11 @@ export const TEXT = {
   creditsTitle: 'Feito de estrada e esperança', creditsBody: '2047: Rede Aurora\nDante Rocha Negra · Titã Rocha Clara\nMundo e áudio procedurais; modelos 3D licenciados.\nConstruído com Next.js, Three.js e Rapier.\nTutorial, exploração e reformulação realista.\nPersonagens provisórios: base MakeHuman CC0, adaptações originais.\nPowered by Poly Haven · CC0.\nTitã inicial: Alt (whisper.alt) · CC BY 4.0, adaptado.\nGaragem: Yury Misiyuk; posto: SURVIVED; barril: mxtc · CC BY 4.0.\nCarros: Renafox · CC BY-NC 4.0, uso não comercial.',
   warning: 'O Titã está tombado. Pause para reposicioná-lo na estrada.', recover: 'Reposicionar na estrada',
   ready: 'O mundo ainda está lá fora.', headlight: 'Faróis',
-  controls: 'CONTROLES', phase: 'VERSÃO 0.10.0 / GARAGEM E FROTA', single: 'UMA JORNADA PARA UM JOGADOR',
+  controls: 'CONTROLES', phase: 'VERSÃO 0.12.0 / FRETES DA ÚLTIMA ESTRADA', single: 'UMA JORNADA PARA UM JOGADOR',
   noWebgl: 'Não foi possível iniciar o mundo 3D. Verifique se WebGL está habilitado e recarregue a página.',
   freight: 'TITÃ ROCHA CLARA', ash: 'Cinzas secas', asphalt: 'Asfalto', dirt: 'Terra', sand: 'Areia',
   hint: 'E liga o motor · W coloca o Titã na estrada',
   project: 'PROJETO AURORA', established: 'EST. 2027', silence: 'VINTE ANOS DEPOIS DO SILÊNCIO',
   shelter: 'ABRIGO 07', viewport: 'Mundo 3D da Rede Aurora e Titã Rocha Clara', north: 'N', northWest: 'NO', northEast: 'NE',
-  latitude: '23° 47′ S', longitude: '46° 38′ O', worldTime: '17:42', release: '0.10.0', panelBrand: 'REDE AURORA / 2047',
+  latitude: '23° 47′ S', longitude: '46° 38′ O', worldTime: '17:42', release: '0.12.0', panelBrand: 'REDE AURORA / 2047',
 };

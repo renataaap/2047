@@ -1,0 +1,21 @@
+import {heightAt} from '../../src/game/world/terrain.js';
+import {test,expect} from '@playwright/test';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {roadAccessFixture} from '../helpers/road-access-fixture.js';
+import {controlledPhysics,walkPhysical,drivePhysical} from '../helpers/physical-drive.js';
+import {ensureFleet,newVehicle,selectVehicle,captureFleet} from '../../src/game/garage/fleet.js';
+import {LOGISTICS_SITES} from '../../src/data/contracts.js';
+import {parkingGate} from '../../src/game/logistics/contracts.js';
+import {evidencePath} from '../helpers/evidence-path.js';
+const state=p=>p.evaluate(()=>window.__GAME_DEBUG__.getState()),dir=evidencePath('logistics-access');
+for(const vehicle of ['titan-old','dump-truck'])test(`acessos logísticos locais, sete depósitos: ${vehicle}`,async({page})=>{
+ test.setTimeout(1200000);await mkdir(dir,{recursive:true});const results=[],errors=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
+ for(const s of Object.values(LOGISTICS_SITES)){
+  const {data}=roadAccessFixture('core-7');data.campaign.checkpoint=4;const ground=heightAt(s.bay.x,s.bay.z+24);data.truck.position=[s.bay.x,ground+1.5,s.bay.z+24];data.player.position=[s.bay.x-3,ground+1.1,s.bay.z+24];data.engineOn=false;ensureFleet(data.campaign,data);if(vehicle==='dump-truck'){data.campaign.fleet.vehicles[vehicle]=newVehicle(vehicle,data.campaign.components,data.campaign.inventory.truck,80);selectVehicle(data.campaign,data,vehicle);}captureFleet(data.campaign,data);
+  const list=await(await page.request.get('/api/saves')).json(),entry=list.saves.find(v=>v.slot==='1');const response=entry?await page.request.put('/api/saves/1',{data:{version:entry.version,data}}):await page.request.post('/api/saves',{data:{slot:'1',data}});expect(response.ok()).toBe(true);
+  await page.goto('/');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');await controlledPhysics(page);await page.evaluate(()=>{const d=window.__GAME_DEBUG__;d.step({handbrake:true},180);d.publish();});
+  await page.keyboard.press('KeyM');await page.getByLabel('Destino da viagem').selectOption(s.destination);await page.keyboard.press('Escape');await page.keyboard.press('KeyE');const proof=await drivePhysical(page,{cruise:2.5,maxSeconds:100,label:`acesso-${vehicle}-${s.id}`,path:[{x:s.bay.x,z:s.bay.z+24,s:0},{x:s.bay.x,z:s.bay.z,s:24}],wheelbase:vehicle==='dump-truck'?4.738:4.675});await page.keyboard.press('KeyE');await page.evaluate(()=>{const d=window.__GAME_DEBUG__;d.step({handbrake:true},120);d.publish();});const parked=await state(page),q=parked.quaternion,yaw=Math.atan2(2*(q[3]*q[1]+q[0]*q[2]),1-2*(q[1]**2+q[0]**2));expect(parkingGate(s,{x:parked.position[0],z:parked.position[2]},yaw,parked,vehicle).ok).toBe(true);
+  await page.keyboard.press('KeyF');await walkPhysical(page,[{x:s.terminal.x,z:s.terminal.z-1.6}]);await expect.poll(async()=>(await state(page)).interaction?.key).toBe(`logistics:${s.id}`);await page.keyboard.press('KeyF');await expect(page.getByRole('dialog',{name:'Central de contratos'})).toBeVisible();const terminal=await state(page);expect(terminal.logistics.access).toBe(true);expect(terminal.importedTruck.wheelBindings).toBe(6);await page.waitForFunction(()=>[...document.querySelectorAll('.cab-access-transition')].every(e=>Number(getComputedStyle(e).opacity)<.01));await page.screenshot({path:`${dir}/${vehicle}-${s.id}.png`});results.push({site:s.id,proof,parking:{position:parked.position,yaw,gate:terminal.logistics.gate},terminal:{position:terminal.playerPosition,access:terminal.logistics.access,offers:terminal.logistics.offers.map(o=>o.template)}});
+ }
+ expect(errors).toEqual([]);await writeFile(`${dir}/${vehicle}.json`,JSON.stringify({method:'Seven separate local fixtures with legacy cores 1–6 already activated. Each final 24 m approach driven with original Rapier; capsule walk and F to each new terminal. Does not claim interregional journeys or complete campaign.',results,errors},null,2)+'\n');
+});

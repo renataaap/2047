@@ -1,0 +1,46 @@
+{
+  "recordedAt": "2026-11-05T13:23:00.097610+00:00",
+  "sourceCommit": "7668207720aa04755e891b27b68620158f2fc189",
+  "frozenApplicationUnchanged": true,
+  "additionalGarageRestart": {
+    "passed": true,
+    "proof": "final/garage/restart.json",
+    "backend": "local libSQL/SQLite"
+  },
+  "supplementaryBiomeGallery": {
+    "captures": 6,
+    "allFadeOpacityZero": true,
+    "allPageConsoleErrorsEmpty": true,
+    "index": "final/restoration/biomes-visible/index.json",
+    "originalE2EImagesRetained": true,
+    "diagnosticPosesNotJourneys": true
+  },
+  "earlierIntegral": {
+    "complete": false,
+    "passed": 8,
+    "failed": 1,
+    "withoutRecordedOutcome": 35,
+    "proof": "integral-1-interrupted/interruption.json"
+  },
+  "harnessRechecks": {
+    "instrumented": {
+      "passed": 1,
+      "log": "logs/focused-zeca.log"
+    },
+    "preparationAttempt1": {
+      "failed": 2,
+      "log": "logs/focused-zeca-settled.log"
+    },
+    "preparationAttempt2": {
+      "failed": 1,
+      "notRun": 1,
+      "log": "logs/focused-zeca-settled-2.log"
+    },
+    "finalPreparation": {
+      "passed": 2,
+      "durationMinutes": 2.3,
+      "log": "logs/focused-zeca-settled-3.log"
+    }
+  },
+  "notAddedToIntegralScenarioCount": true
+}
