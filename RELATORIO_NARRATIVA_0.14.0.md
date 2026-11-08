@@ -23,7 +23,7 @@
 - `npm test`: **345/345 em 42 arquivos** (18 testes novos: `narrative-story`, `narrative-radio`). Incluem um teste que procura termos do segredo da Voz em todo texto exibido.
 - `npm run build`: aprovado.
 - **E2E novo `narrative.spec.js`:** Novo Jogo → tutorial → motor → acelerar na estrada real até a primeira transmissão. Confere a legenda visível no topo, o texto e o registro no save. Passou. Captura: `evidence/narrative-0.14.0/radio-line.png` (não versionada nesta etapa; gerada em `AURORA_EVIDENCE_ROOT`).
-- Regressão E2E (condução, fase 4, expansão do mundo, narrativa): ver a seção abaixo.
+- **Regressão E2E: 9/9 em 10,1 min** (`driving`, `phase4`, `world-expansion` e `narrative`), sobre o código do commit do rádio narrativo. Cobre condução, os sete Núcleos/fase 4, POIs/diário e o rádio novo. Não é a integral.
 - **Sem** integral de E2E, playtest humano, Windows/GPU ou revisão de texto por outra pessoa.
 
 ## Limitações conhecidas
