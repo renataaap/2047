@@ -36,6 +36,10 @@ Ordem de integração recomendada: o #5 primeiro, **sem squash**, e depois o #6 
 - O teste `installed-assets` estourou o tempo de 20 s duas vezes com a máquina carregada e passou ao repetir. Pode falhar à toa no CI.
 - **Não houve** uma integral de E2E nesta etapa. Windows/GPU, áudio, diversão e balanceamento humano continuam pendentes.
 
+## Arquivo protegido alterado
+
+`src/game/garage/catalog.js` faz parte dos 12 arquivos protegidos registrados na integral da 0.12 (`protected-base.json`). A correção 4 acrescentou só os campos `footprint` aos dois veículos, sem alterar massa, torque, capacidade, custo ou tuning. Ainda assim, o hash desse arquivo deixou de ser igual ao da integral. A próxima integral deve registrar essa diferença autorizada.
+
 ## Pendências desta etapa (0.12.x)
 
 Restante do `/balance-check` (ainda não corrigido): todo o conteúdo comprável custa cerca de 25 sucatas, então falta onde gastar depois de uns 30 minutos de fretes; os níveis 3–6 de carreira não liberam nada; o diesel custa pouco (5 L por sucata); o XP continua fixo por modelo, sem considerar a distância; não há metas de balanceamento escritas.
