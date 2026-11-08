@@ -3,11 +3,9 @@
 > **Status**: Draft (modo autônomo, aprovação registrada por seção)
 > **Owned By**: art-director
 > **Last Updated**: 2026-11-08
-> **Art Director Sign-Off (AD-ART-BIBLE)**: [Not yet reviewed]
+> **Art Director Sign-Off (AD-ART-BIBLE)**: SKIPPED 2026-11-08 — solo mode
 
-`/art-bible` writes these nine sections in this order and replaces each
-section's `[To be designed]` line as that section is approved. A section still
-holding its placeholder is incomplete; a later run fills only those.
+Escrita via `/art-bible` em modo autônomo (decisões registradas em cada seção). Fonte de verdade da visão: [`docs/VISAO_CRIATIVA.md`](../../docs/VISAO_CRIATIVA.md).
 
 ## 1. Visual Identity Statement
 
@@ -119,31 +117,124 @@ Redundância:
 
 ## 5. Character Design Direction
 
-[To be designed] — the player character's visual archetype, how players tell
-enemies, NPCs and allies apart at a glance, expression and pose style, and how
-much detail survives at game camera distance (LOD philosophy).
+- **Dante, "o trabalhador que persiste":** jaqueta de lona, brim, calça de trabalho, botas, tudo gasto e remendado com cuidado. Sem tática, armadura ou arma: a armadura dele é o Titã. Boné ou lenço na cor dessaturada da pintura do Titã; graxa nas mãos e mangas. É visto de costas ~80% do tempo, então o traço distintivo fica nas costas (remendo retangular, alça da lanterna, silhueta do boné). Saturação ≤25%.
+- **Distância de leitura:** longe (30–80 m) só silhueta, postura e grupo; média (10–30 m) soma bloco de cor e acessório; perto (<10 m) soma rosto, gesto e tecido. Cada tipo é reconhecível de longe, sem cor.
+
+| Tipo | Postura | Marca |
+|---|---|---|
+| Aliado nomeado | aberta, olha para o jogador, ponto fixo | 1 peça-assinatura alta, sempre igual |
+| Comerciante | atrás de balcão ou lona, mãos ocupadas | lamparina âmbar ao lado |
+| Sobrevivente | curvado ou sentado, grupos de 2–4 perto do fogo | rosto coberto no devastado |
+| Homens de Garcia | inclinados à frente, formação em V | marca de fuligem nas costas; nunca vermelho |
+| Garcia/Brutus | imóvel no centro do grupo | único de casaco longo e ombreira grande; contraste por quietude |
+
+- **Expressão sem animação facial (base MakeHuman CC0, provisória):** cabeça (inclinação, look-at ±60°, amortecimento de 0,4 s), ombros, mãos, orientação e distância. Diálogo em plano médio 3/4 com luz lateral; nunca close de rosto. 6–8 gestos reutilizáveis, no máximo 1 por fala. Idle com respiração e troca de apoio a cada 6–10 s, em fases diferentes. **Rostos cobertos no devastado e descobertos no restaurado (decidido).** Proibido: T-pose visível, simetria perfeita, interpenetração, pés flutuando.
+- **LOD:** LOD0 a <10 m e Dante sempre; LOD1 de 10–30 m (~50%); LOD2 de 30–80 m (~20%, animação em taxa reduzida); oculto além de 80 m, com a presença passada por luz, fumaça e lona. Chapéu, mochila e ombreira ficam até o último LOD.
 
 ## 6. Environment Design Language
 
-[To be designed] — architectural style and its tie to the world's culture,
-texture philosophy (painted, PBR or stylised, and why), prop density rules per
-area type, and environmental storytelling guidelines.
+**Arquitetura e história.**
+- Mar de Cinzas: polo industrial e logístico parado em 2027 (galpões, silos, pátios); Cinza Nova é uma comunidade instalada em galpões.
+- Cidades Esqueleto: concreto armado sem revestimento; a vida migrou para térreos, subsolos e túneis.
+- Leito Seco: porto, píeres e salinas virados para uma água que não existe; é isso que o faz ler como mar.
+- Cordilheira Vítrea: engenharia de montanha (contenção, galerias, defensas, radar) sobre rocha vitrificada.
+- Zonas de Tempestade: infraestrutura energética fundida, tudo inclinado para o epicentro.
+
+**Textura.** Os 8 PBR locais são o vocabulário (tiling de 2–4 m). A cor de vértice faz a macrovariação (sujeira, poeira, umidade, altura), a custo zero de sampler, e é o canal do antes/depois. O decalque fica num único atlas futuro. Molhado = albedo −20 a −30% e roughness −0,2 a −0,4, por parâmetro. **Concreto = rocha com tint e cor de vértice, sem material novo (decidido, restrição técnica).**
+
+**Densidade.**
+| Área | Densidade |
+|---|---|
+| Estrada aberta | 1 aglomerado a cada 150–250 m, 1 marco a cada 400–600 m; nada a <3 m do meio-fio; o vazio é intencional |
+| Cidade | 3–6 props por 100 m de rua; vão >15 m só com causa; entulho na base do que caiu |
+| Comunidade | a mais alta, em volta de 1 centro (fogo, poço, rádio), caminhos livres de 1,5 m |
+| Núcleo | anel de 30–50 m livre, props técnicos radiais; vegetação depois da ativação |
+| Interior | média-alta, 1 vinheta por cômodo, passagem ≥1,2 m |
+
+**Narrativa ambiental.** Uma vinheta = uma história legível em ≤3 s, por causa e consequência, nunca por texto; 1 vinheta forte por km; a restauração muda a vinheta; preferir ausência a corpo. Exemplos:
+- Mar de Cinzas: fila de carros com portas abertas virados para a saída; guarita com marcas de contagem.
+- Cidades: lonas e varais só nos andares baixos; escada de chapa ligando lajes vizinhas.
+- Leito Seco: navio com a corrente da âncora sumindo na crosta; píer que termina no nada com régua de maré.
+- Cordilheira: defensa rompida com caminhão no barranco; mirante voltado ao vale vitrificado.
+- Tempestade: torres inclinadas para o epicentro; marcas de Garcia rareando até sumir.
+
+**Kits procedurais** (em ordem de impacto por custo; B = baixo, M = médio). Os implementados em `src/game/world/biomeKits.js` estão marcados com ✔.
+- Transversais: borda viva de estrada (B); postes com fiação caída (B); ocupação com lona, varal e horta (M); carro abandonado em 3 tipos (M).
+- Mar de Cinzas: galpão com treliça exposta ✔ (B); tanques e silos ✔ (B); pórtico de tubulação (B); duna de cinza a sotavento (B); alambrado caído (B); chaminé ✔ (M).
+- Cidades: torre em ruína ✔ (M); quarteirão contínuo (M); laje em panqueca (B); ocupação vertical (B); viaduto interrompido ✔ (M); boca de túnel (M).
+- Leito Seco: crosta poligonal ✔ (B); linhas de maré e terraços (B); estacas de píer ✔ (B); casco encalhado com faixa de sal ✔ (M); boias, redes e contêiner (B); guindaste portuário (M).
+- Cordilheira: face rochosa facetada e estratificada ✔ (M); muro de contenção (B); defensas amassadas (B); veios vitrificados ✔ (B); galeria contra queda de rocha (M); radar derretido (M).
+- Tempestade: torres retorcidas ao vento ✔ (B); fulguritos ✔ (B); cicatrizes de plasma que somem com a restauração ✔ (B); veículos vitrificados (B); estruturas fundidas (M); subestação colapsada (M).
 
 ## 7. UI/HUD Visual Direction
 
-[To be designed] — diegetic versus screen-space HUD, typography (personality,
-weight, size hierarchy, minimum readable size), iconography style, UI animation
-feel, and any art-direction versus readability conflict and how it was decided.
+**Camadas.** (1) Diegético: instrumentos, luzes do painel, rádio, faróis. (2) Espacial: marcador de interação em branco-giz. (3) Meta: minimapa como tela de GPS. (4) Tela: legenda, prompt, notificação, aviso crítico, menus. Na cabine, a tela não repete os instrumentos; a ponto de leitura não é garantida em 720p, por isso diesel, temperatura e sobrevivência **em alerta** sempre aparecem com número e ícone (UX).
+
+**Layout (decidido; o UX prevalece sobre a arte no minimapa):**
+- Topo esquerdo: objetivo compacto; o detalhe some em 8 s e volta ao mudar o objetivo ou com J.
+- Topo centro: bússola; a legenda do rádio logo abaixo, no máximo 2 linhas.
+- Topo direito: hora e botão **"Menu (Esc)"**, um hub com os 8 painéis e suas teclas. Os 8 botões permanentes saem. Até 3 atalhos contextuais ao lado: terminal → Fretes; parado ou oficina → Inspeção/Garagem; mensagem nova → Rádio; a pé → Inventário.
+- Inferior direito: minimapa com âncora própria, **inclusive na cabine** (sobre o lado do passageiro). Se tocar a pista, primeiro reduzir para 160 px.
+- Inferior esquerdo: na cabine, faixa curta (marcha e km/h; massa só com carga; motor só se desligado ou em falha). Fora da cabine: velocidade, marcha, RPM, diesel e temperatura.
+- Por contexto: barras de sobrevivência só com hidratação/saciedade <60% ou fadiga >40%, por 6 s após comer, beber ou dormir, e na pausa; fixas abaixo de 25%. Diesel e temperatura na tela da cabine só em alerta. "F Descer" só abaixo de 3 km/h. Rótulo de câmera por 2 s após C.
+- Status sem tecla nova (decidido): só gatilhos e o hub.
+
+**Tipografia.** Serifada = voz e memória; sem serifa tabular = instrumento.
+| Uso | Peso | 1080p | 720p |
+|---|---|---|---|
+| Título de menu | Serif 600 | 56 | 40 |
+| Título de painel | Serif 600 | 30 | 22 |
+| Legenda | Serif 500 | 24 | 18 |
+| Nome de quem fala (#C9A35A, caixa-alta) | Sans 600 | 14 | 12 |
+| Corpo | Sans 400 | 18 | 16 |
+| Rótulo do HUD | Sans 500 | 14 | 12 |
+| Número crítico | Sans tabular 600 | 32 | 24 |
+| Prompt | Sans 500 | 18 | 16 |
+Piso: 14 px a 720p para texto do HUD (UX; hoje há 10 px na cabine). Legendas com ≤60 caracteres por linha, placa de fundo, tempo mínimo de 1,5 s + ~1 s a cada 15 caracteres.
+
+**Contraste (UX).** Texto ≥4,5:1 e ícones ≥3:1 contra o pior fundo (céu do Leito Seco). Painéis de alerta com opacidade ≥92%. Foco com anel de 2 px #E9E2D0 e 2 px de afastamento; Esc fecha e devolve o foco.
+
+**Iconografia.** Status: linha de 2 px na grade de 24 px, monocromático #E9E2D0, cor só para estado, formas da §4. Itens: estêncil sólido (decidido). Tecla: quadrado chanfrado.
+
+**Animação.** Hover 120 ms; abrir 200 ms; fechar 140 ms; prompt 150 ms (+100 ms de atraso); notificação 250/3–4 s/300 ms. Easing de entrada `cubic-bezier(0.2,0,0,1)`, de saída `cubic-bezier(0.4,0,1,1)`, sem bounce. Só opacidade + translação ≤8 px. Nunca animar valores críticos nem a posição de elementos fixos. A redução de movimento troca translação por opacidade e desliga pulsos e jitter; deve ligar sozinha com `prefers-reduced-motion`.
 
 ## 8. Asset Standards
 
-[To be designed] — file formats, naming convention, texture resolution tiers,
-LOD levels, export settings, and the engine's hard limits (poly budgets per
-asset category, texture memory, material slots). Where an art preference and a
-technical limit disagree, record both and the trade-off chosen.
+**Formatos e nomes (arte).** glTF 2.0 binário (Y-up, metros, pivô na base, frente +Z, sem câmeras e luzes, materiais por função, OPAQUE por padrão, MASK para recorte, BLEND só para vidro real — lição da 0.8.1). Texturas em potência de 2 (albedo/emissivo sRGB, normal OpenGL, ORM R=AO G=rough B=metal). UI em SVG e WOFF2. Nomes `[categoria]_[nome]_[variante]_[tamanho]`, com códigos de bioma mc/ce/ls/cv/zt/tr; kit em código `kit_ce_torre-ruina`. Assets existentes não são renomeados. Todo asset externo registra fonte, autor, licença e alterações; CC BY e CC BY-NC preservados.
+
+**Orçamento técnico (prevalece; números são tetos propostos, sem medição em GPU real):**
+| Acréscimo da vestimenta | Baixo | Médio | Alto |
+|---|---|---|---|
+| Draw calls por setor visível | ≤4 | ≤6 | ≤8 |
+| Draw calls por quadro, cor | ≤10 | ≤18 | ≤26 |
+| Draw calls por quadro, sombra | 0 | ≤4 | ≤6 |
+| Triângulos por setor (LOD0) | 12 mil | 25 mil | 40 mil |
+| Triângulos por quadro | 40 mil | 90 mil | 150 mil |
+| Geometria por setor | ≤0,6 MB | ≤1,2 MB | ≤2 MB |
+
+- Geometria mesclada com ≤65.535 vértices (índice Uint16).
+- No máximo 3–4 materiais de kit por setor; nenhuma textura nova; nenhum sampler novo no terreno; ≤24 colliders por setor.
+- Instancing para kits repetidos ≥6 vezes por setor; peças únicas mescladas por setor e material.
+- LOD0 até 120 m; LOD1 (silhueta, ≤25% dos triângulos) até `preset.distance`; corte em 1,25× essa distância.
+- Sombras: desligadas no Baixo; só verticais altas a <60 m da pista projetam.
+- CPU: ≤2 ms por quadro na montagem, com protótipos em cache e semente fixa.
+- Colliders: cuboide ou cilindro fixo, densidade 0, nunca trimesh aberto, nunca dentro de `roadReserved` ou das reservas de terminais e vegetação.
+- Materiais de kit registrados no mapa de materiais com `dataMapsFrom` (rocha ou ferrugem), para acompanhar Baixo/Alto/Baixo sem upload novo.
+
+**Conflitos resolvidos (padrão restrito):**
+- Ruptura de silhueta a cada 12 m: só no LOD0; no LOD1, só no topo.
+- 4 variantes sem repetir a 30 m: 4 protótipos + rotação, espelhamento e cor; só vale a pé.
+- Chanfro: só no LOD0 e nas quinas de silhueta.
+- Sem concreto PBR novo e sem transparência.
 
 ## 9. Reference Direction
 
-[To be designed] — 3–5 references (games, films, art styles or artists). For
-each: the specific element to take from it, and what to avoid so the result
-does not read as a copy.
+Nenhuma referência entra literal; cada uma resolve um único problema.
+
+| Referência | Tomar | Evitar |
+|---|---|---|
+| Pacific Drive (jogo) | desgaste acumulado na máquina; painel como única luz quente à noite | anomalias sci-fi, neon, rótulos flutuando |
+| The Last of Us (jogo) | vegetação nascendo de fissuras, pés de parede e vãos; feixes em interiores | verde saturado uniforme, fungo e horror, marcos reais reconhecíveis |
+| Marchand & Meffre, *The Ruins of Detroit* (fotografia) | luz difusa e cor natural sem gradação dramática; umidade, gesso caindo e ferrugem com causa (cor de vértice e decalque, sem material novo) | ornamento art déco, simetria frontal perfeita |
+| Fotografia documental do Mar de Aral, Moynaq | cascos enferrujados sobre chão salino; a costa antiga como linha no horizonte; ferrugem contra sal-osso | barcos enfileirados como cenário turístico; areia de deserto comum sem crosta |
+| *Stalker*, Tarkovsky, 1979 (filme) | água parada, musgo sobre ferrugem e concreto, quadros longos e pacientes (estado restaurado) | viragem sépia como filtro, tom místico |
