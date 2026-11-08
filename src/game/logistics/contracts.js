@@ -23,7 +23,9 @@ export function compatibleVehicles(c,t){
 }
 function rewardFor(c,t,route){
  const km=route.distance/1000,fuel=Math.ceil(route.litres*2/5),wear=Math.ceil(km*.25+CARGO_TYPES[t.cargo].unitKg*t.quantity/2500),demand=c.economy.regions[LOGISTICS_SITES[t.destination].region].demand[CARGO_TYPES[t.cargo].resource]||10000;
- return {scrap:Math.max(4,3+fuel+wear+t.difficulty+Math.ceil(km*.6)+Math.max(0,Math.ceil((demand-10000)/1000))),parts:t.difficulty>=2?1:0};
+ // Distance drives the payment (no flat bonus), so a long haul pays more than
+ // a short shuttle. Fuel and wear still reimburse the trip; demand adds up to +2.
+ return {scrap:Math.max(3,fuel+wear+t.difficulty+Math.ceil(km*1.6)+Math.max(0,Math.ceil((demand-10000)/1000))),parts:t.difficulty>=2?1:0};
 }
 export function refreshOffers(c,hub){
  const l=ensureLogistics(c),site=LOGISTICS_SITES[hub];if(!site?.board||!siteUnlocked(c,site))return [];
