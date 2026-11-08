@@ -49,4 +49,6 @@
 - Decisões que dependem de você: política de `evidence/` (repositório perto do limite de 2 GB); troca dos carros CC BY-NC; aceitar ou não o risco SEC-001; perfil Alto em 2k ou 1k; as três decisões de história de `docs/NARRATIVA_0.14.0.md` §7.
 
 ## 5. Resultado da regressão E2E
-*(preenchido ao final da rodada)*
+**27/27 aprovados em 28,9 min** (`navigation-layout`, `interface`, `world-expansion`, `terrain-visibility`, `restoration`, `polish`, `narrative`, `contracts`, `garage`), sobre o código final da vestimenta e do HUD (commit `017bd9e`; os commits seguintes só mudam documentos). Cobre: aviso de save sem cobrir o minimapa, diálogos e legendas, troca de qualidade PBR com dados herdados (inclui os materiais `kit*`), chão visível no orçamento de 16 samplers, restauração com vegetação e streaming, polimento da cabine, rádio narrativo, fretes físicos com os dois caminhões e garagem.
+
+Não é a suíte integral (que tem 50+ casos): é uma regressão focada nas áreas alteradas.
