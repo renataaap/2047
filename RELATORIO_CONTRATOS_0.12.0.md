@@ -1,6 +1,8 @@
 # 0.12.0 — Contratos de transporte, economia regional e carreira
 
-**Estado deste checkpoint: implementação em validação.** Não é uma aprovação artística/humana nem uma integral E2E concluída. Branch `feat/contratos-economia-0.12.0`, base `69afd07`/0.11.0. O PR #5 permanece aberto e a main está em `4771193`/0.10.0 (consulta remota nesta tarefa). Nenhum merge, rebase destrutivo ou force push foi realizado.
+**Implementação funcional da 0.12.0, validada automaticamente e preparada para revisão no [PR #6](https://github.com/renataaap/2047/pull/6).** Branch `feat/contratos-economia-0.12.0`, base `69afd07`/0.11.0. Na consulta de fechamento, o PR #5 continua aberto e a main permanece em `4771193`/0.10.0. O PR #6 está empilhado sobre a branch da 0.11.0; não houve merge, force push ou substituição da main. A aprovação de diversão, áudio e desempenho no Windows/GPU real permanece pendente.
+
+Código final: `81b8142`; integral de regressão: `593e83b`; polimento de pagamento/interface: `513b9a4`, seguido apenas de tradução/concordância em `81b8142`. Os commits de diagnóstico `f46ce5f`, regras puras `b69177f`, integração `d211d24` e especializações `96cebd0` permitem revisar os incrementos. O commit posterior deste relatório reúne documentação e evidências, sem modificar a aplicação.
 
 ## Mudança de comportamento
 
@@ -12,7 +14,7 @@ Não existe pagamento por passar perto do destino. A operação exige Dante junt
 
 Next.js/React/JavaScript, Three.js/WebGL2, Rapier, libSQL, três slots e schema 3. Quatro módulos narrativos, tuning, cabine, SeatedPose, materiais do Titã, catálogo dos veículos, dois GLBs e TerrainBlend têm hashes protegidos em `evidence/contracts-0.12.0/protected-base.json`. VehiclePhysics recebe apenas massa/COM/inércia adicionais; não foram aumentados torque, aderência, freio ou capacidades para favorecer o frete. A campanha não depende da carreira.
 
-Os 257 unitários e 44 cenários históricos da 0.11.0 continuam documentados na versão anterior. Nesta tarefa, a referência anterior às alterações foi uma nova execução de 257 unitários, um build e um E2E de comércio/atores. O arquivo de validação final distinguirá essa referência das rodadas da 0.12.0.
+Os 257 unitários e 44 cenários históricos da 0.11.0 continuam documentados na versão anterior. Nesta tarefa, a referência anterior às alterações foi uma nova execução de 257 unitários, um build e um E2E de comércio/atores. O [registro final](evidence/contracts-0.12.0/validation.json) distingue essa referência das rodadas da 0.12.0.
 
 ## Contratos e locais
 
@@ -55,7 +57,7 @@ Tarifas determinísticas: cidades favorecem peças recuperadas; sal exige mais �
 
 Cada vendedor tem orçamento de recompra inicial finito (20 materiais), teto 50, financiado pelas compras do motorista. Estoques de mercadoria já eram finitos e continuam persistentes. Uma entrega comunitária reduz demanda até o limite de 80% e coloca apenas uma pequena reserva (até quatro unidades) no estoque existente, respeitando os tetos antigos. O restante do frete é consumo comunitário, não recurso oferecido novamente ao jogador.
 
-Prêmio anunciado: base 3 + combustível estimado de ida/volta convertido em escambo + reserva de desgaste + dificuldade + distância + demanda. Piso de quatro materiais; cargas de dificuldade 2+ incluem uma peça. A qualidade multiplica o prêmio por `0,55 + 0,45 × integridade/100`. Atraso em urgências reduz 20% do pagamento e 10% do XP, sem obrigar condução insegura. Abaixo da integridade mínima: registrar perda sem pagamento/XP. Estas são hipóteses iniciais, não aprovação de balanceamento humano.
+Prêmio anunciado: base 3 + combustível estimado de ida/volta convertido em escambo + reserva de desgaste + dificuldade + distância + demanda. Piso de quatro materiais; cargas de dificuldade 2+ incluem uma peça. A qualidade multiplica o prêmio por `0,55 + 0,45 × integridade/100`; o resultado usa a unidade inteira mais próxima, limitada ao prêmio anunciado. Uma avaria de 0,1% não elimina toda a peça de uma recompensa unitária. O manifesto mostra o valor conferido antes da descarga. Canhotos antigos não recebem ajuste retroativo. Atraso em urgências reduz 20% do pagamento e 10% do XP, sem obrigar condução insegura. Abaixo da integridade mínima: registrar perda sem pagamento/XP. Estas são hipóteses iniciais, não aprovação de balanceamento humano.
 
 ## Carreira e interface
 
@@ -71,18 +73,47 @@ Painel industrial com encomendas, manifesto, motorista e histórico; consulta re
 
 Confirmações de contrato e comércio são serializadas no cliente. Uma revisão otimista salva o conjunto completo; o sucesso só aparece após a resposta. Cliques repetidos ficam bloqueados. Falha/409 restaura o snapshot anterior; em conflito real é necessário recarregar a revisão atual, sem sobrescrever outro progresso. Nenhum cookie ou segredo aparece nas evidências publicadas.
 
-## Validação disponível neste checkpoint
+## Testes executados nesta atualização
 
-- 314/314 unitários em 37 arquivos na última execução agregada, `logs/final-unit.log` (57 novos testes sobre os 257 da base).
-- Titã: frete comum, coleta e massa real, 776,81 m por Rapier, estacionamento, entrega, pagamento único e recarga. 7 materiais / 108 XP, 0,435 L durante a viagem, integridade 100%.
-- Basculante: frete comum e depois uma rodada separada de instrumentos frágeis, em sentido inverso. Ambas com física real e persistência.
-- Falha de API 409 no aceite: rollback observado no navegador, sem carga, recurso ou XP duplicado; nova tentativa após retirar a falha funciona.
-- Ensaio de pista em `payload-physics.json`: 4.200 kg fazem o Titã levar 6,85 s em vez de 5,15 s para 8 m/s; frenagem a partir de 8 m/s cresce de 5,64 para 7,92 m. Basculante de 2.800 kg: 5,72 s vs. 4,52 s e 6,83 m vs. 5,07 m. Pista plana, seis rodas, Rapier 60 Hz.
-- Distância carregada coerente a 30/60/120 FPS de apresentação; testes de volume/Seed, finanças, dados inválidos, estado/manifesto, transferencia e portas reais.
+| Execução | Fonte | Resultado e limite |
+| --- | --- | --- |
+| Referência antes de programar | `69afd07` | 257 unitários/34 arquivos, build e um cenário de comércio aprovados; não houve nova integral dos 44 históricos |
+| `npm test` final | `81b8142` | **318/318**, 37 arquivos; 61 acima da base, `logs/release-unit.log` |
+| `npm run build` final | `81b8142` | **Aprovado**, dev/WebGL parados; `logs/release-build.log` |
+| `npm run test:e2e`, suíte inteira | `593e83b` | **51/51 em 74,1 min**, um worker, zero falhas/skips/retries; `integral-1.json` |
+| Regressão focada após prêmio/interface | `513b9a4` | **6/6 em 6,1 min**, zero falhas/skips/retries; `polish-final.json` |
+| Rechecagem dos rótulos finais | `81b8142` | **1/1 em 51,8 s**, zero falhas/skips/retries: cotação, pagamento, região em português, histórico salvo e rodapé; `release-ui.json` |
 
-A auditoria local de 14 acessos regionais passou em 6,5 min e a candidata tem 5/5 E2Es em rodada separada (5 min), incluindo gerador pesado e três slots. Build final, integral E2E e reinício real ainda serão registrados. Não usar esse checkpoint como conclusão integral.
+A suíte integral incluiu tutorial, campanha/sete Núcleos, restauração, terreno/perfis/samplers, garagem/frota, navegação, comércio e contratos. Os 292 arquivos congelados e doze hashes protegidos permaneceram iguais durante os 51 casos. Depois, quatro arquivos da aplicação e dois de teste receberam mudanças delimitadas: arredondamento, conferência do pagamento, rodapé, tradução e concordância. Física, frota, navegação, terreno, restauração, modelos e schema não mudaram depois da integral. Não se afirma uma integral de 52 casos na fonte final; os 6 + 1 casos posteriores são rechecagens, não novos 58 cenários únicos.
+
+Testes específicos cobrem geração/estados, conexão, capacidade/volume, Semente independente, peso/COM, 30/60/120 FPS de apresentação, integridade, estacionamento, pagamento único, devolução, dados inválidos, estoque/saldo/cotação/recompra, XP/especializações, migração, transferência de frota, GPS, portas originais e gravação. O navegador confirmou rollback de um HTTP 409 e nova tentativa sem duplicação. Logs de execuções anteriores e falhas foram preservados, separados dos resultados finais.
+
+## Entregas e progressão comprovadas
+
+- **Titã, água de Cinza Nova até Cotovelo:** 630 kg, 776,81 m integrados, 0,435 L na viagem, integridade 100%, 7 materiais e 108 XP. Coleta, massa, GPS, direção, estacionamento, caminhada, descarga, pagamento e recarga verificados.
+- **Basculante, instrumentos de Cotovelo até Cinza Nova:** 180 kg, 753,70 m, 0,438 L, integridade 100%, 8 materiais + 1 peça e 156 XP. Seis rodas, carga visual e persistência verificadas.
+- **Continuidade real do save do Titã:** segundo contrato de instrumentos, sem conceder XP prévio por fixture. Ré de saída e retorno físico de 3,02 rad, depois 761,18 m pela rota; o canhoto inclui 794,36 m com manobras. As duas entregas somam **1,57 km com carga, 264 XP, nível 2, 15 materiais e uma peça**, preservados após recarga. Há capturas de chegada e carreira em `post-integral/`.
+- **Gerador de 4.200 kg:** coleta/UI, acomodação, massa, seis rodas, recusa de incompatibilidade e devolução sem prêmio. A pré-condição desse teste usa carreira sintética; não é comprovação de uma viagem pesada completa.
+- **14/14 acessos locais:** aproximação, parada, saída e caminhada até os sete terminais com os dois veículos. Rodada focada de 6,5 min e nova execução dentro da integral. São percursos locais, não sete viagens interregionais.
+- **12/12 modelos do catálogo:** destinos conectados e pelo menos um veículo com acomodação compatível. Auditoria de planejamento com progressão sintética, não doze entregas dirigidas.
+
+Movimentação das viagens usa `Game.fixedUpdate` a 60 Hz, controles, transmissão, cápsula e Rapier originais; tempo diagnóstico acelerado. Não se atribuem posições/velocidades durante o transporte. As duas primeiras viagens começam com saves locais de teste; não representam uma sessão humana contínua desde o barracão. A continuação de carreira usa o save efetivamente produzido pela primeira entrega do Titã.
+
+Ensaio de pista separado em `payload-physics.json`: Titã com 4.200 kg leva 6,85 s em vez de 5,15 s para 8 m/s; frenagem a partir de 8 m/s cresce de 5,64 para 7,92 m. Basculante com 2.800 kg: 5,72 s vs. 4,52 s; frenagem 6,83 m vs. 5,07 m. Pista plana, seis rodas, Rapier 60 Hz, sem mudar tuning.
+
+## Reinício real e problemas encontrados
+
+Cinco saves foram recuperados **exatamente após reiniciar o processo da aplicação**: três slots com estados aguardando coleta/em transporte/concluído e as duas entregas reais. Os registros antes/depois contêm revisão, estado e inventários; as cópias da primeira rodada continuam em `restart-initial/`. A rodada final está em `persistence-before-restart.json`, `persistence-after-restart.json` e nos logs `final-persistence-*`. Backend libSQL/SQLite local, sem alegar teste de Turso de produção. Uma inspeção adicional abriu o slot com frete ativo e confirmou a mercadoria renderizada; carreira/histórico também persistiram após a segunda entrega.
+
+Tentativas anteriores preservadas: retorno à cabine com sinal longitudinal errado no harness; seletor que confundia nome de nó GLB com nome de malha; altitude fixa incorreta no fixture da serra; captura durante o fade. A automação foi corrigida para caminhar ao lado da cabine, localizar as faces traseiras reais, usar terreno físico e esperar os dois fades.
+
+Na viagem adicional, o condutor automático tentou retornar da oficina sem manobrar, atingiu a construção e parou. Esse resultado está em `logs/post-integral-probes.log`. A segunda tentativa fez ré e retorno de baixa velocidade com controles originais e concluiu a viagem; `logs/post-integral-probes-2.log` e `post-integral/native-manoeuvre.json`. Nenhuma física ou construção foi removida para favorecer o teste. Isso indica uma manobra que deve entrar no playtest humano.
+
+A revisão visual encontrou dois rótulos expostos: `ashes` e `1 peças`. A fonte final usa os nomes oficiais dos biomas e concordância no pagamento. O arredondamento anterior também eliminava uma peça inteira por avaria de 0,1%; a unidade inteira mais próxima resolve isso sem ultrapassar o máximo anunciado nem conceder ajustes retroativos.
 
 ## Evidências e desempenho
+
+[Comparação visual real, pagamentos e carreira](docs/COMPARACAO_CONTRATOS_0.12.0.md) · [validação estruturada](evidence/contracts-0.12.0/validation.json) · [acessibilidade](docs/ACESSIBILIDADE_LOGISTICA_0.12.0.md) · [playtest Windows e equilíbrio](docs/TESTE_MANUAL_CONTRATOS_0.12.0.md).
 
 Raiz nova `evidence/contracts-0.12.0`, sem substituir versões anteriores. `focused-3` contém primeiro frete Titã; `focused-4`, frete comum Basculante; `focused-5`, instrumentos e conflito. Algumas capturas iniciais do Titã ocorreram durante o fade da cabine; preservadas, não tomadas como prova artística. O harness posterior espera opacidade zero dos dois fades.
 
@@ -90,7 +121,7 @@ Na mesma parada de Cinza Nova, Titã vazio/com carga: 105→110 draw calls, 165.
 
 ## Arquivos e assets
 
-Dados: `src/data/contracts.js`. Lógica: `src/game/logistics/{contracts,manifest,career,LogisticsController,CargoVisual,CargoDoors,LogisticsWorld}.js`; economia: `src/game/economy/{market,EconomyController}.js`. Integração: Game, VehiclePhysics, fleet, Navigator, schema, placement, comércio existente. UI: ContractsPanel, HUD, RoutePlanner e painéis de serviço existentes. Testes específicos em contracts, regional-economy, logistics-integration e E2Es de contratos/acesso. Ensaio reproduzível em `scripts/medir-carga-0.12.0.mjs`. A lista exata do commit ficará no registro final.
+Dados: `src/data/contracts.js`. Lógica: `src/game/logistics/{contracts,manifest,career,LogisticsController,CargoVisual,CargoDoors,LogisticsWorld}.js`; economia: `src/game/economy/{market,EconomyController}.js`. Integração: Game, VehiclePhysics, fleet, Navigator, schema, placement, comércio existente. UI: ContractsPanel, HUD, RoutePlanner e painéis de serviço existentes. Testes específicos em contracts, regional-economy, logistics-integration e E2Es de contratos/acesso. Ensaio reproduzível em `scripts/medir-carga-0.12.0.mjs`. A [lista exata dos 44 arquivos de código, testes, configuração e créditos](evidence/contracts-0.12.0/modified-source-files.txt) acompanha o registro final; documentação e PNGs constam no diff da branch.
 
 Nenhum pacote externo ou novo modelo foi baixado. Carga/quadro são geometria autoral do projeto; portas mantêm licença/atribuição do Titã. Materiais PBR, rig e modelos locais anteriores preservados. Créditos em `public/assets/CREDITOS.txt`; a restrição CC BY-NC dos carros continua. Não se declara liberação comercial de todo o projeto.
 
@@ -99,3 +130,16 @@ Nenhum pacote externo ou novo modelo foi baixado. Carga/quadro são geometria au
 Necessários: playtest no Windows/GPU real, audição, avaliação de duração, variedade, manobras e recompensas por pessoas. A automação acelerada não representa uma viagem humana desde o início de uma partida. Não há empilhadeira, simulação de cintas/mercadoria solta, reboque, rotinas de carregadores ou economia global multiplayer. Especializações habilitam cinco encomendas com requisitos moderados; faltam mais benefícios logísticos e mais composições de docas. As entregas não reformam automaticamente edifícios: seu efeito comunitário inicial é a demanda/pequena reserva persistente.
 
 Próximas melhorias possíveis: fretes com coleta distante do quadro, operações de recuperação, reputação regional, interfaces de expedição com animação dedicada e apresentação mais detalhada da comunidade abastecida. Ampliar só após validar os trabalhos atuais e o balanceamento humano. Os quatro finais e arte final do continente continuam no roadmap anterior.
+
+## Como experimentar esta branch
+
+A main ainda está na 0.10.0 enquanto o PR #5 é revisado. Para obter a implementação sem perder alterações locais, use um clone limpo ou proteja seu trabalho antes de trocar de branch:
+
+```bash
+git fetch origin
+git switch --track origin/feat/contratos-economia-0.12.0
+npm ci
+npm run dev
+```
+
+Se a branch já existir localmente, use `git switch feat/contratos-economia-0.12.0` e `git pull --ff-only`. Abra `http://localhost:3000` no computador onde o servidor está rodando. Preserve a configuração libSQL e o banco anterior; não apague saves/cookies. Em **M → Pátio de carga de Cinza Nova**, siga o GPS; estacione inteiro na faixa, desligue com **E**, desça com **F** e use **F** no quadro. Aceitar → Manifesto ativo → Confirmar carregamento. Na entrega, repita a parada, confira o valor e confirme a descarga. **Fretes / carreira** consulta histórico, motorista e foco de navegação; não contrata à distância.
