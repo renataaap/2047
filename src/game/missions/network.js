@@ -1,3 +1,4 @@
+import {recordAnchor} from '../narrative/story.js';
 import {provisionQuote,exchange,recordTrade,marketSite} from '../economy/market.js';
 import {calibrateSeed} from './seedService.js';
 import {upgradeWorld} from '../world/worldProgress.js';
@@ -38,7 +39,7 @@ export function anchor(c,id){
 if(nextCore(c)?.id!==id||!hasCargo(c)||c.network.cargo!==id)return null;
 if(id==='core-1'){const result=activateCore(c);syncFirst(c);syncRestoration(c);if(result?.success)beginRecovery(c,id);return result;}
 const chance=activationChance(c.seed.integrity);c.rngState=(Math.imul(c.rngState,1664525)+1013904223)>>>0;const roll=c.rngState/4294967296,success=roll<chance,core=c.cores[id];core.attempts++;core.state=success?'active':'failed';
-if(success){c.network.cargo=null;c.completedMissions.push(`aurora-${CORES.find(k=>k.id===id).number}`);c.decisions.push(`${id}-activated`);}else c.seed.integrity=Math.max(0,c.seed.integrity-8);
+if(success){c.network.cargo=null;c.completedMissions.push(`aurora-${CORES.find(k=>k.id===id).number}`);c.decisions.push(`${id}-activated`);recordAnchor(c,id,c.seed.integrity);}else c.seed.integrity=Math.max(0,c.seed.integrity-8);
 c.network.seeds[id].integrity=c.seed.integrity;syncRestoration(c);if(success)beginRecovery(c,id);return {success,chance,roll};
 }
 export function questAction(c,id,action){const q=SIDE_MISSIONS.find(q=>q.id===id);if(!q)return false;const state=c.network.quests[id];
