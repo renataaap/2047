@@ -92,15 +92,17 @@ export function receiveRegionalDelivery(c,site,item,quantity){
  const road=c.road?.stocks?.[site.destination],network=c.network?.stocks?.[site.destination],exp=site.id==='ivani'?c.expedition?.stock:null,stock=road||network||exp;
  if(stock&&Object.hasOwn(stock,item))stock[item]=Math.min(road?200:100,stock[item]+Math.min(4,quantity));
 }
-// Delivered goods ease local demand only for a while: each offer epoch of
-// active simulation moves demand back toward the 10000 reference, so supplied
-// regions do not stay permanently discounted.
-export const DEMAND_RECOVERY_PER_EPOCH=500
-export function relaxDemand(c,epochs=1){
+// Demand drifts once per offer epoch (900 s of active simulation). Supplied
+// regions recover toward the 10000 reference, then demand keeps rising slowly
+// up to 12000 while nobody delivers: unsupplied communities pay a freight
+// bonus and charge more for water, food and parts.
+export const DEMAND_RECOVERY_PER_EPOCH=500,DEMAND_SCARCITY_PER_EPOCH=250,DEMAND_CEILING=12000
+export function driftDemand(c,epochs=1){
  const e=c.economy
 if(!e||!Number.isSafeInteger(epochs)||epochs<1)return
- const step=Math.min(4000,epochs*DEMAND_RECOVERY_PER_EPOCH)
- for(const r of Object.values(e.regions))for(const k of Object.keys(r.demand))r.demand[k]=r.demand[k]<10000?Math.min(10000,r.demand[k]+step):Math.max(10000,r.demand[k]-step)
+ for(const r of Object.values(e.regions))for(const k of Object.keys(r.demand)){let d=r.demand[k]
+for(let i=0;i<Math.min(epochs,40)&&d<DEMAND_CEILING;i++)d=d<10000?Math.min(10000,d+DEMAND_RECOVERY_PER_EPOCH):Math.min(DEMAND_CEILING,d+DEMAND_SCARCITY_PER_EPOCH)
+r.demand[k]=d}
 }
 export function validEconomy(e){
  if(e===undefined)return true;if(!e||e.version!==1||!integer(e.transactions)||!e.tariffs||!e.regions||!e.buybacks||Array.isArray(e.buybacks))return false;
