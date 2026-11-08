@@ -92,6 +92,16 @@ export function receiveRegionalDelivery(c,site,item,quantity){
  const road=c.road?.stocks?.[site.destination],network=c.network?.stocks?.[site.destination],exp=site.id==='ivani'?c.expedition?.stock:null,stock=road||network||exp;
  if(stock&&Object.hasOwn(stock,item))stock[item]=Math.min(road?200:100,stock[item]+Math.min(4,quantity));
 }
+// Delivered goods ease local demand only for a while: each offer epoch of
+// active simulation moves demand back toward the 10000 reference, so supplied
+// regions do not stay permanently discounted.
+export const DEMAND_RECOVERY_PER_EPOCH=500
+export function relaxDemand(c,epochs=1){
+ const e=c.economy
+if(!e||!Number.isSafeInteger(epochs)||epochs<1)return
+ const step=Math.min(4000,epochs*DEMAND_RECOVERY_PER_EPOCH)
+ for(const r of Object.values(e.regions))for(const k of Object.keys(r.demand))r.demand[k]=r.demand[k]<10000?Math.min(10000,r.demand[k]+step):Math.max(10000,r.demand[k]-step)
+}
 export function validEconomy(e){
  if(e===undefined)return true;if(!e||e.version!==1||!integer(e.transactions)||!e.tariffs||!e.regions||!e.buybacks||Array.isArray(e.buybacks))return false;
  for(const id of Object.keys(REGIONAL_TARIFFS)){const r=e.regions[id];if(!r||!integer(r.deliveries)||!GOODS.every(k=>integer(e.tariffs[id]?.[k],7500,17500)))return false;for(const k of ['water','food','parts'])if(!integer(r.demand?.[k],8000,12000)||!integer(r.supplied?.[k],0,100000))return false;}

@@ -4,7 +4,7 @@ import {ITEMS} from '../../data/campaign.js';
 import {planRoute,ROUTE_PROFILES} from '../navigation/routePlanner.js';
 import {capacity,manifestMass,seedOnBoard,suppliesMass} from './manifest.js';
 import {ensureCareer,careerLevel,awardCareer,validCareer} from './career.js';
-import {ensureEconomy,receiveRegionalDelivery,validEconomy} from '../economy/market.js';
+import {ensureEconomy,receiveRegionalDelivery,relaxDemand,validEconomy} from '../economy/market.js';
 
 const clone=v=>structuredClone(v);
 const integral=(n,min=0,max=1e8)=>Number.isSafeInteger(n)&&n>=min&&n<=max;
@@ -76,7 +76,7 @@ export function contractTarget(c){
 export function contractRoutes(c,position,mass=9000){const s=contractTarget(c);return s?ROUTE_PROFILES.map(profile=>{const r=planRoute(position,s.destination,profile,c,mass);return r?{profile,distance:r.distance,seconds:r.seconds,litres:r.litres,risk:r.risk,surfaces:r.surfaces,roadTypes:r.roadTypes}:null;}).filter(Boolean):[];}
 export function stepLogistics(c,dt,metres=0,damage=0,ready=false){
  const l=c.logistics;if(!l||!(dt>0)||!Number.isFinite(dt))return;
- l.clock=Math.min(1e8,l.clock+dt);const a=l.active,m=l.cargo;if(!a||!m)return;
+ const before=Math.floor(l.clock/OFFER_PERIOD);l.clock=Math.min(1e8,l.clock+dt);const passed=Math.floor(l.clock/OFFER_PERIOD)-before;if(passed>0)relaxDemand(c,passed);const a=l.active,m=l.cargo;if(!a||!m)return;
  if(Number.isFinite(metres)&&metres>=0&&metres<3)a.metres=Math.min(1e9,a.metres+metres);
  if(Number.isFinite(damage)&&damage>0)m.integrity=Math.max(0,m.integrity-damage*CARGO_TYPES[m.type].fragility);
  if(m.integrity<CARGO_TYPES[m.type].minimumIntegrity)a.state='failed';

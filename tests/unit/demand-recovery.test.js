@@ -1,0 +1,10 @@
+import {it,expect} from 'vitest';
+import {createCampaign} from '../../src/game/missions/campaign.js';
+import {upgradeCampaign} from '../../src/game/missions/network.js';
+import {receiveRegionalDelivery,relaxDemand,validEconomy,DEMAND_RECOVERY_PER_EPOCH} from '../../src/game/economy/market.js';
+import {ensureLogistics,stepLogistics} from '../../src/game/logistics/contracts.js';
+import {LOGISTICS_SITES,OFFER_PERIOD} from '../../src/data/contracts.js';
+const fixture=()=>{const c=upgradeCampaign(createCampaign());ensureLogistics(c);return c;};
+it('demanda abastecida volta à referência com o tempo ativo, sem passar dela',()=>{const c=fixture();for(let i=0;i<100;i++)receiveRegionalDelivery(c,LOGISTICS_SITES.ivani,'water',3);expect(c.economy.regions.salt.demand.water).toBe(8000);relaxDemand(c,1);expect(c.economy.regions.salt.demand.water).toBe(8000+DEMAND_RECOVERY_PER_EPOCH);relaxDemand(c,20);expect(c.economy.regions.salt.demand.water).toBe(10000);expect(validEconomy(c.economy)).toBe(true);});
+it('a recuperação acompanha as épocas da simulação, não cada quadro',()=>{const c=fixture();c.economy.regions.salt.demand.water=8000;stepLogistics(c,OFFER_PERIOD-1);expect(c.economy.regions.salt.demand.water).toBe(8000);stepLogistics(c,1);expect(c.economy.regions.salt.demand.water).toBe(8000+DEMAND_RECOVERY_PER_EPOCH);stepLogistics(c,0);expect(c.economy.regions.salt.demand.water).toBe(8000+DEMAND_RECOVERY_PER_EPOCH);});
+it('entradas inválidas não alteram a economia',()=>{const c=fixture();c.economy.regions.salt.demand.water=8000;const before=structuredClone(c.economy);for(const n of [0,-1,.5,NaN])relaxDemand(c,n);expect(c.economy).toEqual(before);});
