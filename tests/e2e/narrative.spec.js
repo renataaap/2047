@@ -1,0 +1,20 @@
+import {evidencePath} from '../helpers/evidence-path.js';
+import {enterFromNewTutorial} from '../helpers/start-driving.js';
+import {test,expect} from '@playwright/test';
+import {mkdir} from 'node:fs/promises';
+const dir=evidencePath('narrative-0.14.0');
+const state=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
+test('rádio narrativo: transmissão chega em cruzeiro real, aparece legendada e fica no registro',async({page})=>{
+ test.setTimeout(240000);await mkdir(dir,{recursive:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.setViewportSize({width:1280,height:720});await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0,subtitles:true})));
+ await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:60000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await enterFromNewTutorial(page);await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');
+ expect((await state(page)).radioLine??null).toBeNull();
+ await page.keyboard.press('KeyE');await expect.poll(async()=>(await state(page)).rpm).toBeGreaterThan(600);
+ await page.keyboard.down('KeyW');
+ await expect(page.getByTestId('radio-line')).toBeVisible({timeout:120000});
+ await page.waitForTimeout(1200);await page.getByTestId('radio-line').screenshot({path:`${dir}/radio-line-element.png`});await page.screenshot({path:`${dir}/radio-line.png`});const box=await page.getByTestId('radio-line').boundingBox();expect(box.y).toBeLessThan(200);
+ await page.keyboard.up('KeyW');
+ const s=await state(page);expect(s.speedKmh).toBeGreaterThan(5);expect(s.radioLine.text.length).toBeGreaterThan(10);expect(s.campaign.story.radio).toContain(s.radioLine.id);
+ await page.keyboard.down('Space');await expect.poll(async()=>(await state(page)).speedKmh,{timeout:30000}).toBeLessThan(1);await page.keyboard.up('Space');
+ expect(errors).toEqual([]);
+});

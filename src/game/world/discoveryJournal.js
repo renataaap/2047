@@ -1,3 +1,4 @@
+import {SITE_FRAGMENTS} from '../../data/story.js';
 import {recoverySummary} from '../restoration/progress.js';
 import {DISCOVERY_SITES} from '../../data/ambience.js';
 import {POIS} from '../../data/expedition.js';
@@ -21,5 +22,6 @@ export function discoveryEntries(c){
   const observations=['','Primeira água sobre o solo','Brotos nas margens da estrada','Árvores jovens e nova cobertura'];
   for(let stage=1;stage<=3;stage++)if(s.observed&(1<<stage))entries.push({id:`nature:${p.id}:${stage}`,name:observations[stage],km:-p.z/1000,kind:'Natureza observada',complete:true,status:`${p.name} · observação registrada`,detail:stage===1?'A poeira cedeu e a primeira umidade apareceu.':stage===2?'Gramíneas e arbustos ocupam manchas protegidas, mantendo os acessos livres.':'A vegetação jovem já muda a silhueta da paisagem. O bioma conserva suas características.'});
  }
+ for(const p of DISCOVERY_SITES){const f=SITE_FRAGMENTS[p.id];if(f&&c.flags?.voiceFragments?.includes(f.id))entries.push({id:`signal:${f.id}`,name:'Fragmento de sinal',km:-p.z/1000,kind:'Sinal',complete:true,status:p.name,detail:f.text});}
  return entries.sort((a,b)=>a.km-b.km||a.id.localeCompare(b.id));
 }

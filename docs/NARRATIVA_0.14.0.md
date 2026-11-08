@@ -82,7 +82,7 @@ Segredo canônico: está em `docs/PROMPT_MESTRE.md`, seção dos finais. **Nada 
 | cap. 4 | Fragmento no Motel Última Luz | Exploração opcional |
 | cap. 5 | A Voz menciona o túnel de 2027 | Rádio |
 
-Os fragmentos ficam na lista existente `flags.voiceFragments`; nenhum inventário paralelo. O final secreto vai exigir um número mínimo (proposta: 4 de 5), não todos, e o diário mostra quantos há sem dizer para que servem.
+Os fragmentos ficam na lista existente `flags.voiceFragments`; nenhum inventário paralelo. São **6** fontes implementadas: `glass-relay` (repetidor), `signal-viaduct`, `signal-stubborn`, `signal-tunnel` (rádio) e `weighbridge-log`, `motel-tape` (exploração a pé). O final secreto vai exigir um número mínimo (proposta: 4 de 6), não todos. O painel do rádio mostra "fragmentos de sinal N/6" sem dizer para que servem. Saves que já visitaram a Balança 07 ou o Motel recebem a pista ao carregar.
 
 ## 7. Finais — análise da contradição e recomendação
 

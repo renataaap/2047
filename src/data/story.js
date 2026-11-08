@@ -37,3 +37,40 @@ export const CHOICES={
   keep:{label:'Manter o Titã inteiro para a subida'},
  }},
 };
+
+// Radio transmissions played while driving, at most once each, in chapter
+// order. Conditions: chapters (current chapter must be listed), region,
+// quest {id:state}, choice {id:option}, after (another transmission logged),
+// renata (requires first contact). `fragment` adds to flags.voiceFragments.
+export const SPEAKERS={renata:'Dra. Renata Final Boss',voice:'A Voz',survivors:'Transmissão de sobreviventes',lia:'Lia',afonso:'Afonso',noemia:'Noêmia',joel:'Joel',brutus:'Garcia'};
+export const TRANSMISSIONS=[
+ {id:'r-ch1-calls',speaker:'renata',chapters:['ch1'],renata:true,text:'Você não respondeu às duas primeiras chamadas. Achei que este rádio também tinha morrido.'},
+ {id:'s-ch1-shelter',speaker:'survivors',chapters:['ch1','ch2'],text:'…aqui Abrigo 07. Ainda estamos aqui. Se alguém ouvir, ainda estamos aqui.'},
+ {id:'r-ch1-engine',speaker:'renata',chapters:['ch1'],renata:true,after:'r-ch1-calls',text:'Esse motor faz barulho de motor de verdade. Fazia tempo que eu não ouvia um.'},
+ {id:'v-ch1-noise',speaker:'voice',chapters:['ch1'],after:'r-ch1-engine',text:'…ão… …solte o pé na descida… …'},
+ {id:'r-ch2-team',speaker:'renata',chapters:['ch2'],renata:true,text:'Éramos onze na equipe da Rede. Eu era a mais nova. Os outros desenharam os Núcleos; eu só aprendi a ligá-los.'},
+ {id:'v-ch2-viaduct',speaker:'voice',chapters:['ch2'],region:'cities',fragment:'signal-viaduct',text:'O viaduto aguenta um caminhão por vez. Não pare no meio.'},
+ {id:'r-ch2-unknown',speaker:'renata',chapters:['ch2','ch3'],renata:true,after:'v-ch2-viaduct',text:'Esse sinal não está em nenhuma frequência nossa. Não sei quem é. Cuidado com quem sabe demais.'},
+ {id:'l-ch2-tank',speaker:'lia',chapters:['ch2','ch3'],quest:{supply:'completed'},text:'A caixa-d’água segurou. As crianças perguntam quem é o motorista do caminhão barulhento.'},
+ {id:'s-ch2-toll',speaker:'survivors',chapters:['ch2','ch3'],text:'…cuidado no Leito Seco. Os homens de Garcia cobram a passagem em água.'},
+ {id:'r-ch3-wait',speaker:'renata',chapters:['ch3'],renata:true,text:'Você quer saber por que esperei vinte anos. Sem Semente, sem caminhão, sem estrada. Só me restava esperar alguém como você.'},
+ {id:'b-ch3-call',speaker:'brutus',chapters:['ch3'],text:'Motorista do caminhão velho. Aqui é Garcia. Você carrega cilindros que podiam salvar o meu povo primeiro. Vamos conversar no Leito.'},
+ {id:'a-ch3-pump',speaker:'afonso',chapters:['ch3','ch4'],quest:{pump:'completed'},text:'A bomba trabalha dia e noite. Se Garcia descobrir, vai querer cobrar por ela também.'},
+ {id:'b-ch3-paid',speaker:'brutus',chapters:['ch3','ch4','ch5'],choice:{'ch3-brutus-toll':'pay'},text:'Pagou sem discutir. Você vai longe, motorista. Só não esqueça quem deixou você passar.'},
+ {id:'b-ch3-refused',speaker:'brutus',chapters:['ch3','ch4','ch5'],choice:{'ch3-brutus-toll':'refuse'},text:'O desvio é longo. Lembre de mim quando o radiador ferver.'},
+ {id:'b-ch3-water',speaker:'brutus',chapters:['ch3','ch4','ch5'],choice:{'ch3-brutus-toll':'water'},text:'Água para os meus sem eu pedir duas vezes. Eu não esqueço isso, Dante.'},
+ {id:'n-ch4-signal',speaker:'noemia',chapters:['ch4'],quest:{relay:'completed'},text:'O repetidor pegou de novo aquele sinal. Ele chama o seu caminhão pelo nome.'},
+ {id:'v-ch4-stubborn',speaker:'voice',chapters:['ch4'],region:'glass',fragment:'signal-stubborn',text:'Ele é teimoso, mas chega. Sempre chegou.'},
+ {id:'r-ch4-fear',speaker:'renata',chapters:['ch4'],renata:true,text:'Cada campo que acende puxa o próximo. Se um ancorar mal lá em cima, não sei se consigo explicar o que acontece com aquela terra.'},
+ {id:'n-ch4-spare',speaker:'noemia',chapters:['ch4','ch5'],choice:{'ch4-titan-part':'give'},text:'O repetidor de reserva está de pé com a peça do Titã. Quem subir depois de você vai ouvir o aviso.'},
+ {id:'v-ch5-tunnel',speaker:'voice',chapters:['ch5'],region:'storm',fragment:'signal-tunnel',text:'Da última vez você esperou o céu passar dentro do túnel. Desta vez, não pare.'},
+ {id:'r-ch5-eve',speaker:'renata',chapters:['ch5'],renata:true,text:'Horizonte é o último. Depois dele eu não tenho mais instruções, Dante. Só esperança.'},
+ {id:'j-ch5-news',speaker:'joel',chapters:['ch5'],quest:{supply:'completed'},text:'Lia chegou aqui contando da chuva. Tem gente vindo do leste só para ver.'},
+];
+
+// Optional exploration clues, granted on the first visit on foot.
+export const SITE_FRAGMENTS={
+ weighbridge:{id:'weighbridge-log',text:'Registro de rádio da Balança 07, com data de um dia que ainda não chegou: “caminhão de 2003 passou às 06h12, seguiu para oeste”.'},
+ motel:{id:'motel-tape',text:'Fita no quarto 9: uma voz chiada repete coordenadas da Cordilheira e uma palavra, “teimoso”.'},
+};
+export const VOICE_FRAGMENT_TOTAL=6;
