@@ -29,8 +29,8 @@ Ordem de integração recomendada: o #5 primeiro, **sem squash**, e depois o #6 
 ## Validação nesta etapa
 
 - `npm test`: **326/326 em 40 arquivos**, com 8 testes novos (`demand-recovery`, `save-client-conflict`, `stabilization-0.12.1`).
-- `npm run build`: aprovado depois das correções 1 e 2. Será repetido no fim desta etapa.
-- E2E focados (contratos API, contratos e garagem): ver a seção de resultados abaixo.
+- `npm run build`: aprovado no código final (`6563e76`).
+- **E2E focados: 11/11 em 9,3 min** (`contracts-api`, `contracts` e `garage`), no mesmo código-fonte do `6563e76`. Incluem frete físico com os dois caminhões, conflito 409 no aceite, frete pesado com devolução, conferência de pagamento, compra/prévia/rollback da garagem e viagem real até a cidade. As evidências foram gravadas fora do repositório (`AURORA_EVIDENCE_ROOT`) e não foram versionadas.
 - **Não houve** uma integral de E2E nesta etapa. Windows/GPU, áudio, diversão e balanceamento humano continuam pendentes.
 
 ## Pendências desta etapa (0.12.x)
