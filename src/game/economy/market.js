@@ -3,7 +3,8 @@ import {OFFERS,POIS} from '../../data/expedition.js';
 import {GAS_OFFERS,LITERS_PER_SCRAP,WORKSHOP_OFFERS,WORKSHOP_SERVICES,WORKSHOP_SELL} from '../../data/road.js';
 import {ROAD_POINTS} from '../../data/roadSites.js';
 import {SHELTERS,biomeAt} from '../../data/network.js';
-import {recoveryAt} from '../restoration/progress.js';
+import {recoveryAt} from '../restoration/progress.js'
+import {VEHICLES} from '../garage/catalog.js';
 
 const GOODS=['diesel','water','food','parts','scrap','service'];
 export const REGIONAL_TARIFFS={
@@ -54,7 +55,7 @@ export function gasQuote(c,state,siteId,offerId){
  if(offer.kind==='water'){
   const q=quotePrice(c,{site,item,quantity:offer.quantity,baseQuantity:offer.quantity,baseCost:offer.cost,stock:stock.water,capacity:maximum});return {...q,need:false,ok:q.ok&&canExchange(c,'player',{scrap:q.cost},{water:q.quantity})};
  }
- const tank=offer.kind==='tank',limit=Math.floor(Math.min(offer.liters,stock.diesel,tank?180-state.fuel:500));
+ const tank=offer.kind==='tank',limit=Math.floor(Math.min(offer.liters,stock.diesel,tank?(VEHICLES[c.fleet?.active||'titan-old']?.fuelCapacity??180)-state.fuel:500));
  for(let n=limit;n>=1;n--){
   const q=quotePrice(c,{site,item,quantity:n,baseQuantity:LITERS_PER_SCRAP,baseCost:1,stock:stock.diesel,capacity:maximum});
   // A can is a fixed quantity, except when the supplier has less diesel.

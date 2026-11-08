@@ -27,7 +27,7 @@ export function quote(c,kind,id,draft){
  if(kind==='upgrade'){if(!UPGRADES[id])throw Error('Melhoria desconhecida');return v.ownedUpgrades.includes(id)?{}:UPGRADES[id].cost;}
  if(kind==='buy'){if(!VEHICLES[id]||id==='titan-old')throw Error('Veículo indisponível');if(f.vehicles[id])throw Error('Este caminhão já pertence à frota.');return VEHICLES[id].cost;}
  if(kind==='repair'){if(!COMPONENTS.includes(id)||c.components[id]>=100)throw Error('Componente sem reparo pendente');return {parts:3,scrap:2};}
- if(kind==='fuel'){const n=Math.min(4,180-c.fleet.vehicles[c.fleet.active].fuel,available(c).diesel);if(n<=0)throw Error('Sem diesel disponível ou tanque cheio');return {diesel:n};}
+ if(kind==='fuel'){const n=Math.min(4,VEHICLES[c.fleet.active].fuelCapacity-c.fleet.vehicles[c.fleet.active].fuel,available(c).diesel);if(n<=0)throw Error('Sem diesel disponível ou tanque cheio');return {diesel:n};}
  throw Error('Serviço desconhecido');
 }
 export function purchase(c,state,kind,id,draft){

@@ -52,10 +52,11 @@ export function acceptContract(c,hub,id,vehicle){
 }
 export function parkingGate(site,position,yaw,state,vehicle='titan-old'){
  if(!site||!position||!Number.isFinite(yaw))return {ok:false,message:'Área de carga inválida.'};
+ if(!VEHICLES[vehicle]?.footprint)return {ok:false,message:'Este veículo ainda não tem medidas homologadas para a área de carga.'}
  if(Math.abs(state.speed||0)>.2)return {ok:false,message:'Pare completamente dentro da faixa de carga.'};
  if(state.engineOn)return {ok:false,message:'Desligue o motor com E antes da operação.'};
  const b=site.bay,a=yaw-b.yaw,s=Math.sin(a),co=Math.cos(a),dx=position.x-b.x,dz=position.z-b.z;
- const x=dx*Math.cos(b.yaw)-dz*Math.sin(b.yaw),z=dx*Math.sin(b.yaw)+dz*Math.cos(b.yaw),w=vehicle==='dump-truck'?1.47:1.43,front=vehicle==='dump-truck'?3.76:4.06,back=vehicle==='dump-truck'?3.76:4.48;
+ const x=dx*Math.cos(b.yaw)-dz*Math.sin(b.yaw),z=dx*Math.sin(b.yaw)+dz*Math.cos(b.yaw),f=VEHICLES[vehicle]?.footprint,w=f?.halfWidth,front=f?.front,back=f?.back;
  if(Math.abs(co)<Math.cos(b.alignment*Math.PI/180))return {ok:false,message:'Alinhe o caminhão às faixas. A entrada pode ser de frente ou de ré.'};
  for(const lx of [-w,w])for(const lz of [-front,back])if(Math.abs(x+lx*co+lz*s)>b.halfWidth-.08||Math.abs(z-lx*s+lz*co)>b.halfLength-.08)return {ok:false,message:'Mantenha o caminhão inteiro dentro da faixa de carga.'};
  return {ok:true,message:'Caminhão parado, alinhado e motor desligado.'};

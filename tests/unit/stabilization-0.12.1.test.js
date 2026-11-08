@@ -1,0 +1,7 @@
+import {it,expect} from 'vitest';
+import {restoreState} from '../../src/game/persistence/restore.js';
+import {parkingGate} from '../../src/game/logistics/contracts.js';
+import {LOGISTICS_SITES} from '../../src/data/contracts.js';
+import {VEHICLES} from '../../src/game/garage/catalog.js';
+it('rollback remove blocos criados durante a transação e restaura os antigos',()=>{const c={inventory:{scrap:3},flags:{a:1}},backup=structuredClone(c);c.inventory.scrap=0;c.logistics={active:{}};c.flags=null;restoreState(c,backup);expect(c).toEqual(backup);expect(Object.hasOwn(c,'logistics')).toBe(false);});
+it('todo veículo dirigível tem medidas de baia; veículo sem medidas é recusado, não tratado como Titã',()=>{for(const v of Object.values(VEHICLES))expect(v.footprint).toMatchObject({halfWidth:expect.any(Number),front:expect.any(Number),back:expect.any(Number)});const site=Object.values(LOGISTICS_SITES).find(s=>s.bay),b=site.bay,state={speed:0,engineOn:false};expect(parkingGate(site,{x:b.x,z:b.z},b.yaw,state,'titan-old').ok).toBe(true);expect(parkingGate(site,{x:b.x,z:b.z},b.yaw,state,'semi-1960')).toMatchObject({ok:false});});

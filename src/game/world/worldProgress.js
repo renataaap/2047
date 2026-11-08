@@ -10,6 +10,6 @@ export function siteAction(c,id){
  if(!p.reward){if(w.read.includes(id))return {ok:false,message:'Boletim já registrado no mapa.'};w.read.push(id);return {ok:true,message:'Boletim registrado no mapa recuperado.'};}
  if(w.claimed.includes(id))return {ok:false,message:'Esta reserva já foi recolhida.'};
  const bag={...c.inventory.player};for(const [key,n] of Object.entries(p.reward))bag[key]+=n;
- if(bagWeight(bag)>40)return {ok:false,message:'A mochila não comporta a reserva. Transfira recursos ao Titã antes de recolher.'};
+ if(bagWeight(bag)>40)return {ok:false,message:'A mochila não comporta a reserva. Transfira recursos ao caminhão antes de recolher.'};
  Object.assign(c.inventory.player,bag);w.claimed.push(id);return {ok:true,message:'Reserva recolhida. Não haverá reposição neste local.'};
 }

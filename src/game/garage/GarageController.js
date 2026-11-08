@@ -1,3 +1,4 @@
+import {restoreState} from '../persistence/restore.js';
 import {GARAGE,VEHICLES,SKINS,vehicleStats,vehicleTuning} from './catalog.js';
 import {ensureFleet,captureFleet,garageAccess,purchase,selectVehicle,quote,available,validPaint,validInterior,newVehicle} from './fleet.js';
 import {createAssembly,disposeAssembly} from './VehicleAssembly.js';
@@ -42,7 +43,7 @@ export class GarageController{
    if(!await g.save())throw Error('Falha ao salvar: serviço desfeito. Nenhuma compra foi confirmada.');
    exchange?.finalize();this.clearPreview();this.resetDraft();this.message=kind==='select'?'Veículo ativo. A Semente foi preservada; estoques e diesel continuam individuais.':'Serviço confirmado e salvo.';
    g.ambientAudio?.cue('repair',g.current);return true;
-  }catch(e){exchange?.rollback();Object.assign(g.campaign,backup);Object.assign(g.state,state);g.configureActiveVehicle();this.resetDraft();this.message=e.message;return false;}
+  }catch(e){exchange?.rollback();restoreState(g.campaign,backup);Object.assign(g.state,state);g.configureActiveVehicle();this.resetDraft();this.message=e.message;return false;}
   finally{this.busy=false;g.emit();}
  }
  update(dt){
