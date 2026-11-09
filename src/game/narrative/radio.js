@@ -1,6 +1,6 @@
 import {TRANSMISSIONS,SPEAKERS,SITE_FRAGMENTS} from '../../data/story.js';
 import {biomeAt} from '../../data/network.js';
-import {chapterOf,choiceOf,logRadio} from './story.js';
+import {chapterOf,choiceOf,logRadio,unstableFields} from './story.js';
 
 // Picks the next narrative transmission. Pure: it never changes the campaign.
 // Only offered while cruising (no maneuvers, panels or cinematics).
@@ -11,6 +11,7 @@ export function eligible(c,t,z){
  if(t.renata&&!c.flags?.renataContact)return false;
  if(t.region&&biomeAt(z)!==t.region)return false;
  if(t.after&&!c.story?.radio?.includes(t.after))return false;
+ if(t.unstable&&!unstableFields(c).length)return false;
  if(t.quest&&Object.entries(t.quest).some(([id,s])=>c.network?.quests?.[id]!==s))return false;
  if(t.choice&&Object.entries(t.choice).some(([id,o])=>choiceOf(c,id)!==o))return false;
  return true;

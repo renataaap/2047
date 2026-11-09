@@ -12,10 +12,10 @@
 | B — Estado narrativo | **Feito** | `src/game/narrative/story.js`: capítulo derivado dos Núcleos; cenas assistidas/puladas; escolhas aplicadas uma vez com custo atômico; relações derivadas; registro de rádio; qualidade de ancoragem gravada a cada ativação. Bloco opcional `campaign.story`, validado. Saves antigos continuam válidos. |
 | E — Rádio e Voz | **Feito (primeira leva)** | 22 transmissões por capítulo, região, missão e escolha. Tocam só em cruzeiro (velocidade > 18 km/h, volante quase reto, sem painel nem cena), com intervalo de 75 s, uma vez cada. Legenda no topo central e registro consultável no painel R. 6 fontes de fragmento da Voz: 1 já existente, 3 no rádio e 2 na exploração a pé (Balança 07 e Motel), com entrada no diário. |
 | C — Prólogo 2027 / introdução de Dante | Pendente | — |
-| D — Personagens (cenas de conversa) | Parcial | Falas novas de Renata, Lia, Afonso, Noêmia, Joel e Garcia **só no rádio**. Ainda não há interface para as três escolhas definidas (`ch2-water-share`, `ch3-brutus-toll`, `ch4-titan-part`); a lógica e os testes existem. |
+| D — Personagens (cenas de conversa) | Parcial | Falas novas de Renata, Lia, Afonso, Noêmia, Joel e Garcia no rádio. **As três escolhas agora são jogáveis** nos painéis dos abrigos (Lia no Viaduto; homens de Garcia na bomba de Afonso; Noêmia na Cordilheira), com pedido, custo, "decisão importante", reação persistente e efeito em relações e rádio. Opções que usam o caminhão exigem o Titã estacionado. Ainda não há cena 3D de Brutus. |
 | F — Cutscenes da campanha | Pendente | Só a cena ambiental da 0.11 |
 | G — Consequências visíveis | Pendente | Por enquanto as consequências são falas e relações |
-| H — Finais | Só documentação | Recomendação da "ancoragem instável" **aguardando aprovação**. Nenhum final implementado. |
+| H — Finais | Regras aprovadas em 09/11 | Renascimento parcial = campo instável (Semente <60% na ancoragem) que para no estágio 2, com aviso da Renata e marca no diário; Último destino exige o Titã no trecho final (motor de 2003 sem eletrônica); Brutus/Garcia com a motivação aprovada. **Nenhum final está implementado** (1.0). |
 | I — Polimento | Pendente | — |
 
 ## Validação

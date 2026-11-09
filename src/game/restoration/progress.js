@@ -1,5 +1,9 @@
 import {CORES,biomeAt} from '../../data/network.js';
 import {ECOLOGY,RECOVERY_SECONDS,STAGE_LABELS,RECOVERY_REACTIONS} from './definitions.js';
+import {UNSTABLE_ANCHOR} from '../../data/story.js';
+export const UNSTABLE_FIELD_AGE=150;
+export const fieldUnstable=(c,id)=>Number.isFinite(c.story?.anchors?.[id])&&c.story.anchors[id]<UNSTABLE_ANCHOR;
+export const fieldCeiling=(c,id)=>fieldUnstable(c,id)?UNSTABLE_FIELD_AGE:RECOVERY_SECONDS.mature;
 export const clamp01=n=>Math.max(0,Math.min(1,n));
 export const smooth=(a,b,x)=>{const t=clamp01((x-a)/(b-a));return t*t*(3-2*t);};
 export function recoveryStage(age){return age>=RECOVERY_SECONDS.mature?3:age>=RECOVERY_SECONDS.initial?2:1;}
@@ -24,7 +28,10 @@ export function beginRecovery(c,id){
 export function stepRecovery(c,dt){
  if(!(dt>0)||!Number.isFinite(dt))return;
  const r=ensureRecovery(c);if(!r)return;
- for(const [id,record]of Object.entries(r.cores))if(c.cores[id]?.state==='active')record.age=Math.min(RECOVERY_SECONDS.mature,record.age+dt);
+ // An unstable anchoring (Seed below UNSTABLE_ANCHOR integrity, approved in
+ // docs/NARRATIVA_0.14.0.md §7) stops that field at stage 2: part of the land
+ // stays grey. Legacy activations have no record and count as stable.
+ for(const [id,record]of Object.entries(r.cores))if(c.cores[id]?.state==='active')record.age=Math.min(fieldCeiling(c,id),record.age+dt);
 }
 export function recoveryAt(c,x,z){
  const core=coreAt(z),record=core&&c.world?.recovery?.cores[core.id],active=core&&c.cores[core.id]?.state==='active',region=biomeAt(z),eco=ECOLOGY[region];

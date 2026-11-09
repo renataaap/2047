@@ -16,7 +16,7 @@
 | MEDIUM | 2 | Recomendado |
 | LOW | 4 | Opcional |
 
-**Release recommendation: FIX BEFORE SHIPPING.** Há um HIGH aberto (SEC-001). Categorias 1, 2 e 3 estão **NOT ASSESSED**: não existe lista de padrões de busca para esta stack. Elas não foram revisadas nem aprovadas; os achados abaixo surgiram durante a leitura de outras categorias. O jogo local single-player não é bloqueado. Antes de qualquer publicação hospedada (Turso, internet): SEC-002, SEC-004 e uma decisão formal sobre o SEC-001.
+**Release recommendation (revisada em 09/11): sem HIGH aberto, porque SEC-001 virou risco aceito. As categorias 1–3 continuam NOT ASSESSED, então a recomendação é NOT ASSESSED, não CLEAR TO SHIP.** Original em 08/11: FIX BEFORE SHIPPING. Há um HIGH aberto (SEC-001). Categorias 1, 2 e 3 estão **NOT ASSESSED**: não existe lista de padrões de busca para esta stack. Elas não foram revisadas nem aprovadas; os achados abaixo surgiram durante a leitura de outras categorias. O jogo local single-player não é bloqueado. Antes de qualquer publicação hospedada (Turso, internet): SEC-002, SEC-004 e uma decisão formal sobre o SEC-001.
 
 ## HIGH
 
@@ -54,7 +54,14 @@
 - **SEC-007 — O validador lança exceção em vez de rejeitar.** Com `components`/`inventory` nulos ou do tipo errado, ou com `Origin: null`, a API responde 500 em vez de 400 (16 de 3.096 mutações). Nada é gravado. Correção: checar `plain()` antes dos subvalidadores, ou envolver em try e devolver `false`; transformar a varredura em teste. Esforço baixo.
 
 ## Accepted Risk
-Nenhum aceito ainda. O SEC-001 aguarda decisão (seção HIGH).
+- **SEC-001 — aceito em 09/11/2026** (decisão delegada pelo criador): o jogo é single-player e não comercial; o jogador só consegue alterar a própria campanha. Reabrir se surgir placar, economia compartilhada, conquista online ou venda.
+
+## Correções aplicadas em 09/11/2026
+- **SEC-003:** o lançador do jogador (`scripts/launch-local.js`, usado pelo `INICIAR_JOGO.bat`) roda com `NEXT_PUBLIC_AURORA_DEBUG=0`, então `window.__GAME_DEBUG__` não existe na sessão do jogador. O modo de desenvolvimento continua com debug para testes e scripts.
+- **SEC-004 (parcial):** identidade só aceita UUIDv4 estrito; `SAVE_COOKIE_SECRET` documentado no `.env.example`. A exigência obrigatória em produção ficou de fora, para não quebrar um preview já configurado.
+- **SEC-006:** `npm run dev` e `npm start` escutam em 127.0.0.1; `npm run dev:lan` para a rede local.
+- **SEC-007:** `validSave` nunca lança (recusa e a API responde 400); `Origin` inválido responde 400. Testes em `tests/unit/security-hardening.test.js`.
+- Continuam abertos: SEC-002 (limite de requisições/projeção canônica, antes de hospedar) e SEC-005 (cabeçalhos).
 
 ## Dependency Inventory
 

@@ -12,7 +12,9 @@ import {ROAD_POINTS} from '../../data/roadSites.js';
 const plain=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const bounded=(n,a,b)=>Number.isFinite(n)&&n>=a&&n<=b;
 const vec=(v,n,max=100000)=>Array.isArray(v)&&v.length===n&&v.every(x=>bounded(x,-max,max));
-export function validSave(s){
+// Malformed input must be rejected (400), never crash the route (500).
+export function validSave(s){try{return checkSave(s);}catch{return false;}}
+function checkSave(s){
 if(!plain(s)||![1,2,3].includes(s.schemaVersion)||!vec(s.truck?.position,3)||!vec(s.truck?.rotation,4,1)||Math.abs(Math.hypot(...s.truck.rotation)-1)>.02||!vec(s.player?.position,3)||!['driving','walking'].includes(s.context)||!bounded(s.fuel,0,180)||!bounded(s.temperature,0,180)||typeof s.engineOn!=='boolean')return false;
 const c=s.campaign;if(!plain(c)||!validStory(c.story)||!validRecovery(c)||!validLogistics(c)||!validFleet(c,s)||!validTravel(c)||!validWorld(c.world)||!validTutorial(c.tutorial)||!['shelter','transport','failed','activated'].includes(c.stage)||!plain(c.seed)||typeof c.seed.received!=='boolean'||!bounded(c.seed.integrity,0,100))return false;
 if(!plain(c.components)||Object.keys(COMPONENTS).some(k=>!bounded(c.components[k],0,100)))return false;

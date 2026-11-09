@@ -202,6 +202,8 @@ Piso: 14 px a 720p para texto do HUD (UX; hoje há 10 px na cabine). Legendas co
 
 **Formatos e nomes (arte).** glTF 2.0 binário (Y-up, metros, pivô na base, frente +Z, sem câmeras e luzes, materiais por função, OPAQUE por padrão, MASK para recorte, BLEND só para vidro real — lição da 0.8.1). Texturas em potência de 2 (albedo/emissivo sRGB, normal OpenGL, ORM R=AO G=rough B=metal). UI em SVG e WOFF2. Nomes `[categoria]_[nome]_[variante]_[tamanho]`, com códigos de bioma mc/ce/ls/cv/zt/tr; kit em código `kit_ce_torre-ruina`. Assets existentes não são renomeados. Todo asset externo registra fonte, autor, licença e alterações; CC BY e CC BY-NC preservados.
 
+**Emenda de 09/11/2026 (decisão delegada pelo criador):** no perfil **Alto**, os 8 PBR tileáveis locais continuam em 2048 px. O Alto é opcional e voltado a GPUs dedicadas; Baixo e Médio seguem em 512 e 1024. Os demais tetos de textura de §8 valem para assets novos.
+
 **Orçamento técnico (prevalece; números são tetos propostos, sem medição em GPU real):**
 | Acréscimo da vestimenta | Baixo | Médio | Alto |
 |---|---|---|---|

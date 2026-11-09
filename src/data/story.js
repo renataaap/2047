@@ -65,6 +65,7 @@ export const TRANSMISSIONS=[
  {id:'n-ch4-spare',speaker:'noemia',chapters:['ch4','ch5'],choice:{'ch4-titan-part':'give'},text:'O repetidor de reserva está de pé com a peça do Titã. Quem subir depois de você vai ouvir o aviso.'},
  {id:'v-ch5-tunnel',speaker:'voice',chapters:['ch5'],region:'storm',fragment:'signal-tunnel',text:'Da última vez você esperou o céu passar dentro do túnel. Desta vez, não pare.'},
  {id:'r-ch5-eve',speaker:'renata',chapters:['ch5'],renata:true,text:'Horizonte é o último. Depois dele eu não tenho mais instruções, Dante. Só esperança.'},
+ {id:'r-unstable',speaker:'renata',chapters:['ch2','ch3','ch4','ch5','final'],renata:true,unstable:true,text:'O campo ancorou, mas instável. A Semente chegou batida demais e a ressonância não fecha. Aquela terra vai parar no meio do caminho. Eu precisava que você soubesse.'},
  {id:'j-ch5-news',speaker:'joel',chapters:['ch5'],quest:{supply:'completed'},text:'Lia chegou aqui contando da chuva. Tem gente vindo do leste só para ver.'},
 ];
 
@@ -74,3 +75,12 @@ export const SITE_FRAGMENTS={
  motel:{id:'motel-tape',text:'Fita no quarto 9: uma voz chiada repete coordenadas da Cordilheira e uma palavra, “teimoso”.'},
 };
 export const VOICE_FRAGMENT_TOTAL=6;
+
+// Where each choice is offered (shelter id from data/network.js), the scene
+// text shown before deciding and the reaction shown afterwards. Garcia is
+// Brutus's street name; his men hold the pump on the old sea floor.
+export const CHOICE_SCENES={
+ 'ch2-water-share':{site:'lia',prompt:'Lia olha para os galões na mochila de Dante. — As crianças daqui não veem água limpa faz uma semana. Não vou pedir. Só estou dizendo.',after:{share:'Lia segura o galão com as duas mãos. — Eu não esqueço quem divide.',keep:'Lia assente, sem rancor. — A estrada é longa. Eu entendo.'}},
+ 'ch3-brutus-toll':{site:'afonso',prompt:'Dois homens de Garcia esperam junto à bomba de Afonso. — Passagem pelo Leito custa quatro de sucata, motorista. Ordem do Garcia. Ou você conversa com ele sobre o que leva aí atrás.',after:{pay:'Os homens recolhem a sucata e liberam a passagem. Afonso desvia o olhar.',refuse:'— Então dá a volta. Os homens de Garcia não saem da frente da bomba.',water:'Um deles chama pelo rádio. A voz de Garcia responde, baixa: — Água para o povoado? Deixa ele passar.'}},
+ 'ch4-titan-part':{site:'noemia',prompt:'Noêmia aponta o repetidor de reserva, ainda sem radiador auxiliar. — Com uma peça de radiador, quem subir depois de você ouviria o aviso da frente. O seu Titã tem uma. Sei o que estou pedindo.',after:{give:'Dante desmonta a peça em silêncio. O repetidor de reserva acende. — Ele vai sentir falta disso na subida — diz Noêmia. — Eu sei.',keep:'— Faz sentido — diz Noêmia. — Ele precisa chegar lá em cima inteiro.'}},
+};
