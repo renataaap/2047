@@ -24,6 +24,7 @@
 - `npm run build`: aprovado.
 - **E2E novo `narrative.spec.js`:** Novo Jogo → tutorial → motor → acelerar na estrada real até a primeira transmissão. Confere a legenda visível no topo, o texto e o registro no save. Passou. Captura: `evidence/narrative-0.14.0/radio-line.png` (não versionada nesta etapa; gerada em `AURORA_EVIDENCE_ROOT`).
 - **Regressão E2E: 9/9 em 10,1 min** (`driving`, `phase4`, `world-expansion` e `narrative`), sobre o código do commit do rádio narrativo. Cobre condução, os sete Núcleos/fase 4, POIs/diário e o rádio novo. Não é a integral.
+- **09/11 (escolhas, ancoragem instável, segurança):** 358/358 unitários e build. Regressão E2E com `phase4`, `restoration`, `interface`, `contracts-api`, `driving` e `narrative`: **12/13**. A falha foi no próprio teste do rádio: a legenda dura ~8 s e sumiu antes da medição (o jogo funcionou). Depois de corrigir o teste para medir assim que a legenda aparece: **`narrative` 4/4** (2 testes × 2 repetições), incluindo a escolha da Lia salva no servidor.
 - **Sem** integral de E2E, playtest humano, Windows/GPU ou revisão de texto por outra pessoa.
 
 ## Limitações conhecidas

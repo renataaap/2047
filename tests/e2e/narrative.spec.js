@@ -11,10 +11,12 @@ test('rádio narrativo: transmissão chega em cruzeiro real, aparece legendada e
  expect((await state(page)).radioLine??null).toBeNull();
  await page.keyboard.press('KeyE');await expect.poll(async()=>(await state(page)).rpm).toBeGreaterThan(600);
  await page.keyboard.down('KeyW');
- await expect(page.getByTestId('radio-line')).toBeVisible({timeout:120000});
- await page.waitForTimeout(1200);await page.getByTestId('radio-line').screenshot({path:`${dir}/radio-line-element.png`});await page.screenshot({path:`${dir}/radio-line.png`});const box=await page.getByTestId('radio-line').boundingBox();expect(box.y).toBeLessThan(200);
+ const line=page.getByTestId('radio-line');await expect(line).toBeVisible({timeout:120000});
+ // The subtitle lives a few seconds; measure and read state the moment it shows.
+ const [box,s]=await Promise.all([line.boundingBox(),state(page)]);expect(box.y).toBeLessThan(200);
+ expect(s.speedKmh).toBeGreaterThan(5);expect(s.radioLine.text.length).toBeGreaterThan(10);expect(s.campaign.story.radio).toContain(s.radioLine.id);
+ await page.waitForTimeout(500);await page.screenshot({path:`${dir}/radio-line.png`});
  await page.keyboard.up('KeyW');
- const s=await state(page);expect(s.speedKmh).toBeGreaterThan(5);expect(s.radioLine.text.length).toBeGreaterThan(10);expect(s.campaign.story.radio).toContain(s.radioLine.id);
  await page.keyboard.down('Space');await expect.poll(async()=>(await state(page)).speedKmh,{timeout:30000}).toBeLessThan(1);await page.keyboard.up('Space');
  expect(errors).toEqual([]);
 });
