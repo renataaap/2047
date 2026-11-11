@@ -9,7 +9,20 @@
       "Bash(curl -s \"http://localhost:3000/_next/static/chunks/src_components_game_GameView_0fnqhgse8qgyp.js\")",
       "Bash(curl -s \"http://localhost:3000\")",
       "Bash(curl -s \"http://localhost:3000/_next/static/chunks/src_11bd8lp2f7opl._.js\")",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://api.polyhaven.com/info/road_damaged_2\")"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://api.polyhaven.com/info/road_damaged_2\")",
+      "Skill(setup-engine)",
+      "Bash(grep -o \"diagnosticStepping[^;]\\\\{0,200\\\\}\" src/game/core/Game.js)",
+      "Bash(grep -o \"this.debug=[^;]\\\\{0,1200\\\\}\" src/game/core/Game.js)",
+      "Bash(grep -o \"this.debug={.\\\\{0,80\\\\}\" src/game/core/Game.js)",
+      "Bash(grep -o \".\\\\{0,200\\\\}this.debug={\" src/game/core/Game.js)",
+      "Bash(grep -o \".\\\\{200\\\\}installDiagnosticSteps\\(this,this.debug\\).\\\\{100\\\\}\")",
+      "Bash(grep -oE \"\\(process\\\\.env|NODE_ENV|debugEnabled|isDev\\)[^;]{0,120}\")",
+      "Bash(grep -oE \".{0,60}\\(if\\\\\\(|process\\\\.env|NODE_ENV|debug\\)[^;]{0,80}\")",
+      "Bash(awk 'NR==98' src/game/core/Game.js)",
+      "Bash(grep -oE \".{0,160}__GAME_DEBUG__.{0,160}\")",
+      "Bash(npx vitest *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   }
 }
