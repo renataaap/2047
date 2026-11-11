@@ -1,7 +1,7 @@
 # Story 002: Prólogo cinematográfico de 2027 e transição para 2047
 
 > **Epic**: 2047 — Rede Aurora
-> **Status**: In Progress
+> **Status**: Complete
 > **Layer**: Presentation
 > **Type**: Visual/Feel
 > **Estimate**: L
@@ -28,14 +28,14 @@
 
 ## Acceptance Criteria
 
-- [ ] Novo jogo dispara o prólogo de 2027: estrada, sinais de civilização e primeiros acontecimentos anormais na atmosfera.
-- [ ] Céu muda, rádio/comunicação falha, tempestade de plasma começa e Dante se abriga num túnel.
-- [ ] Corte para 2047 ("vinte anos depois") mostrando mundo devastado, com contraste claro com 2027.
-- [ ] Total curto (~40 s de meta) e pulável a qualquer momento; pular chega ao mesmo estado.
-- [ ] Reentrada em save existente ou legado não repete o prólogo.
-- [ ] Reaproveita o sistema da story 001, sem novos pacotes externos nem assets de terceiros sem licença registrada.
-- [ ] Tutorial de 21 objetivos preservado e inicia depois da abertura.
-- [ ] Captura retida e sign-off de ritmo, legibilidade e desempenho em GPU integrada.
+- [x] Novo jogo dispara o prólogo de 2027: estrada, sinais de civilização e primeiros acontecimentos anormais na atmosfera.
+- [x] Céu muda, rádio/comunicação falha, tempestade de plasma começa e Dante se abriga num túnel.
+- [x] Corte para 2047 ("vinte anos depois") mostrando mundo devastado, com contraste claro com 2027.
+- [x] Total curto (~40 s de meta) e pulável a qualquer momento; pular chega ao mesmo estado.
+- [x] Reentrada em save existente ou legado não repete o prólogo.
+- [x] Reaproveita o sistema da story 001, sem novos pacotes externos nem assets de terceiros sem licença registrada.
+- [x] Tutorial de 21 objetivos preservado e inicia depois da abertura.
+- [x] Captura retida e sign-off de ritmo, legibilidade e desempenho em GPU integrada.
 
 ---
 
@@ -72,7 +72,7 @@
 
 **Story Type**: Visual/Feel
 **Required evidence**: captura retida + sign-off em `production/qa/evidence/story-002-evidence.md`
-**Status**: [ ] Not yet created
+**Status**: [x] Criada: `production/qa/evidence/story-002-prologo-2027-e-transicao/` (capturas 1–7, Alto, cartela reduzida, antes/depois, `validation.json`, `stamp.txt`)
 
 ---
 
@@ -80,3 +80,12 @@
 
 - Depends on: `production/epics/2047-rede-aurora/story-001-sistema-de-cutscenes.md`
 - Unlocks: story-003
+
+---
+
+## Completion Notes
+
+- **Concluída em 11/11/2026** com sign-off do criador ("eu aprovo o prólogo"), depois de ver as capturas do set polido.
+- Commits: `72986a8` (prólogo validado) e `e197e81` (polimento visual do set de 2027).
+- Validação: 388/388 unitários, build, prólogo 4/4 e regressão de 15 specs com 40/41 (falha de ambiente; rechecagem 1/1). Specs afetadas pelo polimento: 10/11 (falha do harness corrigida; rechecagem 2/2).
+- Ressalvas registradas: a arte do set é procedural e **não é arte final**. O desempenho em GPU integrada foi medido por draw calls no SwiftShader (~95 no set contra ~200 na jogabilidade), não num Windows com GPU física.

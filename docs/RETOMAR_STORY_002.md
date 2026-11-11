@@ -6,7 +6,7 @@ Branch `feat/narrativa-0.14.0`, worktree `C:\Temp\renatinha\2047-narrativa-0.14.
 
 - **Funcional e validado** (commit "prólogo 2027 validado"): Novo Jogo abre o prólogo, de ~41 s e pulável. São seis planos: 2027 limpo, luz estranha, plasma, túnel, cartela "2047 / Vinte anos depois" e mundo devastado. Ao fim, o controle volta no barracão com o tutorial em 1/21. Saves existentes ou legados nunca veem o prólogo. Com redução de movimento, aparece só a cartela.
 - Validação: 385/385 unitários, build, E2E do prólogo 4/4 e regressão final de 15 specs com 40/41. A única falha foi de ambiente (o Chrome fechou ao abrir), e a rechecagem deu 1/1. Detalhes em `production/qa/evidence/story-002-prologo-2027-e-transicao/validation.json` e no `RELATORIO_NARRATIVA_0.14.0.md`.
-- **Status da story: In Progress.** Não marcar como Complete antes do sign-off humano do visual e do ritmo.
+- **Status da story: Complete** (sign-off do criador em 11/11/2026, após o polimento).
 
 ## Polimento visual do set de 2027 (pedido do criador)
 
@@ -22,7 +22,7 @@ O pedido foi: "não quero transformar o prólogo em uma apresentação visualmen
 7. Sinalização, guard-rail com duas lâminas, fios em catenária, portal com testeira e interior do túnel.
 8. Mapa de sombras do mundo de 2047 congelado durante o set (`shadowMap.autoUpdate`). Isso remove o custo invisível em Médio/Alto.
 
-Validado: 388/388 unitários, build, prólogo 4/4, specs afetadas 10/11 com falha do harness corrigida e rechecagem 2/2, e capturas novas. **Falta só o sign-off humano** para marcar a story como Complete.
+Validado: 388/388 unitários, build, prólogo 4/4, specs afetadas 10/11 com falha do harness corrigida e rechecagem 2/2, e capturas novas. Sign-off do criador recebido; story Complete.
 
 **Atenção ao rodar E2E:** o Playwright reaproveita qualquer servidor que já esteja na porta 3000. Se o `INICIAR_JOGO.bat` estiver aberto na pasta principal, o teste acessa o jogo errado. Feche o jogo antes ou use outra porta.
 
