@@ -1,12 +1,12 @@
 # Story 003: Nova introdução de Dante no barracão e apresentação do Titã
 
 > **Epic**: 2047 — Rede Aurora
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: Presentation
 > **Type**: Visual/Feel
 > **Estimate**: M
 > **Manifest Version**: N/A (minimal — no control manifest)
-> **Last Updated**: —
+> **Last Updated**: 2026-11-11
 
 ## Context
 
@@ -28,13 +28,13 @@
 
 ## Acceptance Criteria
 
-- [ ] Após a transição para 2047, a câmera apresenta o barracão e o Titã Rocha Clara.
-- [ ] Dante é introduzido (fala, postura, animação) e o jogador recebe o controle no barracão, sem salto de posição.
-- [ ] A cena é curta (~20 s de meta) e pulável; pular leva ao mesmo estado de controle.
-- [ ] Controle a pé funciona imediatamente depois, com Y/colisão corretos (spawn pela superfície triangular).
-- [ ] O tutorial de 21 objetivos segue intacto e coerente com a nova abertura (explorar o barracão, conhecer o Titã, interações básicas).
-- [ ] Saves existentes não repetem a cena.
-- [ ] Captura retida e sign-off de enquadramento, iluminação e fala.
+- [x] Após a transição para 2047, a câmera apresenta o barracão e o Titã Rocha Clara.
+- [x] Dante é introduzido (fala, postura, animação) e o jogador recebe o controle no barracão, sem salto de posição.
+- [x] A cena é curta (~20 s de meta) e pulável; pular leva ao mesmo estado de controle.
+- [x] Controle a pé funciona imediatamente depois, com Y/colisão corretos (spawn pela superfície triangular).
+- [x] O tutorial de 21 objetivos segue intacto e coerente com a nova abertura (explorar o barracão, conhecer o Titã, interações básicas).
+- [x] Saves existentes não repetem a cena.
+- [x] Captura retida e sign-off de enquadramento, iluminação e fala.
 
 ---
 
@@ -72,7 +72,7 @@
 
 **Story Type**: Visual/Feel
 **Required evidence**: captura retida + sign-off em `production/qa/evidence/story-003-evidence.md`
-**Status**: [ ] Not yet created
+**Status**: [x] Criada: `production/qa/evidence/story-003-dante-barracao-e-tita/` (capturas 1–4 e 8–11, `metrics-e2e.json`, `validation.json`)
 
 ---
 
@@ -80,3 +80,15 @@
 
 - Depends on: `production/epics/2047-rede-aurora/story-001-sistema-de-cutscenes.md`, `production/epics/2047-rede-aurora/story-002-prologo-2027-e-transicao.md`
 - Unlocks: story-004
+
+---
+
+## Completion Notes
+
+- **Concluída em 11/11/2026** com sign-off do criador (enquadramento, iluminação e fala aprovados).
+- `intro-2047` virou cena própria (`src/game/narrative/cutscenes/intro-dante.js`, ~19 s, 4 planos ancorados em Dante e no Titã), encadeada depois do prólogo pela fila do `CutscenePlayer`. O prólogo deixou de carimbar `intro-2047` via `also`; saves que já tinham a abertura registrada não repetem nenhuma das duas.
+- Encadeamento: `finish()` inicia a próxima cena da fila; uma cena encadeada ignora pulos nos primeiros 0,3 s (anti-pulo duplo). Cada cena se pula separadamente; o helper `skipPrologue` pressiona Esc por cena.
+- Sem salto de posição: o último plano entra nos olhos do Dante e devolve a câmera salva; E2E confere deslocamento < 5 cm no plano e anda com W logo depois, no chão.
+- Tutorial de 21 objetivos intacto (1/21 "Caminhe pelo barracão" ao receber o controle); `definitions.js`/`TutorialController.js` não precisaram mudar.
+- Validação: 395/395 unitários; `prologue.spec.js` 4/4 e `restoration.spec.js` 5/5 na porta 3100. **Não** houve regressão das outras 12 specs que usam `skipPrologue` nem integral.
+- Ressalvas: personagens MakeHuman CC0 provisórios, não arte final; Windows/GPU física pendente.
