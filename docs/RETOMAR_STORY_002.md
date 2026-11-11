@@ -12,7 +12,7 @@ Branch `feat/narrativa-0.14.0`, worktree `C:\Temp\renatinha\2047-narrativa-0.14.
 
 O pedido foi: "não quero transformar o prólogo em uma apresentação visualmente inferior ao gameplay". Os pontos são estrada e sinalização, veículos, fachadas, vegetação, portal e interior do túnel, materiais e iluminação, e composição da cidade. A preferência é por uma cena pequena, bem composta e com silhuetas convincentes.
 
-Plano, tudo procedural e sem assets externos:
+**Feito em 11/11** (detalhes no `RELATORIO_NARRATIVA_0.14.0.md`). Plano executado, tudo procedural e sem assets externos:
 1. Céu com nuvens fbm em vez das listras `sin×sin`.
 2. Perspectiva aérea: o set aplica a própria névoa só durante o render (`scene.onBeforeRender`/`onAfterRender`) e devolve a do mundo. Mesmo tipo FogExp2, sem recompilar shaders.
 3. Relevo com ruído no campo e na colina do túnel. As colinas ficam num anel lateral, sem tocar a cúpula.
@@ -22,7 +22,9 @@ Plano, tudo procedural e sem assets externos:
 7. Sinalização, guard-rail com duas lâminas, fios em catenária, portal com testeira e interior do túnel.
 8. Mapa de sombras do mundo de 2047 congelado durante o set (`shadowMap.autoUpdate`). Isso remove o custo invisível em Médio/Alto.
 
-Depois do polimento: unitários, build, E2E do prólogo e das specs afetadas, e novas capturas comparativas de 2027 × 2047.
+Validado: 388/388 unitários, build, prólogo 4/4, specs afetadas 10/11 com falha do harness corrigida e rechecagem 2/2, e capturas novas. **Falta só o sign-off humano** para marcar a story como Complete.
+
+**Atenção ao rodar E2E:** o Playwright reaproveita qualquer servidor que já esteja na porta 3000. Se o `INICIAR_JOGO.bat` estiver aberto na pasta principal, o teste acessa o jogo errado. Feche o jogo antes ou use outra porta.
 
 ## Continua provisório (não é arte final)
 

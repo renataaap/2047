@@ -56,19 +56,18 @@ test('reducedShot fora do intervalo invalida a cena',()=>{
 });
 
 // --- Set próprio de 2027 (montado/descartado pelo prólogo) ---
-import {buildPrologueSet,SET_ORIGIN} from '../../src/game/narrative/cutscenes/Prologue2027Set.js';
+import {buildPrologueSet,SET_ORIGIN,SET_HAZE,groundHeight} from '../../src/game/narrative/cutscenes/Prologue2027Set.js';
 function sceneGame(){
  const g=fakeGame(),shared=new THREE.MeshStandardMaterial(),sky=new THREE.Mesh(new THREE.BoxGeometry(),shared),dust=new THREE.Points();
  const scene=new THREE.Scene();scene.add(sky,dust);g.rendering.scene=scene;g.rendering.sky=sky;g.rendering.dust=dust;shared.dispose=vi.fn();return {g,scene,sky,dust,shared};
 }
 const setIn=scene=>scene.children.find(o=>o.name==='prologue-2027-set');
 
-test('set de 2027 é isolado: longe do mundo, sem névoa da cena, com céu próprio e tráfego',()=>{
+test('set de 2027 é isolado: longe do mundo, com céu próprio e tráfego',()=>{
  const set=buildPrologueSet();
  try{
   expect(SET_ORIGIN.y).toBeGreaterThanOrEqual(1000);expect(set.group.visible).toBe(false);
   const mats=new Set();let meshes=0,cars=0;set.group.traverse(o=>{if(o.material){meshes++;[].concat(o.material).forEach(m=>mats.add(m));}if(o.isGroup&&o!==set.group)cars++;});
-  for(const m of mats)expect(m.fog).toBe(false);
   expect(cars).toBeGreaterThanOrEqual(5);expect(meshes).toBeLessThan(140);// cena pequena; árvores, postes e faixas instanciados
   const box=new THREE.Box3().setFromObject(set.group);expect(box.max.x-box.min.x).toBeLessThanOrEqual(2*300+1);// tudo dentro da cúpula
  }finally{set.dispose();}
@@ -116,4 +115,32 @@ test('far da câmera cai ao raio da cúpula só durante o set e volta ao valor d
   p.skip();expect(cam.far).toBe(far);
  }
  const {g}=sceneGame(),cam=g.rendering.camera;cam.far=1495;const p=new CutscenePlayer(g);p.queue('prologue-2027');p.begin();p.update(1);p.skip();expect(cam.far).toBe(1495);
+});
+
+test('névoa do set vale só durante o render com o set visível; a do mundo volta intacta',()=>{
+ const set=buildPrologueSet(),scene=new THREE.Scene();scene.fog=new THREE.FogExp2('#88908e',.0029);const hooks=[scene.onBeforeRender,scene.onAfterRender];scene.add(set.group);set.attach(scene);
+ try{
+  const world={color:scene.fog.color.getHex(),density:scene.fog.density};let during=null;
+  const render=()=>{scene.onBeforeRender({},scene,null);during={color:scene.fog.color.getHex(),density:scene.fog.density};scene.onAfterRender({},scene,null);};
+  render();expect(during).toEqual(world);// set invisível: nada muda
+  set.group.visible=true;set.update(1,{storm:0});render();
+  expect(during.density).toBeCloseTo(SET_HAZE.clearDensity);expect(during.color).toBe(SET_HAZE.clear.getHex());
+  expect({color:scene.fog.color.getHex(),density:scene.fog.density}).toEqual(world);
+  set.update(2,{storm:1});render();expect(during.density).toBeCloseTo(SET_HAZE.stormDensity);expect(during.color).toBe(SET_HAZE.storm.getHex());
+  expect(scene.fog.density).toBe(world.density);
+ }finally{set.dispose();}
+ expect([scene.onBeforeRender,scene.onAfterRender]).toEqual(hooks);// dispose devolve os ganchos originais
+});
+
+test('relevo do set é plano na pista, no posto e no túnel, e não fura a cúpula',()=>{
+ for(const z of [-180,-150,0,55,120,250])expect(Math.abs(groundHeight(0,z))).toBeLessThan(.01);
+ expect(Math.abs(groundHeight(25,55))).toBeLessThan(.05);
+ for(let a=0;a<Math.PI*2;a+=.1)for(const d of [150,220,260,290]){const x=Math.cos(a)*d,z=Math.sin(a)*d;expect(groundHeight(x,z)).toBeLessThan(Math.sqrt(300*300-d*d)-1);}
+});
+
+test('mapa de sombras do mundo congela durante o set e volta ao valor do perfil',()=>{
+ const {g}=sceneGame();g.rendering.renderer.shadowMap={autoUpdate:true,needsUpdate:false};const sm=g.rendering.renderer.shadowMap;
+ const p=new CutscenePlayer(g);p.queue('prologue-2027');p.begin();p.update(1);expect(sm.autoUpdate).toBe(false);
+ while(g.state.cutscene?.tone!=='black')p.update(.5);expect(sm.autoUpdate).toBe(true);expect(sm.needsUpdate).toBe(true);
+ p.skip();expect(sm.autoUpdate).toBe(true);
 });

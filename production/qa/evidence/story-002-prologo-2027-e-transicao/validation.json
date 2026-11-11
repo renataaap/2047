@@ -5,15 +5,112 @@
   "sourceFrozenBy": "stamp.txt (Reviewed-Content-Hash; conferido antes e depois da rodada)",
   "environment": "Windows 11, Chrome do sistema via PLAYWRIGHT_CHROMIUM_EXECUTABLE, headless SwiftShader, workers=1, next dev",
   "runs": [
-    {"kind": "unit", "command": "npm test", "result": "385/385 em 47 arquivos", "status": "aprovado"},
-    {"kind": "build", "command": "npm run build", "status": "aprovado"},
-    {"kind": "e2e-pre-set", "note": "antes do set de 2027 e das correções; não vale para a versão final", "result": "29 aprovados, 6 falhas"},
-    {"kind": "e2e-regressao-final", "started": "2026-11-11T13:39:06-03:00", "finished": "2026-11-11T14:01:34-03:00",
-     "command": "npx playwright test assets critical-gameplay cutscene driving exit game garage interface narrative phase2 polish prologue restoration terrain-visibility tutorial-assets",
-     "specs": 15, "tests": 41, "passed": 40, "failed": 1, "duration": "22.3m",
-     "failures": [{"test": "assets.spec.js:9 Poly Haven instalado", "durationMs": 2, "error": "browserType.launch: Target page, context or browser has been closed", "classification": "ambiente (Chrome fechou antes de abrir a página)"}]},
-    {"kind": "e2e-rechecagem", "command": "npx playwright test assets.spec.js -g \"Poly Haven instalado\"", "result": "1/1 em 22.3s", "note": "rechecagem; não é caso inédito"}
+    {
+      "kind": "unit",
+      "command": "npm test",
+      "result": "385/385 em 47 arquivos",
+      "status": "aprovado"
+    },
+    {
+      "kind": "build",
+      "command": "npm run build",
+      "status": "aprovado"
+    },
+    {
+      "kind": "e2e-pre-set",
+      "note": "antes do set de 2027 e das correções; não vale para a versão final",
+      "result": "29 aprovados, 6 falhas"
+    },
+    {
+      "kind": "e2e-regressao-final",
+      "started": "2026-11-11T13:39:06-03:00",
+      "finished": "2026-11-11T14:01:34-03:00",
+      "command": "npx playwright test assets critical-gameplay cutscene driving exit game garage interface narrative phase2 polish prologue restoration terrain-visibility tutorial-assets",
+      "specs": 15,
+      "tests": 41,
+      "passed": 40,
+      "failed": 1,
+      "duration": "22.3m",
+      "failures": [
+        {
+          "test": "assets.spec.js:9 Poly Haven instalado",
+          "durationMs": 2,
+          "error": "browserType.launch: Target page, context or browser has been closed",
+          "classification": "ambiente (Chrome fechou antes de abrir a página)"
+        }
+      ],
+      "note": "Servidor de desenvolvimento da pasta principal (0.0.0.0:3000, iniciado 13:47) coexistiu com a rodada; os 4 testes do prólogo passaram depois das 13:47, logo a rodada acessou o servidor da worktree."
+    },
+    {
+      "kind": "e2e-rechecagem",
+      "command": "npx playwright test assets.spec.js -g \"Poly Haven instalado\"",
+      "result": "1/1 em 22.3s",
+      "note": "rechecagem; não é caso inédito"
+    }
   ],
-  "notRun": ["integral E2E das 24 specs", "Windows com GPU física", "sign-off humano de ritmo/legibilidade"],
-  "visual": "set de 2027 procedural low-poly nesta rodada; polimento em commit seguinte (ver docs/RETOMAR_STORY_002.md)"
+  "notRun": [
+    "integral E2E das 24 specs",
+    "Windows com GPU física",
+    "sign-off humano de ritmo/legibilidade"
+  ],
+  "visual": "set de 2027 polido (procedural): céu fbm, névoa própria, relevo, árvores folhosas/coníferas, carros com perfil, cidade com recuos, placas, outdoor, túnel; não é arte final",
+  "polish": {
+    "baseCommit": "72986a8",
+    "sourceFrozenBy": "stamp.txt (atualizado após o polimento)",
+    "port": "3100 via config local temporária (porta 3000 ocupada por servidor do usuário em outra árvore; não foi interrompido)",
+    "runs": [
+      {
+        "kind": "unit",
+        "command": "npm test",
+        "result": "388/388 em 47 arquivos",
+        "status": "aprovado"
+      },
+      {
+        "kind": "build",
+        "command": "npm run build",
+        "status": "aprovado"
+      },
+      {
+        "kind": "e2e-prologo",
+        "specs": [
+          "prologue"
+        ],
+        "result": "4/4",
+        "status": "aprovado"
+      },
+      {
+        "kind": "e2e-afetados",
+        "specs": [
+          "cutscene",
+          "game",
+          "tutorial-assets",
+          "critical-gameplay"
+        ],
+        "result": "10/11",
+        "failures": [
+          {
+            "test": "tutorial-assets.spec.js:12",
+            "classification": "harness: origem fixa 127.0.0.1:3000 contava toda requisição da porta 3100 como externa",
+            "fix": "assets/tutorial-assets passam a usar a origem do baseURL"
+          }
+        ]
+      },
+      {
+        "kind": "e2e-rechecagem",
+        "tests": [
+          "assets.spec.js:9",
+          "tutorial-assets.spec.js:12"
+        ],
+        "result": "2/2",
+        "note": "após a correção do harness; não são casos inéditos"
+      }
+    ],
+    "invalidated": "rodada polish-b1 (14:05) descartada: acessou o servidor da pasta principal, sem prólogo",
+    "metrics": {
+      "set_baixo_drawCalls": "75–95",
+      "set_medio_alto_drawCalls": "89–97 (antes ~240)",
+      "set_triangles": "101k–140k",
+      "jogabilidade_drawCalls": "~200"
+    }
+  }
 }

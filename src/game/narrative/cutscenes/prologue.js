@@ -48,6 +48,8 @@ function showSet(p,on){
  if(!p.set)return;p.set.group.visible=on;const r=p.g.rendering;
  if(r.sky)r.sky.visible=on?false:p.hidden.sky;if(r.dust)r.dust.visible=on?false:p.hidden.dust;
  r.camera.far=on?Math.min(p.hidden.far,SET_FAR):p.hidden.far;r.camera.updateProjectionMatrix();
+ // O mapa de sombras do mundo de 2047 não aparece no set: congelado enquanto ele é visível.
+ const sm=r.renderer?.shadowMap;if(sm&&p.hidden.shadowAuto!==undefined){const auto=on?false:p.hidden.shadowAuto;if(auto&&!sm.autoUpdate)sm.needsUpdate=true;sm.autoUpdate=auto;}
 }
 
 // Câmera procedural: segue a tabela acima e, no último plano, devolve a câmera salva do jogo.
@@ -66,7 +68,8 @@ function frame(p){
 }
 function enter(p){
  const r=p.g.rendering;if(!r?.scene||p.reduced)return;// reduzido: só a cartela, sem set
- p.hidden={sky:r.sky?.visible??true,dust:r.dust?.visible??true,far:r.camera.far};p.set=buildPrologueSet();r.scene.add(p.set.group);
+ p.hidden={sky:r.sky?.visible??true,dust:r.dust?.visible??true,far:r.camera.far,shadowAuto:r.renderer?.shadowMap?.autoUpdate};
+ p.set=buildPrologueSet();r.scene.add(p.set.group);p.set.attach(r.scene);
 }
 function exit(p){
  if(!p.set)return;showSet(p,false);p.set.dispose();p.set=null;

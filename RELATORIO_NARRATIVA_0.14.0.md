@@ -59,7 +59,25 @@
   - **Regressões E2E:**
     - Primeira rodada de 14 specs, **antes** do set de 2027 e das correções: 29 aprovados e 6 falhas. Está preservada em `evidence/current-e2e/story002-pre-set/` e **não vale para a versão final**.
     - **Regressão final** (15 specs, 41 testes, fonte congelada conferida pelos hashes de `stamp.txt`, 11/11 das 13h39 às 14h01): **40 aprovados, 1 falha, em 22,3 min.** A falha foi em `assets.spec.js:9` ("Poly Haven instalado"), em 2 ms: o Chrome do sistema fechou durante a abertura (`browserType.launch: Target page, context or browser has been closed`), antes de carregar a página. É **ambiente**, não defeito do jogo. A rechecagem isolada deu **1/1 em 22,3 s** e não conta como caso inédito. O `tutorial-assets`, intermitente na rodada anterior, passou. Logs brutos em `evidence/current-e2e/story002-final/` (não versionados). O registro está em `production/qa/evidence/story-002-prologo-2027-e-transicao/validation.json`.
-  - **Pendências da story 002:** polimento visual do set (plano em `docs/RETOMAR_STORY_002.md`); sombras durante o set; sign-off humano de ritmo, legibilidade e GPU integrada.
+- **11/11 (story 002, polimento visual do set de 2027, sobre `72986a8`):**
+  - **Pedido do criador:** "não quero transformar o prólogo em uma apresentação visualmente inferior ao gameplay". Os pontos pedidos foram estrada e sinalização, veículos, fachadas, vegetação, túnel, materiais e luz, e cidade.
+  - **Feito, tudo procedural, sem assets nem pacotes novos:**
+    - Céu com nuvens fbm, sem as listras `sin×sin`.
+    - Névoa própria do set, aplicada só durante o render (`onBeforeRender`/`onAfterRender`) e devolvida ao mundo logo depois, no mesmo tipo FogExp2, sem recompilar shaders. Dá perspectiva aérea e escurece com a tempestade.
+    - Relevo com ruído no campo e na colina do túnel.
+    - Árvores folhosas e coníferas com copa irregular e sombra de contato.
+    - Carros com perfil extrudado (capô, porta-malas, vidros inclinados).
+    - Cidade com recuos, coroamentos, faixas de janela e paleta variada; as luzes apagam na tempestade.
+    - Placa de destinos e de 80 km/h com texto, outdoor genérico ("Férias no litoral"), guard-rail com duas lâminas e fios em catenária.
+    - Portal com testeira; interior do túnel com calçadas e barra de azulejo.
+  - **Defeito antigo corrigido:** placa, vitrine, telas das bombas e letreiro do posto estavam virados para −z. Como todas as câmeras olham de +z, eles nunca apareciam.
+  - **Sombras:** o mapa de sombras do mundo de 2047 fica congelado durante o set (`shadowMap.autoUpdate`). Em Médio/Alto o set caiu de ~240 para 89–97 draw calls.
+  - **Validação:** 388/388 unitários, build, prólogo 4/4 e specs afetadas 10/11. A falha foi do harness: origem fixa na porta 3000. Corrigido para usar o `baseURL`; a rechecagem deu 2/2.
+    - Ambiente: a porta 3000 estava ocupada por um servidor da pasta principal, aberto pelo usuário às 13h47. Ele não foi interrompido, e os testes rodaram na porta 3100.
+    - Uma rodada intermediária (polish-b1) acessou esse servidor, que não tem prólogo, e foi descartada.
+    - A regressão final das 13h39 segue válida: os testes do prólogo passaram nela depois das 13h47.
+  - **Capturas:** `production/qa/evidence/story-002-prologo-2027-e-transicao/`. São 1–7 (planos), `alto-clean`, `reduzido-cartela` e `antes-1/2` (visual anterior, para comparação).
+  - **Pendências da story 002:** sign-off humano de ritmo, legibilidade e GPU integrada. A arte do set continua procedural, **não é arte final**.
 - **Sem** integral de E2E, playtest humano, Windows/GPU ou revisão de texto por outra pessoa.
 
 ## Limitações conhecidas
