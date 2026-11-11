@@ -1,13 +1,55 @@
 {
  "story": "story-003-dante-barracao-e-tita",
  "date": "2026-11-11",
- "unit": {"files": 48, "tests": 395, "passed": 395},
+ "unit": {
+  "files": 48,
+  "tests": 395,
+  "passed": 395
+ },
  "e2e": [
-  {"spec": "tests/e2e/prologue.spec.js", "passed": 4, "total": 4, "minutes": 3.5, "port": 3100, "browser": "Chrome local via PLAYWRIGHT_CHROMIUM_EXECUTABLE (SwiftShader)"},
-  {"spec": "tests/e2e/restoration.spec.js", "passed": 5, "total": 5, "minutes": 4.2, "port": 3100, "note": "harness: origem da porta vinda do baseURL"}
+  {
+   "spec": "tests/e2e/prologue.spec.js",
+   "passed": 4,
+   "total": 4,
+   "minutes": 3.5,
+   "port": 3100,
+   "browser": "Chrome local via PLAYWRIGHT_CHROMIUM_EXECUTABLE (SwiftShader)"
+  },
+  {
+   "spec": "tests/e2e/restoration.spec.js",
+   "passed": 5,
+   "total": 5,
+   "minutes": 4.2,
+   "port": 3100,
+   "note": "harness: origem da porta vinda do baseURL"
+  },
+  {
+   "spec": "regressão do helper skipPrologue: assets, critical-gameplay, cutscene, driving, exit, game, garage, interface, narrative, phase2, polish, terrain-visibility, tutorial-assets",
+   "specs": 13,
+   "passed": 32,
+   "total": 32,
+   "minutes": 16.3,
+   "port": 3100,
+   "date": "2026-11-11",
+   "log": "regressao-skipPrologue.log",
+   "note": "código idêntico a 8032bf2 durante a rodada; nenhuma correção necessária"
+  }
  ],
- "notRun": "regressão das demais 12 specs que usam skipPrologue (helper agora pressiona Esc por cena); nenhuma integral da suíte",
- "captures": ["1-barracao-e-tita.png","2-tita.png","3-dante.png","4-controle-tutorial.png","8-intro-barracao.png","9-intro-tita.png","10-intro-dante.png","11-controle-tutorial.png"],
+ "captures": [
+  "1-barracao-e-tita.png",
+  "2-tita.png",
+  "3-dante.png",
+  "4-controle-tutorial.png",
+  "8-intro-barracao.png",
+  "9-intro-tita.png",
+  "10-intro-dante.png",
+  "11-controle-tutorial.png"
+ ],
  "signOff": "criador aprovou enquadramento, iluminação e fala em 11/11/2026",
- "pending": ["Windows com GPU física", "MakeHuman CC0 provisório, não é arte final"]
+ "pending": [
+  "Windows com GPU física",
+  "MakeHuman CC0 provisório, não é arte final"
+ ],
+ "countCorrection": "o fechamento inicial citava 12 specs restantes; o número correto é 13 (restoration.spec.js não usa o helper)",
+ "notRun": "integral da suíte inteira (as specs restantes não usam o helper alterado)"
 }

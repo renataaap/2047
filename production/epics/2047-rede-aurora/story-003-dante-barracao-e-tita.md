@@ -90,5 +90,5 @@
 - Encadeamento: `finish()` inicia a próxima cena da fila; uma cena encadeada ignora pulos nos primeiros 0,3 s (anti-pulo duplo). Cada cena se pula separadamente; o helper `skipPrologue` pressiona Esc por cena.
 - Sem salto de posição: o último plano entra nos olhos do Dante e devolve a câmera salva; E2E confere deslocamento < 5 cm no plano e anda com W logo depois, no chão.
 - Tutorial de 21 objetivos intacto (1/21 "Caminhe pelo barracão" ao receber o controle); `definitions.js`/`TutorialController.js` não precisaram mudar.
-- Validação: 395/395 unitários; `prologue.spec.js` 4/4 e `restoration.spec.js` 5/5 na porta 3100. **Não** houve regressão das outras 12 specs que usam `skipPrologue` nem integral.
+- Validação: 395/395 unitários; `prologue.spec.js` 4/4 e `restoration.spec.js` 5/5 na porta 3100. Regressão posterior das 13 specs que usam `skipPrologue` (a contagem anterior de 12 estava errada): 32/32 testes em 16,3 min, sem correções. **Não** houve integral da suíte.
 - Ressalvas: personagens MakeHuman CC0 provisórios, não arte final; Windows/GPU física pendente.
