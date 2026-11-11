@@ -1,0 +1,1 @@
+Rodada interrompida ao identificar Y=3 fixo no harness. A Oficina do Passo está a 93 m de altitude; o fixture precisava usar heightAt + altura do chassi. Não foi considerada uma validação completa. Fonte do jogo não foi alterada por esse ajuste.

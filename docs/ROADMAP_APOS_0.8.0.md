@@ -1,5 +1,7 @@
 # Depois da 0.8.0 — sistemas planejados, não entregues
 
+Atualização 0.12.0: contratos com coleta/carga/massa/transporte/entrega, preços regionais por estoque/demanda/restauração e carreira estão implementados na branch `feat/contratos-economia-0.12.0`, [PR #6](https://github.com/renataaap/2047/pull/6). Resultados e limites em [RELATORIO_CONTRATOS_0.12.0.md](../RELATORIO_CONTRATOS_0.12.0.md). Essa é a primeira versão funcional: reputação/facções, Código da Última Estrada, novas docas, operações de recuperação, três caminhões adicionais e avaliação humana do equilíbrio continuam pendentes. A tabela abaixo é o planejamento histórico, não uma lista atual de funcionalidades ausentes.
+
 Atualização 0.10.0: a garagem de Cinza Nova, pinturas, acessórios, três upgrades e a frota com Titã/Basculante Municipal estão implementados; resultados da validação em [RELATORIO_GARAGEM_0.10.0.md](../RELATORIO_GARAGEM_0.10.0.md). Os três candidatos adicionais continuam pendentes. A tabela abaixo preserva o planejamento original e não equivale à conclusão dos demais sistemas.
 
 Não ativar sistemas por um campo de save ou botão decorativo. Cada expansão precisa de regras, interface, persistência e teste de travessia. Preservar economia/estoques, bagWeight, capacidade, transações atômicas, física, interações e diálogos atuais.

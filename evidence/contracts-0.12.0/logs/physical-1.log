@@ -1,0 +1,40 @@
+
+Running 1 test using 1 worker
+
+(node:2337) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/contracts.spec.js:17:49 › frete físico: titan-old, coleta, viagem, entrega e save (1.1m)
+
+
+  1) tests/e2e/contracts.spec.js:17:49 › frete físico: titan-old, coleta, viagem, entrega e save ───
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "truck"
+    Received: undefined
+
+    Call Log:
+    - Timeout 15000ms exceeded while waiting on the predicate
+
+      13 |  // Return alongside the cab, not through the parked cargo body.
+      14 |  await walkPhysical(page,[{x:x-3.3*Math.cos(yaw),z:z+3.3*Math.sin(yaw)},{x:x-2.3*Math.cos(yaw)+2.7*Math.sin(yaw),z:z+2.3*Math.sin(yaw)+2.7*Math.cos(yaw)}]);
+    > 15 |  await expect.poll(async()=>(await state(page)).interaction?.id).toBe('truck');await page.keyboard.press('KeyF');await expect.poll(async()=>(await state(page)).mode).toBe('driving');
+         |                                                                  ^
+      16 | }
+      17 | for(const vehicle of ['titan-old','dump-truck'])test(`frete físico: ${vehicle}, coleta, viagem, entrega e save`,async({page})=>{
+      18 |  test.setTimeout(600000);await mkdir(dir,{recursive:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+        at enter (/workspace/work/2047-rede-aurora/tests/e2e/contracts.spec.js:15:66)
+        at /workspace/work/2047-rede-aurora/tests/e2e/contracts.spec.js:26:67
+
+    Error Context: ../../../tmp/aurora-contracts-playwright/contracts-frete-físico-tit-64781-oleta-viagem-entrega-e-save/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../tmp/aurora-contracts-playwright/contracts-frete-físico-tit-64781-oleta-viagem-entrega-e-save/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../tmp/aurora-contracts-playwright/contracts-frete-físico-tit-64781-oleta-viagem-entrega-e-save/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/contracts.spec.js:17:49 › frete físico: titan-old, coleta, viagem, entrega e save ────

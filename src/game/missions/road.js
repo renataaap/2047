@@ -1,3 +1,4 @@
+import {gasQuote,shopQuote,serviceQuote,sellQuote,exchange,recordTrade} from '../economy/market.js';
 import { COMPONENTS,ITEMS } from '../../data/campaign.js';
 import { CONFIG } from '../../data/config.js';
 import { AMBUSHES,GAS_OFFERS,GENERATOR,LITERS_PER_SCRAP,WORKSHOP_OFFERS,WORKSHOP_SELL,WORKSHOP_SERVICES } from '../../data/road.js';
@@ -71,34 +72,24 @@ export function claimTechReward(c){
 
 // ---- Posto de combustível ------------------------------------------------------------------------
 export function gasBuy(c,state,pointId,offerId){
-  const p=roadPoint(pointId),o=GAS_OFFERS.find(o=>o.id===offerId);if(!p||p.kind!=='gas'||!o)return false;
-  const stock=c.road.stocks[p.id],scrap=c.inventory.player.scrap;
-  if(o.kind==='water'){if(stock.water<o.quantity)return false;if(!trade(c,{scrap:o.cost},{water:o.quantity}))return false;stock.water-=o.quantity;return true;}
-  if(o.kind==='can'){
-    const liters=Math.min(o.liters,stock.diesel);if(liters<1)return false;
-    const cost=Math.ceil(liters/LITERS_PER_SCRAP);if(scrap<cost||!trade(c,{scrap:cost},{diesel:liters}))return false;
-    stock.diesel-=liters;return true;
-  }
-  const room=Math.floor(CONFIG.vehicle.fuelCapacity-state.fuel);
-  const liters=Math.min(o.liters,room,stock.diesel,scrap*LITERS_PER_SCRAP);if(liters<1)return false;
-  const cost=Math.ceil(liters/LITERS_PER_SCRAP);c.inventory.player.scrap-=cost;state.fuel+=liters;stock.diesel-=liters;return true;
+  const p=roadPoint(pointId),q=gasQuote(c,state,pointId,offerId),o=GAS_OFFERS.find(o=>o.id===offerId);if(!p||!o||!q.ok)return false;
+  const stock=c.road.stocks[p.id],item=o.kind==='water'?'water':'diesel';
+  if(!exchange(c,'player',{scrap:q.cost},q.need?{}:{[item]:q.quantity}))return false;
+  if(q.need)state.fuel+=q.quantity;stock[item]-=q.quantity;recordTrade(c,p,q.cost);return true;
 }
 
-// ---- Oficina -------------------------------------------------------------------------------------
+// ---- Oficina: interface e cobrança compartilham a mesma cotação ----------------
 export function shopBuy(c,pointId,offerId){
-  const p=roadPoint(pointId),o=WORKSHOP_OFFERS.find(o=>o.id===offerId);if(!p||p.kind!=='workshop'||!o)return false;
-  const stock=c.road.stocks[p.id];if(stock[o.item]<o.quantity||!trade(c,{scrap:o.cost},{[o.item]:o.quantity}))return false;
-  stock[o.item]-=o.quantity;return true;
+ const p=roadPoint(pointId),o=WORKSHOP_OFFERS.find(o=>o.id===offerId),q=shopQuote(c,pointId,offerId);if(!p||!o||!q.ok||!exchange(c,'player',{scrap:q.cost},{[o.item]:o.quantity}))return false;
+ c.road.stocks[pointId][o.item]-=o.quantity;recordTrade(c,p,q.cost);return true;
 }
 export function shopService(c,pointId,serviceId,component){
-  const p=roadPoint(pointId),s=WORKSHOP_SERVICES.find(s=>s.id===serviceId);
-  if(!p||p.kind!=='workshop'||!s||!COMPONENTS[component]||c.components[component]>=100)return false;
-  if(c.inventory.player.scrap<s.cost)return false;
-  c.inventory.player.scrap-=s.cost;c.components[component]=Math.min(100,c.components[component]+s.gain);return true;
+ const p=roadPoint(pointId),q=serviceQuote(c,pointId,serviceId,component);if(!p||!q.ok||!exchange(c,'player',{scrap:q.cost}))return false;
+ c.components[component]=Math.min(100,c.components[component]+q.gain);recordTrade(c,p,q.cost);return true;
 }
 export function shopSell(c,pointId){
-  const p=roadPoint(pointId);if(!p||p.kind!=='workshop')return false;
-  return trade(c,{parts:WORKSHOP_SELL.parts},{scrap:WORKSHOP_SELL.scrap});
+ const p=roadPoint(pointId),q=sellQuote(c,pointId);if(!p||p.kind!=='workshop'||!q.ok||!exchange(c,'player',{parts:2},{scrap:q.cost}))return false;
+ recordTrade(c,p,q.cost,true);return true;
 }
 
 // ---- Saqueadores ---------------------------------------------------------------------------------

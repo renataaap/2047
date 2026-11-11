@@ -1,0 +1,583 @@
+{
+  "version": "0.12.0",
+  "recordedAt": "2026-11-08T12:29:14.599027+00:00",
+  "state": "Functional implementation automatically validated; human gameplay/balance/Windows GPU review pending",
+  "repository": "renataaap/2047",
+  "branch": "feat/contratos-economia-0.12.0",
+  "pullRequest": "https://github.com/renataaap/2047/pull/6",
+  "base": {
+    "version": "0.11.0",
+    "commit": "69afd0763a5f2b417cdca89be0c66ef7467c8347",
+    "branch": "feat/restauracao-ambiental-0.11.0",
+    "pr": 5,
+    "prStateAtFinalQuery": "open, not merged",
+    "mainCommit": "4771193683610911e362afbca0c703eb20b1e8fb",
+    "mainVersion": "0.10.0",
+    "mergesPerformed": false,
+    "forcePush": false
+  },
+  "sourceCommit": "81b8142192becbcff788b68be547c91593fbb868",
+  "commits": [
+    "f46ce5f docs(contratos): diagnosticar base 0.11 e registrar massas, comércio e persistência",
+    "b69177f feat(contratos): criar catálogo, manifesto, estados, carreira e cotações puras",
+    "d211d24 feat(logística): integrar terminais, cargas 3D, peso, GPS, comércio e gravação atômica",
+    "96cebd0 feat(carreira): habilitar especializações e validar cargas, terminais e três slots",
+    "593e83b test(logística): verificar regressão do comércio e preparar reinício dos contratos",
+    "513b9a4 fix(fretes): preservar prêmio em avarias mínimas e conferir pagamento antes da descarga",
+    "81b8142 fix(interface): traduzir regiões e ajustar concordância do pagamento dos fretes"
+  ],
+  "baselineExecutedInThisTask": {
+    "unit": 257,
+    "unitFiles": 34,
+    "build": "passed",
+    "browser": 1,
+    "note": "New baseline run, not the historical 44-case 0.11 integral"
+  },
+  "unit": {
+    "command": "npm test",
+    "source": "81b8142192becbcff788b68be547c91593fbb868",
+    "passed": 318,
+    "files": 37,
+    "addedSinceBase": 61,
+    "log": "logs/release-unit.log"
+  },
+  "build": {
+    "command": "npm run build",
+    "source": "81b8142192becbcff788b68be547c91593fbb868",
+    "passed": true,
+    "devAndWebGLStopped": true,
+    "log": "logs/release-build.log"
+  },
+  "browser": {
+    "integral": {
+      "command": "npm run test:e2e",
+      "source": "593e83b9641f85cd8e794de276737801de3f0f58",
+      "stats": {
+        "startTime": "2026-11-07T20:07:53.881Z",
+        "duration": 4445865.098,
+        "expected": 51,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "report": "integral-1.json",
+      "log": "logs/integral-1.log",
+      "sourceFilesUnchanged": 292,
+      "protectedUnchanged": 12
+    },
+    "postPolishFocused": {
+      "source": "513b9a40cb6f5d352ff11a7d400d5644f029885b",
+      "stats": {
+        "startTime": "2026-11-07T21:24:41.599Z",
+        "duration": 366128.141,
+        "expected": 6,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "report": "polish-final.json",
+      "scope": "3 slots/schema, Titan physical delivery, Dump physical fragile delivery, 409 rollback, heavy collection/return, near-perfect quote/payout"
+    },
+    "finalLabelRecheck": {
+      "source": "81b8142192becbcff788b68be547c91593fbb868",
+      "stats": {
+        "startTime": "2026-11-08T12:25:37.159Z",
+        "duration": 51795.306,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "report": "release-ui.json",
+      "scope": "Near-perfect quote, exactly one payout, Portuguese region, singular labels, persisted history and version footer"
+    },
+    "workers": 1,
+    "webglAndBuildParallel": false,
+    "full52CaseRunOnFinalSource": false,
+    "note": "51-case full run, then 6 + 1 focused rechecks. Do not add these as unique full-suite cases."
+  },
+  "integrity": {
+    "integralFreeze": "source-freeze.json",
+    "integralVerification": "source-verified.json",
+    "finalFingerprints": "source-release.json",
+    "sourceFileCount": 292,
+    "postIntegralChangedPaths": [
+      "src/components/gameplay/ContractsPanel.js",
+      "src/data/ui.js",
+      "src/game/logistics/LogisticsController.js",
+      "src/game/logistics/contracts.js",
+      "tests/e2e/contracts.spec.js",
+      "tests/unit/logistics-integration.test.js"
+    ],
+    "protectedBase": "protected-base.json",
+    "protectedFileCount": 12,
+    "allProtectedUnchanged": true,
+    "modifiedSourceList": "modified-source-files.txt"
+  },
+  "physicalDeliveries": {
+    "method": "Same existing game/vehicle bay and chase camera before/after load, Low/.75. Separate API/capsule/physics action time passes naturally. Chromium ANGLE SwiftShader; counters, not real GPU FPS. Actual deliveries at accelerated original 60 Hz physics, no teleports during each trip.",
+    "samples": [
+      {
+        "vehicle": "titan-old",
+        "cargo": "water",
+        "kg": 630,
+        "distance": 776.8089091831954,
+        "simulationSeconds": 172.28333333333333,
+        "fuel": 0.43476680488588215,
+        "maximumStep": 0.09689682588057587,
+        "maximumDeviation": 1.4721237825044489,
+        "empty": {
+          "drawCalls": 105,
+          "triangles": 165152,
+          "renderResources": {
+            "geometries": 114,
+            "textures": 70,
+            "programs": 28
+          }
+        },
+        "loaded": {
+          "drawCalls": 110,
+          "triangles": 167348,
+          "renderResources": {
+            "geometries": 126,
+            "textures": 70,
+            "programs": 28
+          }
+        },
+        "receipt": {
+          "id": "frete:agua-cotovelo:0",
+          "template": "agua-cotovelo",
+          "epoch": 0,
+          "outcome": "completed",
+          "endedAt": 198.31666666671663,
+          "metres": 776.8113763386519,
+          "vehicle": "titan-old",
+          "integrity": 100,
+          "reward": {
+            "scrap": 7,
+            "parts": 0
+          },
+          "xp": 108,
+          "late": false
+        }
+      },
+      {
+        "vehicle": "dump-truck",
+        "cargo": "instruments",
+        "kg": 180,
+        "distance": 753.6969122479493,
+        "simulationSeconds": 175.03333333333333,
+        "fuel": 0.43777527107575054,
+        "maximumStep": 0.09644263210272118,
+        "maximumDeviation": 6.736476744078909,
+        "empty": {
+          "drawCalls": 193,
+          "triangles": 217977,
+          "renderResources": {
+            "geometries": 191,
+            "textures": 92,
+            "programs": 29
+          }
+        },
+        "loaded": {
+          "drawCalls": 197,
+          "triangles": 218341,
+          "renderResources": {
+            "geometries": 197,
+            "textures": 92,
+            "programs": 29
+          }
+        },
+        "receipt": {
+          "id": "frete:instrumentos-cinza:0",
+          "template": "instrumentos-cinza",
+          "epoch": 0,
+          "outcome": "completed",
+          "endedAt": 200.6666666667185,
+          "metres": 753.6972241069009,
+          "vehicle": "dump-truck",
+          "integrity": 100,
+          "reward": {
+            "scrap": 8,
+            "parts": 1
+          },
+          "xp": 156,
+          "late": false
+        }
+      }
+    ],
+    "reportRoot": "integral-1/contracts",
+    "completeHeavyJourneyVerified": false
+  },
+  "continuedActualCareer": {
+    "source": "513b9a40cb6f5d352ff11a7d400d5644f029885b",
+    "report": "post-integral/two-real-jobs-career.json",
+    "startedFrom": "Actual first Titan delivery save produced by integral run, not synthesized career XP",
+    "career": {
+      "version": 1,
+      "xp": 264,
+      "level": 2,
+      "skills": {
+        "fragile": 1,
+        "heavy": 0,
+        "regional": 1,
+        "maintenance": 0,
+        "planning": 2
+      },
+      "stats": {
+        "completed": 2,
+        "transportedMetres": 1571.1728840277528,
+        "goodDeliveries": 2,
+        "special": 0,
+        "regions": [
+          "ashes"
+        ],
+        "vehicles": {
+          "titan-old": 2,
+          "dump-truck": 0
+        },
+        "resources": {
+          "diesel": 0,
+          "water": 0,
+          "food": 0,
+          "parts": 1,
+          "scrap": 15
+        }
+      }
+    },
+    "secondTrip": {
+      "label": "second-real-job-career-level-2",
+      "start": {
+        "position": [
+          26.179475784301758,
+          0.9155024290084839,
+          -565.58642578125
+        ],
+        "quaternion": [
+          0.00037703689304180443,
+          -0.09819897264242172,
+          -0.0051836720667779446,
+          0.9951532483100891
+        ],
+        "playerPosition": [
+          12.609423637390137,
+          0.6819922924041748,
+          -550.8770141601562
+        ],
+        "playerYaw": 0,
+        "speed": -0.00034202237728073485,
+        "mode": "driving",
+        "engineOn": true,
+        "steps": 2557,
+        "surface": "terra",
+        "fuel": 79.50865351620513,
+        "integrity": 100,
+        "massKg": 11293.2373046875,
+        "loaded": true,
+        "wheelContacts": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "finish": {
+        "position": [
+          -388.8902282714844,
+          2.6335806846618652,
+          -822.9509887695312
+        ],
+        "quaternion": [
+          -0.000303359905956313,
+          0.9839293956756592,
+          0.001671449514105916,
+          0.1785498410463333
+        ],
+        "playerPosition": [
+          12.609423637390137,
+          0.6819922924041748,
+          -550.8770141601562
+        ],
+        "playerYaw": 0,
+        "speed": 7.635693650169371e-06,
+        "mode": "driving",
+        "engineOn": true,
+        "steps": 12742,
+        "surface": "asfalto",
+        "fuel": 79.07873156308266,
+        "integrity": 100,
+        "massKg": 11292.8369140625,
+        "loaded": true,
+        "wheelContacts": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "travelledMetres": 761.1771137524789,
+      "maxStepMetres": 0.09650331759347058,
+      "maxOffRouteMetres": 8.384419134692916,
+      "simulatedSeconds": 169.75,
+      "done": true,
+      "parkingDistanceMetres": 3.1527651367192133,
+      "teleportsDuringDrive": 0,
+      "method": "Actual Game.fixedUpdate at 60 Hz, original controls, drivetrain, resources, collisions and Rapier. Accelerated diagnostic time; not human real-time gameplay."
+    },
+    "manoeuvre": {
+      "radians": 3.022744128881185,
+      "method": "Reverse clear of the bay, then a low-speed forward left return, entirely with original controls and fixed Rapier; no position or velocity assignments.",
+      "report": "post-integral/native-manoeuvre.json"
+    },
+    "savedAndReloadedCareerAndHistoryIdentical": true,
+    "seedPreserved": true,
+    "consoleErrors": [],
+    "humanSession": false
+  },
+  "accessAudit": {
+    "localPhysicalApproachesPassed": 14,
+    "sites": 7,
+    "vehicles": 2,
+    "focusedReport": "access-focused-2",
+    "rerunInFullIntegral": true,
+    "method": "Starts 24 m before each bay; original Rapier approach, parking, capsule exit/walk, interaction. Not full interregional travel."
+  },
+  "catalogAudit": {
+    "validConnectedTemplates": 12,
+    "report": "catalog-connectivity.json",
+    "method": "Synthetic unlocked planning/capacity fixture; not twelve physically driven jobs"
+  },
+  "persistence": {
+    "exactSavesAfterRealRestart": 5,
+    "before": "persistence-before-restart.json",
+    "after": "persistence-after-restart.json",
+    "backend": "local libSQL/SQLite; production Turso untested",
+    "coverage": "3 separate slots: awaiting pickup, transporting, completed; plus actual Titan/Dump delivery saves",
+    "previousRestartSnapshotsPreserved": "restart-initial",
+    "activeCargoRenderedAfterRestart": "post-integral/active-cargo-loaded-from-slot-2.png",
+    "careerContinuedAndReloaded": true,
+    "privateCookiesAndTracesCommitted": false
+  },
+  "cargoPhysicsBench": {
+    "report": "payload-physics.json",
+    "script": "scripts/medir-carga-0.12.0.mjs",
+    "renderFPSChecked": [
+      30,
+      60,
+      120
+    ],
+    "fixedPhysicsHz": 60,
+    "tuningChanged": false
+  },
+  "graphics": {
+    "renderer": "Chromium / ANGLE SwiftShader software",
+    "windowsGPUFPSMeasured": false,
+    "comparisons": "../../docs/COMPARACAO_CONTRATOS_0.12.0.md",
+    "conditions": "Matched local bay/chase camera within 0.12; Low quality .75 render scale. Not matched 0.11-versus-0.12 GPU performance comparison.",
+    "counters": [
+      {
+        "vehicle": "titan-old",
+        "cargo": "water",
+        "kg": 630,
+        "distance": 776.8089091831954,
+        "simulationSeconds": 172.28333333333333,
+        "fuel": 0.43476680488588215,
+        "maximumStep": 0.09689682588057587,
+        "maximumDeviation": 1.4721237825044489,
+        "empty": {
+          "drawCalls": 105,
+          "triangles": 165152,
+          "renderResources": {
+            "geometries": 114,
+            "textures": 70,
+            "programs": 28
+          }
+        },
+        "loaded": {
+          "drawCalls": 110,
+          "triangles": 167348,
+          "renderResources": {
+            "geometries": 126,
+            "textures": 70,
+            "programs": 28
+          }
+        },
+        "receipt": {
+          "id": "frete:agua-cotovelo:0",
+          "template": "agua-cotovelo",
+          "epoch": 0,
+          "outcome": "completed",
+          "endedAt": 198.31666666671663,
+          "metres": 776.8113763386519,
+          "vehicle": "titan-old",
+          "integrity": 100,
+          "reward": {
+            "scrap": 7,
+            "parts": 0
+          },
+          "xp": 108,
+          "late": false
+        }
+      },
+      {
+        "vehicle": "dump-truck",
+        "cargo": "instruments",
+        "kg": 180,
+        "distance": 753.6969122479493,
+        "simulationSeconds": 175.03333333333333,
+        "fuel": 0.43777527107575054,
+        "maximumStep": 0.09644263210272118,
+        "maximumDeviation": 6.736476744078909,
+        "empty": {
+          "drawCalls": 193,
+          "triangles": 217977,
+          "renderResources": {
+            "geometries": 191,
+            "textures": 92,
+            "programs": 29
+          }
+        },
+        "loaded": {
+          "drawCalls": 197,
+          "triangles": 218341,
+          "renderResources": {
+            "geometries": 197,
+            "textures": 92,
+            "programs": 29
+          }
+        },
+        "receipt": {
+          "id": "frete:instrumentos-cinza:0",
+          "template": "instrumentos-cinza",
+          "epoch": 0,
+          "outcome": "completed",
+          "endedAt": 200.6666666667185,
+          "metres": 753.6972241069009,
+          "vehicle": "dump-truck",
+          "integrity": 100,
+          "reward": {
+            "scrap": 8,
+            "parts": 1
+          },
+          "xp": 156,
+          "late": false
+        }
+      }
+    ]
+  },
+  "assets": {
+    "externalAssetsDownloaded": false,
+    "newProceduralGeometry": "Original pallets, drums, sacks, cases, crates, machines and terminal assemblies",
+    "truckGLBsUnchanged": true,
+    "attributionsPreserved": true,
+    "ccByNcRestrictionsPreserved": true
+  },
+  "retainedAttempts": [
+    "physical-1 harness cabin longitudinal sign",
+    "physical-2 GLB node/mesh selector",
+    "access-focused-1 fixed-height fixture interrupted",
+    "early capture before cabin fade completed",
+    "logs/post-integral-probes.log: forward-only automatic return hit workshop; corrected with real reverse/return in post-integral-probes-2.log"
+  ],
+  "acceptanceCriteria": {
+    "functionalItems1Through21": [
+      {
+        "id": 1,
+        "accepted": true
+      },
+      {
+        "id": 2,
+        "accepted": true
+      },
+      {
+        "id": 3,
+        "accepted": true
+      },
+      {
+        "id": 4,
+        "accepted": true
+      },
+      {
+        "id": 5,
+        "accepted": true
+      },
+      {
+        "id": 6,
+        "accepted": true
+      },
+      {
+        "id": 7,
+        "accepted": true
+      },
+      {
+        "id": 8,
+        "accepted": true
+      },
+      {
+        "id": 9,
+        "accepted": true
+      },
+      {
+        "id": 10,
+        "accepted": true
+      },
+      {
+        "id": 11,
+        "accepted": true
+      },
+      {
+        "id": 12,
+        "accepted": true
+      },
+      {
+        "id": 13,
+        "accepted": true
+      },
+      {
+        "id": 14,
+        "accepted": true
+      },
+      {
+        "id": 15,
+        "accepted": true
+      },
+      {
+        "id": 16,
+        "accepted": true
+      },
+      {
+        "id": 17,
+        "accepted": true
+      },
+      {
+        "id": 18,
+        "accepted": true
+      },
+      {
+        "id": 19,
+        "accepted": true
+      },
+      {
+        "id": 20,
+        "accepted": true
+      },
+      {
+        "id": 21,
+        "accepted": true
+      }
+    ],
+    "scope": "Initial functional optional transport system; neither a complete career simulator nor human-approved balance."
+  },
+  "limitations": [
+    "Human Windows/GPU and audio review pending",
+    "Ten-job human fun/balance evaluation pending",
+    "No verified complete heavy/interregional catalogue journeys",
+    "No forklift, loose-cargo or strap physics, trailer control, logistics NPC routines or global multiplayer economy",
+    "Community consequence is finite demand/reserve, not rebuilt buildings",
+    "Future reputation/factions, recovery jobs and additional docks remain roadmap items"
+  ]
+}

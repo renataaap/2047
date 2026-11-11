@@ -1,3 +1,4 @@
+import {inLogisticsSpace} from '../../data/contracts.js';
 import {RESERVATIONS} from '../../data/ambience.js';
 import {CITY_BUILDINGS} from '../../data/cityLayout.js';
 import {CITY_GAS} from '../../data/roadNetwork.js';
@@ -13,6 +14,7 @@ const structures=[...CITY_BUILDINGS,
 ];
 export function vegetationAllowed(x,z,kind='grass',sample=heightAt){
  const radius=kind==='tree'?2.8:kind==='shrub'?1.3:.4;
+ if(inLogisticsSpace(x,z,radius+1))return false;
  if(!Number.isFinite(x+z)||z>65||z<-21000||roadClearanceAt(x,z)<6+radius)return false;
  if(PAVED_AREAS.some(p=>Math.abs(x-p.x)<p.width/2+6+radius&&Math.abs(z-p.z)<p.length/2+6+radius))return false;
  if(RESERVATIONS.some(p=>Math.hypot(x-p.x,z-p.z)<p.r+radius))return false;

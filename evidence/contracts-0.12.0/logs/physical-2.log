@@ -1,0 +1,36 @@
+
+Running 1 test using 1 worker
+
+(node:2610) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/contracts.spec.js:17:49 › frete físico: titan-old, coleta, viagem, entrega e save (51.7s)
+
+
+  1) tests/e2e/contracts.spec.js:17:49 › frete físico: titan-old, coleta, viagem, entrega e save ───
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 2
+    Received:    0
+
+      25 |  await page.getByRole('button',{name:'Manifesto ativo',exact:true}).click();await expect(page.getByRole('button',{name:'Confirmar carregamento'})).toBeEnabled();await page.getByRole('button',{name:'Confirmar carregamento'}).click();await expect.poll(async()=>(await state(page)).logistics.cargo?.type).toBe('water');await expect.poll(async()=>(await state(page)).logistics.busy).toBe(false);const loaded=await state(page);expect(loaded.campaign.seed).toEqual(before.campaign.seed);expect(loaded.campaign.inventory).toEqual(before.campaign.inventory);await capture(page,`${vehicle}-manifest`);
+      26 |  await page.getByRole('button',{name:/Voltar à estrada/}).click();await enter(page);await page.evaluate(()=>{const d=window.__GAME_DEBUG__;d.step({handbrake:true},120);d.publish();});await capture(page,`${vehicle}-loaded`);
+    > 27 |  const payload=await state(page);expect(payload.commercialCargo.visible).toBe(true);expect(payload.commercialCargo.mass).toBe(630);expect(payload.massKg-before.massKg).toBeCloseTo(630,0);expect(payload.navigation.destination.id).toBe('oficina-cotovelo');if(vehicle==='titan-old')expect(payload.commercialCargo.doors.leaves).toBeGreaterThanOrEqual(2);
+         |                                                                                                                                                                                                                                                                                                                                     ^
+      28 |  await page.keyboard.press('KeyE');const drive=await drivePhysical(page,{cruise:6,maxSeconds:650,label:`frete-${vehicle}`,wheelbase:vehicle==='dump-truck'?4.738:4.675});await page.keyboard.press('KeyE');await page.evaluate(()=>{const d=window.__GAME_DEBUG__;d.step({handbrake:true},120);d.publish();});const parked=await state(page);await capture(page,`${vehicle}-arrival`);
+      29 |  await page.keyboard.press('KeyF');await terminal(page,'cotovelo');await page.getByRole('button',{name:'Manifesto ativo',exact:true}).click();await capture(page,`${vehicle}-delivery-review`);await expect(page.getByRole('button',{name:'Descarregar e receber'})).toBeEnabled();await page.getByRole('button',{name:'Descarregar e receber'}).click();await expect.poll(async()=>(await state(page)).campaign.career.stats.completed).toBe(1);await expect.poll(async()=>(await state(page)).logistics.busy).toBe(false);const delivered=await state(page);expect(delivered.campaign.logistics.cargo).toBeNull();expect(delivered.campaign.career.xp).toBeGreaterThan(0);expect(delivered.campaign.network.cargo).toBe(before.campaign.network.cargo);await page.getByRole('button',{name:'Histórico',exact:true}).click();await capture(page,`${vehicle}-paid`);
+      30 |  const saved=await (await page.request.get('/api/saves/1')).json();expect(saved.data.campaign.career.stats.completed).toBe(1);await page.reload();await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='walking');await controlledPhysics(page);const reloaded=await state(page);expect(reloaded.campaign.logistics.history).toEqual(delivered.campaign.logistics.history);expect(reloaded.campaign.career).toEqual(delivered.campaign.career);expect(reloaded.commercialCargo.visible).toBe(false);expect(errors).toEqual([]);
+        at /workspace/work/2047-rede-aurora/tests/e2e/contracts.spec.js:27:325
+
+    Error Context: ../../../tmp/aurora-contracts-playwright-2/contracts-frete-físico-tit-64781-oleta-viagem-entrega-e-save/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../tmp/aurora-contracts-playwright-2/contracts-frete-físico-tit-64781-oleta-viagem-entrega-e-save/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../tmp/aurora-contracts-playwright-2/contracts-frete-físico-tit-64781-oleta-viagem-entrega-e-save/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/contracts.spec.js:17:49 › frete físico: titan-old, coleta, viagem, entrega e save ────
