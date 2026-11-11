@@ -10,7 +10,7 @@
 
 | # | Story | Type | Status | ADR |
 |---|-------|------|--------|-----|
-| 001 | Sistema reutilizável de cutscenes narrativas | Integration | Ready | N/A (minimal) |
+| 001 | Sistema reutilizável de cutscenes narrativas | Integration | Complete | N/A (minimal) |
 | 002 | Prólogo cinematográfico de 2027 e transição para 2047 | Visual/Feel | Ready | N/A (minimal) |
 | 003 | Nova introdução de Dante no barracão e apresentação do Titã | Visual/Feel | Ready | N/A (minimal) |
 | 004 | Chegada da sobrevivente com a primeira Semente | Visual/Feel | Ready | N/A (minimal) |

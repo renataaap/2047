@@ -1,7 +1,7 @@
 # Story 001: Sistema reutilizável de cutscenes narrativas
 
 > **Epic**: 2047 — Rede Aurora
-> **Status**: In Progress
+> **Status**: Complete
 > **Layer**: Presentation
 > **Type**: Integration
 > **Estimate**: L
@@ -85,3 +85,10 @@
 
 - Depends on: None
 - Unlocks: story-002, 003, 004, 005, 006
+
+## Completion Notes
+**Completed**: 2026-11-11
+**Criteria**: 8/8 aceitos; 6 cobertos, 2 parciais. Untested criteria: AC-5 (falta salvar e recarregar um save real com cena vista) e AC-7 (falta medir o custo por frame). Pausa sem avanço de tempo está coberta.
+**Deviations**: gancho de debug `playCutscene` em `Game.js`, só em desenvolvimento. Sem integral E2E, Windows/GPU ou playtest humano.
+**Test Evidence**: `tests/unit/cutscene.test.js` (14), `tests/e2e/cutscene.spec.js` (3) e `production/qa/evidence/story-001-sistema-de-cutscenes/`. Regressão relevante 10/10; build aprovado.
+**Reviewed by**: self, no independent review
