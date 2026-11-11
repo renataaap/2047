@@ -19,3 +19,10 @@ export async function enterFromNewTutorial(page){
  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-3,z:5}));
  await page.keyboard.press('KeyF');await expect.poll(()=>page.evaluate(()=>window.__GAME_DEBUG__.getState().mode)).toBe('driving');
 }
+// 0.14 (story 004): a sobrevivente chega ao abrigo numa cena ('first-seed') quando o tutorial pede
+// para falar com ela ou, sem tutorial ativo, quando Dante se aproxima a pé. Regressões que não
+// testam a chegada esperam a cena começar e a pulam pela ação real (Esc), que leva ao mesmo estado.
+export async function meetSurvivor(page){
+ await page.waitForFunction(()=>{const s=window.__GAME_DEBUG__.getState();return s.cutscene?.id==='first-seed'||!!s.campaign.story?.scenes?.['first-seed']||s.campaign.seed.received;},null,{timeout:20000});
+ if(await page.evaluate(()=>window.__GAME_DEBUG__.getState().cutscene?.id==='first-seed')){await page.keyboard.press('Escape');await page.waitForFunction(()=>!window.__GAME_DEBUG__.getState().cutscene&&['walking','driving'].includes(window.__GAME_DEBUG__.getState().mode));}
+}

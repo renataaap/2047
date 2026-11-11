@@ -1,4 +1,4 @@
-import {skipPrologue} from '../helpers/start-driving.js';
+import {skipPrologue,meetSurvivor} from '../helpers/start-driving.js';
 import {skipRestorationPresentation} from '../helpers/restoration-presentation.js';
 import {evidencePath} from '../helpers/evidence-path.js';
 import {test,expect} from '@playwright/test';
@@ -20,7 +20,7 @@ test('alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas',async({page})=>
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});await page.waitForTimeout(1200);await page.screenshot({path:`${dir}/menu-after.png`});await page.getByRole('button',{name:'01 Novo jogo'}).click();await skipPrologue(page);await expect.poll(async()=>(await state(page)).mode,{timeout:30000}).toBe('walking');await expect(page.locator('.travel-transition')).not.toHaveClass(/active/,{timeout:20000});
  const initial=await state(page);expect(initial.dante.loaded).toBe(true);expect(initial.dante.visible).toBe(false);await page.keyboard.press('KeyC');await expect.poll(async()=>(await state(page)).dante.visible).toBe(true);await page.waitForTimeout(1000);await page.screenshot({path:`${dir}/dante-third-person.png`});
  const startZ=(await state(page)).playerPosition[2];await page.keyboard.down('KeyW');await expect.poll(async()=>(await state(page)).playerPosition[2],{timeout:20000}).toBeLessThan(startZ-1.2);const walking=await state(page);expect(walking.dante.state).toBe('walk');expect(walking.dante.position[0]).toBeCloseTo(walking.playerPosition[0],3);expect(walking.dante.position[2]).toBeCloseTo(walking.playerPosition[2],3);await page.keyboard.up('KeyW');await page.keyboard.press('KeyC');await expect.poll(async()=>(await state(page)).dante.visible).toBe(false);
- await teleportPlayer(page,-19,5);await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:'Sobrevivente',exact:true})).toBeVisible();await page.getByRole('button',{name:'Exibir texto completo'}).click();await page.waitForTimeout(1800);await page.screenshot({path:`${dir}/dialogue-after.png`});await page.keyboard.press('Escape');
+ await teleportPlayer(page,-19,5);await meetSurvivor(page);await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:'Sobrevivente',exact:true})).toBeVisible();await page.getByRole('button',{name:'Exibir texto completo'}).click();await page.waitForTimeout(1800);await page.screenshot({path:`${dir}/dialogue-after.png`});await page.keyboard.press('Escape');
  // This test relocates fixtures; settle that new pose with the original 60 Hz
  // physics before opening a panel that pauses the world. Wall-clock delays are
  // not a reliable parking preparation on software rendering.
