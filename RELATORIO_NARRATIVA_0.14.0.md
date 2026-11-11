@@ -11,7 +11,8 @@
 | A — Auditoria narrativa | **Feito** | Mapa do que existe (Brutus ausente do código, `finalChoice`/`titanForced` sem uso, uma única fala da Voz), capítulos, diretrizes de personagem, análise dos finais com recomendação |
 | B — Estado narrativo | **Feito** | `src/game/narrative/story.js`: capítulo derivado dos Núcleos; cenas assistidas/puladas; escolhas aplicadas uma vez com custo atômico; relações derivadas; registro de rádio; qualidade de ancoragem gravada a cada ativação. Bloco opcional `campaign.story`, validado. Saves antigos continuam válidos. |
 | E — Rádio e Voz | **Feito (primeira leva)** | 22 transmissões por capítulo, região, missão e escolha. Tocam só em cruzeiro (velocidade > 18 km/h, volante quase reto, sem painel nem cena), com intervalo de 75 s, uma vez cada. Legenda no topo central e registro consultável no painel R. 6 fontes de fragmento da Voz: 1 já existente, 3 no rádio e 2 na exploração a pé (Balança 07 e Motel), com entrada no diário. |
-| C — Prólogo 2027 / introdução de Dante | Pendente | — |
+| C — Prólogo 2027 (story 002) | **Em andamento, validação parcial** | O Novo Jogo abre o prólogo (`src/game/narrative/cutscenes/prologue.js`, ~41 s, pulável): seis planos (2027 limpo → luz estranha → plasma → túnel → cartela "2047 / Vinte anos depois" → mundo devastado sobre o barracão e o Titã). Depois disso, o jogador recebe o controle com o tutorial em 1/21. 2027 acontece num **set próprio** (`Prologue2027Set.js`), montado só durante o prólogo e descartado ao fim. O set fica a 1500 m de altura, com cúpula de céu própria, materiais sem névoa e luzes próprias. Tem rodovia inteira, guard-rail, postes com fios, árvores, posto aceso, carros nas duas mãos, cidade e torre de rádio (que apaga quando as comunicações caem) e colina com túnel real e luzes internas. Com redução de movimento, só aparece a cartela 2047, sem set. Saves existentes ou legados nunca o veem. **A arte do set é procedural e low-poly: polimento visual pendente, não é arte final.** |
+| C — Introdução de Dante (story 003) | Pendente | — |
 | D — Personagens (cenas de conversa) | Parcial | Falas novas de Renata, Lia, Afonso, Noêmia, Joel e Garcia no rádio. **As três escolhas agora são jogáveis** nos painéis dos abrigos (Lia no Viaduto; homens de Garcia na bomba de Afonso; Noêmia na Cordilheira), com pedido, custo, "decisão importante", reação persistente e efeito em relações e rádio. Opções que usam o caminhão exigem o Titã estacionado. Ainda não há cena 3D de Brutus. |
 | Sistema de cutscenes (story 001) | **Feito (sem conteúdo)** | `src/game/narrative/cutscene.js`: cenas descritas por dados (planos com câmera, legenda, luz e áudio) e um único `CutscenePlayer`. A cena suspende física, entrada, áudio e rádio. Esc, Space, Enter ou o botão pulam e levam ao mesmo estado de assistir até o fim. Com redução de movimento, a câmera fica fixa e a cena dura até 1,8 s. A cena fica registrada como `watched`/`skipped` em `campaign.story.scenes`, e um pulo nunca rebaixa uma cena assistida. A cinemática da restauração passou a herdar do mesmo player, com a trajetória original. O registro `CUTSCENES` está vazio: o conteúdo e o momento em que cada cena começa ficam para as stories 002–006. |
 | F — Cutscenes da campanha | Pendente | Só a cena ambiental da 0.11, agora sobre o sistema da story 001 |
@@ -39,6 +40,26 @@
   - **Regressão relevante: 10/10 em 5,4 min** (`cutscene`, `narrative` e os 5 de `restoration`, incluindo a cinemática completa e a redução de movimento da restauração), sem retries. Depois disso, só o spec mudou (fixture mais longa e espera da animação antes da captura). A rechecagem de `cutscene.spec.js` deu **3/3**; ela não é um caso inédito.
   - **Ambiente dos E2E:** rodaram no Chrome do sistema (`PLAYWRIGHT_CHROMIUM_EXECUTABLE`), headless com SwiftShader. Os navegadores do Playwright não estão instalados nesta máquina.
   - **Evidências:** as capturas curadas estão em `production/qa/evidence/story-001-sistema-de-cutscenes/`; as brutas ficam em `evidence/current-e2e/` (não versionadas).
+- **11/11 (story 002, prólogo; branch `feat/narrativa-0.14.0`):**
+  - **Unitários e build:** `npm test` deu **385/385 em 47 arquivos** na fonte congelada (hashes em `production/qa/evidence/story-002-prologo-2027-e-transicao/stamp.txt`). São novos `tests/unit/prologue.test.js` (12 testes) e 1 teste de regressão em `cutscene.test.js`. `npm run build` foi aprovado.
+  - **Defeitos reais corrigidos:**
+    - Pular uma cena antes de o modelo do Dante carregar travava o fim da cena (`actor.anchor` indefinido). O teste foi visto falhando antes da correção.
+    - O plano de plasma passava a câmera dentro do Titã.
+    - A cartela 2047 ficava invisível (fade de 0,8 s num plano de 2 s).
+    - Com redução de movimento, o modo reduzido mostrava "trânsito normal" em vez da cartela. Agora a cena tem `reducedShot`.
+    - As poses das câmeras do set estavam com os eixos trocados (vista aérea a ~260 m).
+    - Colinas atravessavam a cúpula.
+    - Em Médio e Alto, o `far` desenhava o mundo de 2047 atrás do set. Agora o `far` é limitado a 640 m só durante o set.
+  - **Ajustes de teste:**
+    - Novo `skipPrologue` nos helpers. Specs que fazem Novo Jogo sem testar o prólogo o pulam pela ação real (Esc).
+    - `cutscene.spec` passou a comparar só as cenas da fixture.
+    - `game.spec` usava `URL.pathname`, que gera `C:\C:\...` no Windows. Defeito antigo do harness, corrigido com `fileURLToPath`.
+  - **E2E novo `prologue.spec.js`** (4 testes): prólogo inteiro sem avançar `simulation.steps`; tutorial 1/21 intacto; pulo por Space; cartela no modo reduzido; save legado via Continuar nunca abre o prólogo; perfis Médio e Alto.
+  - **Métricas no jogo real (Baixo):** de 79 a 104 draw calls e de 16 mil a 32 mil triângulos durante o set, contra ~200 e ~251 mil na jogabilidade. As geometrias caem de 296 para 218 ao fim (o set é liberado). Em Médio e Alto continuam ~240 draw calls durante o set, provavelmente pelo mapa de sombras renderizado em volta do jogador (custo não visível). **Pendente:** pausar a atualização do mapa de sombras durante o set.
+  - **Regressões E2E:**
+    - Primeira rodada de 14 specs, **antes** do set de 2027 e das correções: 29 aprovados e 6 falhas. Está preservada em `evidence/current-e2e/story002-pre-set/` e **não vale para a versão final**.
+    - **Regressão final** (15 specs, 41 testes, fonte congelada conferida pelos hashes de `stamp.txt`, 11/11 das 13h39 às 14h01): **40 aprovados, 1 falha, em 22,3 min.** A falha foi em `assets.spec.js:9` ("Poly Haven instalado"), em 2 ms: o Chrome do sistema fechou durante a abertura (`browserType.launch: Target page, context or browser has been closed`), antes de carregar a página. É **ambiente**, não defeito do jogo. A rechecagem isolada deu **1/1 em 22,3 s** e não conta como caso inédito. O `tutorial-assets`, intermitente na rodada anterior, passou. Logs brutos em `evidence/current-e2e/story002-final/` (não versionados). O registro está em `production/qa/evidence/story-002-prologo-2027-e-transicao/validation.json`.
+  - **Pendências da story 002:** polimento visual do set (plano em `docs/RETOMAR_STORY_002.md`); sombras durante o set; sign-off humano de ritmo, legibilidade e GPU integrada.
 - **Sem** integral de E2E, playtest humano, Windows/GPU ou revisão de texto por outra pessoa.
 
 ## Limitações conhecidas

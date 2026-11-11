@@ -1,3 +1,4 @@
+import {skipPrologue} from '../helpers/start-driving.js';
 import {test,expect} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {installTerrainProbe} from '../helpers/terrain-probe.js';
@@ -10,7 +11,7 @@ test('chão do barracão e terreno renderizam em Baixo/Médio/Alto com limite de
  await installTerrainProbe(page,16);
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
  await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:120000});
- await page.getByRole('button',{name:'01 Novo jogo'}).click();await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='walking');
+ await page.getByRole('button',{name:'01 Novo jogo'}).click();await skipPrologue(page);await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='walking');
  await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();
  await page.evaluate(()=>window.__GAME_DEBUG__.setTime(9));
  await page.screenshot({path:`${dir}/barracao-inicial.png`});
@@ -41,7 +42,7 @@ test('Alta conserva todos os mapas em hardware com pelo menos 17 unidades de tex
  const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  await installTerrainProbe(page,0);
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'alto',scale:.75,volume:0})));
- await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'01 Novo jogo'}).click();
+ await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await skipPrologue(page);
  await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='walking');await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();
  await page.evaluate(()=>{window.__GAME_DEBUG__.setTime(9);window.__GAME_DEBUG__.teleportPlayer({x:-5,z:38});window.__TERRAIN_PROBE__.arm();});
  await expect.poll(async()=>page.evaluate(()=>window.__TERRAIN_PROBE__.report().visibleTerrainDraws),{timeout:60000}).toBeGreaterThan(0);

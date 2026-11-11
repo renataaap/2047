@@ -59,3 +59,17 @@ button.interaction{background:#10191be0!important;border:0!important;border-left
 .cutscene-presentation button{pointer-events:auto;margin-left:auto;background:#182523dc;border:1px solid #b3c0a766;color:#e7ebdf;padding:12px 16px;white-space:nowrap}.cutscene-presentation kbd{margin-left:12px;color:#c3cbb9}
 @media(prefers-reduced-motion:reduce){.cutscene-caption{animation:none}}
 @media(max-width:650px){.cutscene-presentation{flex-direction:column;align-items:flex-start}.cutscene-caption{font-size:14px}}
+
+/* Story 002: prólogo 2027 -> 2047. Gradações só de apresentação (cor/névoa/vinheta), sem tocar a cena 3D. */
+.cutscene-grade{position:absolute;inset:0;z-index:-1;pointer-events:none;animation:grade-in .8s ease-out both}
+.cutscene-grade.clean{background:linear-gradient(#8fc3ff1f,#ffd9a01f);backdrop-filter:saturate(1.2) brightness(1.05)}
+.cutscene-grade.odd{background:rgba(150,230,200,.12);backdrop-filter:hue-rotate(-14deg) saturate(1.1)}
+.cutscene-grade.plasma{background:radial-gradient(ellipse at 50% 20%,#a96bff55,#2a1a5a66 70%);backdrop-filter:hue-rotate(40deg) contrast(1.1);animation:grade-in .8s ease-out both,plasma-flicker 1.3s steps(2,end) infinite}
+.cutscene-grade.tunnel{background:radial-gradient(ellipse at 50% 55%,transparent 12%,#000000f2 85%);backdrop-filter:brightness(.55)}
+.cutscene-grade.black{background:#000;animation:none}
+.cutscene-grade.ash{background:rgba(70,58,44,.2);backdrop-filter:saturate(.3) sepia(.4) contrast(1.05)}
+.cutscene-card{position:absolute;left:0;right:0;top:40%;margin:0;text-align:center;color:#ece4d2;font:400 clamp(28px,5vw,56px)/1.2 Georgia,serif;letter-spacing:.04em;animation:field-enter .8s ease-out}
+.cutscene-card small{display:block;font:600 14px/1.6 system-ui,sans-serif;letter-spacing:.3em;color:#c9a35a}
+@keyframes grade-in{from{opacity:0}to{opacity:1}}
+@keyframes plasma-flicker{50%{opacity:.75}}
+@media(prefers-reduced-motion:reduce){.cutscene-grade,.cutscene-card{animation:none}}

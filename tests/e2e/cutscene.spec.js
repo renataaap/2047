@@ -60,7 +60,7 @@ test('assistir até o fim e pular terminam no mesmo estado funcional, com watche
  await page.keyboard.press('Space');await expect.poll(async()=>(await state(page)).mode).toBe('driving');
  const skipped=await state(page);
  expect(functional(skipped)).toEqual(functional(watched));expect(functional(watched)).toEqual(functional(before));
- expect(skipped.campaign.story.scenes).toEqual({'horizon-eve':'watched','voice-signal':'skipped'});
+ expect(skipped.campaign.story.scenes).toMatchObject({'horizon-eve':'watched','voice-signal':'skipped'});// o Novo Jogo também registra o prólogo (pulado pelo helper)
  expect(await play(page,fixture('horizon-eve'))).toBe(false);// não repete cena vista
  expect(dist(skipped.position,before.position)).toBeLessThan(.1);
  expect(errors).toEqual([]);

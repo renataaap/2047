@@ -1,0 +1,19 @@
+{
+  "story": "production/epics/2047-rede-aurora/story-002-prologo-2027-e-transicao.md",
+  "branch": "feat/narrativa-0.14.0",
+  "baseCommit": "94b74f9",
+  "sourceFrozenBy": "stamp.txt (Reviewed-Content-Hash; conferido antes e depois da rodada)",
+  "environment": "Windows 11, Chrome do sistema via PLAYWRIGHT_CHROMIUM_EXECUTABLE, headless SwiftShader, workers=1, next dev",
+  "runs": [
+    {"kind": "unit", "command": "npm test", "result": "385/385 em 47 arquivos", "status": "aprovado"},
+    {"kind": "build", "command": "npm run build", "status": "aprovado"},
+    {"kind": "e2e-pre-set", "note": "antes do set de 2027 e das correções; não vale para a versão final", "result": "29 aprovados, 6 falhas"},
+    {"kind": "e2e-regressao-final", "started": "2026-11-11T13:39:06-03:00", "finished": "2026-11-11T14:01:34-03:00",
+     "command": "npx playwright test assets critical-gameplay cutscene driving exit game garage interface narrative phase2 polish prologue restoration terrain-visibility tutorial-assets",
+     "specs": 15, "tests": 41, "passed": 40, "failed": 1, "duration": "22.3m",
+     "failures": [{"test": "assets.spec.js:9 Poly Haven instalado", "durationMs": 2, "error": "browserType.launch: Target page, context or browser has been closed", "classification": "ambiente (Chrome fechou antes de abrir a página)"}]},
+    {"kind": "e2e-rechecagem", "command": "npx playwright test assets.spec.js -g \"Poly Haven instalado\"", "result": "1/1 em 22.3s", "note": "rechecagem; não é caso inédito"}
+  ],
+  "notRun": ["integral E2E das 24 specs", "Windows com GPU física", "sign-off humano de ritmo/legibilidade"],
+  "visual": "set de 2027 procedural low-poly nesta rodada; polimento em commit seguinte (ver docs/RETOMAR_STORY_002.md)"
+}

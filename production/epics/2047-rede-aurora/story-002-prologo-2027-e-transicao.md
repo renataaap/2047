@@ -1,12 +1,12 @@
 # Story 002: Prólogo cinematográfico de 2027 e transição para 2047
 
 > **Epic**: 2047 — Rede Aurora
-> **Status**: Ready
+> **Status**: In Progress
 > **Layer**: Presentation
 > **Type**: Visual/Feel
 > **Estimate**: L
 > **Manifest Version**: N/A (minimal — no control manifest)
-> **Last Updated**: —
+> **Last Updated**: 2026-11-11
 
 ## Context
 

@@ -9,6 +9,7 @@ import {smooth} from '../restoration/progress.js';
 //  caption {speaker:<key of SPEAKERS>, text}                  never the Voice's identity
 //  light   {exposure:0.2..2}                                   tone-mapping multiplier
 //  audio   {cue:'repair'|'pulse'}                              existing AmbientAudio cue
+//  tone/card (presentation) tone: CSS grade name; card: {kicker,text} title card; def.also: extra scene ids recorded with the same outcome
 // Content lives in later stories; fill CUTSCENES with ids listed in data/story.js SCENES.
 // Presentation only: the result a scene shows is already committed to the campaign, so
 // skipping and watching end in the same world state (only campaign.story.scenes differs:
@@ -23,6 +24,7 @@ const pose=p=>!!p&&typeof p==='object'&&vec(p.pos)&&vec(p.look)&&(p.fov===undefi
 /** Validates authored cutscene data without changing it. */
 export function validCutscene(def){
  if(!def||typeof def!=='object'||!Array.isArray(def.shots)||!def.shots.length||typeof def.id!=='string')return false;
+ if(def.reducedShot!==undefined&&!(Number.isInteger(def.reducedShot)&&def.reducedShot>=0&&def.reducedShot<def.shots.length))return false;
  return def.shots.every(s=>!!s&&Number.isFinite(s.duration)&&s.duration>0&&s.duration<=60
   &&(s.camera===undefined||(pose(s.camera.from)&&(s.camera.to===undefined||pose(s.camera.to))))
   &&(s.caption===undefined||(Object.hasOwn(SPEAKERS,s.caption.speaker)&&typeof s.caption.text==='string'&&!!s.caption.text&&s.caption.text.length<=300))
@@ -31,7 +33,9 @@ export function validCutscene(def){
 }
 
 /**
- * Single player for every cutscene. Suspends physics/input by switching the game mode to
+ * Single player for every cutscene. Optional def.enter(player)/def.exit(player) mount and free
+ * scene-owned resources; exit runs on every end (watched, skipped or reset).
+ * Suspends physics/input by switching the game mode to
  * 'cinematic' (the game loop only simulates in driving/walking), advances only through
  * update(dt) so menus never move the clock, and restores camera/mode/context on finish.
  */
@@ -56,14 +60,15 @@ export class CutscenePlayer{
   const total=def.shots.reduce((a,s)=>a+s.duration,0);this.duration=this.reduced?Math.min(total,def.reducedSeconds??REDUCED_SECONDS):total;
   this.elapsed=0;this.shot=-1;this.skipped=false;this.active=true;
   g.state.mode='cinematic';g.state.overlay=null;g.input.setContext('cinematic');g.audio.pause?.();g.ambientAudio?.setPaused(true);g.loop.reset();
-  this.enterShot(0);return true;
+  def.enter?.(this);this.enterShot(this.reduced?(def.reducedShot??0):0);return true;
  }
 
- // Selects the shot for the current time; reduced motion keeps only the first shot's caption.
+ // Selects the shot for the current time. Reduced motion shows one shot: def.reducedShot, else the first
+ // (borrowing the first caption when that shot has none).
  enterShot(index){
   const g=this.g,shot=this.def.shots[index];this.shot=index;
-  const cap=shot.caption||(this.reduced?this.def.shots.find(s=>s.caption)?.caption:null);
-  g.state.cutscene={id:this.def.id,caption:cap?{speaker:SPEAKERS[cap.speaker],text:cap.text}:null,reduced:this.reduced};
+  const cap=shot.caption||(this.reduced&&this.def.reducedShot===undefined?this.def.shots.find(s=>s.caption)?.caption:null);
+  g.state.cutscene={id:this.def.id,caption:cap?{speaker:SPEAKERS[cap.speaker],text:cap.text}:null,reduced:this.reduced,...(shot.tone?{tone:shot.tone}:{}),...(shot.card?{card:shot.card}:{})};
   if(shot.audio&&!this.reduced)g.ambientAudio?.cue?.(shot.audio.cue,g.rendering.camera.position);
   g.emit?.();
  }
@@ -80,7 +85,7 @@ export class CutscenePlayer{
    if(this.def.frame)this.def.frame(this,this.elapsed/this.duration);
    else if(shot.camera)this.dataCamera(shot.camera,local);
    if(shot.light&&g.rendering.renderer)g.rendering.renderer.toneMappingExposure=(this.exposure??1)*THREE.MathUtils.lerp(1,shot.light.exposure,smooth(0,.25,local));
-   const actor=g.playerVisual?.actor;if(actor){const p=g.player.body.translation();actor.anchor.visible=Math.hypot(cam.position.x-p.x,cam.position.y-p.y,cam.position.z-p.z)>2.5;}
+   const anchor=g.playerVisual?.actor?.anchor;if(anchor){const p=g.player.body.translation();anchor.visible=Math.hypot(cam.position.x-p.x,cam.position.y-p.y,cam.position.z-p.z)>2.5;}
   }
   if(this.elapsed>=this.duration)this.finish(false);
  }
@@ -102,12 +107,12 @@ export class CutscenePlayer{
  /** Restores camera, exposure, mode and input context; records the scene; idempotent. */
  finish(skipped=true){
   if(!this.active)return false;const g=this.g,cam=g.rendering.camera;
-  this.active=false;this.skipped=skipped;
+  this.active=false;this.skipped=skipped;this.def.exit?.(this);// libera recursos próprios da cena (assistida, pulada ou abortada)
   cam.position.copy(this.saved.position);cam.quaternion.copy(this.saved.quaternion);cam.fov=this.saved.fov;cam.updateProjectionMatrix();
   if(this.exposure!==undefined&&g.rendering.renderer)g.rendering.renderer.toneMappingExposure=this.exposure;
   g.player.cameraInitial=true;g.cameras.initial=true;
-  if(g.playerVisual?.actor)g.playerVisual.actor.anchor.visible=this.returnMode==='walking'&&g.player.view==='third';
-  recordScene(g.campaign,this.def.id,skipped?'skipped':'watched');
+  const anchor=g.playerVisual?.actor?.anchor;if(anchor)anchor.visible=this.returnMode==='walking'&&g.player.view==='third';// o modelo pode ainda não ter carregado
+  for(const id of [this.def.id,...(this.def.also||[])])recordScene(g.campaign,id,skipped?'skipped':'watched');
   g.state.cutscene=null;g.state.mode=this.returnMode;g.state.resumeMode=this.returnMode;g.state.overlay=null;g.input.setContext(this.returnMode);
   g.ambientAudio?.setPaused(false);g.loop.reset();g.last=performance.now();return true;
  }

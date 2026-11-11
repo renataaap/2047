@@ -42,7 +42,7 @@ export const CHOICES={
 // order. Conditions: chapters (current chapter must be listed), region,
 // quest {id:state}, choice {id:option}, after (another transmission logged),
 // renata (requires first contact). `fragment` adds to flags.voiceFragments.
-export const SPEAKERS={renata:'Dra. Renata Final Boss',voice:'A Voz',survivors:'Transmissão de sobreviventes',lia:'Lia',afonso:'Afonso',noemia:'Noêmia',joel:'Joel',brutus:'Garcia'};
+export const SPEAKERS={renata:'Dra. Renata Final Boss',voice:'A Voz',survivors:'Transmissão de sobreviventes',lia:'Lia',afonso:'Afonso',noemia:'Noêmia',joel:'Joel',brutus:'Garcia',dante:'Dante',radio:'Rádio'};
 export const TRANSMISSIONS=[
  {id:'r-ch1-calls',speaker:'renata',chapters:['ch1'],renata:true,text:'Você não respondeu às duas primeiras chamadas. Achei que este rádio também tinha morrido.'},
  {id:'s-ch1-shelter',speaker:'survivors',chapters:['ch1','ch2'],text:'…aqui Abrigo 07. Ainda estamos aqui. Se alguém ouvir, ainda estamos aqui.'},

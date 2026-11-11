@@ -1,3 +1,4 @@
+import {skipPrologue} from '../helpers/start-driving.js';
 import {skipRestorationPresentation} from '../helpers/restoration-presentation.js';
 import {evidencePath} from '../helpers/evidence-path.js';
 import {test,expect} from '@playwright/test';
@@ -6,7 +7,7 @@ const dir=evidencePath('tutorial-assets');
 const state=p=>p.evaluate(()=>window.__GAME_DEBUG__.getState());
 async function newGame(page){
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
- await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await expect.poll(async()=>(await state(page)).mode).toBe('walking');
+ await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await skipPrologue(page);await expect.poll(async()=>(await state(page)).mode).toBe('walking');
 }
 test('arquivos reais: oito PBR, garagem com interior e Titã com seis rodas',async({page})=>{
  test.setTimeout(150000);await mkdir(dir,{recursive:true});const errors=[],external=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});page.on('request',r=>{if(/^https?:/.test(r.url())&&new URL(r.url()).origin!=='http://127.0.0.1:3000')external.push(r.url());});

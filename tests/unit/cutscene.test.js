@@ -88,6 +88,12 @@ test('cena iniciada em movimento devolve o modo ativo, não o de um painel antig
  }
 });
 
+test('pular antes de o modelo do Dante carregar (actor sem anchor) não quebra o fim da cena',()=>{
+ CUTSCENES[ID]=fixture();const g=fakeGame();g.playerVisual={actor:{}};const p=new CutscenePlayer(g);p.queue(ID);p.begin();
+ expect(()=>p.update(.5)).not.toThrow();expect(()=>p.skip()).not.toThrow();
+ expect(g.state.mode).toBe('driving');expect(g.state.cutscene).toBeNull();expect(g.campaign.story.scenes[ID]).toBe('skipped');
+});
+
 test('pausa: sem dt a cena não avança; dt negativo é ignorado',()=>{
  CUTSCENES[ID]=fixture();const g=fakeGame(),p=new CutscenePlayer(g);p.queue(ID);p.begin();
  for(let i=0;i<100;i++)p.update(0);p.update(-5);
