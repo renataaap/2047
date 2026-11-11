@@ -1,0 +1,47 @@
+
+> 2047-rede-aurora@0.10.0 test:e2e
+> playwright test tests/e2e/restoration.spec.js --max-failures=1
+
+
+Running 4 tests using 1 worker
+
+(node:33659) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/restoration.spec.js:18:1 › primeiro Núcleo: ativação, pular, estágios, diário e recarga sem duplicação (1.8m)
+  ✓  2 tests/e2e/restoration.spec.js:25:1 › solo restaurado sobrevive a Baixo/Médio/Alto/Baixo com 16 samplers e sem duplicar setores (2.5m)
+  ✘  3 tests/e2e/restoration.spec.js:34:1 › cinemática completa e redução de movimento devolvem o controle sem cobrar de novo (36.0s)
+Testing stopped early after 1 maximum allowed failures.
+
+
+  1) tests/e2e/restoration.spec.js:34:1 › cinemática completa e redução de movimento devolvem o controle sem cobrar de novo 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 409
+
+      10 | const waitPlants=page=>expect.poll(async()=>(await state(page)).restoration.vegetation.pendingCells,{timeout:120000,intervals:[500]}).toBe(0);
+      11 | function fixture(id='core-1',active=false,legacy=false){const {data}=roadAccessFixture(id),k=CORES.find(k=>k.id===id);data.context='walking';data.truck.position=[k.number===1?7:k.x-14,heightAt(k.x-14,k.z+10)+1.7,k.z+10];data.player.position=[k.x-1,heightAt(k.x-1,k.z+10)+1.1,k.z+10];data.campaign.world.daySeconds=9*3600;if(active){expect(anchor(data.campaign,id)?.success).toBe(true);for(const r of Object.values(data.campaign.world.recovery.cores)){r.age=240;r.cinematicSeen=true;}if(legacy)delete data.campaign.world.recovery;}return data;}
+    > 12 | async function boot(page,data){await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0,footCamera:'first'})));expect((await page.request.post('/api/saves',{data:{slot:'1',data}})).status()).toBe(201);await page.goto('/');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await expect.poll(async()=>(await state(page)).mode).toBe('walking');await page.evaluate(()=>{window.__GAME_DEBUG__.controlledStepping(true);window.__GAME_DEBUG__.step({handbrake:true},120);window.__GAME_DEBUG__.publish();});}
+         |                                                                                                                                                                                                                                                              ^
+      13 | function collectErrors(page){const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});return errors;}
+      14 | async function activate(page){await page.keyboard.press('KeyF');await expect(page.getByRole('button',{name:'Iniciar ativação',exact:true})).toBeEnabled();await page.getByRole('button',{name:'Iniciar ativação',exact:true}).click();await expect.poll(async()=>(await state(page)).campaign.cores['core-1'].state).toBe('active');await page.keyboard.press('Escape');}
+      15 | async function advance(page,seconds){for(let i=0;i<Math.ceil(seconds/10);i++)await page.evaluate(n=>{window.__GAME_DEBUG__.step({handbrake:true},n);window.__GAME_DEBUG__.publish();},Math.round(Math.min(10,seconds-i*10)*60));}
+        at boot (/workspace/work/2047-rede-aurora/tests/e2e/restoration.spec.js:12:254)
+        at /workspace/work/2047-rede-aurora/tests/e2e/restoration.spec.js:36:111
+
+    Error Context: test-results/restoration-cinemática-com-6c8ce-controle-sem-cobrar-de-novo/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/restoration-cinemática-com-6c8ce-controle-sem-cobrar-de-novo/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/restoration-cinemática-com-6c8ce-controle-sem-cobrar-de-novo/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/restoration.spec.js:34:1 › cinemática completa e redução de movimento devolvem o controle sem cobrar de novo 
+  1 did not run
+  2 passed (5.0m)
+  1 error was not a part of any test, see above for details

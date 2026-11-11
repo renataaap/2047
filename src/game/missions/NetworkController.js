@@ -18,7 +18,7 @@ const p=NETWORK_POINTS.find(p=>p.id===g.state.networkPoint);if(!p||g.context()!=
 let ok=false;
 if(type==='openVault'&&p.kind==='vault'&&this.parked(p)){ok=openVault(c,p.core);if(ok)g.resetCargo();}
 if(type==='networkCalibrate'&&p.kind==='network-core'){const status=this.calibration(p);ok=calibrateNetwork(c,p.core,{...status.access,atTerminal:status.code!=='terminal',engineOff:!g.state.engineOn,parked:this.parked(p)});this.failureReason=ok?'':status.message;}
-if(type==='networkActivate'&&p.kind==='network-core'&&this.parked(p)){const result=anchor(c,p.core);ok=!!result;if(ok)g.state.activationResult={...result,core:p.core};}
+if(type==='networkActivate'&&p.kind==='network-core'&&this.parked(p)){const result=anchor(c,p.core);ok=!!result;if(ok){g.state.activationResult={...result,core:p.core};if(result.success)g.restoration?.cinematic.queue(p.core);}}
 if(type==='networkLoot'&&p.kind==='cache')ok=networkLoot(c,p.id);
 if(type==='networkBuy'&&p.kind==='shelter')ok=networkBuy(c,p.id,payload);
 if(type==='networkRest'&&p.kind==='shelter')ok=rest(c);

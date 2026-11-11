@@ -1,0 +1,19 @@
+
+> 2047-rede-aurora@0.12.0 test:e2e
+> playwright test tests/e2e/contracts.spec.js tests/e2e/contracts-api.spec.js --reporter=list,json --max-failures=1 --output=/tmp/aurora-contracts-polish-final
+
+
+Running 6 tests using 1 worker
+
+(node:11941) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/contracts-api.spec.js:7:1 › API: contratos opcionais nos três slots, revisão e dados inválidos (963ms)
+  ✓  2 tests/e2e/contracts.spec.js:17:49 › frete físico: titan-old, coleta, viagem, entrega e save (2.0m)
+  ✓  3 tests/e2e/contracts.spec.js:17:49 › frete físico: dump-truck, coleta, viagem, entrega e save (2.0m)
+  ✓  4 tests/e2e/contracts.spec.js:36:1 › fretes: conflito de gravação não confirma aceite nem duplica o manifesto (27.8s)
+  ✓  5 tests/e2e/contracts.spec.js:45:1 › frete pesado: gerador no baú, massa, seis rodas e devolução sem prêmio (52.6s)
+  ✓  6 tests/e2e/contracts.spec.js:57:1 › conferência: avaria mínima mantém a peça, mostra valor e salva uma vez (37.8s)
+
+  Slow test file: tests/e2e/contracts.spec.js (6.0m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  6 passed (6.1m)

@@ -1,0 +1,48 @@
+
+> 2047-rede-aurora@0.10.0 test:e2e
+> playwright test tests/e2e/restoration.spec.js --grep cinemática completa|sete campos --max-failures=1
+
+
+Running 2 tests using 1 worker
+
+(node:35009) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/restoration.spec.js:34:1 › cinemática completa e redução de movimento devolvem o controle sem cobrar de novo (54.3s)
+Testing stopped early after 1 maximum allowed failures.
+
+
+  1) tests/e2e/restoration.spec.js:34:1 › cinemática completa e redução de movimento devolvem o controle sem cobrar de novo 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Failed to read the 'localStorage' property from 'Window': Access is denied for this document.",
+    + ]
+
+      35 |  test.setTimeout(300000);const dir=evidencePath('restoration/cinematic');await mkdir(dir,{recursive:true});const errors=collectErrors(page),proof=[];
+      36 |  for(const reduced of [false,true]){await page.emulateMedia({reducedMotion:reduced?'reduce':'no-preference'});await boot(page,fixture());const before=await state(page);await activate(page);await expect.poll(async()=>(await state(page)).restoration.cinematic.active).toBe(true);const during=await state(page);expect(during.restoration.cinematic.reducedMotion).toBe(reduced);await page.screenshot({path:`${dir}/${reduced?'reduced':'full'}.png`});await expect.poll(async()=>(await state(page)).mode,{timeout:30000}).toBe('walking');const after=await state(page);expect(after.campaign.inventory).toEqual(before.campaign.inventory);expect(after.campaign.world.recovery.cores['core-1'].age).toBe(0);expect(after.restoration.cinematic.pending).toBeNull();await page.keyboard.press('KeyM');await expect(page.getByTestId('route-planner')).toBeVisible();await page.keyboard.press('Escape');proof.push({reduced,before,during,after});}
+    > 37 |  expect(errors).toEqual([]);await writeFile(`${dir}/proof.json`,JSON.stringify({proof,errors},null,2)+'\n');
+         |                 ^
+      38 | });
+      39 |
+      40 | test('sete campos legados migram e os cinco biomas mantêm vegetação e identidade próprias',async({page})=>{
+        at /workspace/work/2047-rede-aurora/tests/e2e/restoration.spec.js:37:17
+
+    Error Context: test-results/restoration-cinemática-com-6c8ce-controle-sem-cobrar-de-novo/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/restoration-cinemática-com-6c8ce-controle-sem-cobrar-de-novo/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/restoration-cinemática-com-6c8ce-controle-sem-cobrar-de-novo/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/restoration.spec.js:34:1 › cinemática completa e redução de movimento devolvem o controle sem cobrar de novo 
+  1 did not run
+  1 error was not a part of any test, see above for details

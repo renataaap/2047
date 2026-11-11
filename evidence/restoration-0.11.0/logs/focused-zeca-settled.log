@@ -1,0 +1,64 @@
+
+> 2047-rede-aurora@0.11.0 test:e2e
+> playwright test tests/e2e/critical-gameplay.spec.js --grep alvos reais --repeat-each=2 --output=/tmp/aurora-restoration-zeca-settled-traces
+
+
+Running 2 tests using 1 worker
+
+(node:923) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/critical-gameplay.spec.js:17:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas (45.0s)
+(node:1080) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 tests/e2e/critical-gameplay.spec.js:17:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas (44.6s)
+
+
+  1) tests/e2e/critical-gameplay.spec.js:17:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas 
+
+    Error: page.evaluate: Error: Controlled physics stepping requires an active development game.
+        at debug.step (http://127.0.0.1:3000/_next/static/chunks/src_game_1h03lfluf98st._.js:2250:63)
+        at eval (eval at evaluate (:370:30), <anonymous>:7:7)
+        at UtilityScript.evaluate (<anonymous>:372:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at debug.step (http://127.0.0.1:3000/_next/static/chunks/src_game_1h03lfluf98st._.js:2250:63)
+        at eval (eval at evaluate (:370:30), <anonymous>:7:7)
+        at UtilityScript.evaluate (<anonymous>:372:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at /workspace/work/2047-rede-aurora/tests/e2e/critical-gameplay.spec.js:26:13
+
+    Error Context: ../../../tmp/aurora-restoration-zeca-settled-traces/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../tmp/aurora-restoration-zeca-settled-traces/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../tmp/aurora-restoration-zeca-settled-traces/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/e2e/critical-gameplay.spec.js:17:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas 
+
+    Error: page.evaluate: Error: Controlled physics stepping requires an active development game.
+        at debug.step (http://127.0.0.1:3000/_next/static/chunks/src_game_1h03lfluf98st._.js:2250:63)
+        at eval (eval at evaluate (:370:30), <anonymous>:7:7)
+        at UtilityScript.evaluate (<anonymous>:372:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at debug.step (http://127.0.0.1:3000/_next/static/chunks/src_game_1h03lfluf98st._.js:2250:63)
+        at eval (eval at evaluate (:370:30), <anonymous>:7:7)
+        at UtilityScript.evaluate (<anonymous>:372:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at /workspace/work/2047-rede-aurora/tests/e2e/critical-gameplay.spec.js:26:13
+
+    Error Context: ../../../tmp/aurora-restoration-zeca-settled-traces/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas-repeat1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../tmp/aurora-restoration-zeca-settled-traces/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas-repeat1/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../tmp/aurora-restoration-zeca-settled-traces/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas-repeat1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests/e2e/critical-gameplay.spec.js:17:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas 
+    tests/e2e/critical-gameplay.spec.js:17:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas 

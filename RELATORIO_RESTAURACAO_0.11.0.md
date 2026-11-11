@@ -1,0 +1,160 @@
+# Restauração ambiental 2.0 — 2047: Rede Aurora
+
+**0.11.0 — implementação integrada e validada automaticamente em 05/11/2026.** Branch `feat/restauracao-ambiental-0.11.0`, derivada da main `4771193`/0.10.0/PR #4. Fonte e harness congelados em `7668207`; aplicação idêntica a `8479b9a`. A main permanece preservada durante a revisão no [PR #5](https://github.com/renataaap/2047/pull/5). Windows/GPU física, audição humana e acabamento botânico/urbano continuam pendentes; não se declara arte final de todo o continente.
+
+## Resultado implementado
+
+A ativação dos Núcleos mantém as regras reais de Sementes, calibração, sequência e recompensas. Uma camada ambiental integrada passa a representar a recuperação: gramíneas curvadas, arbustos ramificados, árvores jovens com troncos e folhas, solo com umidade/cobertura heterogêneas, chuva e redução de poeira. O Mar de Cinzas tem cinco refúgios de composição adicionais; as outras faixas usam espécies, proporções e densidades próprias.
+
+O primeiro campo foi comparado em oito poses reais e quatro estágios, com chuva, solo e vegetação novos. A integral atual aprovou ativação, apresentação/pulo/redução de movimento, crescimento, diário, perfis de 16 samplers, migração dos sete campos e streaming dos cinco biomas, junto às regressões da campanha/garagem. Acesso local com os dois caminhões e recuperação após reinício também passaram. Isso comprova a implementação descrita; não substitui avaliação humana de arte, áudio ou direção.
+
+## Base e preservação
+
+Os onze hashes de `evidence/restoration-0.11.0/protected-base.json` continuam iguais à base: quatro módulos narrativos, tuning, VehiclePhysics, CabinInterior, SeatedPose, TerrainBlend e os dois GLBs dirigíveis. Não foram trocados pivôs, rodas, massa ou controladores. Garagem/frota, skins, GPS, grafo, tutorial, missões e três slots foram mantidos.
+
+Os 225 unitários/build foram executados novamente antes das mudanças. Os 39 E2Es da 0.10.0 são históricos; não houve nova integral da base nesta tarefa. As capturas anteriores pertencem a `4771193`.
+
+## Commits e revisão
+
+Branch `feat/restauracao-ambiental-0.11.0`; [PR #5](https://github.com/renataaap/2047/pull/5). A main permanece preservada. Checkpoints:
+
+| Commit | Resultado |
+|---|---|
+| b79f732 | Diagnóstico, 225 unitários/build da base e capturas anteriores |
+| 489c7fa | Ecologia, vegetação, solo, atmosfera, apresentação e integração |
+| 373498b | Preparo assíncrono e consultas físicas determinísticas no load |
+| 2bda066 | Refúgios do Mar de Cinzas, geometria/materiais e superfície |
+| 9624b51 | Verificação de streaming e regeneração dos cinco biomas |
+| c9b3fcb | Roughness seca preservada e esperas de carregamento |
+| 1713d38 | Instrumentos de evidência e verificação após reinício |
+| 8479b9a | 28 acessos, garagem, normais, candidata e fonte das capturas finais |
+| 7668207 | Preparação determinística do teste de posto, documentação e evidências |
+
+A aplicação da rodada atual é idêntica a 8479b9a; só o teste crítico mudou em 7668207. O manifesto da nova validação congela ambos e registra o commit usado. Datas/commits das capturas permanecem nos arquivos originais, sem renomeá-los como uma nova coleta.
+
+## Componentes e arquivos
+
+| Área | Implementação |
+|---|---|
+| Progresso | `src/game/restoration/progress.js`, `definitions.js`; integração em `missions/network.js`, `core/Game.js` e `persistence/schema.js` |
+| Distribuição | `placement.js`, `StaticObstacles.js`, índice completo em `navigation/roadIndex.js` |
+| Superfície | `surfaceSampler.js`, consulta em `world/World.js`; os triângulos originais não foram deslocados |
+| Vegetação | `vegetationGeometry.js`, `RestorationVegetation.js`; instâncias, LOD, cache, streaming e descarte |
+| Solo | `RestorationTerrain.js`, extensão de `render/PBRLibrary.js`; zero samplers novos |
+| Atmosfera | `RestorationAtmosphere.js`, `render/DayNight.js`; chuva unificada e mudanças locais graduais |
+| Apresentação | `RestorationCinematic.js`, `RestorationEffects.js`, GameView/Input; mesma câmera e mesmo loop |
+| Comunidades | Reações em bloco separado no MissionPanel; hortas em AmbientWorld |
+| Áudio | AmbientAudio/EngineAudio existentes; nova ambiência original sintetizada |
+| Diário/mapa/API | discoveryJournal, NetworkMap/NavigationMap e extensão de `/api/world/regions` |
+| Evidências | scripts de captura, comparação e auditorias; novos testes unitários/E2E |
+
+Os 55 caminhos de código/testes/scripts/pacotes/créditos alterados estão em [changed-source-files.txt](evidence/restoration-0.11.0/changed-source-files.txt); a lista completa, incluindo evidências, pode ser obtida por `git diff --name-only 4771193...HEAD`. Documentação e evidências não são consideradas, sozinhas, comprovação de implementação visual.
+
+## Vegetação e assets
+
+Não foi instalado nem baixado um pacote externo de árvores. Os modelos são originais, construídos por JavaScript: lâminas de grama curvadas e dobradas; troncos cônicos curvos com UVs; ramos; folhas lanceoladas distribuídas em volume. São geometrias reais, sem usar cones verdes como representação final.
+
+Casca e nervuras usam texturas procedurais autorais de 128 px, compartilhadas por espécie/região; a grama também possui variação de luz por vértice. Materiais são MeshStandardMaterial, sem metalness vegetal, com roughness alta e folhas de duas faces. O vento é discreto e acompanha a posição mundial. A quantidade, escala, altura e orientação variam de modo determinístico.
+
+Os materiais Poly Haven já instalados continuam sendo arquivos locais, com convenções/canais do pipeline existente. As atribuições de GLBs CC BY e a restrição CC BY-NC dos carros Renafox permanecem em `public/assets/CREDITOS.txt`. Não se declara liberação comercial de todo o projeto. A vegetação procedural não deve ser apresentada como biblioteca profissional externa ou arte botânica final.
+
+## Solo e segurança do shader
+
+O shader modula os mapas existentes por máscaras analíticas de umidade e cobertura, considerando localização, estágio, relevo e refúgios. Evita uma troca global uniforme de marrom por verde. Roughness seca permanece preservada; a resposta úmida não transforma o chão em espelho.
+
+TerrainBlend permanece byte a byte igual à correção da 0.9.1. A recuperação acrescenta **zero samplers** e reutiliza seus varyings no material principal. Outros materiais têm coordenadas próprias quando necessário. Slots vivos por material mantêm os sete vetores de progresso nos programas reutilizados, inclusive após trocar qualidade. Não houve displacement, mudança de altura, malha física ou colisores do terreno.
+
+Os testes de GPU consultam links reais, uniforms e amostras visíveis. Selecionar o orçamento de 16 no SwiftShader não emula o driver de uma GPU Windows.
+
+## Estágios, alcance e persistência
+
+| Estágio | Tempo de simulação ativa | Apresentação |
+|---|---|---|
+| 0 | Antes de ancorar | Campo devastado, sem vegetação nova |
+| 1 | Imediato até 45 s | Resposta do equipamento, chuva/umidade e primeiros tufos |
+| 2 | 45–240 s | Expansão da grama, arbustos e primeiras árvores jovens |
+| 3 | A partir de 240 s | Cobertura mais densa e árvores jovens mais presentes |
+
+É uma progressão visual acelerada, adequada ao ritmo do jogo, não uma simulação biológica em escala real. Não há árvores adultas surgindo durante a apresentação. O tempo para em menus, conversas, mapa, garagem, carregamento e cutscene; não usa horas fora do jogo.
+
+Cada Núcleo guarda idade, máscara de observações, flag de apresentação e marca de migração em `campaign.world.recovery`. O estágio é derivado da idade. Não são salvas milhares de posições. As sementes derivam de Núcleo/setor/mancha; as plantas são regeneradas com o mesmo terreno e exclusões. O alcance cresce e respeita as faixas históricas de restoredAt, além de limites laterais por bioma; não cobre indiscriminadamente todo o continente.
+
+Campos antigos já ativos migram uma única vez para maturidade, sem reiniciar missões ou repetir cutscene/custos. Schema 1–3 e os três slots continuam aceitos. `syncRestoration`, `restoredAt` e a sequência de sete Núcleos permanecem autoridades da campanha.
+
+## Identidade dos biomas e acessos
+
+| Núcleo | Faixa | Vegetação e condições |
+|---|---|---|
+| 1 — A primeira faixa | Mar de Cinzas | Gramíneas resistentes, refúgios, arbustos e árvores jovens de solo seco; chuva desde a primeira resposta |
+| 2 — Viaduto | Cidades Esqueleto | Árvores de copa mais alta e plantas em áreas abertas, fora de estruturas e vias |
+| 3 — As janelas vazias | Cidades Esqueleto | Mesmo bioma, com progresso independente do campo anterior |
+| 4 — Mar ausente | Leito Seco | Manchas resistentes ao sal, densidade menor, pouca arborização e umidade localizada |
+| 5 — Passo de vidro | Cordilheira Vítrea | Gramíneas baixas, arbustos e árvores menores; exclusão de encostas instáveis |
+| 6 — Acima das nuvens | Cordilheira Vítrea | Segunda faixa com idade própria, mantendo rampas e acesso físico |
+| 7 — Horizonte | Zonas de Tempestade | Silhuetas inclinadas pelo vento, vegetação resistente e atmosfera estabilizada |
+
+As exclusões usam o grafo completo, ruas de Cinza Nova, pátios, edifícios, reservas de terminais/NPCs e composições de cenário. Há margem para os dois caminhões. Pequenas plantas não recebem colisores; até doze árvores próximas e maiores têm cilindros fixos de densidade zero.
+
+A auditoria física usa fixtures locais na entrada viária, controles e timestep real do Rapier, caminhada até o terminal, interação, maturidade, save/load, retorno e saída. Cofres já ancorados são testados sem retirar outra Semente. Não é uma viagem pelo continente nem uma sessão humana. A matriz completa já passou em 28/28 casos, com mais 2/2 acessos à garagem restaurada. Consulte [acessibilidade da restauração](docs/ACESSIBILIDADE_RESTAURACAO_0.11.0.md); os estados e imagens originais estão em access-main-2 e garage-access.
+
+## Apresentação, clima e áudio
+
+A apresentação começa ao fechar o terminal após uma ancoragem bem-sucedida. Dura sete segundos de tempo visual; com redução de movimento, usa câmera fixa por 1,8 s. Esc, Espaço, Enter ou o botão permitem pular. A câmera anterior e o controle são restaurados. O resultado já foi salvo; assistir, pular ou carregar não consome outra Semente. Dante aparece nas vistas externas da apresentação e volta à visibilidade adequada à perspectiva escolhida.
+
+O ressonador recebe iluminação e circulação de energia em sua geometria. A câmera alterna estrutura e terreno em recuperação; não é apenas um círculo verde no chão. Chuva usa gotas lineares com comprimento/velocidade variados e orçamento por perfil. Poeira/neblina diminuem conforme a influência local. O ciclo solar existente conserva noite e faróis.
+
+Folhas, água e pequenas chamadas de fauna são síntese original no AudioContext existente. A fauna só entra após o estágio inicial, com comportamento diferente à noite. O motor diesel não foi substituído. A mixagem e a qualidade sonora ainda exigem audição humana; não foram instaladas gravações profissionais.
+
+## Comunidades, diário e consequências
+
+NPCs apresentam comentários contextuais separados dos diálogos principais. Hortas existentes passam a respeitar o estágio local. O diário registra a ancoragem e observações únicas por campo/estágio, sem duplicações ou recompensas. O mesmo mapa/GPS exibe campos em recuperação e mantém a rede viária real; a API fornece esse estado por Núcleo.
+
+Continuam funcionando as consequências de campanha já existentes: barreiras liberadas, drenagem/estabilidade e riscos regionais alterados. A apresentação acrescenta visibilidade/atmosfera graduais. Não foram modificados silenciosamente torque, massa, aderência-base ou economia. Novas hortas não concedem comida infinita.
+
+## Desempenho e ciclo de vida
+
+Setores de vegetação de 256 m; raio/densidade por Baixo, Médio e Alto; dois LODs; instanciamento por função/material; materiais/geometrias compartilhados; frustum culling; descarte de instâncias e corpos fora da área. Matrizes só mudam quando o progresso exige, e sombras acompanham a proximidade sem reescrever todas as instâncias.
+
+Planejamento durante a viagem é fatiado. Load/troca de qualidade preparam os setores em tarefas curtas antes de exibir a nova paisagem, evitando depender do ritmo muito lento da GPU por software. Há custo inicial de indexar triângulos/preparar geometrias, registrado nas métricas; não se promete ausência de todo hitch em hardware ainda não avaliado.
+
+Os protótipos e seus custos foram preservados. A comparação final registra instâncias, calls, triângulos, geometrias, texturas, tempo e heap JavaScript. Na vista do Núcleo, 153 → 182 calls, 207.636 → 640.172 triângulos, 151 → 194 geometrias e 94 → 98 texturas. São 17.460 tufos, 475 arbustos e 197 árvores carregadas em treze células, com dois colisores próximos. O custo adicional está exposto, sem prometer desempenho gratuito. O carregamento desta coleta ficou entre 14,6–17,6 s (inclui menu/navegação), preparo de vegetação aproximadamente 2,0 s; o campo loadMs antigo não é usado por incluir capturas. [Método e tabelas](docs/COMPARACAO_RESTAURACAO_0.11.0.md). Contagens de recursos e heap do Chromium não são bytes de VRAM. Nenhum resultado representa 60 FPS numa GPU Windows.
+
+## Testes e evidências — resultado da 0.11.0
+
+| Verificação atual | Resultado e evidência |
+|---|---|
+| `npm test` | **257/257 testes, 34/34 arquivos**, [log](evidence/restoration-0.11.0/final/unit.log) |
+| `npm run build` | **Aprovado**, servidor dev encerrado durante a execução; [prova](evidence/restoration-0.11.0/final/build-result.json) |
+| `npm run test:e2e` | **44/44 numa única integral de 61,9 min**, um worker, zero falhas/skips/retries; [JSON](evidence/restoration-0.11.0/final/browser-results.json) e [log](evidence/restoration-0.11.0/final/e2e.log) |
+| Integridade da fonte | **277 arquivos congelados iguais** e **onze hashes protegidos iguais**; [manifesto](evidence/restoration-0.11.0/final/source-freeze.json) |
+| Acessos em ambiente restaurado | **28/28 percursos locais**: sete Núcleos e sete Cofres, Titã e Basculante, Rapier original a 60 Hz; [matriz](docs/ACESSIBILIDADE_RESTAURACAO_0.11.0.md) |
+| Garagem restaurada | **2/2 acessos físicos** aprovados, com parada, interface e saída; [prova](evidence/restoration-0.11.0/garage-access/matrix.json) |
+| Reinício real — restauração | **2/2 saves** recuperados com dados e versões iguais, um com o primeiro campo e outro com os sete; [prova](evidence/restoration-0.11.0/final/restoration/restart-summary.json) |
+| Reinício real — garagem/frota | **Aprovado**, Basculante ativo, pinturas/equipamentos/inventários preservados; [prova](evidence/restoration-0.11.0/final/garage/restart.json) |
+| Comparação visual | **16 PNGs anteriores + 32 novos**, oito poses, quatro estágios; [comparação e métricas](docs/COMPARACAO_RESTAURACAO_0.11.0.md) |
+
+A integral inclui o tutorial de 21 objetivos, primeira entrega, sete Núcleos, sobrevivência/comércio/manutenção, entrada/saída, cabine/opacidade/seis rodas, garagem/frota, GPS/mapa, relógio/pausas, API/slots/legados, modelos e perfis gráficos. Os cinco cenários novos da restauração passaram nesta mesma integral, sem depender da soma de rodadas focadas.
+
+O ramo de 16 texturas foi selecionado e os programas reais compilados/consultados em SwiftShader: terreno visível em Baixo/Médio/Alto, uniforms atualizados, samplers dentro do orçamento. Também passou o ramo Alto para capacidade maior. Não se afirma emulação de driver Windows ou FPS de GPU física. A persistência validada é libSQL/SQLite local, não Turso de produção.
+
+[Resumo verificável](evidence/restoration-0.11.0/validation.json). O servidor antigo foi encerrado e a porta fechou; um novo PID foi observado antes das recuperações, conforme [server-restart.json](evidence/restoration-0.11.0/final/server-restart.json). Cookies e traces completos ficam somente em `/tmp`, fora do Git.
+
+### Tentativas preservadas
+
+Os 225 unitários/build da baseline foram realmente executados; os 39 E2Es da 0.10.0 são históricos. Incrementos de 255/256/257 unitários são rodadas sucessivas, não testes inéditos somados. As primeiras tentativas focadas revelaram carregamento limitado por RAF, consultas físicas ainda fora da broad phase e problemas de preparação de slot/about:blank. Foram corrigidos e os logs permanecem em focused-1–5/logs.
+
+A primeira tentativa de integral foi interrompida pelo reinício do ambiente: **8 aprovações, 1 falha e 35 casos sem resultado registrado**, incluindo possível caso em andamento. Freeze/log/capturas foram preservados em integral-1-interrupted; os traces privados de /tmp não sobreviveram. A falha foi no teste de compras de Zeca, que relocava só o caminhão antes do painel pausado. A preparação final reloca Dante junto e assenta usando três segundos da física original; verifica motor, velocidade, contatos e distância, mantendo as mesmas compras. A aplicação não mudou. Duas tentativas intermediárias inválidas do harness e uma reprodução instrumentada foram preservadas, seguidas de **2/2 repetições aprovadas em 2,3 min**. A integral verde é exclusivamente a de final/, sobre 7668207.
+
+Algumas screenshots do cenário E2E de biomas foram feitas durante o fade de carregamento: a aprovação funcional desse teste não é usada como aprovação visual dessas imagens. Os originais são preservados e a coleta complementar **concluída em seis campos** aguardou opacity=0 antes de fotografar, sem alterar a fonte congelada; [índice e método](evidence/restoration-0.11.0/final/restoration/biomes-visible/index.json). Poses/idades de diagnóstico não são prova de viagem humana. Os 28 percursos locais e a viagem da garagem usam a física real; não são sessões humanas de avaliação.
+
+## Problemas resolvidos e limites
+
+Foram removidas as duas implementações antigas de cones/chuva, corrigida a ordem da composição úmida no PBR e evitada mudança de posições por consultas à broad phase ainda não atualizada durante o load. O carregamento deixou de depender exclusivamente de RAF. Testes passaram a esperar a carga assíncrona e a sincronização real das matrizes.
+
+Pendências de avaliação: Windows/GPU física, audição, sessão humana e escolha artística do usuário. A vegetação é procedural, sem botânica/árvores adultas finais, vegetação vertical/em rachaduras urbanas, fauna 3D, simulação hídrica ampla ou novas rotinas/economia das comunidades. Esses sistemas não são marcados como entregues. Não foram concluídos os finais do jogo nesta atualização.
+
+## Próximas melhorias possíveis
+
+Mais espécies/arte final com licença verificada; refúgios autorais adicionais nos biomas posteriores; cinemáticas específicas por local; clima com períodos mais variados; água superficial integrada ao relevo; áudio gravado/licenciado e mixagem humana; compressão de texturas e medições em GPUs reais. Permanecem no roadmap geral a economia dinâmica, contratos, facções, veículos candidatos e finais. Nenhuma dessas expansões foi iniciada automaticamente como outra versão.
+
+Guia de avaliação: [teste manual](docs/TESTE_MANUAL_RESTAURACAO_0.11.0.md). Histórico verificável: [incrementos](docs/INCREMENTOS_RESTAURACAO_0.11.0.md) e [diagnóstico](docs/DIAGNOSTICO_RESTAURACAO_0.11.0.md).

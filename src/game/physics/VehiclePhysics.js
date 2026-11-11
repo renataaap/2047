@@ -20,8 +20,16 @@ export class VehiclePhysics {
  forward(){const q=this.body.rotation();return {x:-2*(q.x*q.z+q.w*q.y),y:-2*(q.y*q.z-q.w*q.x),z:-(1-2*(q.x*q.x+q.y*q.y))};}
  signedSpeed(){const v=this.body.linvel(),f=this.forward();return v.x*f.x+v.y*f.y+v.z*f.z;}
  setPayload(state){
-  const mass=(state.loaded?this.tuning.seedMass:0)+Math.max(0,state.inventoryMass||0)+Math.max(0,state.fuel||0)*this.tuning.engine.dieselKgPerLiter;
-  if(Math.abs(mass-this.payloadMass)>.2){this.body.setAdditionalMassProperties(mass,{x:0,y:.55,z:1.35},{x:mass*1.2,y:mass*1.1,z:mass*.35},{x:0,y:0,z:0,w:1},true);this.body.recomputeMassPropertiesFromColliders();this.payloadMass=mass;}
+  const base=(state.loaded?this.tuning.seedMass:0)+Math.max(0,state.inventoryMass||0)+Math.max(0,state.fuel||0)*this.tuning.engine.dieselKgPerLiter,freight=Math.max(0,state.commercialMassKg||0),mass=base+freight;
+  const center=state.commercialCenter||[0,.55,1.35],dimensions=state.commercialDimensions||[1,1,1],key=freight?center.join('/')+dimensions.join('/'):'empty';
+  if(Math.abs(mass-this.payloadMass)>.2||this.payloadKey!==key){
+   let com={x:0,y:.55,z:1.35},inertia={x:mass*1.2,y:mass*1.1,z:mass*.35};
+   if(freight){const [x,y,z]=center,[w,h,d]=dimensions;com={x:x*freight/mass,y:(.55*base+y*freight)/mass,z:(1.35*base+z*freight)/mass};
+    const axis=(a,b)=>base*(a[0]**2+a[1]**2)+freight*(b[0]**2+b[1]**2);
+    inertia={x:base*1.2+freight*(h*h+d*d)/12+axis([.55-com.y,1.35-com.z],[y-com.y,z-com.z]),y:base*1.1+freight*(w*w+d*d)/12+axis([-com.x,1.35-com.z],[x-com.x,z-com.z]),z:base*.35+freight*(w*w+h*h)/12+axis([-com.x,.55-com.y],[x-com.x,y-com.y])};
+   }
+   this.body.setAdditionalMassProperties(mass,com,inertia,{x:0,y:0,z:0,w:1},true);this.body.recomputeMassPropertiesFromColliders();this.payloadMass=mass;this.payloadKey=key;
+  }
   state.massKg=this.body.mass();state.cargoMassKg=this.payloadMass;
  }
  update(input,state,dt){
