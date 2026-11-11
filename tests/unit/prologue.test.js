@@ -21,21 +21,21 @@ test('prólogo registrado, válido, ~40 s e sem a identidade da Voz nas falas',(
  expect(PROLOGUE.shots.some(s=>s.card?.kicker==='2047')).toBe(true);
 });
 
-test('assistir o prólogo inteiro grava 2027 e 2047, devolve câmera e não repete',()=>{
+test('assistir o prólogo inteiro grava a cena, devolve câmera e não repete (2047 é a cena seguinte, story 003)',()=>{
  const g=fakeGame(),p=new CutscenePlayer(g),pose=g.rendering.camera.position.toArray();
  expect(p.queue('prologue-2027')).toBe(true);p.begin();
  const tones=new Set();for(let t=0;t<PROLOGUE_SECONDS+1;t+=.5){p.update(.5);if(g.state.cutscene?.tone)tones.add(g.state.cutscene.tone);}
  expect([...tones]).toEqual(['clean','odd','plasma','tunnel','black','ash']);
  expect(g.state.mode).toBe('walking');expect(g.rendering.camera.position.toArray()).toEqual(pose);
- expect(g.campaign.story.scenes).toEqual({'prologue-2027':'watched','intro-2047':'watched'});expect(validStory(g.campaign.story)).toBe(true);
+ expect(g.campaign.story.scenes).toEqual({'prologue-2027':'watched'});expect(validStory(g.campaign.story)).toBe(true);
  expect(p.queue('prologue-2027')).toBe(false);
 });
 
-test('pular no meio grava as duas cenas como puladas e chega ao mesmo estado',()=>{
+test('pular no meio grava o prólogo como pulado e chega ao mesmo estado',()=>{
  const g=fakeGame(),p=new CutscenePlayer(g);p.queue('prologue-2027');p.begin();p.update(12);
  expect(g.state.cutscene.tone).toBe('odd');p.skip();
  expect(g.state.mode).toBe('walking');expect(g.state.cutscene).toBeNull();
- expect(g.campaign.story.scenes).toEqual({'prologue-2027':'skipped','intro-2047':'skipped'});
+ expect(g.campaign.story.scenes).toEqual({'prologue-2027':'skipped'});
 });
 
 test('redução de movimento mostra só a cartela 2047, curta e sem áudio',()=>{
@@ -43,7 +43,7 @@ test('redução de movimento mostra só a cartela 2047, curta e sem áudio',()=>
  const g=fakeGame(),p=new CutscenePlayer(g),pose=g.rendering.camera.position.toArray();p.queue('prologue-2027');p.begin();
  expect(p.duration).toBe(2.4);expect(g.state.cutscene).toMatchObject({tone:'black',card:{kicker:'2047',text:'Vinte anos depois'},caption:null,reduced:true});
  expect(g.ambientAudio.cue).not.toHaveBeenCalled();p.update(1);expect(g.rendering.camera.position.toArray()).toEqual(pose);
- p.update(2);expect(g.state.mode).toBe('walking');expect(g.campaign.story.scenes['intro-2047']).toBe('watched');
+ p.update(2);expect(g.state.mode).toBe('walking');expect(g.campaign.story.scenes['prologue-2027']).toBe('watched');
 });
 
 test('save com o prólogo já registrado não o enfileira de novo',()=>{

@@ -17,6 +17,7 @@ import {smooth} from '../restoration/progress.js';
 export const CUTSCENES={};
 export const REDUCED_SECONDS=1.8;
 const BACK_SECONDS=.6;
+const CHAIN_GUARD=.3;
 const CUES=['repair','pulse'];
 const vec=v=>Array.isArray(v)&&v.length===3&&v.every(Number.isFinite);
 const pose=p=>!!p&&typeof p==='object'&&vec(p.pos)&&vec(p.look)&&(p.fov===undefined||(Number.isFinite(p.fov)&&p.fov>10&&p.fov<120));
@@ -58,7 +59,7 @@ export class CutscenePlayer{
   this.exposure=g.rendering.renderer?.toneMappingExposure;
   this.reduced=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   const total=def.shots.reduce((a,s)=>a+s.duration,0);this.duration=this.reduced?Math.min(total,def.reducedSeconds??REDUCED_SECONDS):total;
-  this.elapsed=0;this.shot=-1;this.skipped=false;this.active=true;
+  this.elapsed=0;this.shot=-1;this.skipped=false;this.active=true;this.chained=false;
   g.state.mode='cinematic';g.state.overlay=null;g.input.setContext('cinematic');g.audio.pause?.();g.ambientAudio?.setPaused(true);g.loop.reset();
   def.enter?.(this);this.enterShot(this.reduced?(def.reducedShot??0):0);return true;
  }
@@ -101,11 +102,14 @@ export class CutscenePlayer{
  }
  _v=new THREE.Vector3();_look=new THREE.Vector3();
 
- /** Skips to the same end state as watching. Idempotent. */
- skip(){return this.finish(true);}
+ /** Skips to the same end state as watching. Idempotent. A scene that began by chaining ignores
+  * skips during its first 0.3 s of presentation: the same key/click that skipped the previous one
+  * (e.g. Enter on the auto-focused button firing twice) must not skip this one too. */
+ skip(){if(this.active&&this.chained&&this.elapsed<CHAIN_GUARD)return false;return this.finish(true);}
 
- /** Restores camera, exposure, mode and input context; records the scene; idempotent. */
- finish(skipped=true){
+ /** Restores camera, exposure, mode and input context; records the scene; idempotent.
+  * chain: starts the next queued scene right away (an opening made of several scenes). */
+ finish(skipped=true,chain=true){
   if(!this.active)return false;const g=this.g,cam=g.rendering.camera;
   this.active=false;this.skipped=skipped;this.def.exit?.(this);// libera recursos próprios da cena (assistida, pulada ou abortada)
   cam.position.copy(this.saved.position);cam.quaternion.copy(this.saved.quaternion);cam.fov=this.saved.fov;cam.updateProjectionMatrix();
@@ -114,10 +118,12 @@ export class CutscenePlayer{
   const anchor=g.playerVisual?.actor?.anchor;if(anchor)anchor.visible=this.returnMode==='walking'&&g.player.view==='third';// o modelo pode ainda não ter carregado
   for(const id of [this.def.id,...(this.def.also||[])])recordScene(g.campaign,id,skipped?'skipped':'watched');
   g.state.cutscene=null;g.state.mode=this.returnMode;g.state.resumeMode=this.returnMode;g.state.overlay=null;g.input.setContext(this.returnMode);
-  g.ambientAudio?.setPaused(false);g.loop.reset();g.last=performance.now();return true;
+  g.ambientAudio?.setPaused(false);g.loop.reset();g.last=performance.now();
+  if(chain&&this.queued.length&&this.begin())this.chained=true;
+  return true;
  }
 
  /** Aborts any playing scene (counts as a skip) and drops the queue; used on load/menu/dispose. */
- reset(){if(this.active)this.finish(true);this.queued.length=0;}
+ reset(){this.queued.length=0;if(this.active)this.finish(true,false);}
  snapshot(){return {active:this.active,id:this.active?this.def.id:null,queued:[...this.queued],elapsed:this.elapsed,duration:this.duration,reducedMotion:!!this.reduced,skipped:!!this.skipped};}
 }

@@ -8,7 +8,7 @@ import {buildPrologueSet,SET_ORIGIN} from './Prologue2027Set.js';
 // 2027 acontece num set próprio (Prologue2027Set): rodovia conservada, posto aceso, carros,
 // árvores, cidade e torre de rádio, colina com túnel — montado ao começar e descartado ao fim.
 // 2047 usa o mundo real já carregado (barracão e Titã). Não altera relógio, física nem save.
-// Uma só definição cobre 'prologue-2027' e, via `also`, 'intro-2047': pular não deixa meia abertura.
+// 'intro-2047' (Dante no barracão e o Titã) é a cena seguinte da fila, da story 003.
 // Metas de ritmo (~41 s): 0–15 estrada e sinais anormais; 15–30 céu, rádio cai, plasma, túnel; 30–41 corte para 2047.
 // Poses: [x, z, altura]. space 'set': coordenadas do set (altura absoluta no set);
 // space 'world': altura acima do terreno de 2047.
@@ -62,7 +62,8 @@ function frame(p){
  pose(g,s.cam.a,s.cam.space,A);pose(g,s.cam.b,s.cam.space,B);
  cam.position.copy(A.pos).lerp(B.pos,e);cam.up.set(0,1,0);
  cam.lookAt(v.copy(A.look).lerp(B.look,e));cam.fov=THREE.MathUtils.lerp(A.fov,B.fov,e);
- const back=i===SHOTS.length-1?smooth(p.duration-BACK_SECONDS,p.duration,p.elapsed):0;
+ // Se a introdução do Dante vem em seguida, o corte é direto: sem voltar ao olhar do jogador no meio.
+ const back=i===SHOTS.length-1&&!p.queued?.includes('intro-2047')?smooth(p.duration-BACK_SECONDS,p.duration,p.elapsed):0;
  if(back>0){cam.position.lerp(p.saved.position,back);cam.quaternion.slerp(p.saved.quaternion,back);cam.fov=THREE.MathUtils.lerp(cam.fov,p.saved.fov,back);}
  cam.updateProjectionMatrix();
 }
@@ -76,7 +77,7 @@ function exit(p){
 }
 
 // Redução de movimento: só a cartela "2047 / Vinte anos depois" (plano 4), câmera parada, sem set.
-export const PROLOGUE={id:'prologue-2027',also:['intro-2047'],frame,enter,exit,reducedSeconds:2.4,reducedShot:4,
+export const PROLOGUE={id:'prologue-2027',frame,enter,exit,reducedSeconds:2.4,reducedShot:4,
  shots:SHOTS.map(({cam,...shot})=>shot)};
 export const PROLOGUE_SECONDS=TOTAL;
 CUTSCENES[PROLOGUE.id]=PROLOGUE;
