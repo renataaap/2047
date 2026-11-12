@@ -69,7 +69,7 @@
 
 **Story Type**: Visual/Feel
 **Required evidence**: captura retida + sign-off em `production/qa/evidence/story-004-evidence.md`
-**Status**: [ ] Not yet created
+**Status**: [x] Criada: `production/qa/evidence/story-004-chegada-da-sobrevivente/` (capturas 1–7, reduzido, `metrics.json`, `validation.json`, logs) — sign-off do criador pendente
 
 ---
 

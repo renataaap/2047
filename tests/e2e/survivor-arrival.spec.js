@@ -32,9 +32,12 @@ test('a sobrevivente chega ao abrigo em cena, a Semente vem só do diálogo, uma
  const start=await state(page);expect(start.mode).toBe('cinematic');const metrics=[];
  for(const [name,match] of SHOTS){
   await expect.poll(async()=>match(await state(page)),{timeout:30000,intervals:[100]}).toBe(true);
+  // Só apresentação: lido logo ao reconhecer o plano (o último dura poucos segundos e a cena termina
+  // normalmente durante a espera da captura).
+  const now=await state(page);expect(now.mode).toBe('cinematic');expect(now.simulation.steps,JSON.stringify({shot:name,startSteps:start.simulation.steps})).toBe(start.simulation.steps);expect(now.campaign.seed.received).toBe(false);
   await expect(scene.locator('.cutscene-grade')).toHaveCSS('opacity','1');if(name!=='1-chegada-estrada')await expect(scene.getByRole('status')).toHaveCSS('opacity','1');
   await page.waitForTimeout(name==='1-chegada-estrada'?1500:900);await page.screenshot({path:`${dir}/${name}.png`});
-  const s=await state(page);expect(s.simulation.steps).toBe(start.simulation.steps);expect(s.campaign.seed.received).toBe(false);// só apresentação
+  const s=await state(page);
   metrics.push({shot:name,drawCalls:s.drawCalls,triangles:s.triangles,geometries:s.renderResources.geometries,textures:s.renderResources.textures});
  }
  await expect.poll(async()=>(await state(page)).mode,{timeout:30000}).toBe('walking');await expect(scene).toBeHidden();
