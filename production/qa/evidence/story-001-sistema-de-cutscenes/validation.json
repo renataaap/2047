@@ -1,0 +1,30 @@
+{
+  "story": "production/epics/2047-rede-aurora/story-001-sistema-de-cutscenes.md",
+  "date": "2026-11-11",
+  "branch": "feat/narrativa-0.14.0",
+  "base": "a2099f0",
+  "environment": {
+    "node_modules": "junction para C:\\Temp\\renatinha\\2047\\node_modules removido só como vínculo (rmdir sem /s; original com 60 pastas mantido); npm ci no worktree",
+    "e2eBrowser": "Chrome do sistema via PLAYWRIGHT_CHROMIUM_EXECUTABLE, headless, SwiftShader (navegadores do Playwright não instalados nesta máquina)",
+    "evidenceRoot": "evidence/current-e2e (bruto, não versionado)"
+  },
+  "unit": {
+    "command": "npm test",
+    "result": "372/372 em 46 arquivos, fonte final",
+    "new": "tests/unit/cutscene.test.js, 14 testes",
+    "mutationCheck": ["gravar sempre watched: 2 falhas", "não restaurar exposição: 1 falha", "Esc pula fora de cena: 1 falha"],
+    "regressionWatchedFailing": "cena iniciada em driving/walking voltava ao resumeMode antigo; teste falhou antes da correção em cutscene.js start()"
+  },
+  "build": {"command": "npm run build", "result": "aprovado, fonte final"},
+  "e2e": {
+    "relevantRegression": {
+      "command": "npx playwright test tests/e2e/cutscene.spec.js tests/e2e/restoration.spec.js tests/e2e/narrative.spec.js",
+      "result": "10/10, 5,4 min, sem retries",
+      "window": "2026-11-11T09:45:06-03:00 → 09:50:42-03:00"
+    },
+    "afterRegression": "só tests/e2e/cutscene.spec.js mudou (fixture 4+4 s no teste ao volante e espera da opacidade antes da captura); rechecagem cutscene.spec.js 3/3 — não é caso inédito",
+    "integral": "não executada"
+  },
+  "captures": ["driving-during.png", "driving-after-skip.png", "walking-reduced.png"],
+  "pending": ["integral E2E", "Windows/GPU real", "playtest humano", "conteúdo das cenas e gatilhos (stories 002–006)"]
+}

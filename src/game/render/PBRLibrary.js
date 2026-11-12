@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { applyTerrainBlend } from './TerrainBlend.js';
+import {applyRecoveryTerrain,RECOVERY_TERRAIN_ROLES} from '../restoration/RestorationTerrain.js';
 
 export const MATERIAL_ROLES = {
  weatheredMetal:['rust_coarse_01'], asphalt: ['road_damaged_2','asphalt_pit_lane','asphalt_02'], shoulder: ['gravel_road'], ground: ['dirt','mud_cracked_dry_03'],
@@ -59,6 +60,7 @@ export class PBRLibrary {
  const source=this.materials[m.userData.dataMapsFrom];if(!source||m.userData.polyhaven)continue;
  if(m.normalMap!==source.normalMap||m.roughnessMap!==source.roughnessMap){m.normalMap=source.normalMap;m.roughnessMap=source.roughnessMap;m.needsUpdate=true;}
  }
+ for(const role of RECOVERY_TERRAIN_ROLES)if(this.materials[role])applyRecoveryTerrain(this.materials[role]);
  this.loadedQuality=this.quality;return this;
  }
  setQuality(quality) {

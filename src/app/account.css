@@ -1,0 +1,14 @@
+/* 0.15 — painel de conta (entrar, criar conta, sair). */
+.account-panel{width:min(520px,94vw)}
+.account-panel .panel-note{font-size:13px;line-height:1.7;color:#c9c5b8;margin:0 0 18px}
+.account-tabs{display:flex;gap:4px;margin:0 0 16px;border-bottom:1px solid #bdb49b33}
+.account-tabs button{background:transparent;border:0;border-bottom:2px solid transparent;color:#aaa79e;padding:8px 14px;font:inherit;font-size:13px;cursor:pointer}
+.account-tabs button.active{color:#ede7d8;border-bottom-color:#bf865c}
+.account-tabs button:focus-visible,.account-form input:focus-visible{outline:2px solid #dfb675;outline-offset:3px}
+.account-form{display:flex;flex-direction:column;gap:14px}
+.account-form label{display:flex;flex-direction:column;gap:6px;font-size:12px;letter-spacing:.04em;color:#d6cfbd}
+.account-form input{background:#1d2629;color:#eee7d6;border:1px solid #bdb49b55;padding:10px 12px;font:15px/1.4 system-ui,sans-serif;border-radius:0}
+.account-form input:disabled{opacity:.6}
+.account-hint{font-size:11px;line-height:1.6;color:#aeb5a9}
+.account-status{font-size:15px;color:#ddd5bd;margin:0 0 10px}.account-status strong{color:#ede7d8}
+.account-message{margin:16px 0 0;padding:10px 12px;font-size:13px;line-height:1.6;background:#1d2629;border-left:2px solid #c9a35a;color:#e5dfcd}

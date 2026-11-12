@@ -1,3 +1,4 @@
+import {capacity} from '../logistics/manifest.js';
 import {VEHICLES,SKINS,ACCESSORIES,UPGRADES,defaultPaint,defaultInterior,GARAGE} from './catalog.js';
 import {ITEMS} from '../../data/campaign.js';
 const copy=v=>structuredClone(v);
@@ -26,7 +27,7 @@ export function quote(c,kind,id,draft){
  if(kind==='upgrade'){if(!UPGRADES[id])throw Error('Melhoria desconhecida');return v.ownedUpgrades.includes(id)?{}:UPGRADES[id].cost;}
  if(kind==='buy'){if(!VEHICLES[id]||id==='titan-old')throw Error('Veículo indisponível');if(f.vehicles[id])throw Error('Este caminhão já pertence à frota.');return VEHICLES[id].cost;}
  if(kind==='repair'){if(!COMPONENTS.includes(id)||c.components[id]>=100)throw Error('Componente sem reparo pendente');return {parts:3,scrap:2};}
- if(kind==='fuel'){const n=Math.min(4,180-c.fleet.vehicles[c.fleet.active].fuel,available(c).diesel);if(n<=0)throw Error('Sem diesel disponível ou tanque cheio');return {diesel:n};}
+ if(kind==='fuel'){const n=Math.min(4,VEHICLES[c.fleet.active].fuelCapacity-c.fleet.vehicles[c.fleet.active].fuel,available(c).diesel);if(n<=0)throw Error('Sem diesel disponível ou tanque cheio');return {diesel:n};}
  throw Error('Serviço desconhecido');
 }
 export function purchase(c,state,kind,id,draft){
@@ -44,8 +45,10 @@ export function purchase(c,state,kind,id,draft){
 }
 export function selectVehicle(c,state,id){
  captureFleet(c,state);const f=c.fleet,v=f.vehicles[id];if(!v||!VEHICLES[id])throw Error('Veículo não pertence à frota.');if(id===f.active)return false;
+ const cargo=c.logistics?.cargo;if(cargo){const fit=capacity(c,id,cargo.type,cargo.quantity,v.inventory);if(!fit.ok)throw Error(fit.message);}
  const payload=c.network?.cargo||c.seed.received&&c.stage!=='activated'?2200:0;
  if(payload+Object.entries(v.inventory).reduce((s,[k,n])=>s+n*ITEMS[k].weight,0)>VEHICLES[id].cargoCapacity)throw Error('Carga incompatível com o veículo escolhido.');
+ if(cargo){cargo.vehicle=id;c.logistics.active.vehicle=id;}
  f.active=id;c.components=copy(v.components);c.inventory.truck=copy(v.inventory);state.fuel=v.fuel;state.temperature=v.temperature;return true;
 }
 const plain=o=>o&&typeof o==='object'&&!Array.isArray(o),bounded=(v,a,b)=>Number.isFinite(v)&&v>=a&&v<=b;

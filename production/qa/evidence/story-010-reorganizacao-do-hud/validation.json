@@ -1,0 +1,23 @@
+{
+ "story": "story-010-reorganizacao-do-hud",
+ "date": "2026-11-12",
+ "unit": {
+  "tests": 424,
+  "passed": 424
+ },
+ "browser": "Chrome local via PLAYWRIGHT_CHROMIUM_EXECUTABLE (SwiftShader), porta 3100",
+ "signOff": "PENDENTE — aguardando o criador",
+ "pending": [
+  "Windows com GPU física",
+  "personagens MakeHuman CC0 provisórios, não é arte final"
+ ],
+ "e2e": [
+  {
+   "spec": "tests/e2e/hud-layout.spec.js",
+   "passed": 1,
+   "total": 1,
+   "note": "3 resoluções × 4 contextos sem sobreposição medida entre 14 elementos; opção de ocultar controles salva"
+  }
+ ],
+ "layout": "minimapa superior esquerdo; bússola e card do tutorial/objetivo no topo central; pausa à direita; controles contextuais no centro inferior"
+}

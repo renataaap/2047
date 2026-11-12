@@ -1,0 +1,27 @@
+{
+ "story": "story-005-encontro-com-brutus",
+ "date": "2026-11-12",
+ "unit": {
+  "tests": 424,
+  "passed": 424
+ },
+ "browser": "Chrome local via PLAYWRIGHT_CHROMIUM_EXECUTABLE (SwiftShader), porta 3100",
+ "signOff": "PENDENTE — aguardando o criador",
+ "pending": [
+  "Windows com GPU física",
+  "personagens MakeHuman CC0 provisórios, não é arte final"
+ ],
+ "e2e": [
+  {
+   "spec": "tests/e2e/brutus-meeting.spec.js",
+   "passed": 2,
+   "total": 2,
+   "note": "teste 1 rechecado após esperar o PUT real do save (mesma correção de harness da b341a65); teste 2 passou na primeira rodada"
+  }
+ ],
+ "changes": [
+  "Garcia (BrutusPresence) só existe após a decisão do pedágio e o encontro; colisor só parado",
+  "ponto movido para fora da parede leste do abrigo de Afonso (x+7, z+4,5)",
+  "legenda reage à escolha (captionFor no CutscenePlayer)"
+ ]
+}

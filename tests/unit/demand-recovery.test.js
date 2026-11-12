@@ -1,0 +1,12 @@
+import {it,expect} from 'vitest';
+import {createCampaign} from '../../src/game/missions/campaign.js';
+import {upgradeCampaign} from '../../src/game/missions/network.js';
+import {receiveRegionalDelivery,driftDemand,priceFactors,validEconomy,DEMAND_RECOVERY_PER_EPOCH,DEMAND_SCARCITY_PER_EPOCH,DEMAND_CEILING} from '../../src/game/economy/market.js';
+import {ensureLogistics,stepLogistics,refreshOffers} from '../../src/game/logistics/contracts.js';
+import {LOGISTICS_SITES,OFFER_PERIOD} from '../../src/data/contracts.js';
+const fixture=()=>{const c=upgradeCampaign(createCampaign());ensureLogistics(c);return c;};
+const water=c=>c.economy.regions.salt.demand.water;
+it('demanda abastecida volta à referência e depois sobe devagar até o teto',()=>{const c=fixture();for(let i=0;i<100;i++)receiveRegionalDelivery(c,LOGISTICS_SITES.ivani,'water',3);expect(water(c)).toBe(8000);driftDemand(c,1);expect(water(c)).toBe(8000+DEMAND_RECOVERY_PER_EPOCH);driftDemand(c,3);expect(water(c)).toBe(10000);driftDemand(c,1);expect(water(c)).toBe(10000+DEMAND_SCARCITY_PER_EPOCH);driftDemand(c,40);expect(water(c)).toBe(DEMAND_CEILING);expect(validEconomy(c.economy)).toBe(true);});
+it('a deriva acompanha as épocas da simulação, não cada quadro',()=>{const c=fixture();c.economy.regions.salt.demand.water=8000;stepLogistics(c,OFFER_PERIOD-1);expect(water(c)).toBe(8000);stepLogistics(c,1);expect(water(c)).toBe(8000+DEMAND_RECOVERY_PER_EPOCH);stepLogistics(c,0);expect(water(c)).toBe(8000+DEMAND_RECOVERY_PER_EPOCH);});
+it('entradas inválidas não alteram a economia',()=>{const c=fixture();c.economy.regions.salt.demand.water=8000;const before=structuredClone(c.economy);for(const n of [0,-1,.5,NaN])driftDemand(c,n);expect(c.economy).toEqual(before);});
+it('região sem entregas paga bônus de frete e cobra mais pelos bens',()=>{const c=fixture(),site={x:0,z:-12000},cheap=priceFactors(c,site,'water',12,12).basisPoints,base=refreshOffers(c,'cinza').map(o=>o.reward.scrap);for(const r of Object.values(c.economy.regions))for(const k of Object.keys(r.demand))r.demand[k]=DEMAND_CEILING;delete c.logistics.offers.cinza;const high=refreshOffers(c,'cinza').map(o=>o.reward.scrap);expect(priceFactors(c,site,'water',12,12).basisPoints).toBeGreaterThan(cheap);expect(high.length).toBe(base.length);high.forEach((n,i)=>expect(n).toBe(base[i]+2));});

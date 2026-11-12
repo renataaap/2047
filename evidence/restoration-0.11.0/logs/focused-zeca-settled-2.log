@@ -1,0 +1,41 @@
+
+> 2047-rede-aurora@0.11.0 test:e2e
+> playwright test tests/e2e/critical-gameplay.spec.js --grep alvos reais --repeat-each=2 --output=/tmp/aurora-restoration-zeca-settled-2-traces
+
+
+Running 2 tests using 1 worker
+
+(node:1278) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/critical-gameplay.spec.js:17:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas (43.0s)
+
+
+  1) tests/e2e/critical-gameplay.spec.js:17:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 4
+    Received:    0
+
+      25 |  // not a reliable parking preparation on software rendering.
+      26 |  await page.evaluate(()=>{const d=window.__GAME_DEBUG__;d.controlledStepping(true);d.teleport({x:-29,z:-2234});d.step({handbrake:true},180);d.publish();d.controlledStepping(false);});
+    > 27 |  const parkedAtPump=await state(page);expect(parkedAtPump.engineOn).toBe(false);expect(parkedAtPump.speed).toBeLessThan(.1);expect(parkedAtPump.wheelContacts.filter(Boolean).length).toBeGreaterThanOrEqual(4);expect(Math.hypot(parkedAtPump.position[0]+44,parkedAtPump.position[2]+2250)).toBeLessThan(26);await writeFile(`${dir}/zeca-parking.json`,JSON.stringify({method:'Diagnostic relocation followed by three seconds of original 60 Hz physics with handbrake. No assigned speed or bypass of purchase rules.',state:parkedAtPump},null,2)+'\n');
+         |                                                                                                                                                                                       ^
+      28 |  for(const p of [{x:-48.7,z:-2249.5},{x:-47.2,z:-2248.3},{x:-48.3,z:-2251.2}]){
+      29 |   await teleportPlayer(page,p.x,p.z);await expect.poll(async()=>(await state(page)).interaction?.text).toBe('Falar com Zeca');await page.keyboard.press('KeyF');await expect(page.getByRole('heading',{name:'Zeca',exact:true})).toBeVisible();await expect(page.getByRole('dialog').locator('.place-subtitle')).toHaveText('Posto Boa Viagem');await page.getByRole('button',{name:'Exibir texto completo'}).click();await expect(page.getByRole('dialog')).toContainText('A bomba ainda puxa.');await page.keyboard.press('Escape');
+      30 |  }
+        at /workspace/work/2047-rede-aurora/tests/e2e/critical-gameplay.spec.js:27:183
+
+    Error Context: ../../../tmp/aurora-restoration-zeca-settled-2-traces/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../tmp/aurora-restoration-zeca-settled-2-traces/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../tmp/aurora-restoration-zeca-settled-2-traces/critical-gameplay-alvos-re-635b0-s-Dante-e-duas-perspectivas/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/e2e/critical-gameplay.spec.js:17:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas 
+  1 did not run

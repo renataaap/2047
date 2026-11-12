@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 import {captureTruck} from '../../scripts/capturar-tita.mjs';
 
 test('Titã: sólidos opacos, vidros próprios, seis rodas e retorno correto da cabine',async({page})=>{
- test.setTimeout(480000);const result=await captureTruck(page,'after');
+ test.setTimeout(480000);const result=await captureTruck(page,'after',test.info().project.use.baseURL);
  for(const {id,state:s}of result.shots){
   expect(s.importedTruck.status).toBe('imported');expect(s.importedTruck.visible).toBe(true);expect(s.importedTruck.wheelBindings).toBe(6);expect(s.assets.errors).toEqual([]);
   for(const m of s.importedTruck.materials){

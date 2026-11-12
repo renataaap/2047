@@ -1,3 +1,4 @@
+import {recoveryAt} from '../../game/restoration/progress.js';
 import {useState,useMemo} from 'react';
 import {NETWORK_EDGES} from '../../game/navigation/roadIndex.js';
 import {edgeAllowed} from '../../game/navigation/routePlanner.js';
@@ -18,10 +19,11 @@ export function RoadMapSvg({state,center,range=640,overview=false,onDestination,
  return <svg data-testid={overview?'road-map':'minimap-svg'} viewBox={`${x-half} ${z-half} ${range} ${range}`} role={onDestination?'group':'img'} aria-label={showFoot?'Caminhos e interações próximas':'Rede de estradas e rota ativa'}>
   <rect x={x-half} y={z-half} width={range} height={range} fill="#202a27"/>
   <rect x={PILOT_CITY.bounds.minX} y={PILOT_CITY.bounds.minZ} width={PILOT_CITY.bounds.maxX-PILOT_CITY.bounds.minX} height={PILOT_CITY.bounds.maxZ-PILOT_CITY.bounds.minZ} rx="16" fill="#475047" opacity=".5"/>
+  {overview&&state.restoration?.progress.filter(s=>s.active).map(s=>{const k=ROAD_DESTINATIONS.find(d=>d.id===s.id);return k?<ellipse key={s.id} cx={k.x} cy={k.z} rx={Math.min(620,180+s.age*4)} ry={Math.min(1250,330+s.age*6)} fill="#81a87a" opacity={s.stage===1?.06:s.stage===2?.1:.14} pointerEvents="none"><title>{s.name} · {s.label}</title></ellipse>:null;})}
   {nearby.map(e=><path key={e.id} d={mapPath(e.samples)} fill="none" stroke={!edgeAllowed(e,c)?'#a4654e':e.type==='dirt'||e.surface==='terra'?'#a08b64':e.type==='urban'?'#b6b7a0':'#8b9290'} strokeWidth={Math.max(scale*1.7,Math.min(e.width,scale*5))} strokeLinejoin="round" strokeLinecap="round" strokeDasharray={!edgeAllowed(e,c)?`${scale*5} ${scale*4}`:undefined}><title>{ROAD_LABELS[e.type]||'Via'} · {e.surface}{!edgeAllowed(e,c)?' · bloqueado':''}</title></path>)}
   {nav.path?.length>1&&<path data-testid="active-route-line" d={mapPath(nav.path)} fill="none" stroke="#d7b66c" strokeWidth={scale*(overview?2.5:3)} strokeLinejoin="round" strokeLinecap="round"/>}
   {markers.map(p=><g key={p.id} role={onDestination?'button':undefined} tabIndex={onDestination?0:undefined} aria-label={p.name} onClick={onDestination?()=>onDestination(p.id):undefined} onKeyDown={onDestination?e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();onDestination(p.id);}}:undefined} className={onDestination?'map-destination':''}>
-   <circle cx={p.x} cy={p.z} r={scale*(showFoot?3.4:4.5)} fill={p.kind==='core'?'#b8c7aa':p.kind==='npc'?'#d7b78a':p.kind==='gas'?'#d6a756':'#9bb1b0'} stroke="#18221f" strokeWidth={scale*1.5}/><title>{p.name}</title>
+   <circle cx={p.x} cy={p.z} r={scale*(showFoot?3.4:4.5)} fill={p.kind==='core'?'#b8c7aa':p.kind==='npc'?'#d7b78a':p.kind==='gas'?'#d6a756':'#9bb1b0'} stroke="#18221f" strokeWidth={scale*1.5}/><title>{p.name}{p.kind==='core'&&c.cores?.[p.id]?.state==='active'?' · estágio '+recoveryAt(c,p.x,p.z).stage+' de recuperação':''}</title>
   </g>)}
   {nav.destination&&<circle cx={nav.destination.x} cy={nav.destination.z} r={scale*8} fill="none" stroke="#e0be74" strokeWidth={scale*1.3}/>}
   <g transform={`translate(${px} ${pz}) rotate(${-yaw*180/Math.PI})`}><circle r={scale*9} fill="#111b17" opacity=".6"/><path d={`M0 ${-9*scale} L${6*scale} ${6*scale} L0 ${3*scale} L${-6*scale} ${6*scale} Z`} fill="#f2e4be" stroke="#1b2722" strokeWidth={scale}/></g>

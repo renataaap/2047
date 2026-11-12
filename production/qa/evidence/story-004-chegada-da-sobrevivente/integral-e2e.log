@@ -1,0 +1,100 @@
+
+Running 63 tests using 1 worker
+
+[1/63] tests\e2e\assets.spec.js:9:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais
+[2/63] tests\e2e\assets.spec.js:17:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer
+[3/63] tests\e2e\assets.spec.js:27:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade
+[4/63] tests\e2e\contracts-api.spec.js:7:1 › API: contratos opcionais nos três slots, revisão e dados inválidos
+[5/63] tests\e2e\contracts.spec.js:17:49 › frete físico: titan-old, coleta, viagem, entrega e save
+[6/63] tests\e2e\contracts.spec.js:17:49 › frete físico: dump-truck, coleta, viagem, entrega e save
+[7/63] tests\e2e\contracts.spec.js:36:1 › fretes: conflito de gravação não confirma aceite nem duplica o manifesto
+[8/63] tests\e2e\contracts.spec.js:45:1 › frete pesado: gerador no baú, massa, seis rodas e devolução sem prêmio
+[9/63] tests\e2e\contracts.spec.js:57:1 › conferência: avaria mínima mantém a peça, mostra valor e salva uma vez
+[10/63] tests\e2e\critical-gameplay.spec.js:18:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas
+[11/63] tests\e2e\critical-gameplay.spec.js:39:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga
+[12/63] tests\e2e\cutscene.spec.js:25:1 › cena ao volante: abre, suspende física e rádio, Esc pula e devolve caminhão e controles
+[13/63] tests\e2e\cutscene.spec.js:53:1 › assistir até o fim e pular terminam no mesmo estado funcional, com watched × skipped
+[14/63] tests\e2e\cutscene.spec.js:69:1 › a pé com Dante: botão pula; Enter pula com redução de movimento; Space volta a saltar
+[15/63] tests\e2e\driving.spec.js:8:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura
+[16/63] tests\e2e\driving.spec.js:16:1 › câmera externa respeita paredes e ajustes de condução persistem
+[17/63] tests\e2e\exit.spec.js:6:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos
+[18/63] tests\e2e\game.spec.js:8:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento
+tests\e2e\game.spec.js:8:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento
+ACEITE {"speedKmh":48.80485353138489,"fuelBefore":4,"fuelAfter":3.9181293514950943,"averageFps":1.1181120346853066,"drawCalls":282,"triangles":451346,"consoleErrors":[]}
+
+[19/63] tests\e2e\game.spec.js:22:1 › câmeras, motor, pausa, configurações e API
+[20/63] tests\e2e\game.spec.js:34:1 › setores se renovam até as cidades e o objetivo mantém a primeira Semente
+[21/63] tests\e2e\garage.spec.js:22:1 › garagem: prévia, cancelamento, compra, equipamentos, segundo caminhão e persistência
+[22/63] tests\e2e\garage.spec.js:43:1 › garagem: skins distintas, interior, prévia de peças e bloqueio por recursos
+[23/63] tests\e2e\garage.spec.js:52:1 › garagem: falta de recursos não cobra, equipa nem grava uma compra
+[24/63] tests\e2e\garage.spec.js:62:1 › viagem real: barracão, GPS, garagem, personalização, retorno e basculante na cidade
+[25/63] tests\e2e\garage.spec.js:82:1 › bancada: acesso a pé com colisões reais e retorno ao controle
+[26/63] tests\e2e\interface.spec.js:5:1 › diálogo por falas, teclado, escala de legendas e retorno ao controle
+[27/63] tests\e2e\logistics-access.spec.js:11:49 › acessos logísticos locais, sete depósitos: titan-old
+[28/63] tests\e2e\logistics-access.spec.js:11:49 › acessos logísticos locais, sete depósitos: dump-truck
+[29/63] tests\e2e\narrative.spec.js:7:1 › rádio narrativo: transmissão chega em cruzeiro real, aparece legendada e fica no registro
+[30/63] tests\e2e\narrative.spec.js:33:1 › escolha narrativa: Lia oferece a decisão, a água sai da mochila, a reação aparece e a escolha fica salva no servidor
+[31/63] tests\e2e\navigation-layout.spec.js:5:1 › cabine: aviso de salvamento não cobre minimapa compacto ou ampliado
+[32/63] tests\e2e\phase2.spec.js:10:1 › API: cookies, isolamento, CRUD, validação e conflito
+[33/63] tests\e2e\phase2.spec.js:20:1 › fatia vertical: abrigo, carga, preparo, rota, Núcleo, transformação e recarga
+[34/63] tests\e2e\phase3.spec.js:14:1 › Fase 3: migração, água/comida, oficina, Mãe Ivani, Leito Seco e persistência
+[35/63] tests\e2e\phase4.spec.js:21:1 › Fase 4: save 2, Cofres 2–7, missões, restauração local e recarga integral
+[36/63] tests\e2e\phase4.spec.js:40:1 › Fase 4: bloqueio físico, desvio transitável e frente climática persistida
+[37/63] tests\e2e\polish.spec.js:16:1 › 0.8.2: cabine, instrumentos reais, limites de olhar e exterior após F
+[38/63] tests\e2e\polish.spec.js:26:1 › 0.8.2: entrada física da loja e serviços individuais de Zeca preservados
+[39/63] tests\e2e\polish.spec.js:33:1 › 0.8.2: diário registra visita por entrada real, sem pagar reserva, e persiste
+[40/63] tests\e2e\prologue.spec.js:20:1 › Novo Jogo abre o prólogo 2027→2047 e a introdução do Dante, sem avançar a simulação, e entrega o controle ao tutorial
+[41/63] tests\e2e\prologue.spec.js:59:1 › Space pula o prólogo e depois a introdução; com redução de movimento só a cartela e a fala, curtas
+[42/63] tests\e2e\prologue.spec.js:75:1 › Continuar um save legado nunca abre o prólogo
+[43/63] tests\e2e\prologue.spec.js:90:1 › perfis Médio e Alto: o set de 2027 aparece inteiro, sem o mundo de 2047 vazando
+[44/63] tests\e2e\restoration.spec.js:18:1 › primeiro Núcleo: ativação, pular, estágios, diário e recarga sem duplicação
+[45/63] tests\e2e\restoration.spec.js:25:1 › solo restaurado sobrevive a Baixo/Médio/Alto/Baixo com 16 samplers e sem duplicar setores
+[46/63] tests\e2e\restoration.spec.js:34:1 › cinemática completa e redução de movimento devolvem o controle sem cobrar de novo
+[47/63] tests\e2e\restoration.spec.js:40:1 › sete campos legados migram e os cinco biomas mantêm vegetação e identidade próprias
+[48/63] tests\e2e\restoration.spec.js:46:1 › streaming de vegetação pelos cinco biomas regenera posições sem acumular instâncias
+[49/63] tests\e2e\road-navigation.spec.js:14:1 › GPS no HUD, destinos e perfis reais, minimapa a pé e recálculo
+[50/63] tests\e2e\road-navigation.spec.js:26:1 › save legado recebe recuperação próxima, sem duplicação, e persiste a rota
+[51/63] tests\e2e\road-navigation.spec.js:33:1 › cidade em Baixo/Médio/Alto, cabine noturna e descarregamento
+[52/63] tests\e2e\survivor-arrival.spec.js:24:1 › a sobrevivente chega ao abrigo em cena, a Semente vem só do diálogo, uma vez, e o save não repete
+  1) tests\e2e\survivor-arrival.spec.js:24:1 › a sobrevivente chega ao abrigo em cena, a Semente vem só do diálogo, uma vez, e o save não repete 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 88
+    Received: 118
+
+      35 |   await expect(scene.locator('.cutscene-grade')).toHaveCSS('opacity','1');if(name!=='1-chegada-estrada')await expect(scene.getByRole('status')).toHaveCSS('opacity','1');
+      36 |   await page.waitForTimeout(name==='1-chegada-estrada'?1500:900);await page.screenshot({path:`${dir}/${name}.png`});
+    > 37 |   const s=await state(page);expect(s.simulation.steps).toBe(start.simulation.steps);expect(s.campaign.seed.received).toBe(false);// só apresentação
+         |                                                        ^
+      38 |   metrics.push({shot:name,drawCalls:s.drawCalls,triangles:s.triangles,geometries:s.renderResources.geometries,textures:s.renderResources.textures});
+      39 |  }
+      40 |  await expect.poll(async()=>(await state(page)).mode,{timeout:30000}).toBe('walking');await expect(scene).toBeHidden();
+        at C:\Temp\renatinha\2047-narrativa-0.14.0\tests\e2e\survivor-arrival.spec.js:37:56
+
+    Error Context: test-results\survivor-arrival-a-sobrevi-d8d7f-uma-vez-e-o-save-não-repete\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\survivor-arrival-a-sobrevi-d8d7f-uma-vez-e-o-save-não-repete\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\survivor-arrival-a-sobrevi-d8d7f-uma-vez-e-o-save-não-repete\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[53/63] tests\e2e\survivor-arrival.spec.js:64:1 › Esc pula a chegada no mesmo estado; com redução de movimento só o plano da Semente
+[54/63] tests\e2e\terrain-visibility.spec.js:7:1 › chão do barracão e terreno renderizam em Baixo/Médio/Alto com limite de 16 texturas
+[55/63] tests\e2e\terrain-visibility.spec.js:39:1 › Alta conserva todos os mapas em hardware com pelo menos 17 unidades de textura
+[56/63] tests\e2e\truck-opacity.spec.js:4:1 › Titã: sólidos opacos, vidros próprios, seis rodas e retorno correto da cabine
+[57/63] tests\e2e\tutorial-assets.spec.js:12:1 › arquivos reais: oito PBR, garagem com interior e Titã com seis rodas
+[58/63] tests\e2e\tutorial-assets.spec.js:18:1 › progresso parcial retoma; pular e repetir preservam recursos e campanha
+[59/63] tests\e2e\tutorial-assets.spec.js:31:1 › tutorial: barracão, direção real, reparo, missão, gerador, conclusão e recarga
+[60/63] tests\e2e\world-expansion.spec.js:21:1 › 0.8: três locais alcançáveis a pé, reservas finitas, boletim e persistência
+[61/63] tests\e2e\world-expansion.spec.js:37:1 › 0.8: dia e noite, luzes locais, pausa, áudio e relógio salvo
+[62/63] tests\e2e\world-expansion.spec.js:50:1 › 0.8: ambientação por região, equipamentos e descarregamento dos novos modelos
+[63/63] tests\e2e\world-expansion.spec.js:60:1 › 0.8: perfis reais trocam texturas, preservam dados herdados e liberam variantes antigas
+  1 failed
+    tests\e2e\survivor-arrival.spec.js:24:1 › a sobrevivente chega ao abrigo em cena, a Semente vem só do diálogo, uma vez, e o save não repete 
+  62 passed (40.3m)
+exit=1 dur=2430s

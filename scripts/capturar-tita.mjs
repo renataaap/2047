@@ -3,15 +3,17 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
 import {roadX} from '../src/game/world/terrain.js';
+import {skipPrologue} from '../tests/helpers/start-driving.js';// 0.14: Novo jogo abre o prólogo
 
 const state=page=>page.evaluate(()=>window.__GAME_DEBUG__.getState());
-export async function captureTruck(page,stage){
+const BASE=process.env.AURORA_BASE_URL||'http://127.0.0.1:3000';
+export async function captureTruck(page,stage,base=BASE){
  const dir=resolve(process.env.AURORA_EVIDENCE_ROOT||'evidence/current-e2e','truck-opacity',stage),shots=[],errors=[];await mkdir(dir,{recursive:true});
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
- await page.goto('http://127.0.0.1:3000');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});
+ await page.goto(base);await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});
  const take=async id=>{await page.screenshot({path:`${dir}/${id}.png`});const s=await state(page);shots.push({id,state:s});};
- await page.waitForTimeout(800);await take('menu');await page.getByRole('button',{name:'01 Novo jogo'}).click();await expect.poll(async()=>(await state(page)).mode,{timeout:30000}).toBe('walking');
+ await page.waitForTimeout(800);await take('menu');await page.getByRole('button',{name:'01 Novo jogo'}).click();await skipPrologue(page);
  await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-3,z:5}));await page.keyboard.press('KeyF');await expect.poll(async()=>(await state(page)).mode).toBe('driving');
  await page.evaluate(p=>window.__GAME_DEBUG__.teleport(p),{x:roadX(-220),z:-220});await page.keyboard.down('Space');
  const settle=async()=>{const start=(await state(page)).simulation.steps;await expect.poll(async()=>(await state(page)).simulation.steps,{timeout:30000}).toBeGreaterThan(start+60);};
@@ -29,12 +31,12 @@ export async function captureTruck(page,stage){
 
 // Extra evidence: look back at the truck after a real cockpit exit, then inspect
 // shadows/environment lighting with the real High setting and return to Low.
-export async function captureTruckDetails(page){
+export async function captureTruckDetails(page,base=BASE){
  const dir=resolve(process.env.AURORA_EVIDENCE_ROOT||'evidence/current-e2e','truck-opacity','details'),shots=[],errors=[];await mkdir(dir,{recursive:true});
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
- await page.goto('http://127.0.0.1:3000');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});
- await page.getByRole('button',{name:'01 Novo jogo'}).click();await expect.poll(async()=>(await state(page)).mode).toBe('walking');
+ await page.goto(base);await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});
+ await page.getByRole('button',{name:'01 Novo jogo'}).click();await skipPrologue(page);
  await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-3,z:5}));await page.keyboard.press('KeyF');await expect.poll(async()=>(await state(page)).mode).toBe('driving');
  await page.evaluate(p=>{window.__GAME_DEBUG__.teleport(p);window.__GAME_DEBUG__.setTime(9);},{x:roadX(-220),z:-220});await page.keyboard.down('Space');
  const settle=async()=>{const start=(await state(page)).simulation.steps;await expect.poll(async()=>(await state(page)).simulation.steps,{timeout:60000}).toBeGreaterThan(start+35);};

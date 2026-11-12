@@ -1,8 +1,13 @@
+// Story 010: controles contextuais no centro inferior do HUD ([teclas, ação]).
+export const CONTROLS={
+ walking:[[['W','A','S','D'],'mover'],[['Shift'],'correr'],[['F'],'interagir'],[['C'],'câmera'],[['Tab'],'inventário'],[['J'],'missões'],[['M'],'mapa']],
+ driving:[[['W','S'],'acelerar / frear'],[['A','D'],'direção'],[['Espaço'],'freio de mão'],[['E'],'motor'],[['C'],'câmera'],[['L'],'faróis'],[['F'],'descer']],
+};
 export const UI={brand:'REDE AURORA / 2047',shelterVault:'ABRIGO 07 · COFRE 1',shelter:'ABRIGO 07',core:'NÚCLEO 1',
  inventoryTip:'Transfira diesel e peças ao compartimento para abastecer, reparar e calibrar.',workTip:'V próximo ao Titã parado. Peças e materiais são retirados do compartimento do caminhão.',
  planTip:'Planeje a rota e siga os caminhos no mundo. A seleção não move o Titã.',mapLabel:'Abrigo ao norte, Núcleo ao sul, desvio seguro a leste e atalho a oeste',
  clear:'LIBERADO',blocked:'SOTERRADO',toTruck:'para Titã',toPlayer:'para Dante',slot:'Slot',revision:'revisão',
- success:'Ancoragem confirmada. Restauração iniciada.',failed:'A matriz falhou. Calibre antes de tentar novamente.',saving:'Salvando…',phase:'VERSÃO 0.10.0 · GARAGEM E FROTA',
+ success:'Ancoragem confirmada. Restauração iniciada.',failed:'A matriz falhou. Calibre antes de tentar novamente.',saving:'Salvando…',phase:'VERSÃO 0.12.0 · CONTRATOS DE TRANSPORTE',
  saveLoad:'Salvar / carregar partida',walkCamera:'EXPLORAÇÃO A PÉ',salt:'Sal',unstable:'Crosta instável',cargoCare:'Evite choques e frenagens bruscas.',
  dieselAlert:'Reserva crítica de diesel. Abasteça pelo inventário.',heatAlert:'Motor superaquecendo. Pare e revise o radiador.',
  surfaces:{asfalto:'Asfalto',terra:'Terra',sal:'Sal',lama:'Crosta instável',vidro:'Rocha vítrea',agua:'Túnel alagado',rocha:'Rocha',areia:'Areia'},

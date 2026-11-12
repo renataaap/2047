@@ -1,0 +1,41 @@
+
+Running 2 tests using 1 worker
+
+(node:4260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/logistics-access.spec.js:10:49 › acessos logísticos locais, sete depósitos: titan-old (1.3m)
+
+
+  1) tests/e2e/logistics-access.spec.js:10:49 › acessos logísticos locais, sete depósitos: titan-old 
+
+    Test was interrupted.
+
+    Error: page.screenshot: Test ended.
+    Call log:
+      - taking page screenshot
+      - waiting for fonts to load...
+      - fonts loaded
+
+
+      15 |   const list=await(await page.request.get('/api/saves')).json(),entry=list.saves.find(v=>v.slot==='1');const response=entry?await page.request.put('/api/saves/1',{data:{version:entry.version,data}}):await page.request.post('/api/saves',{data:{slot:'1',data}});expect(response.ok()).toBe(true);
+      16 |   await page.goto('/');await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'Continuar',exact:true}).click();await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='driving');await controlledPhysics(page);await page.evaluate(()=>{const d=window.__GAME_DEBUG__;d.step({handbrake:true},180);d.publish();});
+    > 17 |   await page.keyboard.press('KeyM');await page.getByLabel('Destino da viagem').selectOption(s.destination);await page.keyboard.press('Escape');await page.keyboard.press('KeyE');const proof=await drivePhysical(page,{cruise:2.5,maxSeconds:100,label:`acesso-${vehicle}-${s.id}`,path:[{x:s.bay.x,z:s.bay.z+24,s:0},{x:s.bay.x,z:s.bay.z,s:24}],wheelbase:vehicle==='dump-truck'?4.738:4.675});await page.keyboard.press('KeyE');await page.evaluate(()=>{const d=window.__GAME_DEBUG__;d.step({handbrake:true},120);d.publish();});const parked=await state(page),q=parked.quaternion,yaw=Math.atan2(2*(q[3]*q[1]+q[0]*q[2]),1-2*(q[1]**2+q[0]**2));expect(parkingGate(s,{x:parked.position[0],z:parked.position[2]},yaw,parked,vehicle).ok).toBe(true);
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+      18 |   await page.keyboard.press('KeyF');await walkPhysical(page,[{x:s.terminal.x,z:s.terminal.z-1.6}]);await expect.poll(async()=>(await state(page)).interaction?.key).toBe(`logistics:${s.id}`);await page.keyboard.press('KeyF');await expect(page.getByRole('dialog',{name:'Central de contratos'})).toBeVisible();const terminal=await state(page);expect(terminal.logistics.access).toBe(true);expect(terminal.importedTruck.wheelBindings).toBe(6);await page.waitForFunction(()=>[...document.querySelectorAll('.cab-access-transition')].every(e=>Number(getComputedStyle(e).opacity)<.01));await page.screenshot({path:`${dir}/${vehicle}-${s.id}.png`});results.push({site:s.id,proof,parking:{position:parked.position,yaw,gate:terminal.logistics.gate},terminal:{position:terminal.playerPosition,access:terminal.logistics.access,offers:terminal.logistics.offers.map(o=>o.template)}});
+      19 |  }
+      20 |  expect(errors).toEqual([]);await writeFile(`${dir}/${vehicle}.json`,JSON.stringify({method:'Seven separate local fixtures with legacy cores 1–6 already activated. Each final 24 m approach driven with original Rapier; capsule walk and F to each new terminal. Does not claim interregional journeys or complete campaign.',results,errors},null,2)+'\n');
+        at /workspace/work/2047-rede-aurora/tests/e2e/logistics-access.spec.js:17:589
+
+    Error Context: ../../../tmp/aurora-contracts-access/logistics-access-acessos-l-d1e12-is-sete-depósitos-titan-old/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../tmp/aurora-contracts-access/logistics-access-acessos-l-d1e12-is-sete-depósitos-titan-old/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../tmp/aurora-contracts-access/logistics-access-acessos-l-d1e12-is-sete-depósitos-titan-old/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 interrupted
+    tests/e2e/logistics-access.spec.js:10:49 › acessos logísticos locais, sete depósitos: titan-old 
+  1 did not run

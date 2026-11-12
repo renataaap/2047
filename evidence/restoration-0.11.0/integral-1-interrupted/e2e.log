@@ -1,0 +1,21 @@
+
+> 2047-rede-aurora@0.11.0 test:e2e
+> playwright test --reporter=list,json --output=/tmp/aurora-restoration-final-traces
+
+
+Running 44 tests using 1 worker
+
+(node:40824) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/e2e/assets.spec.js:9:1 › Poly Haven instalado: inicia, dirige, explora e usa apenas arquivos locais (38.9s)
+  ✓   2 tests/e2e/assets.spec.js:17:1 › fixtures originais: PNG PBR compila mistura, GLB dirige com rodas e NPC usa AnimationMixer (34.0s)
+  ✓   3 tests/e2e/assets.spec.js:27:1 › carros reais: materiais próprios, colisão e descarregamento por proximidade (1.0m)
+  ✘   4 tests/e2e/critical-gameplay.spec.js:17:1 › alvos reais, Zeca/bomba/Tomás, Dante e duas perspectivas (1.2m)
+(node:41157) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   5 tests/e2e/critical-gameplay.spec.js:32:1 › Semente danificada: falha natural, peças na mochila, calibração, ativação e recarga (54.5s)
+  ✓   6 tests/e2e/driving.spec.js:8:1 › condução: partida fria, instrumentos reais, marchas, freio, exploração e ré segura (52.6s)
+  ✓   7 tests/e2e/driving.spec.js:16:1 › câmera externa respeita paredes e ajustes de condução persistem (1.0m)
+  ✓   8 tests/e2e/exit.spec.js:6:1 › 0.3.1: sair com F ou botão, frear e voltar ao Titã fora dos abrigos (32.7s)
+ACEITE {"speedKmh":46.832358454021154,"fuelBefore":4,"fuelAfter":3.9244686298928992,"averageFps":0.3571387630866769,"drawCalls":263,"triangles":440346,"consoleErrors":[]}
+  ✓   9 tests/e2e/game.spec.js:8:1 › aceite: mundo real, W por 8 s simulados, diesel, console e orçamento (1.8m)

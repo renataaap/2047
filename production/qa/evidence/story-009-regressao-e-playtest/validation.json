@@ -1,0 +1,87 @@
+{
+ "story": "story-009-regressao-e-playtest",
+ "date": "2026-11-12",
+ "integral": {
+  "source": "c4fb98c",
+  "specs": "tests/e2e (todas)",
+  "passed": 71,
+  "total": 72,
+  "minutes": 45.2,
+  "port": 3100,
+  "browser": "Chrome local via PLAYWRIGHT_CHROMIUM_EXECUTABLE (SwiftShader), headless",
+  "log": "integral-e2e.log",
+  "failure": {
+   "spec": "phase4.spec.js:21",
+   "cause": "defeito real e intermitente: EconomyController recusava compras durante o salvamento automático que segue a conclusão de uma missão ('Ação indisponível'). Mesma falha na integral anterior (0d2a601)."
+  }
+ },
+ "changesAfterIntegral": [
+  {
+   "commit": "13dbfbc",
+   "files": [
+    "src/game/economy/EconomyController.js",
+    "tests/unit/economy-controller.test.js"
+   ],
+   "what": "a compra espera a fila de saves e confere tudo de novo, em vez de falhar"
+  }
+ ],
+ "rechecks": [
+  {
+   "note": "rechecagens focadas, NÃO somam à integral",
+   "spec": "phase4.spec.js:21",
+   "repeatEach": 3,
+   "passed": 3,
+   "total": 3,
+   "log": "recheck-phase4.log"
+  },
+  {
+   "note": "rechecagens focadas, NÃO somam à integral",
+   "specs": [
+    "critical-gameplay",
+    "garage",
+    "phase2",
+    "phase3",
+    "phase4"
+   ],
+   "passed": 12,
+   "total": 12,
+   "minutes": 9.2,
+   "log": "recheck-compras.log",
+   "reason": "todos os specs que compram, vendem ou abastecem"
+  }
+ ],
+ "unit": {
+  "source": "13dbfbc",
+  "files": 54,
+  "tests": 426,
+  "passed": 426
+ },
+ "build": {
+  "source": "13dbfbc",
+  "passed": true
+ },
+ "restart": {
+  "passed": true,
+  "rawEqual": true,
+  "version": [
+   1,
+   1
+  ],
+  "scenes": 8,
+  "choices": {
+   "ch2-water-share": "share",
+   "ch3-brutus-toll": "water",
+   "ch4-titan-part": "keep"
+  },
+  "method": "next dev (SQLite local; produção exige Turso e responde 500 sem ele) na porta 3100; save gravado pela API, processo encerrado com taskkill /T /F, servidor reiniciado e save relido com o mesmo cookie de identidade",
+  "evidence": "restart.json",
+  "script": "restart-009.mjs"
+ },
+ "legacySaves": "cobertos na integral: prologue (save legado nunca abre o prólogo), phase4 (save 2 legado), road-navigation (save legado recebe recuperação), survivor-arrival/brutus-meeting (salvar e recarregar sem repetir cena)",
+ "pendingHuman": [
+  "playtest no Windows com GPU física: primeiro minuto completo (prólogo → barracão → Semente → partida), com notas de ritmo, legibilidade e diversão",
+  "sign-off do criador das stories 004–008 e 010",
+  "audição humana",
+  "persistência validada em SQLite local, não Turso de produção"
+ ]
+}

@@ -20,6 +20,9 @@ export const nearestAddedRoad=(x,z)=>nearest(added,x,z);
 // the finished deck. It is not added to the legacy terrain used for migration.
 export function networkRoadbed(x,z){const n=nearestAddedRoad(x,z);if(!n)return 0;return .06*(1-smooth((n.distance-n.edge.width/2-8)/8));}
 export function nearestRoad(x,z,predicate){let n=nearest(all,x,z,predicate);if(n)return n;let best=null;for(const e of NETWORK_EDGES){if(predicate&&!predicate(e))continue;for(let i=1;i<e.samples.length;i++){const p=projectSpan({x,z},e.samples[i-1],e.samples[i]);if(!best||p.distance<best.distance)best={...p,edge:e,index:i,s:e.samples[i-1].s+(e.samples[i].s-e.samples[i-1].s)*p.t};}}return best;}
+// Clearance queries only need the indexed 24 m envelope; avoid a global graph
+// scan for every tuft far from a road. Includes legacy and newly built streets.
+export function roadClearanceAt(x,z){const n=nearest(all,x,z);return n?n.distance-n.edge.width/2:Infinity;}
 const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
 export function cityInfluence(x,z){const b=PILOT_CITY.bounds,d=Math.max(b.minX-x,x-b.maxX,b.minZ-z,z-b.maxZ,0);return 1-smooth(d/25);}
 export function networkTerrain(x,z,original){

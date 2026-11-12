@@ -1,0 +1,11 @@
+import RAPIER from '@dimforge/rapier3d-compat';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {initializePhysics} from '../src/game/physics/initialize.js';
+import {VehiclePhysics} from '../src/game/physics/VehiclePhysics.js';
+import {VEHICLES,vehicleTuning} from '../src/game/garage/catalog.js';
+await initializePhysics();
+function measure(id,payload){const p=VEHICLES[id],w=new RAPIER.World({x:0,y:-9.81,z:0});w.timestep=1/60;w.createCollider(RAPIER.ColliderDesc.cuboid(100,.1,2000).setTranslation(0,-.1,0).setDensity(0));const v=new VehiclePhysics(w,p.wheelPoints,{tuning:vehicleTuning(id,[]),colliders:p.colliders,surfaceAt:()=> 'asfalto'}),s={engineOn:false,fuel:60,suspensionCondition:100,commercialMassKg:payload,commercialCenter:[0,.75,1.6],commercialDimensions:[1.8,1.4,2.65]};let seconds=0,litres=0;
+const step=input=>{v.update(input,s,1/60);w.step();litres+=s.fuelRateLps/60||0;seconds+=1/60;};
+try{for(let i=0;i<180;i++)step({handbrake:true});const suspension=Array.from({length:6},(_,i)=>v.controller.wheelSuspensionLength(i)),mass=v.body.mass(),com=v.body.localCom();s.engineOn=true;const launch=seconds;while(v.signedSpeed()<8&&seconds-launch<60)step({throttle:1});const toEightSeconds=seconds-launch,z=v.body.translation().z,speedBeforeBrake=v.signedSpeed();const brakeStart=seconds;while(v.signedSpeed()>.15&&seconds-brakeStart<60)step({throttle:-1});return {id,payloadKg:payload,massKg:mass,centerOfMass:com,suspensionMetres:suspension,toEightSeconds,speedBeforeBrake,brakingSeconds:seconds-brakeStart,brakingMetres:z-v.body.translation().z,litresEstimate:litres,wheels:v.controller.numWheels()};}finally{v.dispose();w.free();}}
+const result={method:'Rapier real, pista plana de ensaio, 60 Hz; motor e freio originais. Não é benchmark de GPU nem viagem humana.',samples:['titan-old','dump-truck'].flatMap(id=>[0,id==='titan-old'?4200:2800].map(m=>measure(id,m)))};
+await mkdir('evidence/contracts-0.12.0',{recursive:true});await writeFile('evidence/contracts-0.12.0/payload-physics.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result.samples.map(({id,payloadKg,massKg,toEightSeconds,brakingMetres})=>({id,payloadKg,massKg,toEightSeconds,brakingMetres}))));

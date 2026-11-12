@@ -1,3 +1,4 @@
+import {skipPrologue} from '../helpers/start-driving.js';
 import {test,expect} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {roadAccessFixture} from '../helpers/road-access-fixture.js';
@@ -60,7 +61,7 @@ async function shunt(page,direction,targetZ){
 
 test('viagem real: barracão, GPS, garagem, personalização, retorno e basculante na cidade',async({page})=>{
  test.setTimeout(600000);await mkdir(dir,{recursive:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
- await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='walking');await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();await controlledPhysics(page);
+ await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:120000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await skipPrologue(page);await page.waitForFunction(()=>window.__GAME_DEBUG__?.getState().mode==='walking');await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();await controlledPhysics(page);
  await walkPhysical(page,[{x:-13,z:22},{x:-12,z:18.95},{x:-8.2,z:18.95},{x:-3,z:5}]);await page.keyboard.press('KeyF');await expect.poll(async()=>(await state(page)).mode).toBe('driving');
  await page.keyboard.press('KeyG');expect((await state(page)).mode).toBe('driving');await selectDestination(page,'garagem-cinza-nova');await page.keyboard.press('KeyE');
  const path=await page.evaluate(()=>{const p=structuredClone(window.__GAME_DEBUG__.route().path);for(const z of [-792,-804,-814]){const a=p.at(-1);p.push({x:-320,z,y:a.y,s:a.s+Math.hypot(a.x+320,a.z-z)});}return p;});

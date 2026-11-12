@@ -1,4 +1,6 @@
+import {BiomeDressing} from './BiomeDressing.js';
 import {meshHeightAt} from './surfaceHeight.js';
+import {indexedSurfaceHeight} from '../restoration/surfaceSampler.js';
 import {reserved} from './contextLayout.js';
 import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat';
@@ -19,7 +21,7 @@ constructor(scene,physics,materials) {
 this.scene=scene;this.physics=physics;this.m=materials;this.sectors=new Map();this.queue=[];this.disposed=false;
 this.rockGeometry=new THREE.DodecahedronGeometry(1,1);this.farRockGeometry=new THREE.OctahedronGeometry(1,0);this.hillGeometry=landscapeGeometry();
 this.stripeGeometry=new THREE.PlaneGeometry(.14,3.5);this.stripeGeometry.rotateX(-Math.PI/2);
-this.rockMaterial=materials.rock;this.ruinGeometry=bevelGeometry(1,1,1);this.terrainMaterials=[materials.ground,materials.ground,materials.cityGround,materials.cityRestored,materials.salt,materials.saltRestored,materials.glassGround,materials.glassRestored,materials.stormGround,materials.stormRestored];
+this.rockMaterial=materials.rock;this.ruinGeometry=bevelGeometry(1,1,1);this.dressing=new BiomeDressing(materials,CONFIG.seed);this.terrainMaterials=[materials.ground,materials.ground,materials.cityGround,materials.cityGround,materials.salt,materials.salt,materials.glassGround,materials.glassGround,materials.stormGround,materials.stormGround];
 this.landmarks=new THREE.Group();scene.add(this.landmarks);this.landmarkBodies=[];this.buildLandmarks();mergeStatic(this.landmarks);
 }
 // Fixed terrain has no finite mass. Rapier's raycast wheel friction also reads
@@ -78,13 +80,13 @@ if(clear)this.collider(RAPIER.ColliderDesc.ball(scale*.7).setTranslation(x,heigh
 const rocksLod=new THREE.LOD();rocksLod.position.set(cx*size,0,cz*size);rocksLod.addLevel(rocks,0);rocksLod.addLevel(farRocks,240);group.add(rocksLod);
 // Plus gros éléments au loin, sans multiplier les appels de rendu.
 const hills=new THREE.InstancedMesh(this.hillGeometry,this.rockMaterial,14);
-for(let i=0;i<14;i++){const z=cz*size+(r()-.5)*size,x=cx*size+(i%2?1:-1)*(180+r()*320);dummy.position.set(x,heightAt(x,z)-8,z);dummy.scale.set(50+r()*70,(18+r()*45)*(regionAt(z)==='glass'?2.8:1),45+r()*40);if(roadReserved(x,z,90))dummy.scale.setScalar(.001);dummy.updateMatrix();hills.setMatrixAt(i,dummy.matrix);}const region=regionAt(cz*size);hills.visible=region!=='salt'&&region!=='cities';group.add(hills);
-if(region==='cities'||region==='storm'){const buildings=new THREE.InstancedMesh(this.ruinGeometry,this.m.dark,18);buildings.castShadow=buildings.receiveShadow=true;for(let i=0;i<18;i++){const x=cx*size+(i%2?1:-1)*(220+r()*180),z=cz*size+(r()-.5)*size,h=region==='cities'?18+r()*45:12+r()*18,w=region==='cities'?12+r()*15:2;dummy.position.set(x,heightAt(x,z)+h/2,z);dummy.scale.set(w,h,region==='cities'?12:2);dummy.rotation.set(0,r()*.2,region==='storm'?.15:0);dummy.updateMatrix();buildings.setMatrixAt(i,dummy.matrix);this.collider(RAPIER.ColliderDesc.cuboid(w/2,h/2,6).setTranslation(x,heightAt(x,z)+h/2,z),bodies);}group.add(buildings);}
-return {x:cx,z:cz,group,bodies,owned,terrain,roadSurfaces};
+for(let i=0;i<14;i++){const z=cz*size+(r()-.5)*size,x=cx*size+(i%2?1:-1)*(180+r()*320);dummy.position.set(x,heightAt(x,z)-8,z);dummy.scale.set(50+r()*70,(18+r()*45)*(regionAt(z)==='glass'?1.7:1),45+r()*40);if(roadReserved(x,z,90))dummy.scale.setScalar(.001);dummy.updateMatrix();hills.setMatrixAt(i,dummy.matrix);}const region=regionAt(cz*size);hills.visible=region!=='salt'&&region!=='cities';group.add(hills);
+const dressing=this.dressing.build(cx,cz,size,group,desc=>this.collider(desc,bodies),owned,this.campaign);return {x:cx,z:cz,group,bodies,owned,terrain,roadSurfaces,dressing};
 }
 groundHeight(x,z){const size=CONFIG.world.sectorSize;for(const sector of this.sectors.values()){if(Math.abs(x-sector.x*size)>size/2+.001||Math.abs(z-sector.z*size)>size/2+.001)continue;let y=meshHeightAt(sector.terrain.geometry,x,z);for(const g of sector.roadSurfaces||[]){const b=g.boundingBox;if(x<b.min.x||x>b.max.x||z<b.min.z||z>b.max.z)continue;const r=meshHeightAt(g,x,z);if(r!==null)y=Math.max(y??-Infinity,r);}if(y!==null)return y;}return heightAt(x,z);}
+recoveryHeight(x,z){const size=CONFIG.world.sectorSize;for(const s of this.sectors.values()){if(Math.abs(x-s.x*size)>size/2+.001||Math.abs(z-s.z*size)>size/2+.001)continue;let y=indexedSurfaceHeight(s.terrain.geometry,x,z);for(const g of s.roadSurfaces||[]){const b=g.boundingBox;if(x<b.min.x||x>b.max.x||z<b.min.z||z>b.max.z)continue;const h=indexedSurfaceHeight(g,x,z);if(h!==null)y=Math.max(y??-Infinity,h);}if(y!==null)return y;}return heightAt(x,z);}
 prime(position,distance){for(let i=0;i<9;i++)this.update(position,distance);}
-setCampaign(c){this.campaign=c;const key=Object.values(c.cores).map(k=>k.state).join(',');if(this.restorationKey===key)return;this.restorationKey=key;for(const sector of this.sectors.values())this.terrainGroups(sector.terrain.geometry);}
+setCampaign(c){this.campaign=c;const key=Object.values(c.cores).map(k=>k.state).join(',');if(this.restorationKey===key)return;this.restorationKey=key;for(const sector of this.sectors.values()){this.terrainGroups(sector.terrain.geometry);this.dressing.refresh(sector.dressing,c);}}
 terrainGroups(g){g.clearGroups();const a=g.attributes.position,indices=g.index.array;let start=0,previous=null;
 for(let k=0;k<indices.length;k+=3){const z=(a.getZ(indices[k])+a.getZ(indices[k+1])+a.getZ(indices[k+2]))/3;const region=regionAt(z),mi=BIOMES.findIndex(r=>r.id===region)*2+Number(!!this.campaign&&restoredAt(this.campaign,z));if(previous!==null&&previous!==mi){g.addGroup(start,k-start,previous);start=k;}previous=mi;}g.addGroup(start,indices.length-start,previous);
 }
@@ -113,5 +115,5 @@ for(let i=0;i<20;i++){const z=-i*140-50,x=roadX(z)+10,y=heightAt(x,z);const pole
 const rock=add(new THREE.DodecahedronGeometry(2,0),this.m.rock,11,heightAt(11,-32)+1,-32);this.collider(RAPIER.ColliderDesc.ball(1.7).setTranslation(rock.position.x,rock.position.y,rock.position.z),this.landmarkBodies);
 }
 remove(s) {this.scene.remove(s.group);s.group.traverse(o=>{if(o.isInstancedMesh)o.dispose();});s.bodies.forEach(b=>this.physics.removeRigidBody(b));s.owned.forEach(g=>g.dispose());}
-dispose() {this.disposed=true;for(const s of this.sectors.values())this.remove(s);this.sectors.clear();this.landmarkBodies.forEach(b=>this.physics.removeRigidBody(b));this.scene.remove(this.landmarks);this.landmarks.traverse(o=>o.geometry?.dispose());this.rockGeometry.dispose();this.farRockGeometry.dispose();this.hillGeometry.dispose();this.stripeGeometry.dispose();this.ruinGeometry.dispose();}
+dispose() {this.disposed=true;for(const s of this.sectors.values())this.remove(s);this.sectors.clear();this.landmarkBodies.forEach(b=>this.physics.removeRigidBody(b));this.scene.remove(this.landmarks);this.landmarks.traverse(o=>o.geometry?.dispose());this.rockGeometry.dispose();this.farRockGeometry.dispose();this.hillGeometry.dispose();this.stripeGeometry.dispose();this.ruinGeometry.dispose();this.dressing.dispose();}
 }
