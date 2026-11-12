@@ -70,7 +70,7 @@ test('a pé com Dante: botão pula; Enter pula com redução de movimento; Space
  test.setTimeout(240000);await mkdir(dir,{recursive:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await boot(page);await page.keyboard.press('KeyF');await expect.poll(async()=>(await state(page)).mode,{timeout:20000}).toBe('walking');
  await page.waitForTimeout(1200);const before=await state(page);
- expect(await play(page,fixture('brutus-meeting'))).toBe(true);
+ expect(await play(page,fixture('brutus-meeting',[4,4]))).toBe(true);// longa o bastante para a captura antes do clique em "Pular cena"
  const scene=page.getByRole('region',{name:'Cena'});await expect(scene).toBeVisible();await page.screenshot({path:`${dir}/walking-during.png`});
  await scene.getByRole('button',{name:/Pular cena/}).click();
  await expect.poll(async()=>(await state(page)).mode).toBe('walking');await expect(scene).toBeHidden();

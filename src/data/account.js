@@ -1,0 +1,25 @@
+// 0.15 — textos da conta (pt-BR). Regras numéricas vêm de src/lib/auth.js (ACCOUNT_RULES),
+// repetidas aqui só para os limites dos campos; o servidor é quem decide.
+const slots=list=>list.map(s=>`slot ${s}`).join(', ');
+export const ACCOUNT_COPY={
+ title:'Conta',
+ menu:'Conta',
+ login:'Entrar',
+ register:'Criar conta',
+ logout:'Sair da conta',
+ username:'Nome de usuário',
+ password:'Senha',
+ wait:'Aguarde…',
+ hint:'Nome com 3 a 20 letras, números, ponto, hífen ou sublinhado. Senha com pelo menos 8 caracteres.',
+ anonymousNote:'Sem conta, as partidas ficam guardadas só neste navegador. Com uma conta você continua de qualquer computador. Ao criar a conta, as partidas deste navegador vão junto.',
+ signedAs:'Conectado como',
+ signedNote:'Suas partidas ficam na conta. Ao sair, este navegador volta a jogar sem conta e não mostra mais essas partidas.',
+ signedOut:'Você saiu da conta.',
+ registered:'Conta criada. Você já está conectado.',
+ registeredWith:n=>`Conta criada. ${n===1?'A partida deste navegador agora está':`As ${n} partidas deste navegador agora estão`} na conta.`,
+ signedIn:'Bem-vindo de volta.',
+ signedInMoved:(moved,kept)=>`Bem-vindo de volta. Partidas deste navegador levadas para a conta: ${slots(moved)}.`+(kept.length?` Ficaram neste navegador, porque o slot já estava ocupado na conta (voltam a aparecer quando você sair): ${slots(kept)}.`:''),
+ signedInKept:kept=>`Bem-vindo de volta. Os slots da conta já estavam ocupados; as partidas deste navegador (${slots(kept)}) não foram misturadas e voltam a aparecer quando você sair.`,
+ failure:'Não foi possível falar com o servidor. Tente de novo.',
+ rules:{usernameMin:3,usernameMax:20,passwordMin:8,passwordMax:128},
+};

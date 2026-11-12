@@ -97,7 +97,7 @@ this.dayNight=new DayNight(this.rendering);this.ambientAudio=new AmbientAudio();
 try{await this.pbr.load();}catch(error){if(!this.disposed)this.assets.errors.push(error.message);}if(this.disposed)return;
 let modelManifest={};try{modelManifest=await this.assets.json('/assets/models/manifest.json');}catch(error){if(!this.disposed)this.assets.errors.push(error.message);}if(this.disposed)return;this.modelManifest=modelManifest;
 this.physics=new RAPIER.World({x:0,y:-9.81,z:0});this.physics.timestep=CONFIG.fixedStep;
-this.environmentModels=new EnvironmentModels(this.rendering.scene,this.physics,this.assets,modelManifest.environments);
+this.environmentModels=new EnvironmentModels(this.rendering.scene,this.physics,this.assets,modelManifest.environments,(x,z)=>this.world.groundHeight(x,z),()=>[...this.world.sectors.keys()].join('|'));
 this.world=new World(this.rendering.scene,this.physics,this.materials);for(let i=0;i<9;i++)this.world.update({x:0,z:5},this.rendering.preset.distance);
 this.ambientWorld=new AmbientWorld(this.rendering.scene,this.physics,this.materials,this.world);this.cityWorld=new CityWorld(this.rendering.scene,this.physics,this.materials);this.wayfindingWorld=new WayfindingWorld(this.rendering.scene,this.physics,this.materials);
 this.discoveryWorld=new DiscoveryWorld(this.rendering.scene,this.physics,this.materials,this.world,this.assets,modelManifest);

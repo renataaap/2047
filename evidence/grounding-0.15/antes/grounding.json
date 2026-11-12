@@ -1,0 +1,177 @@
+{
+ "stage": "antes",
+ "base": "http://127.0.0.1:3100",
+ "shots": [
+  {
+   "id": "garagem-barris",
+   "player": {
+    "x": -14.5,
+    "z": 10
+   },
+   "grounding": [
+    {
+     "id": "dantes-garage",
+     "base": 0.495,
+     "ground": [
+      0.455,
+      0.29,
+      1.037,
+      0.164,
+      0.889
+     ],
+     "maxGap": 0.331,
+     "minGap": -0.543
+    },
+    {
+     "id": "shelter-barrel",
+     "base": 0.79,
+     "ground": [
+      0.746,
+      0.705,
+      0.796,
+      0.712,
+      0.812
+     ],
+     "maxGap": 0.085,
+     "minGap": -0.022
+    },
+    {
+     "id": "shelter-barrel-2",
+     "base": 0.687,
+     "ground": [
+      0.65,
+      0.63,
+      0.699,
+      0.6,
+      0.67
+     ],
+     "maxGap": 0.087,
+     "minGap": -0.012
+    }
+   ]
+  },
+  {
+   "id": "sedan",
+   "player": {
+    "x": -15,
+    "z": -172
+   },
+   "grounding": [
+    {
+     "id": "abandoned-sedan",
+     "base": -1.29,
+     "ground": [
+      -1.481,
+      -1.235,
+      -1.516,
+      -1.447,
+      -1.729
+     ],
+     "maxGap": 0.44,
+     "minGap": -0.054
+    }
+   ]
+  },
+  {
+   "id": "hatch",
+   "player": {
+    "x": 24.233122149603098,
+    "z": -462
+   },
+   "grounding": [
+    {
+     "id": "evacuated-hatch",
+     "base": -0.643,
+     "ground": [
+      -0.645,
+      -0.644,
+      -0.653,
+      -0.643,
+      -0.647
+     ],
+     "maxGap": 0.01,
+     "minGap": 0
+    }
+   ]
+  }
+ ],
+ "all": {
+  "grounding": [
+   {
+    "id": "abandoned-sedan",
+    "base": -1.29,
+    "ground": [
+     -1.481,
+     -1.235,
+     -1.516,
+     -1.447,
+     -1.729
+    ],
+    "maxGap": 0.44,
+    "minGap": -0.054
+   },
+   {
+    "id": "evacuated-hatch",
+    "base": -0.643,
+    "ground": [
+     -0.645,
+     -0.644,
+     -0.653,
+     -0.643,
+     -0.647
+    ],
+    "maxGap": 0.01,
+    "minGap": 0
+   },
+   {
+    "id": "dantes-garage",
+    "base": 0.495,
+    "ground": [
+     0.455,
+     0.29,
+     1.037,
+     0.164,
+     0.889
+    ],
+    "maxGap": 0.331,
+    "minGap": -0.543
+   },
+   {
+    "id": "shelter-barrel",
+    "base": 0.79,
+    "ground": [
+     0.746,
+     0.705,
+     0.796,
+     0.712,
+     0.812
+    ],
+    "maxGap": 0.085,
+    "minGap": -0.022
+   },
+   {
+    "id": "shelter-barrel-2",
+    "base": 0.687,
+    "ground": [
+     0.65,
+     0.63,
+     0.699,
+     0.6,
+     0.67
+    ],
+    "maxGap": 0.087,
+    "minGap": -0.012
+   }
+  ],
+  "loaded": 5,
+  "loading": 0,
+  "ids": [
+   "abandoned-sedan",
+   "evacuated-hatch",
+   "dantes-garage",
+   "shelter-barrel",
+   "shelter-barrel-2"
+  ]
+ },
+ "errors": []
+}

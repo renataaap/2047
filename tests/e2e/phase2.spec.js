@@ -10,7 +10,7 @@ const payload=()=>({schemaVersion:1,truck:{position:[0,2,5],rotation:[0,0,0,1]},
 test('API: cookies, isolamento, CRUD, validação e conflito',async({request:api})=>{
  const list=await api.get('/api/saves');expect(list.status()).toBe(200);const cookie=list.headers()['set-cookie'];expect(cookie).toContain('HttpOnly');expect(cookie).toContain('SameSite=Strict');
  const data=payload();const created=await api.post('/api/saves',{data:{slot:'1',data}});expect(created.status()).toBe(201);expect((await api.post('/api/saves',{data:{slot:'1',data}})).status()).toBe(409);
- const other=await request.newContext();expect((await other.get('http://127.0.0.1:3000/api/saves/1')).status()).toBe(404);await other.dispose();
+ const other=await request.newContext();expect((await other.get(new URL('/api/saves/1',test.info().project.use.baseURL).href)).status()).toBe(404);await other.dispose();
  expect((await api.put('/api/saves/1',{data:{data,version:1}})).status()).toBe(200);expect((await api.put('/api/saves/1',{data:{data,version:1}})).status()).toBe(409);
  expect((await api.post('/api/saves',{data:{slot:'2',data:{...data,fuel:-1}}})).status()).toBe(400);expect((await api.post('/api/saves',{data:null})).status()).toBe(400);
  expect((await api.post('/api/saves',{data:'{"x":"'+'a'.repeat(140000)+'"}',headers:{'Content-Type':'application/json'}})).status()).toBe(400);
