@@ -4,7 +4,10 @@ export const TRADE_ACTIONS=['roadGas','roadShopBuy','roadService','roadSell','ne
 // This wrapper adds a serialized optimistic save and rolls back the whole trade.
 export class EconomyController {
  constructor(game){this.game=game;this.busy=false;this.applying=false;}
- async transact(type,payload){const g=this.game;if(this.busy||g.logistics?.busy||g.garage?.busy||g.state.saving)return false;
+ async transact(type,payload){const g=this.game;if(this.busy||g.logistics?.busy||g.garage?.busy)return false;
+  // Um salvamento automático em andamento (ex.: logo após concluir uma missão) não recusa mais a
+  // compra com um erro genérico: a transação espera a fila de saves e só então confere tudo de novo.
+  if(g.state.saving){this.busy=true;g.emit();try{await g.saveQueue;}finally{this.busy=false;}if(this.busy||g.logistics?.busy||g.garage?.busy||g.state.saving)return false;}
   if(!g.saves.slot){g.state.notice='É necessário um slot livre ou uma partida carregada para confirmar a troca.';g.emit();return false;}
   const backup=structuredClone(g.campaign),fuel=g.state.fuel,temperature=g.state.temperature;this.busy=true;
   try{this.applying=true;const ok=g.action(type,payload);this.applying=false;if(!ok)return false;
