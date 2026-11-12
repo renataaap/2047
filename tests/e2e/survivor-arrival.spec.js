@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {evidencePath} from '../helpers/evidence-path.js';
-import {skipPrologue} from '../helpers/start-driving.js';
+import {skipPrologue,skipStoryScene} from '../helpers/start-driving.js';
 
 // Story 004: chegada da sobrevivente com a primeira Semente ('first-seed'), fluxo real.
 const dir=evidencePath('survivor-arrival-0.14.0');
@@ -47,12 +47,12 @@ test('a sobrevivente chega ao abrigo em cena, a Semente vem só do diálogo, uma
  // Diálogo existente: a Semente entra uma vez, com integridade 100.
  await page.evaluate(()=>window.__GAME_DEBUG__.teleportPlayer({x:-19,z:8}));await page.keyboard.press('KeyF');
  await expect(page.getByRole('heading',{name:'Sobrevivente',exact:true})).toBeVisible();await page.screenshot({path:`${dir}/6-dialogo.png`});
- await page.getByRole('button',{name:'Aceitar a Semente e assumir a viagem'}).click();await expect(page.getByRole('heading',{name:'Rádio de ondas curtas'})).toBeVisible();await page.keyboard.press('Escape');
+ await page.getByRole('button',{name:'Aceitar a Semente e assumir a viagem'}).click();await expect(page.getByRole('heading',{name:'Rádio de ondas curtas'})).toBeVisible();await page.keyboard.press('Escape');await skipStoryScene(page,'first-contact');
  const taken=await state(page);expect(taken.campaign.seed).toEqual({received:true,integrity:100});expect(taken.campaign.decisions.filter(d=>d==='accepted-first-seed')).toHaveLength(1);
  expect(taken.campaign.inventory).toEqual(before.campaign.inventory);// a cena e o diálogo não concedem itens
  await page.keyboard.press('KeyF');expect((await state(page)).overlay).not.toBe('dialogue');// sem segunda entrega
  // Reinício real: salvar, recarregar a página e continuar.
- await page.keyboard.press('Escape');await page.getByRole('button',{name:'Salvar / carregar partida'}).click();await page.getByRole('button',{name:'Salvar neste slot'}).first().click();
+ await page.keyboard.press('Escape');await page.getByRole('button',{name:'Salvar / carregar partida'}).click();const saved=page.waitForResponse(r=>r.url().endsWith('/api/saves/1')&&r.request().method()==='PUT');await page.getByRole('button',{name:'Salvar neste slot'}).first().click();expect((await saved).ok()).toBe(true);// o PUT real, não um aviso antigo
  await expect(page.getByRole('dialog').getByRole('status')).toContainText('Partida salva',{timeout:20000});
  await page.reload();await expect(page.getByRole('button',{name:'Continuar',exact:true})).toBeEnabled({timeout:90000});await page.getByRole('button',{name:'Continuar',exact:true}).click();
  await expect.poll(async()=>(await state(page)).mode,{timeout:60000}).toBe('walking');

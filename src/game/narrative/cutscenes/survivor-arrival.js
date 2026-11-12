@@ -10,15 +10,16 @@ import {POINTS} from '../../../data/campaign.js';
 // Antes da chegada a sobrevivente não está no abrigo (sem visual, colisor nem interação).
 // Ela chega quando o tutorial pede "Converse com a sobrevivente" ou, sem tutorial ativo
 // (pulado, concluído ou save legado), quando Dante se aproxima a pé do abrigo.
-// Ritmo (~21,6 s): corrida pela estrada 4,6 s; chegada sem fôlego 4 s; a Semente 5 s;
-// o aviso sobre vibração 4 s; o pedido, olhando para o Titã, 4 s — e volta ao olhar do jogador.
+// Ritmo (~24,3 s): corrida pela estrada 4,6 s; chegada sem fôlego 4,2 s; a Semente 5,3 s;
+// o aviso sobre vibração 4 s; o pedido, olhando para o Titã, 6,2 s — e volta ao olhar do jogador.
+// Story 008: durações ajustadas para no máximo ~17 caracteres de legenda por segundo (texto intacto).
 export const ARRIVAL_RADIUS=12;
 const SHOTS=[
  {duration:4.6,tone:'ash',light:{exposure:.92}},
- {duration:4,tone:'ash',light:{exposure:.95},caption:{speaker:'survivor',text:'Dante? Dante Rocha Negra? Me disseram que você ainda tinha um caminhão.'}},
- {duration:5,tone:'garage',light:{exposure:1.05},audio:{cue:'pulse'},caption:{speaker:'survivor',text:'Tirei isto do primeiro Cofre. Uma Semente de Ignição. Desde então ela não para de pulsar.'}},
+ {duration:4.2,tone:'ash',light:{exposure:.95},caption:{speaker:'survivor',text:'Dante? Dante Rocha Negra? Me disseram que você ainda tinha um caminhão.'}},
+ {duration:5.3,tone:'garage',light:{exposure:1.05},audio:{cue:'pulse'},caption:{speaker:'survivor',text:'Tirei isto do primeiro Cofre. Uma Semente de Ignição. Desde então ela não para de pulsar.'}},
  {duration:4,tone:'garage',light:{exposure:1},caption:{speaker:'survivor',text:'Não deixe ela sacudir. O cristal perde o alinhamento com a vibração.'}},
- {duration:4,tone:'ash',light:{exposure:.98},caption:{speaker:'survivor',text:'A engenheira no rádio disse que só você e esse caminhão chegam ao primeiro Núcleo. Não temos muito tempo.'}},
+ {duration:6.2,tone:'ash',light:{exposure:.98},caption:{speaker:'survivor',text:'A engenheira no rádio disse que só você e esse caminhão chegam ao primeiro Núcleo. Não temos muito tempo.'}},
 ];
 const TOTAL=SHOTS.reduce((a,s)=>a+s.duration,0);
 const STARTS=SHOTS.map((_,i)=>SHOTS.slice(0,i).reduce((a,s)=>a+s.duration,0));

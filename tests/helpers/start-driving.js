@@ -26,3 +26,10 @@ export async function meetSurvivor(page){
  await page.waitForFunction(()=>{const s=window.__GAME_DEBUG__.getState();return s.cutscene?.id==='first-seed'||!!s.campaign.story?.scenes?.['first-seed']||s.campaign.seed.received;},null,{timeout:20000});
  if(await page.evaluate(()=>window.__GAME_DEBUG__.getState().cutscene?.id==='first-seed')){await page.keyboard.press('Escape');await page.waitForFunction(()=>!window.__GAME_DEBUG__.getState().cutscene&&['walking','driving'].includes(window.__GAME_DEBUG__.getState().mode));}
 }
+// 0.14 (story 006): cenas da campanha disparadas por transições reais (ex.: 'first-contact' ao
+// fechar o rádio depois de aceitar a Semente). Regressões que não as testam pulam pela ação real (Esc).
+export async function skipStoryScene(page,id){
+ await page.waitForFunction(id=>window.__GAME_DEBUG__.getState().cutscene?.id===id,id,{timeout:20000});
+ for(let i=0;i<10&&await page.evaluate(id=>window.__GAME_DEBUG__.getState().cutscene?.id===id,id);i++){await page.keyboard.press('Escape');await page.waitForTimeout(400);}
+ await page.waitForFunction(()=>['walking','driving'].includes(window.__GAME_DEBUG__.getState().mode));
+}

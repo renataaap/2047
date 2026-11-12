@@ -69,7 +69,7 @@
 
 **Story Type**: Visual/Feel
 **Required evidence**: capturas antes/depois + sign-off em `production/qa/evidence/story-008-evidence.md`
-**Status**: [ ] Not yet created
+**Status**: [x] Criada: `production/qa/evidence/story-008-refinamento-narrativo/` (`validation.json`) — sign-off do criador pendente
 
 ---
 

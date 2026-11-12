@@ -23,7 +23,7 @@ const tutorial=(id,status='active')=>({status,step:id?{id}:null});
 
 test('cena registrada, válida, ~20 s, falas da sobrevivente sem a identidade da Voz',()=>{
  expect(CUTSCENES['first-seed']).toBe(SURVIVOR_ARRIVAL);expect(validCutscene(SURVIVOR_ARRIVAL)).toBe(true);
- expect(SURVIVOR_ARRIVAL_SECONDS).toBeGreaterThanOrEqual(16);expect(SURVIVOR_ARRIVAL_SECONDS).toBeLessThanOrEqual(24);
+ expect(SURVIVOR_ARRIVAL_SECONDS).toBeGreaterThanOrEqual(16);expect(SURVIVOR_ARRIVAL_SECONDS).toBeLessThanOrEqual(25);// story 008: tempo de leitura
  const caps=SURVIVOR_ARRIVAL.shots.filter(s=>s.caption).map(s=>s.caption);expect(caps.length).toBeGreaterThanOrEqual(3);
  for(const c of caps){expect(c.speaker).toBe('survivor');expect(Object.hasOwn(SPEAKERS,c.speaker)).toBe(true);expect(c.text).not.toMatch(/\bVoz\b/i);}
  expect(caps.some(c=>/Semente de Ignição/.test(c.text))).toBe(true);expect(caps.some(c=>/vibração/.test(c.text))).toBe(true);

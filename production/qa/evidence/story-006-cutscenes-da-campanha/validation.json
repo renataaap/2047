@@ -1,0 +1,32 @@
+{
+ "story": "story-006-cutscenes-da-campanha",
+ "date": "2026-11-12",
+ "unit": {
+  "tests": 424,
+  "passed": 424
+ },
+ "browser": "Chrome local via PLAYWRIGHT_CHROMIUM_EXECUTABLE (SwiftShader), porta 3100",
+ "signOff": "PENDENTE — aguardando o criador",
+ "pending": [
+  "Windows com GPU física",
+  "personagens MakeHuman CC0 provisórios, não é arte final"
+ ],
+ "e2e": [
+  {
+   "spec": "tests/e2e/campaign-beats.spec.js",
+   "passed": 3,
+   "total": 3
+  }
+ ],
+ "scenes": {
+  "first-contact": "ch1, ao fechar o rádio após aceitar a Semente (fluxo real)",
+  "skeleton-discovery": "ch2, ao cruzar o limite das Cidades dirigindo (física original)",
+  "brutus-meeting": "ch3, story 005",
+  "voice-signal": "ch4, fragmento signal-stubborn recém-recebido (gatilho em unitário; captura por playScene)",
+  "horizon-eve": "ch5, ativação que abre o capítulo (gatilho em unitário e na regressão phase4; captura por playScene)"
+ },
+ "notes": [
+  "gatilhos só por transição real nesta sessão; carregar save adiante ou teleporte de diagnóstico não disparam",
+  "as três escolhas já têm apresentação própria (CHOICE_SCENES) e o encontro com Garcia"
+ ]
+}

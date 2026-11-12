@@ -5,6 +5,7 @@ import {smooth} from '../restoration/progress.js';
 
 // Reusable narrative cutscene player (brief MVP 1, story-001).
 // A cutscene is data: {id, shots:[{duration, camera?, caption?, light?, audio?}]}.
+// def.captionFor(game, shotIndex) may return a caption derived from the saved state (e.g. a choice).
 //  camera  {from:{pos:[x,y,z],look:[x,y,z],fov?}, to?:{...}}  world coordinates, eased
 //  caption {speaker:<key of SPEAKERS>, text}                  never the Voice's identity
 //  light   {exposure:0.2..2}                                   tone-mapping multiplier
@@ -68,7 +69,8 @@ export class CutscenePlayer{
  // (borrowing the first caption when that shot has none).
  enterShot(index){
   const g=this.g,shot=this.def.shots[index];this.shot=index;
-  const cap=shot.caption||(this.reduced&&this.def.reducedShot===undefined?this.def.shots.find(s=>s.caption)?.caption:null);
+  const dynamic=this.def.captionFor?.(g,index),valid=c=>!!c&&Object.hasOwn(SPEAKERS,c.speaker)&&typeof c.text==='string'&&!!c.text&&c.text.length<=300;
+  const cap=(valid(dynamic)?dynamic:null)||shot.caption||(this.reduced&&this.def.reducedShot===undefined?this.def.shots.find(s=>s.caption)?.caption:null);
   g.state.cutscene={id:this.def.id,caption:cap?{speaker:SPEAKERS[cap.speaker],text:cap.text}:null,reduced:this.reduced,...(shot.tone?{tone:shot.tone}:{}),...(shot.card?{card:shot.card}:{})};
   if(shot.audio&&!this.reduced)g.ambientAudio?.cue?.(shot.audio.cue,g.rendering.camera.position);
   g.emit?.();

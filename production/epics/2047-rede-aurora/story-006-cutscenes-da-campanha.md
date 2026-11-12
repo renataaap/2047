@@ -73,7 +73,7 @@
 
 **Story Type**: Integration
 **Required evidence**: teste de gatilhos ou nota de playtest
-**Status**: [ ] Not yet created
+**Status**: [x] Criada: `production/qa/evidence/story-006-cutscenes-da-campanha/` (`validation.json`) — sign-off do criador pendente
 
 ---
 

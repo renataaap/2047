@@ -72,7 +72,7 @@
 
 **Story Type**: Integration
 **Required evidence**: teste unitário do estado derivado ou nota de playtest
-**Status**: [ ] Not yet created
+**Status**: [x] Criada: `production/qa/evidence/story-007-consequencias-visiveis-das-escolhas/` (`validation.json`) — sign-off do criador pendente
 
 ---
 

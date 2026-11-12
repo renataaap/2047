@@ -69,7 +69,7 @@
 
 **Story Type**: Visual/Feel
 **Required evidence**: captura retida + sign-off em `production/qa/evidence/story-005-evidence.md`
-**Status**: [ ] Not yet created
+**Status**: [x] Criada: `production/qa/evidence/story-005-encontro-com-brutus/` (`validation.json`) — sign-off do criador pendente
 
 ---
 

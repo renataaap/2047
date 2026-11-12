@@ -14,8 +14,8 @@ import {NETWORK_POINTS} from '../../../data/network.js';
 export const BRUTUS_RADIUS=16;
 const TOLL='ch3-brutus-toll';
 const SITE=NETWORK_POINTS.find(p=>p.id==='afonso');
-/** Onde Garcia para (perto da bomba, entre ela e o abrigo) e de onde ele vem (o sal aberto). */
-export const BRUTUS_SPOT={x:SITE.x+5,z:SITE.z+3},BRUTUS_FROM={x:SITE.x+19,z:SITE.z-12};
+/** Onde Garcia para (fora do abrigo, entre a parede leste em x+5 e a bomba em x+8) e de onde ele vem (o sal aberto). */
+export const BRUTUS_SPOT={x:SITE.x+7,z:SITE.z+4.5},BRUTUS_FROM={x:SITE.x+21,z:SITE.z-10};
 
 // Falas: diretrizes de NARRATIVA_0.14.0.md §4 — protege os dele, não confia em engenheiros que
 // "sumiram vinte anos", quer as Sementes porque acha que a Rede acende primeiro para quem as tem.
@@ -27,8 +27,8 @@ export const REACTIONS={
 };
 const SHOTS=[
  {duration:4.5,tone:'ash',light:{exposure:.94},caption:{speaker:'brutus',text:'Então é você o motorista do caminhão velho.'}},
- {duration:5,tone:'ash',light:{exposure:.98},caption:{speaker:'brutus',text:REACTIONS.refuse}},// texto trocado pela escolha (captionFor)
- {duration:5.5,tone:'garage',light:{exposure:1},caption:{speaker:'brutus',text:'Vinte anos os engenheiros sumiram. Essa Rede vai acender primeiro para quem estiver segurando as Sementes.'}},
+ {duration:5.4,tone:'ash',light:{exposure:.98},caption:{speaker:'brutus',text:REACTIONS.refuse}},// texto trocado pela escolha (captionFor)
+ {duration:6.3,tone:'garage',light:{exposure:1},caption:{speaker:'brutus',text:'Vinte anos os engenheiros sumiram. Essa Rede vai acender primeiro para quem estiver segurando as Sementes.'}},
  {duration:4,tone:'garage',light:{exposure:1.02},caption:{speaker:'brutus',text:'Eu protejo os meus, Dante. Vou estar olhando a sua estrada.'}},
 ];
 const TOTAL=SHOTS.reduce((a,s)=>a+s.duration,0);
