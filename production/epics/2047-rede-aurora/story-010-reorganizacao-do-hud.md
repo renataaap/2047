@@ -44,7 +44,7 @@
 
 **Story Type**: UI
 **Required evidence**: capturas em `production/qa/evidence/story-010-reorganizacao-do-hud/` + teste E2E de layout
-**Status**: [ ] Not yet created
+**Status**: [x] Criada: `production/qa/evidence/story-010-reorganizacao-do-hud/` (`validation.json`) — sign-off do criador pendente
 
 ## Dependencies
 

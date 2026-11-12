@@ -12,7 +12,7 @@ export const TEXT = {
   pause: 'Uma pausa na estrada', resume: 'Voltar à viagem', menu: 'Voltar ao menu', back: 'Voltar',
   drive: 'Acelerar', brake: 'Freio / ré', steer: 'Direção', handbrake: 'Freio de mão', cameraKey: 'Câmera', engine: 'Motor', pauseKey: 'Pausa', lights: 'Faróis',
   help: 'W / S  Acelerar / frear     A / D  Direção     ESPAÇO  Freio de mão',
-  settingsTitle: 'Ajustes de viagem', graphics: 'Qualidade gráfica', volume: 'Volume geral', resolution: 'Escala de resolução', subtitles: 'Legendas e instruções',
+  showControls: 'Mostrar controles na tela', settingsTitle: 'Ajustes de viagem', graphics: 'Qualidade gráfica', volume: 'Volume geral', resolution: 'Escala de resolução', subtitles: 'Legendas e instruções',
   creditsTitle: 'Feito de estrada e esperança', creditsBody: '2047: Rede Aurora\nDante Rocha Negra · Titã Rocha Clara\nMundo e áudio procedurais; modelos 3D licenciados.\nConstruído com Next.js, Three.js e Rapier.\nTutorial, exploração e reformulação realista.\nPersonagens provisórios: base MakeHuman CC0, adaptações originais.\nPowered by Poly Haven · CC0.\nTitã inicial: Alt (whisper.alt) · CC BY 4.0, adaptado.\nGaragem: Yury Misiyuk; posto: SURVIVED; barril: mxtc · CC BY 4.0.\nCarros: Renafox · CC BY-NC 4.0, uso não comercial.',
   warning: 'O Titã está tombado. Pause para reposicioná-lo na estrada.', recover: 'Reposicionar na estrada',
   ready: 'O mundo ainda está lá fora.', headlight: 'Faróis',
