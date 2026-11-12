@@ -31,7 +31,11 @@
   - `cutscene.spec.js` › *a pé com Dante*: a fixture de 1,5 s por plano terminava antes do clique em **Pular cena** (o botão sumia; timeout de 240 s). Correção só no teste: fixture `brutus-meeting` com planos de 4 s, como nos outros casos do mesmo arquivo. Código do jogo não mudou.
   - `game.spec.js` › *aceite: mundo real, W por 8 s…*: a pasta de resultado ficou vazia, sem contexto de erro; a causa não foi identificada.
 - **Rechecagem focada desses 2 (com a correção):** 2/2 (Chrome do sistema, porta 3100). Não é uma integral.
-- **Segunda integral:** registrada abaixo quando terminar.
+- **Segunda integral (73 testes, código `a4d0d77`, 12/11/2026, 46,8 min, porta 3100, Chrome do sistema):** **71 passaram, 2 falharam.** Os dois que falharam na primeira integral passaram nesta. As duas falhas novas eram do harness, não do jogo:
+  - `phase2.spec.js` › *API: cookies…*: segundo contexto com `http://127.0.0.1:3000` fixo; a suíte rodava na 3100 (`ECONNREFUSED`).
+  - `truck-opacity.spec.js`: `scripts/capturar-tita.mjs` tinha a mesma porta fixa e, por trás dela, não pulava o prólogo que a 0.14 colocou no Novo jogo.
+  - Correção só em teste/script: endereço vindo de `baseURL` (script: parâmetro ou `AURORA_BASE_URL`) e `skipPrologue` antes de esperar o modo a pé.
+- **Rechecagem focada desses 2 (com a correção):** 2/2. Não é uma integral. O código do jogo não mudou entre a integral e a rechecagem.
 
 ## Pendências e limites
 
