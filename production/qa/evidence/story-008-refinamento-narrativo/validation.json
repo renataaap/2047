@@ -1,0 +1,33 @@
+{
+ "story": "story-008-refinamento-narrativo",
+ "date": "2026-11-12",
+ "unit": {
+  "tests": 424,
+  "passed": 424
+ },
+ "browser": "Chrome local via PLAYWRIGHT_CHROMIUM_EXECUTABLE (SwiftShader), porta 3100",
+ "signOff": "PENDENTE — aguardando o criador",
+ "pending": [
+  "Windows com GPU física",
+  "personagens MakeHuman CC0 provisórios, não é arte final"
+ ],
+ "measurements": {
+  "maxCaptionCps": 17.5,
+  "before": {
+   "first-seed#4": 26.3,
+   "first-seed#1": 17.8,
+   "first-seed#2": 17.8,
+   "brutus#2": 19.3
+  },
+  "after": "todas ≤ 17,5 (tests/unit/caption-reading.test.js)"
+ },
+ "changes": [
+  "durações ajustadas nas cenas já existentes sem mudar texto",
+  "falas novas da story 006 encurtadas",
+  "legendas de cena seguem a escala de legendas das Configurações e escalam com a janela (16–21 px)"
+ ],
+ "pendingHuman": [
+  "revisão de iluminação/ritmo pelo criador",
+  "GPU integrada no Windows"
+ ]
+}

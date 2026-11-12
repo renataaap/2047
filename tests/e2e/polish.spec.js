@@ -1,10 +1,11 @@
+import {skipPrologue} from '../helpers/start-driving.js';
 import {evidencePath} from '../helpers/evidence-path.js';
 import {test,expect} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 const dir=evidencePath('polish-0.8.2/functional'),state=p=>p.evaluate(()=>window.__GAME_DEBUG__.getState());
 async function boot(page){
  await mkdir(dir,{recursive:true});await page.addInitScript(()=>localStorage.setItem('aurora-settings',JSON.stringify({quality:'baixo',scale:.75,volume:0})));
- await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await expect.poll(async()=>(await state(page)).mode).toBe('walking');await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();
+ await page.goto('/');await expect(page.getByRole('button',{name:'01 Novo jogo'})).toBeEnabled({timeout:90000});await page.getByRole('button',{name:'01 Novo jogo'}).click();await skipPrologue(page);await expect.poll(async()=>(await state(page)).mode).toBe('walking');await page.getByRole('button',{name:'Pular tutorial',exact:true}).click();
 }
 async function settle(page){const n=(await state(page)).simulation.steps;await expect.poll(async()=>(await state(page)).simulation.steps,{timeout:45000}).toBeGreaterThan(n+35);}
 async function panelPaint(page){

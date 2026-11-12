@@ -2,3 +2,29 @@
 .field-interface.technical-backdrop .mission-panel.panel-kind-map{width:min(1100px,94vw);max-width:none}.cab-hud .navigation-hud{left:3.4vw;right:auto;top:315px;bottom:auto;width:200px}.cab-hud .navigation-hud svg{height:115px}.cab-hud>.interaction{top:270px;bottom:auto}.navigation-hud.expanded{right:calc(3.4vw + 250px)}.cab-hud .navigation-hud.expanded{width:280px;left:3.4vw;right:auto}.cab-hud .navigation-hud.expanded svg{height:190px}@media(max-height:650px){.cab-hud .navigation-hud{top:270px;width:180px}.cab-hud .navigation-hud svg{height:85px}.cab-hud>.interaction{top:233px}.cab-hud .navigation-hud.expanded svg{height:150px}}
 /* Save notices share the cabin's free strip above the map, beside the F prompt. */
 .cab-hud .toast{left:calc(3.4vw + 220px);right:auto;top:270px;bottom:auto;max-width:240px}.cab-hud:has(.navigation-hud.expanded) .toast{left:calc(3.4vw + 300px)}@media(max-height:650px){.cab-hud .toast{top:233px}}
+
+/* Art bible §7 — HUD clean-up (0.14). */
+.game-tools{align-items:center}
+.game-tools .tools-list{display:none}
+
+.game-tools.open .tools-list{display:flex;flex-direction:column;align-items:stretch;gap:4px;position:absolute;right:0;top:calc(100% + 6px);min-width:190px;padding:6px;background:#14110ef0;border:1px solid #3a322a}
+.game-tools.open .tools-list button{text-align:left}
+.game-tools .tools-toggle{border-color:#c9a35a88;color:#e9e2d0}
+.game-tools .tools-toggle[aria-expanded="true"]{background:#c9a35a22}
+.game-tools .tools-context{border-color:#e9e2d055}
+.game-tools button{font-size:12px;clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px)}
+.game-tools button:focus-visible{outline:2px solid #e9e2d0;outline-offset:2px}
+.survival-hud{transition:opacity .2s cubic-bezier(.2,0,0,1),transform .2s cubic-bezier(.2,0,0,1)}
+.survival-hud.calm{opacity:0;transform:translateY(-6px);pointer-events:none}
+/* Cab: the roof above the windshield is dead space; the map lives there so it
+   never covers the road, the gauges or the mirror (UX criterion, art bible §7). */
+.cab-hud .navigation-hud,.cab-hud .navigation-hud.expanded{left:auto;right:3.4vw;top:192px;bottom:auto}
+.cab-hud .navigation-hud{width:180px}
+.cab-hud .navigation-hud svg{height:118px}
+.cab-hud .navigation-hud.expanded{width:260px}
+.cab-hud .navigation-hud.expanded svg{height:200px}
+.game-tools.open{z-index:4}
+.cab-hud:has(.navigation-hud.expanded) .toast{left:calc(3.4vw + 220px)}
+.cab-hud>.interaction{font-size:14px;line-height:1.5}
+.toast{font-size:13px}
+@media (prefers-reduced-motion:reduce){.survival-hud,.radio-line{transition:none;animation:none}}

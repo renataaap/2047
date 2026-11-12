@@ -20,7 +20,7 @@ it('ARM reempacotado conserva AO em R e roughness em G',async()=>{
   const pix=async f=>sharp('public'+f.url).resize(64,64).raw().toBuffer({resolveWithObject:true});const arm=await pix(e.maps.arm),ao=await pix(e.sourceMaps.ao),rough=await pix(e.sourceMaps.roughness);
   let error=0;for(let i=0;i<64*64;i++){error+=Math.abs(arm.data[i*arm.info.channels]-ao.data[i*ao.info.channels]);error+=Math.abs(arm.data[i*arm.info.channels+1]-rough.data[i*rough.info.channels]);}expect(error/(64*64*2*255)).toBeLessThan(.015);
  }
-});
+},60000); // Hashes ~800 MB of local PBR maps; 20 s timed out under load (TD-007).
 it('GLB do Titã contém seis rodas reais e crédito acompanha cada modelo',async()=>{
  const manifest=JSON.parse(await fs.readFile('public/assets/models/manifest.json','utf8'));const t=manifest.trucks.initial;expect(t.wheels).toHaveLength(6);const data=await fs.readFile('public'+t.url);expect(data.toString('utf8',0,4)).toBe('glTF');expect(data.readUInt32LE(8)).toBe(data.length);const gltf=JSON.parse(data.toString('utf8',20,20+data.readUInt32LE(12)));
  for(const w of t.wheels)expect(gltf.nodes.some(n=>n.name===w.node&&n.mesh!==undefined)).toBe(true);

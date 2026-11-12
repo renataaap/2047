@@ -4,7 +4,7 @@ import {ITEMS} from '../../data/campaign.js';
 import {planRoute,ROUTE_PROFILES} from '../navigation/routePlanner.js';
 import {capacity,manifestMass,seedOnBoard,suppliesMass} from './manifest.js';
 import {ensureCareer,careerLevel,awardCareer,validCareer} from './career.js';
-import {ensureEconomy,receiveRegionalDelivery,validEconomy} from '../economy/market.js';
+import {ensureEconomy,receiveRegionalDelivery,driftDemand,validEconomy} from '../economy/market.js';
 
 const clone=v=>structuredClone(v);
 const integral=(n,min=0,max=1e8)=>Number.isSafeInteger(n)&&n>=min&&n<=max;
@@ -23,7 +23,9 @@ export function compatibleVehicles(c,t){
 }
 function rewardFor(c,t,route){
  const km=route.distance/1000,fuel=Math.ceil(route.litres*2/5),wear=Math.ceil(km*.25+CARGO_TYPES[t.cargo].unitKg*t.quantity/2500),demand=c.economy.regions[LOGISTICS_SITES[t.destination].region].demand[CARGO_TYPES[t.cargo].resource]||10000;
- return {scrap:Math.max(4,3+fuel+wear+t.difficulty+Math.ceil(km*.6)+Math.max(0,Math.ceil((demand-10000)/1000))),parts:t.difficulty>=2?1:0};
+ // Distance drives the payment (no flat bonus), so a long haul pays more than
+ // a short shuttle. Fuel and wear still reimburse the trip; demand adds up to +2.
+ return {scrap:Math.max(3,fuel+wear+t.difficulty+Math.ceil(km*1.6)+Math.max(0,Math.ceil((demand-10000)/1000))),parts:t.difficulty>=2?1:0};
 }
 export function refreshOffers(c,hub){
  const l=ensureLogistics(c),site=LOGISTICS_SITES[hub];if(!site?.board||!siteUnlocked(c,site))return [];
@@ -52,10 +54,11 @@ export function acceptContract(c,hub,id,vehicle){
 }
 export function parkingGate(site,position,yaw,state,vehicle='titan-old'){
  if(!site||!position||!Number.isFinite(yaw))return {ok:false,message:'Área de carga inválida.'};
+ if(!VEHICLES[vehicle]?.footprint)return {ok:false,message:'Este veículo ainda não tem medidas homologadas para a área de carga.'}
  if(Math.abs(state.speed||0)>.2)return {ok:false,message:'Pare completamente dentro da faixa de carga.'};
  if(state.engineOn)return {ok:false,message:'Desligue o motor com E antes da operação.'};
  const b=site.bay,a=yaw-b.yaw,s=Math.sin(a),co=Math.cos(a),dx=position.x-b.x,dz=position.z-b.z;
- const x=dx*Math.cos(b.yaw)-dz*Math.sin(b.yaw),z=dx*Math.sin(b.yaw)+dz*Math.cos(b.yaw),w=vehicle==='dump-truck'?1.47:1.43,front=vehicle==='dump-truck'?3.76:4.06,back=vehicle==='dump-truck'?3.76:4.48;
+ const x=dx*Math.cos(b.yaw)-dz*Math.sin(b.yaw),z=dx*Math.sin(b.yaw)+dz*Math.cos(b.yaw),f=VEHICLES[vehicle]?.footprint,w=f?.halfWidth,front=f?.front,back=f?.back;
  if(Math.abs(co)<Math.cos(b.alignment*Math.PI/180))return {ok:false,message:'Alinhe o caminhão às faixas. A entrada pode ser de frente ou de ré.'};
  for(const lx of [-w,w])for(const lz of [-front,back])if(Math.abs(x+lx*co+lz*s)>b.halfWidth-.08||Math.abs(z-lx*s+lz*co)>b.halfLength-.08)return {ok:false,message:'Mantenha o caminhão inteiro dentro da faixa de carga.'};
  return {ok:true,message:'Caminhão parado, alinhado e motor desligado.'};
@@ -76,7 +79,7 @@ export function contractTarget(c){
 export function contractRoutes(c,position,mass=9000){const s=contractTarget(c);return s?ROUTE_PROFILES.map(profile=>{const r=planRoute(position,s.destination,profile,c,mass);return r?{profile,distance:r.distance,seconds:r.seconds,litres:r.litres,risk:r.risk,surfaces:r.surfaces,roadTypes:r.roadTypes}:null;}).filter(Boolean):[];}
 export function stepLogistics(c,dt,metres=0,damage=0,ready=false){
  const l=c.logistics;if(!l||!(dt>0)||!Number.isFinite(dt))return;
- l.clock=Math.min(1e8,l.clock+dt);const a=l.active,m=l.cargo;if(!a||!m)return;
+ const before=Math.floor(l.clock/OFFER_PERIOD);l.clock=Math.min(1e8,l.clock+dt);const passed=Math.floor(l.clock/OFFER_PERIOD)-before;if(passed>0)driftDemand(c,passed);const a=l.active,m=l.cargo;if(!a||!m)return;
  if(Number.isFinite(metres)&&metres>=0&&metres<3)a.metres=Math.min(1e9,a.metres+metres);
  if(Number.isFinite(damage)&&damage>0)m.integrity=Math.max(0,m.integrity-damage*CARGO_TYPES[m.type].fragility);
  if(m.integrity<CARGO_TYPES[m.type].minimumIntegrity)a.state='failed';

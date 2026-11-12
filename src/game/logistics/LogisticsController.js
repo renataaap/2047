@@ -1,3 +1,4 @@
+import {restoreState} from '../persistence/restore.js';
 import * as THREE from 'three';
 import {LOGISTICS_SITES} from '../../data/contracts.js';
 import {ensureLogistics,refreshOffers,offerDetails,acceptContract,loadContract,completeContract,cancelContract,parkingGate,deliveryQuote,contractTarget,contractRoutes,stepLogistics,siteUnlocked} from './contracts.js';
@@ -35,7 +36,7 @@ export class LogisticsController {
    if(!await g.save())throw Error('A gravação falhou. A operação foi desfeita; nenhum pagamento foi confirmado.');
    this.message=result?result.failed?'Perda registrada e salva. Nenhum pagamento concedido.':`Entrega salva. Pagamento: ${Object.entries(result.reward).filter(([,n])=>n).map(([k,n])=>`${n} ${k==='scrap'?(n===1?'material recuperado':'materiais recuperados'):(n===1?'peça':'peças')}`).join(' + ')} · ${result.xp} XP.`:type==='contractLoad'?'Carga lacrada e salva no caminhão. Confira o peso e siga o GPS.':type==='contractCancel'?'Frete encerrado e salvo. Mercadoria devolvida, sem pagamento ou XP.':'Contrato aceito e salvo. Siga até a área de coleta.';
    if(this.site)refreshOffers(c,this.site);g.ambientAudio?.cue('door',g.current);this.refreshRoutes();return true;
-  }catch(e){Object.assign(c,backup);this.message=e.message;this.refreshRoutes();return false;}
+  }catch(e){restoreState(c,backup);this.message=e.message;this.refreshRoutes();return false;}
   finally{this.busy=false;g.cargoVisual?.update(0);g.emit();}
  }
  snapshot(){const g=this.game,c=g.campaign,l=c.logistics;if(!l)return null;const a=l.active,detail=a?offerDetails(c,a):null,s=LOGISTICS_SITES[this.site];

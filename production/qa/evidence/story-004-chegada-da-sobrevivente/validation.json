@@ -1,0 +1,16 @@
+{
+ "story": "story-004-chegada-da-sobrevivente",
+ "date": "2026-11-12",
+ "sourceCommit": "0d2a601 (código da aplicação); fechamento só altera testes",
+ "unit": {"tests": 410, "passed": 408, "failedOutOfScope": "2 em brutus-meeting.test.js (WIP da story 005, ainda não integrada)"},
+ "e2e": [
+  {"run": "integral", "specs": "tests/e2e (todas)", "passed": 62, "total": 63, "minutes": 40.3, "port": 3100, "browser": "Chrome local via PLAYWRIGHT_CHROMIUM_EXECUTABLE (SwiftShader)", "log": "integral-e2e.log",
+   "failure": "survivor-arrival: corrida de tempo no próprio teste — o último plano (4 s) terminava durante a espera da captura, e a verificação de passos lia o estado depois do fim normal da cena. Diagnóstico por sonda instrumentada; jogo sem defeito."},
+  {"run": "rechecagem focada (não soma à integral)", "spec": "tests/e2e/survivor-arrival.spec.js", "repeatEach": 3, "passed": 6, "total": 6, "minutes": 4.3, "log": "recheck-survivor-arrival.log", "note": "verificação de passos movida para logo após reconhecer cada plano"},
+  {"run": "rechecagem focada (não soma à integral)", "spec": "tests/e2e/critical-gameplay.spec.js", "passed": 2, "total": 2, "note": "teste pula o tutorial pela ação real antes do abrigo (com tutorial ativo ela só chega no passo 'mission')"},
+  {"run": "rechecagem focada (não soma à integral)", "spec": "tests/e2e/phase4.spec.js", "passed": 2, "total": 2, "note": "falha da integral anterior (compra na loja da Lia) não reproduziu"}
+ ],
+ "captures": ["1-chegada-estrada.png","2-chegada-abrigo.png","3-semente.png","4-aviso-vibracao.png","5-tita-nucleo.png","6-dialogo.png","7-recarga.png","reduzido-semente.png"],
+ "signOff": "PENDENTE — aguardando o criador",
+ "pending": ["Windows com GPU física","MakeHuman CC0 provisório, não é arte final"]
+}

@@ -1,3 +1,5 @@
+import {choose} from '../narrative/story.js';
+import {CHOICES,CHOICE_SCENES} from '../../data/story.js';
 import {calibrationStatus} from './seedService.js';
 import { NETWORK_POINTS,ROUTES,CORES } from '../../data/network.js';
 import { near } from './campaign.js';
@@ -11,7 +13,7 @@ candidates(){return NETWORK_POINTS.map(p=>({id:'network',key:`${p.kind==='shelte
 target(){const p=this.g.player.body.translation();return this.candidates().find(k=>near(p,k.position,k.range))||null;}
 calibration(p){const g=this.g,player=g.player.body.translation();return calibrationStatus(g.campaign,p.core,{usePlayer:true,useTruck:near(player,g.current,40),atTerminal:near(player,interactionPoint(p),5),engineOff:!g.state.engineOn,parked:this.parked(p)});}
 parked(p){const g=this.g,delivery=p.kind==='network-core'?{x:p.x-14,z:p.z+10}:p;return !g.state.engineOn&&g.state.speed<.6&&near(g.current,delivery,p.kind==='network-core'?15:35);}
-action(type,payload){if(!['openVault','networkCalibrate','networkActivate','networkLoot','networkBuy','questAccept','questComplete','questDefer','networkRest','networkPlan'].includes(type))return undefined;
+action(type,payload){if(!['openVault','networkCalibrate','networkActivate','networkLoot','networkBuy','questAccept','questComplete','questDefer','networkRest','networkPlan','storyChoice'].includes(type))return undefined;
 const g=this.g,c=g.campaign;this.failureReason='';
 if(type==='networkPlan'){const r=ROUTES.find(r=>r.id===payload?.id);if(!r||!['safe','short'].includes(payload.path))return false;c.network.routes[r.id]=payload.path;return true;}
 const p=NETWORK_POINTS.find(p=>p.id===g.state.networkPoint);if(!p||g.context()!=='walking'||g.state.overlay!=='network'||!near(g.player.body.translation(),interactionPoint(p),p.kind==='network-core'?5:4))return false;
@@ -23,8 +25,9 @@ if(type==='networkLoot'&&p.kind==='cache')ok=networkLoot(c,p.id);
 if(type==='networkBuy'&&p.kind==='shelter')ok=networkBuy(c,p.id,payload);
 if(type==='networkRest'&&p.kind==='shelter')ok=rest(c);
 if(type==='questDefer'&&p.quest&&p.kind==='shelter'){const key=`quest-${p.quest}-deferred`;if(!c.decisions.includes(key))c.decisions.push(key);ok=true;}
+if(type==='storyChoice'&&p.kind==='shelter'&&CHOICE_SCENES[payload?.id]?.site===p.id){const opts=Object.values(CHOICES[payload.id].options),needsTruck=opts.some(o=>o.cost?.bag==='truck'||o.component);if(!needsTruck||this.parked(p)){const r=choose(c,payload.id,payload.option);ok=r.ok;if(!ok)this.failureReason=r.message;}else this.failureReason='Estacione o caminhão perto do abrigo, desligue o motor e volte a pé.'}
 if(['questAccept','questComplete'].includes(type)&&p.kind==='shelter'&&p.quest&&(p.quest==='supply'||this.parked(p)))ok=questAction(c,p.quest,type==='questAccept'?'accept':'complete');
-if(ok&&['openVault','networkActivate','questComplete'].includes(type))g.checkpoint(10+(CORES.find(k=>k.id===p.core)?.number||0));
+if(ok&&['openVault','networkActivate','questComplete','storyChoice'].includes(type))g.checkpoint(10+(CORES.find(k=>k.id===p.core)?.number||0));
 return ok;
 }
 }

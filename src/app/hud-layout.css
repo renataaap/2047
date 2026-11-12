@@ -1,0 +1,54 @@
+/* Story 010 (0.14): reorganização do HUD pedida pelo criador em 12/11/2026.
+   Minimapa no canto superior esquerdo (onde ficava o tutorial), tutorial e objetivo no topo central,
+   controles contextuais no centro inferior. Carregado por último; os seletores começam em .hud.hud-v14
+   para prevalecer sobre as camadas anteriores (navigation/polish/tutorial) sem !important. */
+
+/* Topo central: o guia do tutorial ou, sem tutorial, o objetivo atual. */
+/* A faixa do topo ocupa a largura toda: bússola no centro, pausa à direita. O card do tutorial ou do
+   objetivo fica centralizado logo abaixo da bússola, com largura = espaço livre entre o minimapa
+   (esquerda) e o rótulo de câmera/painéis (direita). */
+.hud.hud-v14 .hud-top{left:3.4vw;right:3.4vw;top:18px;justify-content:flex-end}
+.hud.hud-v14 .hud-top>.tutorial-guide,.hud.hud-v14 .hud-top>.objective{position:absolute;left:50%;top:40px;transform:translateX(-50%);width:clamp(240px,calc(100vw - 2 * (3.4vw + 330px)),440px)}
+.hud.hud-v14 .hud-top .tutorial-guide{padding:12px 18px;border-left:0;border-top:2px solid #bbaa83;background:linear-gradient(180deg,#171b1dec,#171b1db0)}
+.hud.hud-v14 .hud-top .tutorial-guide p{margin:6px 0}
+.hud.hud-v14 .hud-top .objective{max-width:none;padding:8px 14px;border-left:0;border-top:2px solid #bf865c;background:linear-gradient(180deg,#171b1dc8,#171b1d60);text-align:center}
+.hud.hud-v14 .hud-top .objective p{margin:0 auto 4px;max-width:none}
+.hud.hud-v14 .tutorial-finished{top:150px}
+
+/* Minimapa no canto superior esquerdo, em todos os contextos (a pé, dirigindo e na cabine). */
+.hud.hud-v14 .navigation-hud,.hud.hud-v14.cab-hud .navigation-hud,.hud.hud-v14 .navigation-hud.expanded,.hud.hud-v14.cab-hud .navigation-hud.expanded{left:3.4vw;right:auto;top:18px;bottom:auto}
+.hud.hud-v14 .navigation-hud,.hud.hud-v14.cab-hud .navigation-hud{width:230px}
+.hud.hud-v14 .navigation-hud svg,.hud.hud-v14.cab-hud .navigation-hud svg{height:148px}
+.hud.hud-v14 .navigation-hud.expanded,.hud.hud-v14.cab-hud .navigation-hud.expanded{width:320px}
+.hud.hud-v14 .navigation-hud.expanded svg,.hud.hud-v14.cab-hud .navigation-hud.expanded svg{height:246px}
+/* Sobrevivência logo abaixo do minimapa (e abaixo dele ampliado). */
+.hud.hud-v14 .survival-hud,.hud.hud-v14:has(.tutorial-guide) .survival-hud{top:212px}
+.hud.hud-v14:has(.navigation-hud.expanded) .survival-hud{top:312px}
+/* Na cabine, interação e aviso voltam ao padrão (o canto esquerdo agora é do minimapa). */
+.hud.hud-v14.cab-hud>.interaction{left:50%;top:auto;bottom:118px;transform:translateX(-50%);max-width:min(560px,80vw);text-align:center}
+.hud.hud-v14.cab-hud .toast,.hud.hud-v14.cab-hud:has(.navigation-hud.expanded) .toast{left:3.4vw;top:auto;bottom:185px}
+
+/* Controles contextuais no centro inferior. */
+.hud.hud-v14 .hud-controls{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;max-width:clamp(250px,calc(100vw - 2 * (3.4vw + 270px)),640px);padding:7px 14px;background:#11181a99;border-top:1px solid #d4c5a530;color:#d8d6c8;font-size:11px;pointer-events:none}
+.hud.hud-v14 .hud-controls span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.hud.hud-v14 .hud-controls kbd{min-width:20px;padding:1px 5px;font:10px/1.6 monospace;text-align:center;border:1px solid #d4c5a558;border-radius:2px;color:#e5c892}
+.hud.hud-v14 .hud-controls small{font-size:11px;color:#cfccbf}
+.hud.hud-v14 .interaction{bottom:118px}
+
+@media(max-width:900px){
+ .hud.hud-v14 .hud-top>.tutorial-guide,.hud.hud-v14 .hud-top>.objective{width:clamp(220px,calc(100vw - 2 * (3.4vw + 290px)),400px)}
+ .hud.hud-v14 .navigation-hud,.hud.hud-v14.cab-hud .navigation-hud{width:190px}
+ .hud.hud-v14 .navigation-hud svg,.hud.hud-v14.cab-hud .navigation-hud svg{height:114px}
+ .hud.hud-v14 .navigation-hud.expanded,.hud.hud-v14.cab-hud .navigation-hud.expanded{width:250px}
+ .hud.hud-v14 .navigation-hud.expanded svg,.hud.hud-v14.cab-hud .navigation-hud.expanded svg{height:180px}
+ .hud.hud-v14 .survival-hud,.hud.hud-v14:has(.tutorial-guide) .survival-hud{top:176px;width:200px}
+ .hud.hud-v14:has(.navigation-hud.expanded) .survival-hud{top:242px}
+ .hud.hud-v14 .hud-controls{max-width:clamp(220px,calc(100vw - 2 * (3.4vw + 230px)),520px);font-size:10px;gap:3px 10px}
+}
+@media(max-height:650px){
+ .hud.hud-v14 .navigation-hud svg,.hud.hud-v14.cab-hud .navigation-hud svg{height:96px}
+ .hud.hud-v14 .navigation-hud.expanded svg,.hud.hud-v14.cab-hud .navigation-hud.expanded svg{height:150px}
+ .hud.hud-v14 .survival-hud,.hud.hud-v14:has(.tutorial-guide) .survival-hud{top:160px}
+ .hud.hud-v14:has(.navigation-hud.expanded) .survival-hud{top:214px}
+ .hud.hud-v14 .hud-top .tutorial-guide p{display:none}
+}

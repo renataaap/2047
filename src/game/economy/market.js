@@ -3,7 +3,8 @@ import {OFFERS,POIS} from '../../data/expedition.js';
 import {GAS_OFFERS,LITERS_PER_SCRAP,WORKSHOP_OFFERS,WORKSHOP_SERVICES,WORKSHOP_SELL} from '../../data/road.js';
 import {ROAD_POINTS} from '../../data/roadSites.js';
 import {SHELTERS,biomeAt} from '../../data/network.js';
-import {recoveryAt} from '../restoration/progress.js';
+import {recoveryAt} from '../restoration/progress.js'
+import {VEHICLES} from '../garage/catalog.js';
 
 const GOODS=['diesel','water','food','parts','scrap','service'];
 export const REGIONAL_TARIFFS={
@@ -54,7 +55,7 @@ export function gasQuote(c,state,siteId,offerId){
  if(offer.kind==='water'){
   const q=quotePrice(c,{site,item,quantity:offer.quantity,baseQuantity:offer.quantity,baseCost:offer.cost,stock:stock.water,capacity:maximum});return {...q,need:false,ok:q.ok&&canExchange(c,'player',{scrap:q.cost},{water:q.quantity})};
  }
- const tank=offer.kind==='tank',limit=Math.floor(Math.min(offer.liters,stock.diesel,tank?180-state.fuel:500));
+ const tank=offer.kind==='tank',limit=Math.floor(Math.min(offer.liters,stock.diesel,tank?(VEHICLES[c.fleet?.active||'titan-old']?.fuelCapacity??180)-state.fuel:500));
  for(let n=limit;n>=1;n--){
   const q=quotePrice(c,{site,item,quantity:n,baseQuantity:LITERS_PER_SCRAP,baseCost:1,stock:stock.diesel,capacity:maximum});
   // A can is a fixed quantity, except when the supplier has less diesel.
@@ -91,6 +92,18 @@ export function receiveRegionalDelivery(c,site,item,quantity){
  // through existing shops; activating a core never creates trade stock.
  const road=c.road?.stocks?.[site.destination],network=c.network?.stocks?.[site.destination],exp=site.id==='ivani'?c.expedition?.stock:null,stock=road||network||exp;
  if(stock&&Object.hasOwn(stock,item))stock[item]=Math.min(road?200:100,stock[item]+Math.min(4,quantity));
+}
+// Demand drifts once per offer epoch (900 s of active simulation). Supplied
+// regions recover toward the 10000 reference, then demand keeps rising slowly
+// up to 12000 while nobody delivers: unsupplied communities pay a freight
+// bonus and charge more for water, food and parts.
+export const DEMAND_RECOVERY_PER_EPOCH=500,DEMAND_SCARCITY_PER_EPOCH=250,DEMAND_CEILING=12000
+export function driftDemand(c,epochs=1){
+ const e=c.economy
+if(!e||!Number.isSafeInteger(epochs)||epochs<1)return
+ for(const r of Object.values(e.regions))for(const k of Object.keys(r.demand)){let d=r.demand[k]
+for(let i=0;i<Math.min(epochs,40)&&d<DEMAND_CEILING;i++)d=d<10000?Math.min(10000,d+DEMAND_RECOVERY_PER_EPOCH):Math.min(DEMAND_CEILING,d+DEMAND_SCARCITY_PER_EPOCH)
+r.demand[k]=d}
 }
 export function validEconomy(e){
  if(e===undefined)return true;if(!e||e.version!==1||!integer(e.transactions)||!e.tariffs||!e.regions||!e.buybacks||Array.isArray(e.buybacks))return false;
