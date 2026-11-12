@@ -44,3 +44,21 @@
 - **Sem troca de senha nem exclusão de conta pela interface** (podem entrar numa versão seguinte).
 - O bloqueio por tentativas é por conta, não por endereço IP.
 - Sign-off do criador e teste no Windows pendentes.
+
+## Correção: objetos flutuando perto da garagem do Dante (pedido do criador, 12/11/2026)
+
+**Causa.** `EnvironmentModels` assentava cada modelo na altura da fórmula do terreno (`heightAt`), medida só no centro. A superfície desenhada e pisável é a malha (`World.groundHeight`); as duas não coincidem, e em ladeira um lado do objeto fica no ar. Os GLBs começam em y=0, então os arquivos não tinham problema.
+
+**Medição antes** (`scripts/medir-assentamento-0.15.mjs`, `evidence/grounding-0.15/antes/`): sedã abandonado com **44 cm** de folga num canto; garagem **33 cm**; barris 8–9 cm; hatch 1 cm.
+
+**Correção.**
+- `staticModelPlacement.js`: `footprintPoints`, `footprintHeight` e `restingPose` (plano ajustado aos quatro cantos; abaixa até nenhum ponto da pegada ficar acima do chão; inclinação limitada a 0,35 rad).
+- Carros e barris acompanham a inclinação; construções (colisão trimesh: garagem e posto) ficam retas, no ponto mais baixo.
+- A pose usa a superfície real e é recalculada quando muda o conjunto de setores de terreno carregados (modelo que carrega antes do terreno se corrige); a colisão acompanha o visual. Não roda a cada quadro, porque a busca na malha é linear.
+- Snapshot `environmentModels.grounding` expõe a folga por canto (diagnóstico).
+
+**Medição depois** (`evidence/grounding-0.15/depois/`): folga máxima **0 cm** em todos. Sedã e hatch assentados com até 3 mm de contato; a garagem entra até 87 cm no chão do lado alto do terreno (portas continuam visíveis na captura).
+
+**Validação:** unitários 443/443 (novo `static-model-grounding.test.js`, 10 casos); build sem dev ativo; E2Es focados 14/14 (`account`, `assets`, `tutorial-assets`, `game`, `prologue`). Rodada focada, não integral; a integral de 73 é anterior a esta correção.
+
+**Observado e não alterado:** a placa da garagem ("ABRIGO 07 / ÚLTIMO MOTOR") aparece espelhada. `DiscoveryWorld.floor` usa o ponto mais alto + 12 cm e pode deixar vão em terreno inclinado; não recebeu relato e ficou como está.
